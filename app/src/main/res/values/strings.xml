@@ -1,0 +1,157 @@
+<resources>
+
+    <string name="app_name">Swapy</string>
+    <string name="image_transition_name">Show</string>
+    <string name="list_item_transition_name">Show profile</string>
+    <string name="company">Company</string>
+    <string name="account">Account</string>
+    <string name="current_shift">Current shift</string>
+    <string name="preferred_shift">Preferred shift: </string>
+    <string name="preferred_shift_2">Preferred shift</string>
+    <string name="text_display_contact_info">Contact information will be displayed after the swap request has been accepted</string>
+    <string name="btn_send_request">Send a Swap Request</string>
+    <string name="request_sent">You have sent a swap request successfully</string>
+    <string name="request_accepted">Your swap request has been accepted</string>
+    <string name="email">Email</string>
+    <string name="email2">Email (ahmed@company.com)</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone number</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="btn_sign_in">Sign In</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="btn_sign_up">Sign Up</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="your_preferred_shift">Your preferred shift:</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
+    <string name="apply_filter">Apply Filter</string>
+    <string name="nav_drawer_open">Open Navigation Bar</string>
+    <string name="nav_drawer_close">close Navigation Bar</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="home">Home</string>
+    <string name="received_swap_requests">Received swap requests</string>
+    <string name="sent_swap_requests">Sent swap requests</string>
+    <string name="settings">Settings</string>
+    <string name="accepted_swap_requests">Accepted swap requests</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="swap">Swap</string>
+    <string name="filter">Filter</string>
+    <string name="shift_time">04:00 PM</string>
+    <string name="swap_time">Swap time: </string>
+    <string name="prefered_shift">Preferred Shift: </string>
+    <string name="shift_day">Shift day: </string>
+    <string name="shift_date">Shift Date: </string>
+    <string name="done">done</string>
+    <string name="swap_main_text">Create Swap</string>
+    <string name="back">back</string>
+    <string name="save">save</string>
+    <string name="your_current_shift">Your current shift</string>
+    <string name="day">Day</string>
+    <string name="date">Date</string>
+    <string name="example_date">Pick a date</string>
+    <string name="time">Time</string>
+    <string name="team_leader">Team leader</string>
+    <string name="your_team_leader_s_name">Your team leader\'s name</string>
+    <string name="no_internet_connection">Check your internet connection.</string>
+    <string name="no_swaps_found">No swaps found.</string>
+    <string name="swipe_down_to_refresh">Swipe down to refresh.</string>
+
+    <!-- Notification Message -->
+    <string name="notification_message">wants to swap his shift with your</string>
+    <string name="any_time">any time</string>
+    <string name="create_account">Create Account</string>
+    <string name="send_swap_req">Send Request</string>
+    <string name="login_id">Login ID</string>
+
+
+    <string-array name="company">
+        <item>Choose company</item>
+        <item>Vodafone</item>
+        <item>Raya</item>
+        <item>Etisalat</item>
+    </string-array>
+    <string-array name="branch">
+        <item>Choose branch</item>
+        <item>Vodafone uk</item>
+        <item>Raya smart village</item>
+        <item>Etisalat maadi</item>
+    </string-array>
+    <string-array name="account">
+        <item>Choose account</item>
+        <item>HS</item>
+        <item>HS</item>
+        <item>HS</item>
+    </string-array>
+    <string-array name="current_Shift">
+        <item>Current Shift</item>
+        <item>12:00</item>
+        <item>12:30</item>
+        <item>01:00</item>
+        <item>01:30</item>
+        <item>02:00</item>
+        <item>02:30</item>
+        <item>03:00</item>
+        <item>03:30</item>
+        <item>04:00</item>
+        <item>04:30</item>
+        <item>05:00</item>
+        <item>05:30</item>
+        <item>06:00</item>
+        <item>06:30</item>
+        <item>07:00</item>
+        <item>07:30</item>
+        <item>08:00</item>
+        <item>08:30</item>
+        <item>09:00</item>
+        <item>09:30</item>
+        <item>10:00</item>
+        <item>10:30</item>
+        <item>11:00</item>
+        <item>11:30</item>
+    </string-array>
+    <string-array name="Preferred_Shift">
+        <item>Preferred Shift</item>
+        <item>12:00</item>
+        <item>12:30</item>
+        <item>01:00</item>
+        <item>01:30</item>
+        <item>02:00</item>
+        <item>02:30</item>
+        <item>03:00</item>
+        <item>03:30</item>
+        <item>04:00</item>
+        <item>04:30</item>
+        <item>05:00</item>
+        <item>05:30</item>
+        <item>06:00</item>
+        <item>06:30</item>
+        <item>07:00</item>
+        <item>07:30</item>
+        <item>08:00</item>
+        <item>08:30</item>
+        <item>09:00</item>
+        <item>09:30</item>
+        <item>10:00</item>
+        <item>10:30</item>
+        <item>11:00</item>
+        <item>11:30</item>
+    </string-array>
+    <string-array name="Home_Preferred_Shift">
+        <item>any time</item>
+        <item>12:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+    </string-array>
+</resources>

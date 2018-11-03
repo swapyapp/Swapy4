@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1017515805884",
+    "firebase_url": "https://swapy-44a4c.firebaseio.com",
+    "project_id": "swapy-44a4c",
+    "storage_bucket": "swapy-44a4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017515805884:android:900cc6d8ca4a6b23",
+        "android_client_info": {
+          "package_name": "com.app.muhammadgamal.swapy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017515805884-tqokklh16bc87t4o7c6h9vigdar7u74d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.muhammadgamal.swapy",
+            "certificate_hash": "fb5459b839771d5da629bbb7ad2cfc365525db52"
+          }
+        },
+        {
+          "client_id": "1017515805884-jb1b3hap2cbt4hda8b08r0b9un4fn43v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsGXVH0HJFnsIbbOoPOQ2pw6IVwcOKWVM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017515805884-jb1b3hap2cbt4hda8b08r0b9un4fn43v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
