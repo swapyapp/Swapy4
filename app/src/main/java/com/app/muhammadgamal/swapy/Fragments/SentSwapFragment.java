@@ -102,6 +102,11 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
                             empty_view2_sent.setVisibility(View.VISIBLE);
                         }
 
+                    }else {
+                        progressBar_sent.setVisibility(View.GONE);
+                        empty_view_sent.setVisibility(View.VISIBLE);
+                        empty_view_sent.setText(R.string.no_sent_swaps);
+                        empty_view2_sent.setVisibility(View.VISIBLE);
                     }
                     progressBar_sent.setVisibility(View.GONE);
                     empty_view_sent.setVisibility(View.GONE);

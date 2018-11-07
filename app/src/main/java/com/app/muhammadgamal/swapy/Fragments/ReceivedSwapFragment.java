@@ -103,6 +103,11 @@ public class ReceivedSwapFragment extends Fragment implements SwipeRefreshLayout
                             empty_view2_received.setVisibility(View.VISIBLE);
                         }
 
+                    } else {
+                        progressBar_received.setVisibility(View.GONE);
+                        empty_view_received.setVisibility(View.VISIBLE);
+                        empty_view_received.setText(R.string.no_received_swaps);
+                        empty_view2_received.setVisibility(View.VISIBLE);
                     }
                     progressBar_received.setVisibility(View.GONE);
                     empty_view_received.setVisibility(View.GONE);
