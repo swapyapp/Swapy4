@@ -322,7 +322,7 @@ public class SignUpActivity extends AppCompatActivity  {
             editTextEmail.requestFocus();
             return;
         }
-        if (!email.endsWith(".org")){
+        if (!email.endsWith(".com")){
             editTextEmail.setError("Company email is required");
             editTextEmail.requestFocus();
             return;
