@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -24,6 +27,7 @@ public class SignInActivity extends AppCompatActivity {
     Button signInButton;
     EditText editTextEmail, editTextPassword;
     private FirebaseAuth mAuth;
+    private DatabaseReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         mAuth = FirebaseAuth.getInstance();
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -53,6 +58,25 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void signIn() {
+        logIn();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //if user is already logged in then HomeFragment will open instead of SignInActivity
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
+
+    }
+
+
+    private void logIn (){
 
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -85,6 +109,21 @@ public class SignInActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 signInButton.setVisibility(View.VISIBLE);
                 if (task.isSuccessful()) {
+
+                    String currentUserID = mAuth.getCurrentUser().getUid();
+                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
+                    userRef.child(currentUserID).child("device_token")
+                            .setValue(deviceToken)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        logIn();
+                                    }
+                                }
+                            });
+
                     Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -93,22 +132,5 @@ public class SignInActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //if user is already logged in then HomeFragment will open instead of SignInActivity
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        }
-
-    }
-
-
 }

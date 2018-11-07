@@ -39,6 +39,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -176,9 +177,11 @@ public class SignUpActivity extends AppCompatActivity  {
         String phoneNumber = editTextPhone.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String userId = mAuth.getCurrentUser().getUid();
+        String deviceToken = FirebaseInstanceId.getInstance().getToken();
         String loginID = editTextLoginId.getText().toString().trim();
         User user;
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        currentUserDb.child("device_token").setValue(deviceToken);
         if (profileImageUrl != null) {
             signUpButton.setVisibility(View.GONE);
             user = new User(username, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0,0,0);

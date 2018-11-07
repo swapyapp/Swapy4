@@ -55,13 +55,14 @@ public class ProfileActivity extends AppCompatActivity {
     private String requestMessage;
     private TextView swapDone;
     //The FireBase store that will contain the map of the notifications for each user with his ID
-    private FirebaseFirestore mFireStore;
+    private DatabaseReference notificationDB;
     private SwapRequest swapRequest;
     private DatabaseReference swapRequestsDb;
     private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
     private String fromID, fromLoginID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredShift;
     private int accepted, approved; //true = 1, false = 0
     private String swapperID, currentUserId, swapperLoginID, currentUserLoginID, swapperPreferredShift, swapperTeamLeader, swapperShiftTime, swapShiftDate, swapperShiftDay, swapperImageUrl, swapperAccount, swapperCompanyBranch, swapperPhone, swapperEmail, swapperName;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
 
-        mFireStore = FirebaseFirestore.getInstance();
+        notificationDB = FirebaseDatabase.getInstance().getReference().child("Notifications");
 
         Intent intent = getIntent();
         SwapDetails swapDetails = intent.getParcelableExtra("swapper info");
@@ -155,32 +156,53 @@ public class ProfileActivity extends AppCompatActivity {
 
         swapDone = findViewById(R.id.textSentOrAcceptedRequest);
 
-        buttonSwapRequest.setOnClickListener(new View.OnClickListener() {
+        notificationDB = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+
+        notificationDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                userName = user.getmUsername();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        buttonSwapRequest.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 buttonSwapRequest.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
+                //set the request message
+                //requestMessage = swapperName + "" +(R.string.notification_message);
+                requestMessage = userName + "" + " wants to swap his shift with your";
 
-                Map<String, Object> notificationMessage = new HashMap<>();
+                Map <String, Object> notificationMessage = new HashMap<>();
                 notificationMessage.put("message", requestMessage);
                 notificationMessage.put("from", currentUserId);
 
-                mFireStore.collection("Users/" + swapperID + "/Notification").add(notificationMessage).
-                        addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
-                                Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.INVISIBLE);
-                                swapDone.setVisibility(View.VISIBLE);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
+                notificationDB.child(swapperID).push()
+                        .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful())
+                        {
+                            Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.INVISIBLE);
+                            swapDone.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ProfileActivity.this, "somthing went wrong", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProfileActivity.this,"Something went wrong", Toast.LENGTH_LONG ).show();
                         Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
                     }
                 });
-                swapRequest();
             }
         });
     }
