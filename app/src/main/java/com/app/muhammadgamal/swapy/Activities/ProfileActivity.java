@@ -204,6 +204,10 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3b86ec45fbc5746f1d5184ba5d190eb20a93eb25
                 swapRequest();
             }
         });
