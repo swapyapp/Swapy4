@@ -56,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView swapDone;
     //The FireBase store that will contain the map of the notifications for each user with his ID
     private DatabaseReference notificationDB;
+    private DatabaseReference databaseReference;
     private SwapRequest swapRequest;
     private DatabaseReference swapRequestsDb;
     private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
@@ -72,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
 
-        notificationDB = FirebaseDatabase.getInstance().getReference().child("Notifications");
+        swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Notifications");
 
         Intent intent = getIntent();
         SwapDetails swapDetails = intent.getParcelableExtra("swapper info");
@@ -156,9 +157,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         swapDone = findViewById(R.id.textSentOrAcceptedRequest);
 
-        notificationDB = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+        databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
-        notificationDB.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
@@ -179,7 +180,7 @@ public class ProfileActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 //set the request message
                 //requestMessage = swapperName + "" +(R.string.notification_message);
-                requestMessage = userName + "" + " wants to swap his shift with your";
+                requestMessage = userName + "" + " wants to swap his shift with your shift";
 
                 Map <String, Object> notificationMessage = new HashMap<>();
                 notificationMessage.put("message", requestMessage);
@@ -204,10 +205,6 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3b86ec45fbc5746f1d5184ba5d190eb20a93eb25
                 swapRequest();
             }
         });
