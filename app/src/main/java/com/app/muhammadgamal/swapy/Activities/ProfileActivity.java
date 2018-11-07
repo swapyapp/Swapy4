@@ -54,11 +54,11 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String requestMessage;
     private TextView swapDone;
-    //The FireBase store that will contain the map of the notifications for each user with his ID
+    //The Database that will contain the map of the notifications for each user with his ID
     private DatabaseReference notificationDB;
     private DatabaseReference databaseReference;
-    private SwapRequest swapRequest;
     private DatabaseReference swapRequestsDb;
+    private SwapRequest swapRequest;
     private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
     private String fromID, fromLoginID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredShift;
     private int accepted, approved; //true = 1, false = 0
@@ -72,8 +72,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
-
-        swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Notifications");
+        notificationDB = FirebaseDatabase.getInstance().getReference().child("Notifications");
+        databaseReference =FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
         Intent intent = getIntent();
         SwapDetails swapDetails = intent.getParcelableExtra("swapper info");
@@ -157,7 +157,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         swapDone = findViewById(R.id.textSentOrAcceptedRequest);
 
-        databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -189,12 +188,12 @@ public class ProfileActivity extends AppCompatActivity {
                 notificationDB.child(swapperID).push()
                         .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful())
-                        {
-                            Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
+                   public void onComplete(@NonNull Task<Void> task) {
+                       if (task.isSuccessful())
+                       {
+                           Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.INVISIBLE);
-                            swapDone.setVisibility(View.VISIBLE);
+                           swapDone.setVisibility(View.VISIBLE);
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {

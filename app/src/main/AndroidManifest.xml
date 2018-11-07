@@ -42,9 +42,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Activities.ReceivedSwapActivity">
+        <activity android:name=".Activities.ReceivedSwapRequest">
             <intent-filter>
-                <action android:name="com.app.muhammadgamal.swapy.Activities.ReceivedSwapActivity_TARGET_NOTIFICATION"></action>
+                <action android:name="com.app.muhammadgamal.swapy.Activities.ReceivedSwapRequest_NOTIFICATION_TASK"></action>
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
