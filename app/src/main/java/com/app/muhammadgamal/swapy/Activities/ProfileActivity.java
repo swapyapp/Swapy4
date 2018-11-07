@@ -203,6 +203,9 @@ public class ProfileActivity extends AppCompatActivity {
                         Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
                     }
                 });
+
+
+                swapRequest();
             }
         });
     }
