@@ -62,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String fromID, fromLoginID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredShift;
     private int accepted, approved; //true = 1, false = 0
     private String swapperID, currentUserId, swapperLoginID, currentUserLoginID, swapperPreferredShift, swapperTeamLeader, swapperShiftTime, swapShiftDate, swapperShiftDay, swapperImageUrl, swapperAccount, swapperCompanyBranch, swapperPhone, swapperEmail, swapperName;
-    String userName;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +203,8 @@ public class ProfileActivity extends AppCompatActivity {
                         Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
                     }
                 });
+
+                swapRequest();
             }
         });
     }
