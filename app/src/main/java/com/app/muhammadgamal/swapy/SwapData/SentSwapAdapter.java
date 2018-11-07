@@ -22,9 +22,9 @@ import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
-public class ReceivedSwapAdapter extends ArrayAdapter<SwapRequest> {
+public class SentSwapAdapter extends ArrayAdapter<SwapRequest> {
 
-    public ReceivedSwapAdapter(Context context, int resource, List<SwapRequest> sampleArrayList) {
+    public SentSwapAdapter(Context context, int resource, List<SwapRequest> sampleArrayList) {
         super(context, resource, sampleArrayList);
     }
 
@@ -40,31 +40,31 @@ public class ReceivedSwapAdapter extends ArrayAdapter<SwapRequest> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.received_list_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.sent_list_item, parent, false);
         }
 
         final Context context = convertView.getContext();
-        SwapRequest receivedSwapBody = getItem(position);
+        SwapRequest sentSwapBody = getItem(position);
 
-        ImageView ImageReceivedListItem =convertView.findViewById(R.id.ImageReceivedListItem);
-        TextView NameReceivedListItem = convertView.findViewById(R.id.NameReceivedListItem);
-        TextView ShiftTimeReceivedListItem = convertView.findViewById(R.id.ShiftTimeReceivedListItem);
-        TextView shiftDayReceivedListItem = convertView.findViewById(R.id.shiftDayReceivedListItem);
-        TextView preferredShiftReceivedListItem = convertView.findViewById(R.id.preferredShiftReceivedListItem);
-        TextView shiftDateReceivedListItem = convertView.findViewById(R.id.shiftDateReceivedListItem);
-        final ProgressBar progressBarReceivedListItem = convertView.findViewById(R.id.progressBarReceivedListItem);
+        ImageView ImageSentListItem =convertView.findViewById(R.id.ImageSentListItem);
+        TextView NameSentItem = convertView.findViewById(R.id.NameSentItem);
+        TextView ShiftTimeSentListItem = convertView.findViewById(R.id.ShiftTimeSentListItem);
+        TextView shiftDaySentListItem = convertView.findViewById(R.id.shiftDaySentListItem);
+        TextView shiftDateSentListItem = convertView.findViewById(R.id.shiftDateSentListItem);
+        TextView preferredShiftSentListItem = convertView.findViewById(R.id.preferredShiftSentListItem);
+        final ProgressBar progressBarSentListItem = convertView.findViewById(R.id.progressBarSentListItem);
 
-        if (receivedSwapBody != null){
+        if (sentSwapBody != null){
 
-            NameReceivedListItem.setText(receivedSwapBody.getFromName());
-            ShiftTimeReceivedListItem.setText(receivedSwapBody.getFromShiftTime());
-            shiftDayReceivedListItem.setText(receivedSwapBody.getFromShiftDay());
-            preferredShiftReceivedListItem.setText(receivedSwapBody.getFromPreferredShift());
-            shiftDateReceivedListItem.setText(receivedSwapBody.getFromShiftDate());
-            if (receivedSwapBody.getFromImageUrl() != null){
-                progressBarReceivedListItem.setVisibility(View.VISIBLE);
-                Glide.with(ImageReceivedListItem.getContext())
-                        .load(receivedSwapBody.getFromImageUrl())
+            NameSentItem.setText(sentSwapBody.getToName());
+            ShiftTimeSentListItem.setText(sentSwapBody.getToShiftTime());
+            shiftDaySentListItem.setText(sentSwapBody.getToShiftDay());
+            preferredShiftSentListItem.setText(sentSwapBody.getToPreferredShift());
+            shiftDateSentListItem.setText(sentSwapBody.getToShiftDate());
+            if (sentSwapBody.getToImageUrl() != null){
+                progressBarSentListItem.setVisibility(View.VISIBLE);
+                Glide.with(ImageSentListItem.getContext())
+                        .load(sentSwapBody.getToImageUrl())
                         .listener(new RequestListener<Drawable>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -73,17 +73,18 @@ public class ReceivedSwapAdapter extends ArrayAdapter<SwapRequest> {
 
                             @Override
                             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                progressBarReceivedListItem.setVisibility(View.GONE);
+                                progressBarSentListItem.setVisibility(View.GONE);
                                 return false;
                             }
-                        }).into(ImageReceivedListItem);
+                        }).into(ImageSentListItem);
             } else {
-                progressBarReceivedListItem.setVisibility(View.GONE);
+                progressBarSentListItem.setVisibility(View.GONE);
                 // set the swapper Image to default if no image provided
                 Resources resources = context.getResources();
                 Drawable photoUrl = resources.getDrawable(R.drawable.male_circle_512);
-                ImageReceivedListItem.setImageDrawable(photoUrl);
+                ImageSentListItem.setImageDrawable(photoUrl);
             }
+
         }
 
         return convertView;

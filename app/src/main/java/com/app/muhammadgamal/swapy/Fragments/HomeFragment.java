@@ -60,7 +60,6 @@ import java.util.List;
 public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
-    private ImageView imgFilter;
     private Dialog filterDialog;
     private ImageView imgCloseFilterDialog;
     // List view that represent teh swap data
@@ -82,6 +81,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private User user;
+    private RelativeLayout imgFilter;
 
 
     @SuppressLint("RestrictedApi")
@@ -177,14 +177,16 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             if (swapAdapter.isEmpty()) {
                                 empty_view.setVisibility(View.VISIBLE);
                                 empty_view.setText(R.string.no_swaps_found);
+                                fab_add_swap.setVisibility(View.VISIBLE);
                                 empty_view2.setVisibility(View.VISIBLE);
                                 String time = "any time";
 //                        if (homeFilterSpinner.getSelectedItem().toString() != null) {
 //                            time = homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM;
 //                        }
-                                selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
+//                                selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
                             }
 //                    }
+
 
 
                         }
@@ -210,18 +212,21 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         }
                     };
 
-                    mSwapDataBaseReference.addChildEventListener(mChildEventListener);
-
                     if (swapAdapter.isEmpty()) {
                         empty_view.setVisibility(View.VISIBLE);
                         empty_view.setText(R.string.no_swaps_found);
                         empty_view2.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                        fab_add_swap.setVisibility(View.VISIBLE);
                         String time = "any time";
 //                        if (homeFilterSpinner.getSelectedItem().toString() != null) {
 //                            time = homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM;
 //                        }
 //                        selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
                     }
+
+                    mSwapDataBaseReference.addChildEventListener(mChildEventListener);
+
 
                 }
 
@@ -295,7 +300,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         filterDialog = new Dialog(getContext());
-        RelativeLayout imgFilter = getView().findViewById(R.id.imgFilter);
+        imgFilter = getView().findViewById(R.id.imgFilter);
         imgFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
