@@ -66,6 +66,7 @@ public class SignUpActivity extends AppCompatActivity  {
     Spinner spinnerCompany, spinnerCompanyBranch, spinnerAccount;
     ProgressBar progressBarImg;
     private FirebaseAuth mAuth;
+    private DatabaseReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,8 @@ public class SignUpActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_sign_up);
 
         Resources res = getResources();
+
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         signInText = (TextView) findViewById(R.id.signInText);
         signInText.setOnClickListener(new View.OnClickListener() {
@@ -181,7 +184,7 @@ public class SignUpActivity extends AppCompatActivity  {
         String loginID = editTextLoginId.getText().toString().trim();
         User user;
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-        currentUserDb.child("device_token").setValue(deviceToken);
+        currentUserDb.child("Users").child(userId).child("device_token").setValue(deviceToken);
         if (profileImageUrl != null) {
             signUpButton.setVisibility(View.GONE);
             user = new User(username, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0,0,0);
