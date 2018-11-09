@@ -36,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -185,12 +186,15 @@ public class ProfileActivity extends AppCompatActivity {
                 notificationMessage.put("message", requestMessage);
                 notificationMessage.put("from", currentUserId);
 
+
                 notificationDB.child(swapperID).push()
                         .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                    public void onComplete(@NonNull Task<Void> task) {
                        if (task.isSuccessful())
                        {
+                           FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
+
                            Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.INVISIBLE);
                            swapDone.setVisibility(View.VISIBLE);

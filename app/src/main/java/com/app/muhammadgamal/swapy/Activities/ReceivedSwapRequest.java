@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.app.muhammadgamal.swapy.R;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class ReceivedSwapRequest extends AppCompatActivity {
 
@@ -11,6 +12,9 @@ public class ReceivedSwapRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_received_swap_request);
+
+        //Add to Activity
+        FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
 
         /* TODO : 1- get the swap informaton from an Intent
                   2- set the Fragment that will contain the swap requests

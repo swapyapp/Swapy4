@@ -52,6 +52,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,6 +83,10 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private FirebaseAuth mAuth;
     private User user;
     private RelativeLayout imgFilter;
+
+    private final static String CHANNEL_ID = "swapy_notification_channel_id";
+    private final static String CHANNEL_NAME = "Swapy Notification";
+    private final static String CHANNEL_DES = "Swapy Notifications receiving";
 
 
     @SuppressLint("RestrictedApi")
