@@ -183,23 +183,22 @@ public class SignUpActivity extends AppCompatActivity  {
         String phoneNumber = editTextPhone.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String userId = mAuth.getCurrentUser().getUid();
-        String deviceToken = FirebaseInstanceId.getInstance().getToken();
         String loginID = editTextLoginId.getText().toString().trim();
         User user;
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-        mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-            @Override
-            public void onSuccess(GetTokenResult getTokenResult) {
-                String token_id = getTokenResult.getToken();
-                String current_id = mAuth.getCurrentUser().getUid();
-
-                Map<String, Object> tokenMap = new HashMap<>();
-                tokenMap.put("token_id", token_id);
-
-                userRef.child(current_id).child("device_token").setValue(token_id);
-            }
-        });
+//        mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+//            @Override
+//            public void onSuccess(GetTokenResult getTokenResult) {
+//                String token_id = getTokenResult.getToken();
+//                String current_id = mAuth.getCurrentUser().getUid();
+//
+//                Map<String, Object> tokenMap = new HashMap<>();
+//                tokenMap.put("device_token", token_id);
+//
+//                userRef.child(current_id).child("device_token").setValue(token_id);
+//            }
+//        });
 
        // currentUserDb.child("Users").child(userId).child("device_token").setValue(deviceToken);
         if (profileImageUrl != null) {
@@ -322,6 +321,10 @@ public class SignUpActivity extends AppCompatActivity  {
         String lastName = editTextLastName.getText().toString().trim();
         final String phoneNumber = editTextPhone.getText().toString();
         String loginId = editTextLoginId.getText().toString().trim();
+        String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
+        userRef.child("device_token").setValue(deviceToken);
+
         if (firstName.isEmpty()) {
             editTextFirstName.setError("First name is required");
             editTextFirstName.requestFocus();

@@ -118,23 +118,37 @@ public class SignInActivity extends AppCompatActivity {
                 signInButton.setVisibility(View.VISIBLE);
                 if (task.isSuccessful()) {
 
-                    mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-                        @Override
-                        public void onSuccess(GetTokenResult getTokenResult) {
-                            String token_id = getTokenResult.getToken();
-                            String current_id = mAuth.getCurrentUser().getUid();
+//                    mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+//                        @Override
+//                        public void onSuccess(GetTokenResult getTokenResult) {
+//                            String token_id = getTokenResult.getToken();
+//                            String current_id = mAuth.getCurrentUser().getUid();
+//
+//                            Map <String, Object> tokenMap = new HashMap<>();
+//                            tokenMap.put("device_token", token_id);
+//
+//                            userRef.child(current_id).child("device_token").setValue(token_id).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    logIn();
+//                                }
+//                            });
+//                        }
+//                    });
 
-                            Map <String, Object> tokenMap = new HashMap<>();
-                            tokenMap.put("device_token", token_id);
+                    String currentUserID = mAuth.getCurrentUser().getUid();
+                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
-                            userRef.child(current_id).child("device_token").setValue(token_id).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    userRef.child(currentUserID).child("device_token")
+                            .setValue(deviceToken)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onSuccess(Void aVoid) {
-                                    logIn();
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        logIn();
+                                    }
                                 }
                             });
-                        }
-                    });
 
                     Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

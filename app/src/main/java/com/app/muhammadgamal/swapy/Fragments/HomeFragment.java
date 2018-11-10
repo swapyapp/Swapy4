@@ -96,6 +96,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
         getActivity().setTitle("Home");
+        //Add to Activity
+        FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();

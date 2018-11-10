@@ -213,17 +213,18 @@ public class ProfileActivity extends AppCompatActivity {
                 notificationMessage.put("message", requestMessage);
                 notificationMessage.put("from", currentUserId);
 
-                mFireStore.collection("Users/"+swapperID+ "/Notifications").add(notificationMessage)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                //Add to Activity
-                                FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
-                                Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.INVISIBLE);
-                                swapDone.setVisibility(View.VISIBLE);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
+                notificationDB.child(swapperID).push()
+                        .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful())
+                        {
+                            Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.INVISIBLE);
+                            swapDone.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(ProfileActivity.this,"Something went wrong", Toast.LENGTH_LONG ).show();
