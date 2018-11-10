@@ -69,6 +69,9 @@
     <string name="send_swap_req">Send Request</string>
     <string name="login_id">Login ID</string>
     <string name="withdraw">Withdraw</string>
+    <string name="default_notification_channel_id">swapy_channel_7313</string>
+    <string name="channel_name">Notification channel</string>
+    <string name="channel_description">Receives notifications in the foreground</string>
 
 
     <string-array name="company">

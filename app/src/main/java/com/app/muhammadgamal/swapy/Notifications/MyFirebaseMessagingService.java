@@ -1,62 +1,70 @@
 package com.app.muhammadgamal.swapy.Notifications;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 
-import com.app.muhammadgamal.swapy.Activities.ReceivedSwapRequest;
-import com.app.muhammadgamal.swapy.Fragments.ReceivedSwapFragment;
 import com.app.muhammadgamal.swapy.R;
-import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
-
-    private static final String TAG = "FirebaseMessagingServce";
+public class MyFirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        super.onMessageReceived(remoteMessage);
 
-        String notificationTitle = null, notificationBody = null;
+        String click_Action = remoteMessage.getNotification().getClickAction();
 
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            notificationTitle = remoteMessage.getNotification().getTitle();
-            notificationBody = remoteMessage.getNotification().getBody();
-        }
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
-        sendNotification(notificationTitle, notificationBody);
+        String messageTitle = remoteMessage.getNotification().getTitle();
+        String messageBody = remoteMessage.getNotification().getBody();
+
+        createNotificationChannel();
+
+        // Create an explicit intent for an Activity in your app
+        Intent intent = new Intent(click_Action);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
+                .setSmallIcon(R.drawable.ic_main_logo)
+                .setContentTitle(messageTitle)
+                .setContentText(messageBody)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+
+        int mNotificationID = (int)System.currentTimeMillis();
+        NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(mNotificationID,mBuilder.build());
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+// notificationId is a unique int for each notification that you must define
+        notificationManager.notify(mNotificationID, mBuilder.build());
+
     }
 
-
-    private void sendNotification(String notificationTitle, String notificationBody) {
-        Intent intent = new Intent(this, ReceivedSwapFragment.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                .setAutoCancel(true)   //Automatically delete the notification
-                .setSmallIcon(R.mipmap.ic_launcher) //Notification icon
-                .setContentIntent(pendingIntent)
-                .setContentTitle(notificationTitle)
-                .setContentText(notificationBody)
-                .setSound(defaultSoundUri);
-
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0, notificationBuilder.build());
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel( getString(R.string.default_notification_channel_id), name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

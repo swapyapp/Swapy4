@@ -1,8 +1,10 @@
 package com.app.muhammadgamal.swapy.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.app.muhammadgamal.swapy.Fragments.ReceivedSwapFragment;
 import com.app.muhammadgamal.swapy.R;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -21,5 +23,13 @@ public class ReceivedSwapRequest extends AppCompatActivity {
                   3- set the adapter that will represent the swaps in ListView
                   4- Finally set a method allow the user to swipe other swaps he have created
         */
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 }
