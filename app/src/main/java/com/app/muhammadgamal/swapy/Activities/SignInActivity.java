@@ -13,13 +13,19 @@ import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -28,6 +34,7 @@ public class SignInActivity extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
+    private FirebaseFirestore mFireStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,7 @@ public class SignInActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        mFireStore = FirebaseFirestore.getInstance();
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -110,19 +118,23 @@ public class SignInActivity extends AppCompatActivity {
                 signInButton.setVisibility(View.VISIBLE);
                 if (task.isSuccessful()) {
 
-                    String currentUserID = mAuth.getCurrentUser().getUid();
-                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                    mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+                        @Override
+                        public void onSuccess(GetTokenResult getTokenResult) {
+                            String token_id = getTokenResult.getToken();
+                            String current_id = mAuth.getCurrentUser().getUid();
 
-                    userRef.child(currentUserID).child("device_token")
-                            .setValue(deviceToken)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            Map <String, Object> tokenMap = new HashMap<>();
+                            tokenMap.put("device_token", token_id);
+
+                            userRef.child(current_id).child("device_token").setValue(token_id).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        logIn();
-                                    }
+                                public void onSuccess(Void aVoid) {
+                                    logIn();
                                 }
                             });
+                        }
+                    });
 
                     Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

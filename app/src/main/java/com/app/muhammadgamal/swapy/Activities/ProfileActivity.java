@@ -26,6 +26,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -55,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String requestMessage;
     private TextView swapDone;
+    private FirebaseFirestore mFireStore;
     //The Database that will contain the map of the notifications for each user with his ID
     private DatabaseReference notificationDB;
     private DatabaseReference databaseReference;
@@ -73,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
+        mFireStore = FirebaseFirestore.getInstance();
         notificationDB = FirebaseDatabase.getInstance().getReference().child("Notifications");
         databaseReference =FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
@@ -172,6 +175,31 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+//        buttonSwapRequest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                buttonSwapRequest.setVisibility(View.INVISIBLE);
+//                progressBar.setVisibility(View.VISIBLE);
+//                //set the request message
+//                //requestMessage = swapperName + "" +(R.string.notification_message);
+//                requestMessage = userName + "" + " wants to swap his shift with your shift";
+//
+//                Map <String, Object> notificationMessage = new HashMap<>();
+//                notificationMessage.put("message", requestMessage);
+//                notificationMessage.put("from", currentUserId);
+//
+//                mFireStore.collection("Users/"+swapperID+ "/Notifications").add(notificationMessage)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
+//                            progressBar.setVisibility(View.INVISIBLE);
+//                           swapDone.setVisibility(View.VISIBLE);
+//                }
+//                });
+//            }
+//        });
+
         buttonSwapRequest.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -179,28 +207,23 @@ public class ProfileActivity extends AppCompatActivity {
                 buttonSwapRequest.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
                 //set the request message
-                //requestMessage = swapperName + "" +(R.string.notification_message);
                 requestMessage = userName + "" + " wants to swap his shift with your shift";
 
                 Map <String, Object> notificationMessage = new HashMap<>();
                 notificationMessage.put("message", requestMessage);
                 notificationMessage.put("from", currentUserId);
 
-
-                notificationDB.child(swapperID).push()
-                        .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                   public void onComplete(@NonNull Task<Void> task) {
-                       if (task.isSuccessful())
-                       {
-                           FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
-
-                           Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.INVISIBLE);
-                           swapDone.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+                mFireStore.collection("Users/"+swapperID+ "/Notifications").add(notificationMessage)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                //Add to Activity
+                                FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
+                                Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.INVISIBLE);
+                                swapDone.setVisibility(View.VISIBLE);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(ProfileActivity.this,"Something went wrong", Toast.LENGTH_LONG ).show();
