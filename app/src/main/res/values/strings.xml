@@ -70,10 +70,17 @@
     <string name="send_swap_req">Send Request</string>
     <string name="login_id">Login ID</string>
     <string name="withdraw">Withdraw</string>
+<<<<<<< HEAD
     <string name="waiting">Waiting</string>
     <string name="for1">for</string>
     <string name="approval">approval</string>
     <string name="approved">Approved</string>
+=======
+    <string name="default_notification_channel_id">swapy_channel_7313</string>
+    <string name="channel_name">Notification channel</string>
+    <string name="channel_description">Receives notifications in the foreground</string>
+    <string name="verify_account">Please verify your email,(Click to resent the email)</string>
+>>>>>>> 4e40bac7874ce151236cdbd4df29f03abcfeb482
 
 
     <string-array name="company">

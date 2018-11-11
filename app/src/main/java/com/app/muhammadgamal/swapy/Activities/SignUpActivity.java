@@ -37,6 +37,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -45,6 +46,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class SignUpActivity extends AppCompatActivity  {
@@ -66,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity  {
     Spinner spinnerCompany, spinnerCompanyBranch, spinnerAccount;
     ProgressBar progressBarImg;
     private FirebaseAuth mAuth;
+    private DatabaseReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,8 @@ public class SignUpActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_sign_up);
 
         Resources res = getResources();
+
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         signInText = (TextView) findViewById(R.id.signInText);
         signInText.setOnClickListener(new View.OnClickListener() {
@@ -177,11 +183,24 @@ public class SignUpActivity extends AppCompatActivity  {
         String phoneNumber = editTextPhone.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String userId = mAuth.getCurrentUser().getUid();
-        String deviceToken = FirebaseInstanceId.getInstance().getToken();
         String loginID = editTextLoginId.getText().toString().trim();
         User user;
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-        currentUserDb.child("device_token").setValue(deviceToken);
+
+//        mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+//            @Override
+//            public void onSuccess(GetTokenResult getTokenResult) {
+//                String token_id = getTokenResult.getToken();
+//                String current_id = mAuth.getCurrentUser().getUid();
+//
+//                Map<String, Object> tokenMap = new HashMap<>();
+//                tokenMap.put("device_token", token_id);
+//
+//                userRef.child(current_id).child("device_token").setValue(token_id);
+//            }
+//        });
+
+       // currentUserDb.child("Users").child(userId).child("device_token").setValue(deviceToken);
         if (profileImageUrl != null) {
             signUpButton.setVisibility(View.GONE);
             user = new User(username, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0,0,0);
@@ -302,6 +321,10 @@ public class SignUpActivity extends AppCompatActivity  {
         String lastName = editTextLastName.getText().toString().trim();
         final String phoneNumber = editTextPhone.getText().toString();
         String loginId = editTextLoginId.getText().toString().trim();
+        String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
+        userRef.child("device_token").setValue(deviceToken);
+
         if (firstName.isEmpty()) {
             editTextFirstName.setError("First name is required");
             editTextFirstName.requestFocus();
