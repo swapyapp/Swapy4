@@ -72,6 +72,7 @@
     <string name="default_notification_channel_id">swapy_channel_7313</string>
     <string name="channel_name">Notification channel</string>
     <string name="channel_description">Receives notifications in the foreground</string>
+    <string name="verify_account">Please verify your email,(Click to resent the email)</string>
 
 
     <string-array name="company">
