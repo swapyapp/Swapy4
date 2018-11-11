@@ -46,6 +46,8 @@ public class SignInActivity extends AppCompatActivity {
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mFireStore = FirebaseFirestore.getInstance();
 
+
+
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
@@ -147,7 +149,6 @@ public class SignInActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
 
-                                        logIn();
                                     }
                                 }
                             });
