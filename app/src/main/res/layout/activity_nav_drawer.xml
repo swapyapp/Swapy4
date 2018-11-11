@@ -37,6 +37,7 @@
         android:background="#ffffff"
         app:itemIconTint="@color/colorPrimaryDark"
         app:itemTextColor="@color/colorPrimary"
-        app:menu="@menu/nav" />
+        app:menu="@menu/nav"
+        android:layoutDirection="ltr" />
 
 </android.support.v4.widget.DrawerLayout>

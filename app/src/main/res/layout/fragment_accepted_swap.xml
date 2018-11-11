@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/acceptedSwipeRefresh"
@@ -45,7 +46,7 @@
             android:id="@+id/empty_view2_accepted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/empty_view_sent"
+            android:layout_below="@id/empty_view_accepted"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/raleway_semi_bold"

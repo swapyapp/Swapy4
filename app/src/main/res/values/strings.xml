@@ -30,10 +30,11 @@
     <string name="nav_drawer_close">close Navigation Bar</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="home">Home</string>
-    <string name="received_swap_requests">Received swap requests</string>
-    <string name="sent_swap_requests">Sent swap requests</string>
+    <string name="received_swap_requests">Received swaps</string>
+    <string name="sent_swap_requests">Sent swaps</string>
     <string name="settings">Settings</string>
-    <string name="accepted_swap_requests">Accepted swap requests</string>
+    <string name="accepted_swap_requests">Accepted swaps</string>
+    <string name="approved_swap_requests">Approved swaps</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -69,6 +70,10 @@
     <string name="send_swap_req">Send Request</string>
     <string name="login_id">Login ID</string>
     <string name="withdraw">Withdraw</string>
+    <string name="waiting">Waiting</string>
+    <string name="for1">for</string>
+    <string name="approval">approval</string>
+    <string name="approved">Approved</string>
 
 
     <string-array name="company">

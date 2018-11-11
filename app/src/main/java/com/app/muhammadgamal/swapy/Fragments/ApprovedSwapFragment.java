@@ -16,7 +16,9 @@ import android.widget.TextView;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.AcceptedSwapAdapter;
+import com.app.muhammadgamal.swapy.SwapData.ApprovedSwapAdapter;
 import com.app.muhammadgamal.swapy.SwapData.ReceivedSwapAdapter;
+import com.app.muhammadgamal.swapy.SwapData.SentSwapAdapter;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
 import com.app.muhammadgamal.swapy.SwapData.User;
@@ -31,37 +33,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private View rootView;
-    private SwipeRefreshLayout acceptedSwipeRefresh;
+    private SwipeRefreshLayout approvedSwipeRefresh;
     private String userId;
     private FirebaseAuth mAuth;
     private User user;
-    private ProgressBar progressBar_accepted;
-    private TextView empty_view_accepted, empty_view2_accepted;
-    private ListView acceptedList;
+    private ProgressBar progressBar_approved;
+    private TextView empty_view_approved, empty_view2_approved;
+    private ListView approvedList;
     private SwapRequest swapRequest;
     private SwapDetails swapDetails;
-    private AcceptedSwapAdapter acceptedSwapAdapter;
+    private SentSwapAdapter sentSwapAdapter;
     private ReceivedSwapAdapter receivedSwapAdapter;
+    private ApprovedSwapAdapter approvedSwapAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_accepted_swap, container, false);
-        getActivity().setTitle("Accepted swap requests");
+        rootView = inflater.inflate(R.layout.fragment_approved_swap, container, false);
+        getActivity().setTitle("Approved swaps");
 
-        progressBar_accepted = rootView.findViewById(R.id.progressBar_accepted);
-        empty_view_accepted = rootView.findViewById(R.id.empty_view_accepted);
-        empty_view2_accepted = rootView.findViewById(R.id.empty_view2_accepted);
-        progressBar_accepted.setVisibility(View.VISIBLE);
-        empty_view2_accepted.setVisibility(View.GONE);
+        progressBar_approved = rootView.findViewById(R.id.progressBar_approved);
+        empty_view_approved = rootView.findViewById(R.id.empty_view_approved);
+        empty_view2_approved = rootView.findViewById(R.id.empty_view2_approved);
+        progressBar_approved.setVisibility(View.VISIBLE);
+        empty_view2_approved.setVisibility(View.GONE);
 
         //handle the SwipeRefreshLayout
-        acceptedSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.acceptedSwipeRefresh);
-        acceptedSwipeRefresh.setOnRefreshListener(this);
-        acceptedSwipeRefresh.setColorScheme(android.R.color.holo_blue_bright,
+        approvedSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.approvedSwipeRefresh);
+        approvedSwipeRefresh.setOnRefreshListener(this);
+        approvedSwipeRefresh.setColorScheme(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
@@ -86,37 +89,43 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
                         mAuth = FirebaseAuth.getInstance();
                         userId = mAuth.getCurrentUser().getUid();
 
-                        if (swapRequest.getAccepted() == 1){
-                            acceptedSwapAdapter.add(swapRequest);
+                        if (swapRequest.getApproved() == 1){
+                            approvedSwapAdapter.add(swapRequest);
                         }
 
-                        progressBar_accepted.setVisibility(View.GONE);
-                        empty_view_accepted.setVisibility(View.GONE);
-                        empty_view2_accepted.setVisibility(View.GONE);
-                        if (acceptedSwapAdapter.isEmpty()) {
-                            progressBar_accepted.setVisibility(View.GONE);
-                            empty_view_accepted.setVisibility(View.VISIBLE);
-                            empty_view_accepted.setText(R.string.no_accepted_swaps);
-                            empty_view2_accepted.setVisibility(View.VISIBLE);
+                        progressBar_approved.setVisibility(View.GONE);
+                        empty_view_approved.setVisibility(View.GONE);
+                        empty_view2_approved.setVisibility(View.GONE);
+
+                        if (approvedSwapAdapter.isEmpty()) {
+                            progressBar_approved.setVisibility(View.GONE);
+                            empty_view_approved.setVisibility(View.VISIBLE);
+                            empty_view_approved.setText(R.string.no_accepted_swaps);
+                            empty_view2_approved.setVisibility(View.VISIBLE);
                         }
 
                     } else {
-                        progressBar_accepted.setVisibility(View.GONE);
-                        empty_view_accepted.setVisibility(View.VISIBLE);
-                        empty_view_accepted.setText(R.string.no_accepted_swaps);
-                        empty_view2_accepted.setVisibility(View.VISIBLE);
-                    }
-                    progressBar_accepted.setVisibility(View.GONE);
-                    empty_view_accepted.setVisibility(View.GONE);
-                    empty_view2_accepted.setVisibility(View.GONE);
-                    if (acceptedSwapAdapter.isEmpty()) {
-                        progressBar_accepted.setVisibility(View.GONE);
-                        empty_view_accepted.setVisibility(View.VISIBLE);
-                        empty_view_accepted.setText(R.string.no_accepted_swaps);
-                        empty_view2_accepted.setVisibility(View.VISIBLE);
+                        progressBar_approved.setVisibility(View.GONE);
+                        empty_view_approved.setVisibility(View.VISIBLE);
+                        empty_view_approved.setText(R.string.no_accepted_swaps);
+                        empty_view2_approved.setVisibility(View.VISIBLE);
                     }
 
-                }
+                    progressBar_approved.setVisibility(View.GONE);
+                    empty_view_approved.setVisibility(View.GONE);
+                    empty_view2_approved.setVisibility(View.GONE);
+
+                    if (approvedSwapAdapter.isEmpty()) {
+                        progressBar_approved.setVisibility(View.GONE);
+                        empty_view_approved.setVisibility(View.VISIBLE);
+                        empty_view_approved.setText(R.string.no_accepted_swaps);
+                        empty_view2_approved.setVisibility(View.VISIBLE);
+                    }
+
+
+
+
+                    }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -141,19 +150,19 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
 
             final List<SwapRequest> swapBodyList = new ArrayList<>();
             Collections.reverse(swapBodyList);
-            acceptedSwapAdapter = new AcceptedSwapAdapter(getContext(), R.layout.accepted_list_item, swapBodyList);
-            acceptedList = rootView.findViewById(R.id.acceptedList);
-            acceptedList.setVisibility(View.VISIBLE);
-            acceptedList.setAdapter(acceptedSwapAdapter);
+            approvedSwapAdapter = new ApprovedSwapAdapter(getContext(), R.layout.approved_list_item, swapBodyList);
+            approvedList = rootView.findViewById(R.id.approvedList);
+            approvedList.setVisibility(View.VISIBLE);
+            approvedList.setAdapter(approvedSwapAdapter);
 
         } else {
-            progressBar_accepted.setVisibility(View.GONE);
-            if (acceptedList != null) {
-                acceptedList.setVisibility(View.INVISIBLE);
+            progressBar_approved.setVisibility(View.GONE);
+            if (approvedList != null) {
+                approvedList.setVisibility(View.INVISIBLE);
             }
-            empty_view_accepted.setVisibility(View.VISIBLE);
-            empty_view_accepted.setText(R.string.no_internet_connection);
-            empty_view2_accepted.setVisibility(View.VISIBLE);
+            empty_view_approved.setVisibility(View.VISIBLE);
+            empty_view_approved.setText(R.string.no_internet_connection);
+            empty_view2_approved.setVisibility(View.VISIBLE);
         }
 
     }
@@ -164,7 +173,7 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                acceptedSwipeRefresh.setRefreshing(false);
+                approvedSwipeRefresh.setRefreshing(false);
             }
         }, 4000);
     }

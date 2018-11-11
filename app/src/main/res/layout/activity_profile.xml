@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#fafafa"
     android:orientation="vertical"
-    android:transitionName="@string/list_item_transition_name">
+    android:transitionName="@string/list_item_transition_name"
+    android:layoutDirection="ltr">
 
     <RelativeLayout
         android:layout_width="match_parent"

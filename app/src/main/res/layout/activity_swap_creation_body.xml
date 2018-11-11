@@ -9,34 +9,43 @@
     android:background="#ffffff"
     tools:context=".Activities.SwapCreationActivity">
 
-    <ImageView
-        android:id="@+id/img_back_creation_body"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="25dp"
-        android:contentDescription="@string/back"
-        android:src="@drawable/ic_back" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="ltr">
 
-    <ProgressBar
-        android:id="@+id/creation_body_progress_bar"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
-        android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/img_back_creation_body"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="25dp"
+            android:contentDescription="@string/back"
+            android:src="@drawable/ic_back" />
 
-    <ImageView
-        android:id="@+id/img_save_creation_body"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="25dp"
-        android:contentDescription="@string/save"
-        android:src="@drawable/ic_yes" />
+        <ProgressBar
+            android:id="@+id/creation_body_progress_bar"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/img_save_creation_body"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="25dp"
+            android:contentDescription="@string/save"
+            android:src="@drawable/ic_yes" />
+
+    </RelativeLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
