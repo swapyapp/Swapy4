@@ -160,6 +160,7 @@
                 android:src="@drawable/ic_email_black_24dp" />
 
             <TextView
+                android:id="@+id/account_user_mail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -182,6 +183,7 @@
                 android:src="@drawable/ic_phone_android_black_24dp" />
 
             <TextView
+                android:id="@+id/account_user_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -204,6 +206,7 @@
                 android:src="@drawable/ic_account_login_id" />
 
             <TextView
+                android:id="@+id/account_user_loginid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

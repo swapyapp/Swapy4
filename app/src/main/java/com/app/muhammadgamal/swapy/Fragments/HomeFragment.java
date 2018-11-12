@@ -412,8 +412,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         }, 4000);
     }
-
-
     @Override
     public void onStart() {
         super.onStart();

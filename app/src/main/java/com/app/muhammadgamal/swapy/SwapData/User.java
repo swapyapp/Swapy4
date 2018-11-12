@@ -153,6 +153,10 @@ public class User implements Parcelable {
         this.mAcceptedRequests = mAcceptedRequests;
     }
 
+    public String getmEmail() {
+        return mEmail;
+    }
+
     @Override
     public int describeContents() {
         return 0;
