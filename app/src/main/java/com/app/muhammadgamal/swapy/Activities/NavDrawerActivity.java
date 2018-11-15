@@ -1,6 +1,8 @@
 package com.app.muhammadgamal.swapy.Activities;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +14,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.Fragments.AcceptedSwapFragment;
@@ -237,5 +241,11 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         initializeCountDrawer();
         super.onResume();
     }
-
+    public  void updateStatusBarColor(String color){// Color must be in hexadecimal fromat
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor(color));
+        }
+    }
 }

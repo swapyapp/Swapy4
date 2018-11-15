@@ -1,13 +1,18 @@
 package com.app.muhammadgamal.swapy;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Common {
+public class Common extends AppCompatActivity {
 
     public static FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     public static String currentUserId = currentUser.getUid();
@@ -29,5 +34,4 @@ public class Common {
         NetworkInfo info = cm.getActiveNetworkInfo();
         return info;
     }
-
 }

@@ -71,7 +71,10 @@
     <string name="send_swap_req">Send Request</string>
     <string name="login_id">Login ID</string>
     <string name="withdraw">Withdraw</string>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7ac36ff81127aa19e711f470355a35d13a7a6b6a
     <string name="waiting">Waiting</string>
     <string name="for1">for</string>
     <string name="approval">approval</string>
@@ -81,11 +84,14 @@
     <string name="channel_name">Notification channel</string>
     <string name="channel_description">Receives notifications in the foreground</string>
     <string name="verify_account">Please verify your email,(Click to resent the email)</string>
+<<<<<<< HEAD
     <string name="pls_verify_email">Please, Check your email inbox and verify your email then try again.</string>
     <string name="resend_verify_email">Resend the verification email</string>
     <string name="please_check_your_email">Please, check your email inbox for verification email.</string>
     <string name="try_different_email">Try different email.</string>
     <string name="or">or</string>
+=======
+>>>>>>> 7ac36ff81127aa19e711f470355a35d13a7a6b6a
 
 
     <string-array name="company">

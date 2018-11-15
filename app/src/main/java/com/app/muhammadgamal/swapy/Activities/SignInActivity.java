@@ -43,6 +43,8 @@ public class SignInActivity extends AppCompatActivity {
         mFireStore = FirebaseFirestore.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
 
+
+
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         pls_verify_email = (TextView) findViewById(R.id.pls_verify_email);
@@ -180,6 +182,7 @@ public class SignInActivity extends AppCompatActivity {
 //                        }
 //                    });
 
+<<<<<<< HEAD
 //                    String currentUserID = mAuth.getCurrentUser().getUid();
 //                    user = mAuth.getCurrentUser();
 //                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
@@ -215,6 +218,19 @@ public class SignInActivity extends AppCompatActivity {
                                     signInButton.setVisibility(View.VISIBLE);
                                     FirebaseAuth.getInstance().signOut();
                                     return;
+=======
+                    String currentUserID = mAuth.getCurrentUser().getUid();
+                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
+                    userRef.child(currentUserID).child("device_token")
+                            .setValue(deviceToken)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+
+                                    }
+>>>>>>> 7ac36ff81127aa19e711f470355a35d13a7a6b6a
                                 }
                             }
                         });

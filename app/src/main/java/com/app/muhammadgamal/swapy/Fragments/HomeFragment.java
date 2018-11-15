@@ -20,6 +20,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -416,5 +417,10 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 homeSwipeRefresh.setRefreshing(false);
             }
         }, 4000);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
     }
 }
