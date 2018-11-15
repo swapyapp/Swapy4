@@ -83,6 +83,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private FirebaseAuth mAuth;
     private User user;
     private RelativeLayout imgFilter;
+    private ImageView imgNoConnectionHome;
 
     private final static String CHANNEL_ID = "swapy_notification_channel_id";
     private final static String CHANNEL_NAME = "Swapy Notification";
@@ -116,9 +117,11 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         empty_view = rootView.findViewById(R.id.empty_view);
         empty_view2 = rootView.findViewById(R.id.empty_view2);
         selectedPreferredTime = rootView.findViewById(R.id.selectedPreferredTime);
+        imgNoConnectionHome = rootView.findViewById(R.id.imgNoConnectionHome);
         progressBar.setVisibility(View.VISIBLE);
         empty_view2.setVisibility(View.GONE);
         fab_add_swap.setVisibility(View.GONE);
+        imgNoConnectionHome.setVisibility(View.GONE);
 
         //handle the SwipeRefreshLayout
         homeSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.homeSwipeRefresh);
@@ -145,6 +148,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         // If there is a network connection, fetch data
         if (Common.isNetworkAvailable(getContext()) || Common.isWifiAvailable(getContext())) {
+
+            imgNoConnectionHome.setVisibility(View.GONE);
             DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
             userDb.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -289,6 +294,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             if (listView != null) {
                 listView.setVisibility(View.INVISIBLE);
             }
+            imgNoConnectionHome.setVisibility(View.VISIBLE);
             empty_view.setVisibility(View.VISIBLE);
             empty_view.setText(R.string.no_internet_connection);
             empty_view2.setVisibility(View.VISIBLE);

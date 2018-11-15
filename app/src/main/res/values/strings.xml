@@ -60,6 +60,7 @@
     <string name="no_received_swaps">No received swaps.</string>
     <string name="no_sent_swaps">No sent swaps.</string>
     <string name="no_accepted_swaps">No accepted swaps.</string>
+    <string name="no_approved_swaps">No approved swaps.</string>
     <string name="no_swaps_found">No swaps found.</string>
     <string name="swipe_down_to_refresh">Swipe down to refresh.</string>
 
@@ -70,17 +71,21 @@
     <string name="send_swap_req">Send Request</string>
     <string name="login_id">Login ID</string>
     <string name="withdraw">Withdraw</string>
-<<<<<<< HEAD
+
     <string name="waiting">Waiting</string>
     <string name="for1">for</string>
     <string name="approval">approval</string>
     <string name="approved">Approved</string>
-=======
+
     <string name="default_notification_channel_id">swapy_channel_7313</string>
     <string name="channel_name">Notification channel</string>
     <string name="channel_description">Receives notifications in the foreground</string>
     <string name="verify_account">Please verify your email,(Click to resent the email)</string>
->>>>>>> 4e40bac7874ce151236cdbd4df29f03abcfeb482
+    <string name="pls_verify_email">Please, Check your email inbox and verify your email then try again.</string>
+    <string name="resend_verify_email">Resend the verification email</string>
+    <string name="please_check_your_email">Please, check your email inbox for verification email.</string>
+    <string name="try_different_email">Try different email.</string>
+    <string name="or">or</string>
 
 
     <string-array name="company">

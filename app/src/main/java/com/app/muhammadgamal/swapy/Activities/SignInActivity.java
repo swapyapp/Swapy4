@@ -18,18 +18,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class SignInActivity extends AppCompatActivity {
 
-    TextView signUpText;
+    TextView signUpText, pls_verify_email, resend_verify_email;
     Button signInButton;
     EditText editTextEmail, editTextPassword;
     private FirebaseAuth mAuth;
@@ -45,9 +41,11 @@ public class SignInActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mFireStore = FirebaseFirestore.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        pls_verify_email = (TextView) findViewById(R.id.pls_verify_email);
 
         signUpText = (TextView) findViewById(R.id.signUpText);
         signUpText.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +62,19 @@ public class SignInActivity extends AppCompatActivity {
                 signIn();
             }
         });
+
+//        resend_verify_email = (TextView) findViewById(R.id.resend_verify_email);
+//        resend_verify_email.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(SignInActivity.this, "Verification email sent", Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//            }
+//        });
     }
 
     private void signIn() {
@@ -74,18 +85,50 @@ public class SignInActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //if user is already logged in then HomeFragment will open instead of SignInActivity
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+            Task<Void> userTask = user.reload();
+            userTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+//                    if (user != null) {
+                    boolean isEmailVerified = user.isEmailVerified();
+                    if (isEmailVerified) {
+                        Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(SignInActivity.this, VerifyActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+//                    }
+                }
+            });
         }
+
+//        if (user != null) {
+//            boolean isEmailVerified = user.isEmailVerified();
+//            if (isEmailVerified) {
+//                Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(intent);
+//                finish();
+//            } else {
+//                Intent intent = new Intent(SignInActivity.this, VerifyActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(intent);
+//                finish();
+//            }
+//        }
 
     }
 
 
-    private void logIn (){
+    private void logIn() {
 
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -137,24 +180,46 @@ public class SignInActivity extends AppCompatActivity {
 //                        }
 //                    });
 
-                    String currentUserID = mAuth.getCurrentUser().getUid();
-                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+//                    String currentUserID = mAuth.getCurrentUser().getUid();
+//                    user = mAuth.getCurrentUser();
+//                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+//
+//                    userRef.child(currentUserID).child("device_token")
+//                            .setValue(deviceToken)
+//                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<Void> task) {
+//                                    if (task.isSuccessful()) {
+//
+//                                        logIn();
+//                                    }
+//                                }
+//                            });
+                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                    userRef.child(currentUserID).child("device_token")
-                            .setValue(deviceToken)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-
-                                        logIn();
-                                    }
+//                    if (user != null) {
+                        Task<Void> userTask = user.reload();
+                        userTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                boolean isEmailVerified = user.isEmailVerified();
+                                if (isEmailVerified) {
+                                    Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                } else {
+                                    editTextEmail.setError("Your email is not verified.");
+                                    editTextEmail.requestFocus();
+                                    pls_verify_email.setVisibility(View.VISIBLE);
+//                                    resend_verify_email.setVisibility(View.VISIBLE);
+                                    signInButton.setVisibility(View.VISIBLE);
+                                    FirebaseAuth.getInstance().signOut();
+                                    return;
                                 }
-                            });
+                            }
+                        });
+//                    }
 
-                    Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }

@@ -37,6 +37,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -209,7 +210,9 @@ public class SignUpActivity extends AppCompatActivity  {
                 public void onSuccess(Void aVoid) {
                     signUpButton.setVisibility(View.VISIBLE);
                     USER_INFO_SAVED = 1;
-                    Intent intent = new Intent(SignUpActivity.this, NavDrawerActivity.class);
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    currentUser.sendEmailVerification();
+                    Intent intent = new Intent(SignUpActivity.this, VerifyActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
@@ -229,7 +232,9 @@ public class SignUpActivity extends AppCompatActivity  {
                 public void onSuccess(Void aVoid) {
                     signUpButton.setVisibility(View.VISIBLE);
                     USER_INFO_SAVED = 1;
-                    Intent intent = new Intent(SignUpActivity.this, NavDrawerActivity.class);
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    currentUser.sendEmailVerification();
+                    Intent intent = new Intent(SignUpActivity.this, VerifyActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }

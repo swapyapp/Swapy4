@@ -116,11 +116,20 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true">
 
+            <ImageView
+                android:id="@+id/imgNoConnectionHome"
+                android:layout_width="200dp"
+                android:layout_height="164.5dp"
+                android:src="@drawable/ic_cloud_off"
+                android:layout_centerHorizontal="true"/>
+
             <TextView
                 android:id="@+id/empty_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:layout_below="@id/imgNoConnectionHome"
                 android:fontFamily="@font/raleway_semi_bold"
                 android:textAppearance="?android:textAppearanceMedium" />
 

@@ -40,12 +40,34 @@
         android:inputType="textPassword"
         android:textSize="@dimen/editText_text_size" />
 
+    <TextView
+        android:id="@+id/pls_verify_email"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/raleway_medium"
+        android:text="@string/pls_verify_email"
+        android:textAlignment="center"
+        android:visibility="gone" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/resend_verify_email"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="4dp"-->
+        <!--android:fontFamily="@font/raleway_medium"-->
+        <!--android:text="@string/resend_verify_email"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/colorPrimary"-->
+        <!--android:textStyle="bold"-->
+        <!--android:visibility="gone" />-->
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal">
 
         <android.support.v7.widget.AppCompatButton
