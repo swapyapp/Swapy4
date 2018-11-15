@@ -86,7 +86,7 @@ public class SignInActivity extends AppCompatActivity {
         retryBtnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Common.isNetworkAvailable(SignInActivity.this) || Common.isWifiAvailable(SignInActivity.this)){
+                if (Common.isNetworkAvailable(SignInActivity.this) || Common.isWifiAvailable(SignInActivity.this)) {
                     mainView.setVisibility(View.VISIBLE);
                     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null) {

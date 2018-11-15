@@ -26,6 +26,6 @@ public class DatePickerFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 }

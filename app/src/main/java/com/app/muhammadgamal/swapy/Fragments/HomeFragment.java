@@ -61,6 +61,9 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
+    private final static String CHANNEL_ID = "swapy_notification_channel_id";
+    private final static String CHANNEL_NAME = "Swapy Notification";
+    private final static String CHANNEL_DES = "Swapy Notifications receiving";
     private static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
     private Dialog filterDialog;
     private ImageView imgCloseFilterDialog;
@@ -85,11 +88,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private User user;
     private RelativeLayout imgFilter;
     private ImageView imgNoConnectionHome;
-
-    private final static String CHANNEL_ID = "swapy_notification_channel_id";
-    private final static String CHANNEL_NAME = "Swapy Notification";
-    private final static String CHANNEL_DES = "Swapy Notifications receiving";
-
 
     @SuppressLint("RestrictedApi")
     @Nullable
@@ -199,7 +197,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 //                                selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
                             }
 //                    }
-
 
 
                         }

@@ -34,7 +34,7 @@ public class AccountFragment extends Fragment {
     private String currentUserId;
     private TextView accountUsername, accountLoginID, accountMail, accountPhone;
     private ImageView accountImage;
-    private String userName, userMail,userLoginId, userImage, userPhone;
+    private String userName, userMail, userLoginId, userImage, userPhone;
     private User user;
 
     @Nullable
@@ -54,12 +54,12 @@ public class AccountFragment extends Fragment {
 
         user = new User();
 
-        userDatabaseRef =FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+        userDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
         userDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 user = dataSnapshot.getValue(User.class);
+                user = dataSnapshot.getValue(User.class);
                 userName = user.getmUsername();
                 userImage = user.getmProfilePhotoURL();
                 userLoginId = user.getmLoginID();
@@ -72,7 +72,7 @@ public class AccountFragment extends Fragment {
 
             }
         });
-        
+
 
         if (user.getmProfilePhotoURL() != null) {
             Glide.with(AccountFragment.this).load(userImage).into(accountImage);
@@ -90,11 +90,12 @@ public class AccountFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
+
     @Override
     public void onStop() {
         super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 }

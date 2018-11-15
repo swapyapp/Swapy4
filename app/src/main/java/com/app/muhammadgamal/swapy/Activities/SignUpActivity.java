@@ -51,7 +51,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class SignUpActivity extends AppCompatActivity  {
+public class SignUpActivity extends AppCompatActivity {
 
     // 0 => chosen
     // 1 => not chosen
@@ -134,7 +134,6 @@ public class SignUpActivity extends AppCompatActivity  {
     }
 
 
-
     private void companySpinner() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.company, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -156,10 +155,10 @@ public class SignUpActivity extends AppCompatActivity  {
 //            spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
 //        }
 //        else {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerCompanyBranch.setAdapter(adapter);
-            spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCompanyBranch.setAdapter(adapter);
+        spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
 //        }
     }
 
@@ -201,10 +200,10 @@ public class SignUpActivity extends AppCompatActivity  {
 //            }
 //        });
 
-       // currentUserDb.child("Users").child(userId).child("device_token").setValue(deviceToken);
+        // currentUserDb.child("Users").child(userId).child("device_token").setValue(deviceToken);
         if (profileImageUrl != null) {
             signUpButton.setVisibility(View.GONE);
-            user = new User(username, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0,0,0);
+            user = new User(username, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0, 0, 0);
             currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -226,7 +225,7 @@ public class SignUpActivity extends AppCompatActivity  {
             });
         } else {
             signUpButton.setVisibility(View.GONE);
-            user = new User(firstName, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift, null, 0,0,0);
+            user = new User(firstName, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift, null, 0, 0, 0);
             currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -350,12 +349,12 @@ public class SignUpActivity extends AppCompatActivity  {
             editTextEmail.requestFocus();
             return;
         }
-        if (!email.endsWith(".com")){
+        if (!email.endsWith(".com")) {
             editTextEmail.setError("Company email is required");
             editTextEmail.requestFocus();
             return;
         }
-        if (loginId.isEmpty()){
+        if (loginId.isEmpty()) {
             editTextLoginId.setError("Login ID is required");
             editTextLoginId.requestFocus();
             return;

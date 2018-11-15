@@ -41,9 +41,9 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
                 .setAutoCancel(true);
 
 
-        int mNotificationID = (int)System.currentTimeMillis();
-        NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        manager.notify(mNotificationID,mBuilder.build());
+        int mNotificationID = (int) System.currentTimeMillis();
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(mNotificationID, mBuilder.build());
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
@@ -59,7 +59,7 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel( getString(R.string.default_notification_channel_id), name, importance);
+            NotificationChannel channel = new NotificationChannel(getString(R.string.default_notification_channel_id), name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this

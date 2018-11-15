@@ -41,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class SwapCreationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+    public static String currentUserCompanyBranch, currentUserAccount;
     static int SHIFT_TIME_SELECTED = 0; // 0 => AM & 1 => PM
     static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
     // instance of the FireBase and reference to the database
@@ -54,7 +55,6 @@ public class SwapCreationActivity extends AppCompatActivity implements DatePicke
     TextView creationBodyShiftTimeAMText, creationBodyShiftTimePMText, creationBodyPreferredTimeAMText, creationBodyPreferredTimePMText;
     ProgressBar creation_body_progress_bar;
     String userId, swapperImageUrl, swapperName, swapperEmail, swapperPhone, swapperLoginID;
-    public static String currentUserCompanyBranch, currentUserAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

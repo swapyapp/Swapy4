@@ -79,10 +79,10 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
         return rootView;
     }
 
-    private void fetchData(){
+    private void fetchData() {
 
         // If there is a network connection, fetch data
-        if (Common.isNetworkAvailable(getContext()) || Common.isWifiAvailable(getContext())){
+        if (Common.isNetworkAvailable(getContext()) || Common.isWifiAvailable(getContext())) {
 
             imgNoConnectionApproved.setVisibility(View.GONE);
             DatabaseReference swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
@@ -90,12 +90,12 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     swapRequest = dataSnapshot.getValue(SwapRequest.class);
-                    if (dataSnapshot.exists()){
+                    if (dataSnapshot.exists()) {
 
                         mAuth = FirebaseAuth.getInstance();
                         userId = mAuth.getCurrentUser().getUid();
 
-                        if (swapRequest.getApproved() == 1){
+                        if (swapRequest.getApproved() == 1) {
                             approvedSwapAdapter.add(swapRequest);
                         }
 
@@ -129,9 +129,7 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
                     }
 
 
-
-
-                    }
+                }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {

@@ -92,7 +92,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 findItem(R.id.nav_sentSwapRequests));
         acceptedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.nav_acceptedSwapRequests));
-        approvedSwapRequests =(TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+        approvedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.nav_approvedSwapRequests));
 
 
@@ -112,7 +112,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     if (user.getmProfilePhotoURL() != null) {
                         Glide.with(NavDrawerActivity.this).load(user.getmProfilePhotoURL()).into(userNavImage);
                     }
@@ -241,7 +241,8 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         initializeCountDrawer();
         super.onResume();
     }
-    public  void updateStatusBarColor(String color){// Color must be in hexadecimal fromat
+
+    public void updateStatusBarColor(String color) {// Color must be in hexadecimal fromat
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
