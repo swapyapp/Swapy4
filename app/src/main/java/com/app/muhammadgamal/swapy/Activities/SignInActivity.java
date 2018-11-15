@@ -8,9 +8,11 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,12 +28,13 @@ import com.google.firebase.iid.FirebaseInstanceId;
 public class SignInActivity extends AppCompatActivity {
 
     TextView signUpText, pls_verify_email, resend_verify_email;
-    Button signInButton;
+    Button signInButton, retryBtnSignIn;
     EditText editTextEmail, editTextPassword;
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
     private FirebaseFirestore mFireStore;
     private FirebaseUser user;
+    private LinearLayout mainView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +47,11 @@ public class SignInActivity extends AppCompatActivity {
         final FirebaseUser user = mAuth.getCurrentUser();
 
 
-
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         pls_verify_email = (TextView) findViewById(R.id.pls_verify_email);
+
+        mainView = (LinearLayout) findViewById(R.id.mainView);
 
         signUpText = (TextView) findViewById(R.id.signUpText);
         signUpText.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +81,42 @@ public class SignInActivity extends AppCompatActivity {
 //                });
 //            }
 //        });
+
+        retryBtnSignIn = (Button) findViewById(R.id.retryBtnSignIn);
+        retryBtnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Common.isNetworkAvailable(SignInActivity.this) || Common.isWifiAvailable(SignInActivity.this)){
+                    mainView.setVisibility(View.VISIBLE);
+                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        Task<Void> userTask = user.reload();
+                        userTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+//                    if (user != null) {
+                                boolean isEmailVerified = user.isEmailVerified();
+                                if (isEmailVerified) {
+                                    Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Intent intent = new Intent(SignInActivity.this, VerifyActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                }
+//                    }
+                            }
+                        });
+                    }
+                } else {
+                    mainView.setVisibility(View.GONE);
+                    Toast.makeText(SignInActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void signIn() {
@@ -88,28 +128,32 @@ public class SignInActivity extends AppCompatActivity {
         super.onStart();
         //if user is already logged in then HomeFragment will open instead of SignInActivity
 
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            Task<Void> userTask = user.reload();
-            userTask.addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
+        if (Common.isNetworkAvailable(SignInActivity.this) || Common.isWifiAvailable(SignInActivity.this)) {
+            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                Task<Void> userTask = user.reload();
+                userTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
 //                    if (user != null) {
-                    boolean isEmailVerified = user.isEmailVerified();
-                    if (isEmailVerified) {
-                        Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Intent intent = new Intent(SignInActivity.this, VerifyActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
+                        boolean isEmailVerified = user.isEmailVerified();
+                        if (isEmailVerified) {
+                            Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Intent intent = new Intent(SignInActivity.this, VerifyActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
 //                    }
-                }
-            });
+                    }
+                });
+            }
+        } else {
+            mainView.setVisibility(View.GONE);
         }
 
 //        if (user != null) {
@@ -182,7 +226,7 @@ public class SignInActivity extends AppCompatActivity {
 //                        }
 //                    });
 
-<<<<<<< HEAD
+
 //                    String currentUserID = mAuth.getCurrentUser().getUid();
 //                    user = mAuth.getCurrentUser();
 //                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
@@ -201,44 +245,44 @@ public class SignInActivity extends AppCompatActivity {
                     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 //                    if (user != null) {
-                        Task<Void> userTask = user.reload();
-                        userTask.addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                boolean isEmailVerified = user.isEmailVerified();
-                                if (isEmailVerified) {
-                                    Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
-                                } else {
-                                    editTextEmail.setError("Your email is not verified.");
-                                    editTextEmail.requestFocus();
-                                    pls_verify_email.setVisibility(View.VISIBLE);
+                    Task<Void> userTask = user.reload();
+                    userTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            boolean isEmailVerified = user.isEmailVerified();
+                            if (isEmailVerified) {
+                                Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            } else {
+                                editTextEmail.setError("Your email is not verified.");
+                                editTextEmail.requestFocus();
+                                pls_verify_email.setVisibility(View.VISIBLE);
 //                                    resend_verify_email.setVisibility(View.VISIBLE);
-                                    signInButton.setVisibility(View.VISIBLE);
-                                    FirebaseAuth.getInstance().signOut();
-                                    return;
-=======
-                    String currentUserID = mAuth.getCurrentUser().getUid();
-                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
-
-                    userRef.child(currentUserID).child("device_token")
-                            .setValue(deviceToken)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-
-                                    }
->>>>>>> 7ac36ff81127aa19e711f470355a35d13a7a6b6a
-                                }
-                            }
-                        });
+                                signInButton.setVisibility(View.VISIBLE);
+                                FirebaseAuth.getInstance().signOut();
+//                                String currentUserID = mAuth.getCurrentUser().getUid();
+//                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
+//
+//                                userRef.child(currentUserID).child("device_token")
+//                                        .setValue(deviceToken)
+//                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<Void> task) {
+//                                                if (task.isSuccessful()) {
+//
+//                                                }
+//                                            }
+//                                        });
 //                    }
 
+                            }
+                        }
+                    });
                 } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
+
             }
         });
     }

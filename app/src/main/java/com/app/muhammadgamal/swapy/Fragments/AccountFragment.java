@@ -86,12 +86,15 @@ public class AccountFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
+
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-
-        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#FFFFFF");
-
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
     }
 }

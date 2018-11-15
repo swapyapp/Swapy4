@@ -180,9 +180,9 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
         }, 4000);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+//    }
 }

@@ -176,9 +176,9 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
         }, 4000);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+//    }
 }
