@@ -54,26 +54,59 @@ public class AccountFragment extends Fragment {
         accountPhone = rootView.findViewById(R.id.account_user_phone);
 
 
-         currentUserId = mAuth.getCurrentUser().getUid();
+        currentUserId = mAuth.getCurrentUser().getUid();
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
-       currentUserDb.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(DataSnapshot dataSnapshot) {
-               user = dataSnapshot.getValue(User.class);
-               if (user.getmProfilePhotoURL() != null) {
-                   Glide.with(AccountFragment.this).load(user.getmProfilePhotoURL()).into(accountImage);
-               }
-               accountUsername.setText(user.getmUsername());
-               accountMail.setText(user.getmEmail());
-               accountPhone.setText(user.getmPhoneNumber());
-               accountLoginID.setText(user.getmLoginID());
-           }
+        currentUserDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+                if (user.getmProfilePhotoURL() != null) {
+                    Glide.with(AccountFragment.this).load(user.getmProfilePhotoURL()).into(accountImage);
+                }
+                accountUsername.setText(user.getmUsername());
+                accountMail.setText(user.getmEmail());
+                accountPhone.setText(user.getmPhoneNumber());
+                accountLoginID.setText(user.getmLoginID());
+            }
 
-           @Override
-           public void onCancelled(DatabaseError databaseError) {
-               Log.e(LOG_TAG, "Error with retreaving data from Database");
-           }
-       });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(LOG_TAG, "Error with retreaving data from Database");
+            }
+        });
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
+
+        user = new User();
+
+        userDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+
+        userDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+                userName = user.getmUsername();
+                userImage = user.getmProfilePhotoURL();
+                userLoginId = user.getmLoginID();
+                userMail = user.getmEmail();
+                userPhone = user.getmPhoneNumber();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        if (user.getmProfilePhotoURL() != null) {
+            Glide.with(AccountFragment.this).load(userImage).into(accountImage);
+        }
+
+        accountUsername.setText(userName);
+        accountPhone.setText(userPhone);
+        accountLoginID.setText(userLoginId);
+        accountMail.setText(userMail);
 
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
@@ -85,5 +118,17 @@ public class AccountFragment extends Fragment {
 //
 //        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#FFFFFF");
 
+        @Override
+        public void onResume () {
+            super.onResume();
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        }
+
+        @Override
+        public void onStop () {
+            super.onStop();
+            ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        }
     }
 }
+

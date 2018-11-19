@@ -35,21 +35,23 @@
         <activity
             android:name=".Activities.SwapCreationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".Activities.ReceivedSwapRequest">
             <intent-filter>
-                <action android:name="com.app.muhammadgamal.swapy.Activities.ReceivedSwapRequest_NOTIFICATION_TASK"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
+                <action android:name="com.app.muhammadgamal.swapy.Activities.ReceivedSwapRequest_NOTIFICATION_TASK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".Notifications.MyFirebaseMessagingService">
+        <service android:name=".Notifications.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".Activities.VerifyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -61,6 +61,9 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
+    private final static String CHANNEL_ID = "swapy_notification_channel_id";
+    private final static String CHANNEL_NAME = "Swapy Notification";
+    private final static String CHANNEL_DES = "Swapy Notifications receiving";
     private static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
     private Dialog filterDialog;
     private ImageView imgCloseFilterDialog;
@@ -84,11 +87,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private FirebaseAuth mAuth;
     private User user;
     private RelativeLayout imgFilter;
-
-    private final static String CHANNEL_ID = "swapy_notification_channel_id";
-    private final static String CHANNEL_NAME = "Swapy Notification";
-    private final static String CHANNEL_DES = "Swapy Notifications receiving";
-
+    private ImageView imgNoConnectionHome;
 
     @SuppressLint("RestrictedApi")
     @Nullable
@@ -117,9 +116,11 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         empty_view = rootView.findViewById(R.id.empty_view);
         empty_view2 = rootView.findViewById(R.id.empty_view2);
         selectedPreferredTime = rootView.findViewById(R.id.selectedPreferredTime);
+        imgNoConnectionHome = rootView.findViewById(R.id.imgNoConnectionHome);
         progressBar.setVisibility(View.VISIBLE);
         empty_view2.setVisibility(View.GONE);
         fab_add_swap.setVisibility(View.GONE);
+        imgNoConnectionHome.setVisibility(View.GONE);
 
         //handle the SwipeRefreshLayout
         homeSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.homeSwipeRefresh);
@@ -146,6 +147,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         // If there is a network connection, fetch data
         if (Common.isNetworkAvailable(getContext()) || Common.isWifiAvailable(getContext())) {
+
+            imgNoConnectionHome.setVisibility(View.GONE);
             DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
             userDb.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -194,7 +197,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 //                                selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
                             }
 //                    }
-
 
 
                         }
@@ -290,6 +292,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             if (listView != null) {
                 listView.setVisibility(View.INVISIBLE);
             }
+            imgNoConnectionHome.setVisibility(View.VISIBLE);
             empty_view.setVisibility(View.VISIBLE);
             empty_view.setText(R.string.no_internet_connection);
             empty_view2.setVisibility(View.VISIBLE);
@@ -412,6 +415,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         }, 4000);
     }
+<<<<<<< HEAD
     @Override
     public void onStart() {
         super.onStart();
@@ -419,4 +423,11 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
 
     }
+=======
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+//    }
+>>>>>>> 5e2194696766723651f3f57bbbcf3571e7b9db5e
 }

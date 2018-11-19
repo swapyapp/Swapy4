@@ -87,14 +87,13 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
             navigationView.setCheckedItem(R.id.home);
         }
 
-
         receivedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.nav_receivedSwapRequests));
         sentSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.nav_sentSwapRequests));
         acceptedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.nav_acceptedSwapRequests));
-        approvedSwapRequests =(TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+        approvedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.nav_approvedSwapRequests));
 
 
@@ -114,9 +113,21 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if (user.getmProfilePhotoURL() != null) {
-                    Glide.with(NavDrawerActivity.this).load(user.getmProfilePhotoURL()).into(userNavImage);
+                if (dataSnapshot.exists()) {
+                    if (user.getmProfilePhotoURL() != null) {
+                        Glide.with(NavDrawerActivity.this).load(user.getmProfilePhotoURL()).into(userNavImage);
+                    }
+                    navUsername.setText(user.getmUsername());
+                    currentUserBranch = user.getmBranch();
+                    currentUserAccount = user.getmAccount();
+                    navUserCompany.setText(currentUserBranch + ", " + currentUserAccount);
+                    navUserCurrentShift.setText("Current Shift: " + user.getmCurrentShift());
+                    receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()));
+                    sentSwapRequests.setText(String.valueOf(user.getmSentRequests()));
+                    acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
+//                  approvedSwapRequests.setText(String.valueOf(user.getmApprovedRequests()));
                 }
+<<<<<<< HEAD
                 navUsername.setText(user.getmUsername());
                 currentUserBranch = user.getmBranch();
                 currentUserAccount = user.getmAccount();
@@ -128,6 +139,8 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
 //                approvedSwapRequests.setText(String.valueOf(user.getmApprovedRequests()));
 
 
+=======
+>>>>>>> 5e2194696766723651f3f57bbbcf3571e7b9db5e
             }
 
             @Override
@@ -243,7 +256,8 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         initializeCountDrawer();
         super.onResume();
     }
-    public  void updateStatusBarColor(String color){// Color must be in hexadecimal fromat
+
+    public void updateStatusBarColor(String color) {// Color must be in hexadecimal fromat
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

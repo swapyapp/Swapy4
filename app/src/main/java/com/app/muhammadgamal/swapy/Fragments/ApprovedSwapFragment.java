@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
     private SentSwapAdapter sentSwapAdapter;
     private ReceivedSwapAdapter receivedSwapAdapter;
     private ApprovedSwapAdapter approvedSwapAdapter;
+    private ImageView imgNoConnectionApproved;
 
     @Nullable
     @Override
@@ -60,6 +62,8 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
         progressBar_approved = rootView.findViewById(R.id.progressBar_approved);
         empty_view_approved = rootView.findViewById(R.id.empty_view_approved);
         empty_view2_approved = rootView.findViewById(R.id.empty_view2_approved);
+        imgNoConnectionApproved = rootView.findViewById(R.id.imgNoConnectionApproved);
+        imgNoConnectionApproved.setVisibility(View.GONE);
         progressBar_approved.setVisibility(View.VISIBLE);
         empty_view2_approved.setVisibility(View.GONE);
 
@@ -76,22 +80,23 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
         return rootView;
     }
 
-    private void fetchData(){
+    private void fetchData() {
 
         // If there is a network connection, fetch data
-        if (Common.isNetworkAvailable(getContext()) || Common.isWifiAvailable(getContext())){
+        if (Common.isNetworkAvailable(getContext()) || Common.isWifiAvailable(getContext())) {
 
+            imgNoConnectionApproved.setVisibility(View.GONE);
             DatabaseReference swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
             swapRequestsDb.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     swapRequest = dataSnapshot.getValue(SwapRequest.class);
-                    if (dataSnapshot.exists()){
+                    if (dataSnapshot.exists()) {
 
                         mAuth = FirebaseAuth.getInstance();
                         userId = mAuth.getCurrentUser().getUid();
 
-                        if (swapRequest.getApproved() == 1){
+                        if (swapRequest.getApproved() == 1) {
                             approvedSwapAdapter.add(swapRequest);
                         }
 
@@ -102,14 +107,14 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
                         if (approvedSwapAdapter.isEmpty()) {
                             progressBar_approved.setVisibility(View.GONE);
                             empty_view_approved.setVisibility(View.VISIBLE);
-                            empty_view_approved.setText(R.string.no_accepted_swaps);
+                            empty_view_approved.setText(R.string.no_approved_swaps);
                             empty_view2_approved.setVisibility(View.VISIBLE);
                         }
 
                     } else {
                         progressBar_approved.setVisibility(View.GONE);
                         empty_view_approved.setVisibility(View.VISIBLE);
-                        empty_view_approved.setText(R.string.no_accepted_swaps);
+                        empty_view_approved.setText(R.string.no_approved_swaps);
                         empty_view2_approved.setVisibility(View.VISIBLE);
                     }
 
@@ -120,14 +125,12 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
                     if (approvedSwapAdapter.isEmpty()) {
                         progressBar_approved.setVisibility(View.GONE);
                         empty_view_approved.setVisibility(View.VISIBLE);
-                        empty_view_approved.setText(R.string.no_accepted_swaps);
+                        empty_view_approved.setText(R.string.no_approved_swaps);
                         empty_view2_approved.setVisibility(View.VISIBLE);
                     }
 
 
-
-
-                    }
+                }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -162,6 +165,7 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
             if (approvedList != null) {
                 approvedList.setVisibility(View.INVISIBLE);
             }
+            imgNoConnectionApproved.setVisibility(View.VISIBLE);
             empty_view_approved.setVisibility(View.VISIBLE);
             empty_view_approved.setText(R.string.no_internet_connection);
             empty_view2_approved.setVisibility(View.VISIBLE);
@@ -179,6 +183,7 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
             }
         }, 4000);
     }
+<<<<<<< HEAD
     @Override
     public void onStart() {
         super.onStart();
@@ -186,4 +191,11 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
         ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
 
     }
+=======
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+//    }
+>>>>>>> 5e2194696766723651f3f57bbbcf3571e7b9db5e
 }

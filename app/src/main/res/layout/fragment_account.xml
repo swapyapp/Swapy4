@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -126,10 +127,147 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="45dp"
         android:orientation="vertical">
+=======
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/graylight"
+        android:orientation="vertical"
+        tools:context="com.app.muhammadgamal.swapy.Fragments.AccountFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="249dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="173dp"
+                android:background="@drawable/gradientbackground"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/user_account_image"
+                    android:layout_width="107dp"
+                    android:layout_height="88dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/add_photo" />
+
+                <TextView
+                    android:id="@+id/user_account_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#fff"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    tools:text="Ahmed Adel" />
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="400dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="160dp"
+                app:cardCornerRadius="35dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Photos"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:text="125"
+                            android:textColor="@color/startblue"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Followers"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:text="1205"
+                            android:textColor="@color/startblue"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Following"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:text="360"
+                            android:textColor="@color/startblue"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+>>>>>>> 5e2194696766723651f3f57bbbcf3571e7b9db5e
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
@@ -182,11 +320,63 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/account_loginid" />
+=======
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/account_user_loginid"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_email_black_24dp" />
+
+                <TextView
+                    android:id="@+id/account_user_mail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="Wiliam@gmail.com"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_phone_android_black_24dp" />
+
+                <TextView
+                    android:id="@+id/account_user_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="+266 225 225"
+                    android:textStyle="bold" />
+            </LinearLayout>
+>>>>>>> 5e2194696766723651f3f57bbbcf3571e7b9db5e
+
+            <LinearLayout
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+<<<<<<< HEAD
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="Login Id:"
@@ -203,17 +393,56 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp" />
+=======
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_account_login_id" />
 
+                <TextView
+                    android:id="@+id/account_user_loginid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="LoginId: 76532 "
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:text="Show all comments"
-                android:textStyle="bold" />
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_plus" />
+>>>>>>> 5e2194696766723651f3f57bbbcf3571e7b9db5e
+
+                <TextView
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="Show all comments"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
 
+<<<<<<< HEAD
 </LinearLayout>
+=======
+    </LinearLayout>
+</ScrollView>
+>>>>>>> 5e2194696766723651f3f57bbbcf3571e7b9db5e

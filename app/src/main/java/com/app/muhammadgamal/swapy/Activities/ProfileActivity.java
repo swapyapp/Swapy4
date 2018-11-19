@@ -77,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
         currentUserId = mAuth.getCurrentUser().getUid();
         mFireStore = FirebaseFirestore.getInstance();
         notificationDB = FirebaseDatabase.getInstance().getReference().child("Notifications");
-        databaseReference =FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
         Intent intent = getIntent();
         SwapDetails swapDetails = intent.getParcelableExtra("swapper info");
@@ -200,8 +200,7 @@ public class ProfileActivity extends AppCompatActivity {
 //            }
 //        });
 
-        buttonSwapRequest.setOnClickListener(new View.OnClickListener()
-        {
+        buttonSwapRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 buttonSwapRequest.setVisibility(View.INVISIBLE);
@@ -209,7 +208,7 @@ public class ProfileActivity extends AppCompatActivity {
                 //set the request message
                 requestMessage = userName + "" + " wants to swap his shift with your shift";
 
-                Map <String, Object> notificationMessage = new HashMap<>();
+                Map<String, Object> notificationMessage = new HashMap<>();
                 notificationMessage.put("message", requestMessage);
                 notificationMessage.put("from", currentUserId);
 
@@ -217,8 +216,7 @@ public class ProfileActivity extends AppCompatActivity {
                         .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.INVISIBLE);
                             swapDone.setVisibility(View.VISIBLE);
@@ -227,7 +225,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ProfileActivity.this,"Something went wrong", Toast.LENGTH_LONG ).show();
+                        Toast.makeText(ProfileActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
                         Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
                     }
                 });

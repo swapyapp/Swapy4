@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,19 +49,22 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
     private User user;
     private SentSwapAdapter sentSwapAdapter;
     private DatabaseReference swapDb;
+    private ImageView imgNoConnectionSent;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_sent_swap, container, false);
-        getActivity().setTitle("Sent swap requests");
+        getActivity().setTitle("Sent swaps");
 
         progressBar_sent = rootView.findViewById(R.id.progressBar_sent);
         empty_view_sent = rootView.findViewById(R.id.empty_view_sent);
         empty_view2_sent = rootView.findViewById(R.id.empty_view2_sent);
+        imgNoConnectionSent = rootView.findViewById(R.id.imgNoConnectionSent);
         progressBar_sent.setVisibility(View.VISIBLE);
         empty_view2_sent.setVisibility(View.GONE);
+        imgNoConnectionSent.setVisibility(View.GONE);
 
         //handle the SwipeRefreshLayout
         sentSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.sentSwipeRefresh);
@@ -80,6 +84,7 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
         // If there is a network connection, fetch data
         if (Common.isNetworkAvailable(getContext()) || Common.isWifiAvailable(getContext())) {
 
+            imgNoConnectionSent.setVisibility(View.GONE);
             DatabaseReference swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
             swapRequestsDb.addChildEventListener(new ChildEventListener() {
                 @Override
@@ -104,7 +109,7 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
                             empty_view2_sent.setVisibility(View.VISIBLE);
                         }
 
-                    }else {
+                    } else {
                         progressBar_sent.setVisibility(View.GONE);
                         empty_view_sent.setVisibility(View.VISIBLE);
                         empty_view_sent.setText(R.string.no_sent_swaps);
@@ -156,6 +161,7 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
             if (sentList != null) {
                 sentList.setVisibility(View.INVISIBLE);
             }
+            imgNoConnectionSent.setVisibility(View.VISIBLE);
             empty_view_sent.setVisibility(View.VISIBLE);
             empty_view_sent.setText(R.string.no_internet_connection);
             empty_view2_sent.setVisibility(View.VISIBLE);
@@ -175,6 +181,7 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
         }, 4000);
     }
 
+<<<<<<< HEAD
     @Override
     public void onStart() {
         super.onStart();
@@ -182,4 +189,11 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
         ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
 
     }
+=======
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+//    }
+>>>>>>> 5e2194696766723651f3f57bbbcf3571e7b9db5e
 }

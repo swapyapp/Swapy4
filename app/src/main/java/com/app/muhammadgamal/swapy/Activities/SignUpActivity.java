@@ -37,6 +37,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -50,7 +51,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class SignUpActivity extends AppCompatActivity  {
+public class SignUpActivity extends AppCompatActivity {
 
     // 0 => chosen
     // 1 => not chosen
@@ -133,7 +134,6 @@ public class SignUpActivity extends AppCompatActivity  {
     }
 
 
-
     private void companySpinner() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.company, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -155,10 +155,10 @@ public class SignUpActivity extends AppCompatActivity  {
 //            spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
 //        }
 //        else {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerCompanyBranch.setAdapter(adapter);
-            spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCompanyBranch.setAdapter(adapter);
+        spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
 //        }
     }
 
@@ -200,16 +200,18 @@ public class SignUpActivity extends AppCompatActivity  {
 //            }
 //        });
 
-       // currentUserDb.child("Users").child(userId).child("device_token").setValue(deviceToken);
+        // currentUserDb.child("Users").child(userId).child("device_token").setValue(deviceToken);
         if (profileImageUrl != null) {
             signUpButton.setVisibility(View.GONE);
-            user = new User(username, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0,0,0);
+            user = new User(username, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0, 0, 0);
             currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     signUpButton.setVisibility(View.VISIBLE);
                     USER_INFO_SAVED = 1;
-                    Intent intent = new Intent(SignUpActivity.this, NavDrawerActivity.class);
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    currentUser.sendEmailVerification();
+                    Intent intent = new Intent(SignUpActivity.this, VerifyActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
@@ -223,13 +225,15 @@ public class SignUpActivity extends AppCompatActivity  {
             });
         } else {
             signUpButton.setVisibility(View.GONE);
-            user = new User(firstName, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift, null, 0,0,0);
+            user = new User(firstName, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift, null, 0, 0, 0);
             currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     signUpButton.setVisibility(View.VISIBLE);
                     USER_INFO_SAVED = 1;
-                    Intent intent = new Intent(SignUpActivity.this, NavDrawerActivity.class);
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    currentUser.sendEmailVerification();
+                    Intent intent = new Intent(SignUpActivity.this, VerifyActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
@@ -345,12 +349,12 @@ public class SignUpActivity extends AppCompatActivity  {
             editTextEmail.requestFocus();
             return;
         }
-        if (!email.endsWith(".com")){
+        if (!email.endsWith(".com")) {
             editTextEmail.setError("Company email is required");
             editTextEmail.requestFocus();
             return;
         }
-        if (loginId.isEmpty()){
+        if (loginId.isEmpty()) {
             editTextLoginId.setError("Login ID is required");
             editTextLoginId.requestFocus();
             return;
