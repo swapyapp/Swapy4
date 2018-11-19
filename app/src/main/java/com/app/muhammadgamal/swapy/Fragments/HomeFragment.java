@@ -415,7 +415,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         }, 4000);
     }
-<<<<<<< HEAD
     @Override
     public void onStart() {
         super.onStart();
@@ -423,11 +422,9 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
 
     }
-=======
 //    @Override
 //    public void onStart() {
 //        super.onStart();
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
 //    }
->>>>>>> 5e2194696766723651f3f57bbbcf3571e7b9db5e
 }

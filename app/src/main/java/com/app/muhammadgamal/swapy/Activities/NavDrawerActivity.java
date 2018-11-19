@@ -127,7 +127,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                     acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
 //                  approvedSwapRequests.setText(String.valueOf(user.getmApprovedRequests()));
                 }
-<<<<<<< HEAD
                 navUsername.setText(user.getmUsername());
                 currentUserBranch = user.getmBranch();
                 currentUserAccount = user.getmAccount();
@@ -139,8 +138,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
 //                approvedSwapRequests.setText(String.valueOf(user.getmApprovedRequests()));
 
 
-=======
->>>>>>> 5e2194696766723651f3f57bbbcf3571e7b9db5e
             }
 
             @Override
