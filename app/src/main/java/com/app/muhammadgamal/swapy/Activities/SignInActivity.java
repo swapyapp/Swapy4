@@ -34,7 +34,7 @@ public class SignInActivity extends AppCompatActivity {
     private DatabaseReference userRef;
     private FirebaseFirestore mFireStore;
     private FirebaseUser user;
-    private LinearLayout mainView;
+    private LinearLayout mainView, splashScreen, noConnectionViewSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,8 @@ public class SignInActivity extends AppCompatActivity {
         pls_verify_email = (TextView) findViewById(R.id.pls_verify_email);
 
         mainView = (LinearLayout) findViewById(R.id.mainView);
+        splashScreen = (LinearLayout) findViewById(R.id.splashScreen);
+        noConnectionViewSignIn = (LinearLayout) findViewById(R.id.noConnectionViewSignIn);
 
         signUpText = (TextView) findViewById(R.id.signUpText);
         signUpText.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +89,9 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (Common.isNetworkAvailable(SignInActivity.this) || Common.isWifiAvailable(SignInActivity.this)) {
-                    mainView.setVisibility(View.VISIBLE);
+                    splashScreen.setVisibility(View.VISIBLE);
+                    mainView.setVisibility(View.GONE);
+                    noConnectionViewSignIn.setVisibility(View.GONE);
                     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null) {
                         Task<Void> userTask = user.reload();
@@ -110,9 +114,13 @@ public class SignInActivity extends AppCompatActivity {
 //                    }
                             }
                         });
+                    } else {
+                        splashScreen.setVisibility(View.GONE);
+                        mainView.setVisibility(View.VISIBLE);
                     }
                 } else {
                     mainView.setVisibility(View.GONE);
+                    noConnectionViewSignIn.setVisibility(View.VISIBLE);
                     Toast.makeText(SignInActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -129,6 +137,9 @@ public class SignInActivity extends AppCompatActivity {
         //if user is already logged in then HomeFragment will open instead of SignInActivity
 
         if (Common.isNetworkAvailable(SignInActivity.this) || Common.isWifiAvailable(SignInActivity.this)) {
+            splashScreen.setVisibility(View.VISIBLE);
+            mainView.setVisibility(View.GONE);
+            noConnectionViewSignIn.setVisibility(View.GONE);
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
                 Task<Void> userTask = user.reload();
@@ -151,9 +162,13 @@ public class SignInActivity extends AppCompatActivity {
 //                    }
                     }
                 });
+            } else {
+                splashScreen.setVisibility(View.GONE);
+                mainView.setVisibility(View.VISIBLE);
             }
         } else {
             mainView.setVisibility(View.GONE);
+            noConnectionViewSignIn.setVisibility(View.VISIBLE);
         }
 
 //        if (user != null) {
