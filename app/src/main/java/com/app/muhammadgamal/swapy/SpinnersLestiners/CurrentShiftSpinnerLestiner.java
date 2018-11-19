@@ -13,9 +13,9 @@ public class CurrentShiftSpinnerLestiner implements AdapterView.OnItemSelectedLi
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(parent.getItemAtPosition(position).equals("Current Shift")){
             //do nothing
-            SignUpActivity.CURREN_SHIFT_CHOSEN = 1;
+            SignUpActivity.CURRENT_SHIFT_CHOSEN = 1;
         } else {
-            SignUpActivity.CURREN_SHIFT_CHOSEN = 0;
+            SignUpActivity.CURRENT_SHIFT_CHOSEN = 0;
             CurrentShift = parent.getItemAtPosition(position).toString();
         }
     }

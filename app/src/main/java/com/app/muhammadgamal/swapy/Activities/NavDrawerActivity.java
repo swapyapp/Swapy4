@@ -1,5 +1,6 @@
 package com.app.muhammadgamal.swapy.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -125,6 +126,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 sentSwapRequests.setText(String.valueOf(user.getmSentRequests()));
                 acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
 //                approvedSwapRequests.setText(String.valueOf(user.getmApprovedRequests()));
+
 
             }
 

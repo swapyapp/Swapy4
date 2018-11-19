@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.AcceptedSwapAdapter;
@@ -174,5 +175,7 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
     public void onStart() {
         super.onStart();
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
+
     }
 }

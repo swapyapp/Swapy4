@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 
+import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
+
 import java.util.Calendar;
 
 public class DatePickerFragment extends DialogFragment {
@@ -26,6 +28,6 @@ public class DatePickerFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+
     }
 }

@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity  {
 
     // 0 => chosen
     // 1 => not chosen
-    public static int COMPANY_CHOSEN = 0, BRANCH_CHOSEN = 0, ACCOUNT_CHOSEN = 0, CURREN_SHIFT_CHOSEN = 0;
+    public static int COMPANY_CHOSEN = 0, BRANCH_CHOSEN = 0, ACCOUNT_CHOSEN = 0, CURRENT_SHIFT_CHOSEN = 0;
     static int TIME_SELECTED = 0; // 0 => AM & 1 => PM
     static int PReqCode = 1;
     static int REQUESTCODE = 1;

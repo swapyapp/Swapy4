@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +35,9 @@ public class AccountFragment extends Fragment {
     private String currentUserId;
     private TextView accountUsername, accountLoginID, accountMail, accountPhone;
     private ImageView accountImage;
-    private String userName, userMail,userLoginId, userImage, userPhone;
+    private String userName, userMail, userLoginId, userImage, userPhone;
     private User user;
+    private final String LOG_TAG = "AccountFragment";
 
     @Nullable
     @Override
@@ -43,45 +45,35 @@ public class AccountFragment extends Fragment {
         getActivity().setTitle("Account");
         rootView = inflater.inflate(R.layout.fragment_account, container, false);
 
+        mAuth = FirebaseAuth.getInstance();
+
         accountImage = rootView.findViewById(R.id.user_account_image);
         accountUsername = rootView.findViewById(R.id.user_account_name);
         accountLoginID = rootView.findViewById(R.id.account_user_loginid);
         accountMail = rootView.findViewById(R.id.account_user_mail);
         accountPhone = rootView.findViewById(R.id.account_user_phone);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
 
-        user = new User();
+         currentUserId = mAuth.getCurrentUser().getUid();
+        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+       currentUserDb.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot) {
+               user = dataSnapshot.getValue(User.class);
+               if (user.getmProfilePhotoURL() != null) {
+                   Glide.with(AccountFragment.this).load(user.getmProfilePhotoURL()).into(accountImage);
+               }
+               accountUsername.setText(user.getmUsername());
+               accountMail.setText(user.getmEmail());
+               accountPhone.setText(user.getmPhoneNumber());
+               accountLoginID.setText(user.getmLoginID());
+           }
 
-        userDatabaseRef =FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
-
-        userDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                 user = dataSnapshot.getValue(User.class);
-                userName = user.getmUsername();
-                userImage = user.getmProfilePhotoURL();
-                userLoginId = user.getmLoginID();
-                userMail = user.getmEmail();
-                userPhone = user.getmPhoneNumber();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        
-
-        if (user.getmProfilePhotoURL() != null) {
-            Glide.with(AccountFragment.this).load(userImage).into(accountImage);
-        }
-
-        accountUsername.setText(userName);
-        accountPhone.setText(userPhone);
-        accountLoginID.setText(userLoginId);
-        accountMail.setText(userMail);
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+               Log.e(LOG_TAG, "Error with retreaving data from Database");
+           }
+       });
 
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
@@ -89,9 +81,9 @@ public class AccountFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-
-        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#FFFFFF");
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+//
+//        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#FFFFFF");
 
     }
 }

@@ -57,5 +57,7 @@ public class SettingsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
+
     }
 }

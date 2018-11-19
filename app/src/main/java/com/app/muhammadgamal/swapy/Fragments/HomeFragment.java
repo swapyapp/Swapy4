@@ -416,5 +416,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onStart() {
         super.onStart();
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
+
     }
 }
