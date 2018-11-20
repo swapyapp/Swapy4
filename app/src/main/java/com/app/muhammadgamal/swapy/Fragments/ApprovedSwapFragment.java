@@ -86,6 +86,10 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
         if (Common.isNetworkAvailable(getContext()) || Common.isWifiAvailable(getContext())) {
 
             imgNoConnectionApproved.setVisibility(View.GONE);
+            progressBar_approved.setVisibility(View.GONE);
+            empty_view_approved.setVisibility(View.VISIBLE);
+            empty_view_approved.setText(R.string.no_approved_swaps);
+            empty_view2_approved.setVisibility(View.VISIBLE);
             DatabaseReference swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
             swapRequestsDb.addChildEventListener(new ChildEventListener() {
                 @Override

@@ -20,6 +20,8 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -57,7 +59,9 @@ public class ApprovedSwapAdapter extends ArrayAdapter<SwapRequest> {
 
         if (receivedSwapBody != null){
             //if current user is the sender then show receiver data
-            if (receivedSwapBody.getFromID().equals(Common.currentUserId)){
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            String currentUserId = currentUser.getUid();
+            if (receivedSwapBody.getFromID().equals(currentUserId)){
 
                 NameApprovedItem.setText(receivedSwapBody.getToName());
                 ShiftTimeApprovedListItem.setText(receivedSwapBody.getToShiftTime());
@@ -91,7 +95,7 @@ public class ApprovedSwapAdapter extends ArrayAdapter<SwapRequest> {
             }
 
             //if current user is the receiver then show sender data
-            if (receivedSwapBody.getToID().equals(Common.currentUserId)){
+            if (receivedSwapBody.getToID().equals(currentUserId)){
 
                 NameApprovedItem.setText(receivedSwapBody.getFromName());
                 ShiftTimeApprovedListItem.setText(receivedSwapBody.getFromShiftTime());

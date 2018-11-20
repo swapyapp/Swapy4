@@ -14,8 +14,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Common extends AppCompatActivity {
 
-    public static FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    public static String currentUserId = currentUser.getUid();
+//    public static FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//    public static String currentUserId = currentUser.getUid();
 
     public static boolean isNetworkAvailable(Context ctx) {
         NetworkInfo info = getActiveNetworkInfo(ctx);
