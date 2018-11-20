@@ -71,6 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
     ProgressBar progressBarImg;
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
+    private DatabaseReference deviceTokenRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -325,9 +326,6 @@ public class SignUpActivity extends AppCompatActivity {
         String lastName = editTextLastName.getText().toString().trim();
         final String phoneNumber = editTextPhone.getText().toString();
         String loginId = editTextLoginId.getText().toString().trim();
-        String deviceToken = FirebaseInstanceId.getInstance().getToken();
-
-        userRef.child("device_token").setValue(deviceToken);
 
         if (firstName.isEmpty()) {
             editTextFirstName.setError("First name is required");
@@ -413,6 +411,11 @@ public class SignUpActivity extends AppCompatActivity {
                                 signUpButton.setVisibility(View.VISIBLE);
                                 if (task.isSuccessful()) {
                                     saveUserInfoToFirebaseDatabase();
+                                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                    String currentUserID = mAuth.getCurrentUser().getUid();
+                                    deviceTokenRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+                                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                                    deviceTokenRef.child("device_token").setValue(deviceToken);
                                 } else {
 //                    if (task.getException() instanceof FirebaseAuthUserCollisionException){
 //                        Toast.makeText(getApplicationContext(), "you are already registered", Toast.LENGTH_LONG).show();
@@ -435,6 +438,12 @@ public class SignUpActivity extends AppCompatActivity {
                             signUpButton.setVisibility(View.VISIBLE);
                             if (task.isSuccessful()) {
                                 saveUserInfoToFirebaseDatabase();
+
+                                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                String currentUserID = mAuth.getCurrentUser().getUid();
+                                deviceTokenRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                                deviceTokenRef.child("device_token").setValue(deviceToken);
                             } else {
 //                    if (task.getException() instanceof FirebaseAuthUserCollisionException){
 //                        Toast.makeText(getApplicationContext(), "you are already registered", Toast.LENGTH_LONG).show();

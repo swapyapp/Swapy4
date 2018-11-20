@@ -276,23 +276,27 @@ public class SignInActivity extends AppCompatActivity {
 //                                    resend_verify_email.setVisibility(View.VISIBLE);
                                 signInButton.setVisibility(View.VISIBLE);
                                 FirebaseAuth.getInstance().signOut();
-//                                String currentUserID = mAuth.getCurrentUser().getUid();
-//                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
-//
-//                                userRef.child(currentUserID).child("device_token")
-//                                        .setValue(deviceToken)
-//                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                            @Override
-//                                            public void onComplete(@NonNull Task<Void> task) {
-//                                                if (task.isSuccessful()) {
-//
-//                                                }
-//                                            }
-//                                        });
-//                    }
+
 
                             }
+
+                            String currentUserID = mAuth.getCurrentUser().getUid();
+                            String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
+                            userRef.child(currentUserID).child("device_token")
+                                    .setValue(deviceToken)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+
+                                            }
+                                        }
+                                    });
                         }
+
+
+
                     });
                 } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
