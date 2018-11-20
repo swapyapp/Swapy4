@@ -25,10 +25,4 @@ public class DatePickerFragment extends DialogFragment {
         return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-    }
 }
