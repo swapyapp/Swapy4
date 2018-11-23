@@ -19,4 +19,14 @@ public class SwapShift extends SwapDetails {
     public String getSwapperShiftTime() {
         return swapperShiftTime;
     }
+
+    @Override
+    public void setSwapperShiftTime(String swapperShiftTime) {
+        this.swapperShiftTime = swapperShiftTime;
+    }
+
+    @Override
+    public void setSwapperShiftDay(String swapperShiftDay) {
+        this.swapperShiftDay = swapperShiftDay;
+    }
 }
