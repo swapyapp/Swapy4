@@ -88,6 +88,7 @@
     <string name="try_different_email">Try different email.</string>
     <string name="or">or</string>
     <string name="retry">Retry</string>
+    <string name="preferred_off">Prefered Off: </string>
 
 
     <string-array name="company">

@@ -74,6 +74,24 @@
         android:layout_height="match_parent"
         android:layoutDirection="ltr">
 
+        <android.support.design.widget.TabLayout
+            android:id="@+id/sliding_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            app:tabIndicatorColor="#00E676"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#000000"
+            app:tabTextColor="@android:color/black" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_home_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:background="@android:color/white" />
+
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_add_swap"
             android:layout_width="wrap_content"
@@ -146,6 +164,5 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
 
 </LinearLayout>

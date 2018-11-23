@@ -17,8 +17,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -61,9 +64,6 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private final static String CHANNEL_ID = "swapy_notification_channel_id";
-    private final static String CHANNEL_NAME = "Swapy Notification";
-    private final static String CHANNEL_DES = "Swapy Notifications receiving";
     private static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
     private Dialog filterDialog;
     private ImageView imgCloseFilterDialog;
@@ -110,6 +110,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         networkInfo = cm.getActiveNetworkInfo();
 
         fab_add_swap = rootView.findViewById(R.id.fab_add_swap);
+
+        ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.viewpager_home_fragment);
 
 
         progressBar = rootView.findViewById(R.id.progressBar_home);
@@ -163,21 +165,26 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
 //                    if (swapDetails.getSwapperAccount() != null && swapDetails.getSwapperCompanyBranch() != null) {
-                            if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
+                            if (swapDetails.getSwapperAccount().equals(currentUserAccount)
+                                    && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
                                 if (preferredAMorPM == null) {
 //                                if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
                                     swapAdapter.add(swapDetails);
                                     selectedPreferredTime.setText(R.string.any_time);
 //                                }
                                 } else if (preferredAMorPM.equals(" AM")) {
-                                    if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
+                                    if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem()
+                                            .toString() + preferredAMorPM)) {
                                         swapAdapter.add(swapDetails);
-                                        selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
+                                        selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem()
+                                                .toString() + preferredAMorPM);
                                     }
                                 } else if (preferredAMorPM.equals(" PM")) {
-                                    if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
+                                    if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem()
+                                            .toString() + preferredAMorPM)) {
                                         swapAdapter.add(swapDetails);
-                                        selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
+                                        selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString()
+                                                + preferredAMorPM);
                                     }
                                 }
                             }
@@ -427,4 +434,41 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 //        super.onStart();
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
 //    }
+        // ...
+
+        public static class MyPagerAdapter extends FragmentPagerAdapter {
+            private static int NUM_ITEMS = 2;
+
+            public MyPagerAdapter(FragmentManager fragmentManager) {
+                super(fragmentManager);
+            }
+
+            // Returns total number of pages
+            @Override
+            public int getCount() {
+                return NUM_ITEMS;
+            }
+
+            // Returns the fragment to display for that page
+            @Override
+            public Fragment getItem(int position) {
+                switch (position) {
+                    case 0: // Fragment # 0 - This will show FirstFragment
+                        return SwapOffFragment.newInstance(0, "Page # 1");
+                    case 1: // Fragment # 0 - This will show FirstFragment different title
+                        return SwapOffFragment.newInstance(1, "Page # 2");
+                    default:
+                        return null;
+                }
+            }
+
+            // Returns the page title for the top indicator
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return "Page " + position;
+            }
+
+        }
+
+
 }
