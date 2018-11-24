@@ -66,7 +66,7 @@ public class SwapCreationActivity extends AppCompatActivity implements DatePicke
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("swaps");
+        databaseReference = firebaseDatabase.getReference().child("swaps").child("shift_swaps");
 
         edit_text_shift_date = (EditText) findViewById(R.id.edit_text_shift_date);
         edit_text_shift_date.setOnClickListener(new View.OnClickListener() {

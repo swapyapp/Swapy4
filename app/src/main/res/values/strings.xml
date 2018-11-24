@@ -93,6 +93,8 @@
     <string name="off_swaps">Off Swaps</string>
     <string name="preferred_off">Prefered Off: </string>
     <string name="preferred_off_2">Prefered Off</string>
+    <string name="off_day">Off Day</string>
+    <string name="your_current_off">Your current off</string>
 
 
     <string-array name="company">
