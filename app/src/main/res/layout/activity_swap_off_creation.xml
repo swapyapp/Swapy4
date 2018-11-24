@@ -158,45 +158,6 @@
 
                 </Spinner>
 
-                <RelativeLayout
-                    android:id="@+id/creationBodyShiftTimeAM"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/selection_background"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/creationBodyShiftTimeAMText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/am"
-                        android:textColor="#ffffff"
-                        android:fontFamily="@font/raleway_semi_bold"
-                        android:textSize="@dimen/button_text_size" />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:id="@+id/creationBodyShiftTimePM"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:background="@drawable/selection_background_light"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/creationBodyShiftTimePMText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pm"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/button_text_size"
-                        android:fontFamily="@font/raleway_semi_bold" />
-
-                </RelativeLayout>
-
             </LinearLayout>
         </LinearLayout>
 
@@ -208,7 +169,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/raleway_medium"
-            android:text="@string/preferred_shift_2"
+            android:text="@string/preferred_off_2"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -223,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
                 android:fontFamily="@font/raleway_semi_bold"
-                android:text="@string/time"
+                android:text="@string/day"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 
@@ -242,45 +203,6 @@
                     android:background="@drawable/spinner_style">
 
                 </Spinner>
-
-                <RelativeLayout
-                    android:id="@+id/creationBodyPreferredTimeAM"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/selection_background"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/creationBodyPreferredTimeAMText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/am"
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/button_text_size"
-                        android:fontFamily="@font/raleway_semi_bold" />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:id="@+id/creationBodyPreferredTimePM"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:background="@drawable/selection_background_light"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/creationBodyPreferredTimePMText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pm"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/button_text_size"
-                        android:fontFamily="@font/raleway_semi_bold" />
-
-                </RelativeLayout>
 
             </LinearLayout>
         </LinearLayout>
