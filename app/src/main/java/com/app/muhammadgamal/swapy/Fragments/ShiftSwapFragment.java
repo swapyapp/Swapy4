@@ -83,6 +83,21 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private RelativeLayout imgFilter;
     private ImageView imgNoConnectionHome;
 
+    // Store instance variables
+    private String title;
+    private int page;
+
+    // newInstance constructor for creating fragment with arguments
+    public static OffSwapFragment newInstance(int page, String title) {
+        OffSwapFragment fragmentFirst = new OffSwapFragment();
+        Bundle args = new Bundle();
+        args.putInt("someInt", page);
+        args.putString("someTitle", title);
+        fragmentFirst.setArguments(args);
+        return fragmentFirst;
+    }
+
+
     @SuppressLint("RestrictedApi")
     @Nullable
     @Override

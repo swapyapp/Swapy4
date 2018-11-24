@@ -83,12 +83,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
                     android:fontFamily="@font/raleway_semi_bold"
-                    android:text="@string/day"
+                    android:text="@string/off_day"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
                 <Spinner
+<<<<<<< HEAD
                     android:id="@+id/current_off_day_spinner"
+=======
+                    android:id="@+id/off_day_spinner"
+>>>>>>> 4c094bcdecc5c7c797b7c07993f8b50fd9ac7cc3
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@drawable/spinner_style">
@@ -113,7 +117,11 @@
                     android:textSize="18sp" />
 
                 <EditText
+<<<<<<< HEAD
                     android:id="@+id/edit_text_current_off_date"
+=======
+                    android:id="@+id/edit_text_off_date"
+>>>>>>> 4c094bcdecc5c7c797b7c07993f8b50fd9ac7cc3
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:fontFamily="@font/roboto_condensed_regular"
@@ -126,13 +134,21 @@
 
         </LinearLayout>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c094bcdecc5c7c797b7c07993f8b50fd9ac7cc3
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+<<<<<<< HEAD
             android:layout_marginBottom="30dp"
             android:layout_marginTop="30dp"
+=======
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="8dp"
+>>>>>>> 4c094bcdecc5c7c797b7c07993f8b50fd9ac7cc3
             android:fontFamily="@font/raleway_medium"
             android:text="@string/preferred_off_2"
             android:textColor="#000000"
@@ -163,8 +179,14 @@
 
                 <Spinner
                     android:id="@+id/preferred_off_day_spinner"
+<<<<<<< HEAD
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
+=======
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+>>>>>>> 4c094bcdecc5c7c797b7c07993f8b50fd9ac7cc3
                     android:background="@drawable/spinner_style">
 
                 </Spinner>

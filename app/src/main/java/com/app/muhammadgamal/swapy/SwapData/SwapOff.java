@@ -7,6 +7,7 @@ public class SwapOff extends SwapDetails {
     private String swapOffDate;
 
     public SwapOff (String preferedOff, String offDay, String swapOffDate){
+
         this.preferedOff = preferedOff;
         this.offDay = offDay;
         this.swapOffDate = swapOffDate;
