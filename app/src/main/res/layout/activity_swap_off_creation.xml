@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
                     android:fontFamily="@font/raleway_semi_bold"
-                    android:text="@string/off_day"
+                    android:text="@string/day"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
@@ -131,8 +131,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/raleway_medium"
             android:text="@string/preferred_off_2"
             android:textColor="#000000"
@@ -165,11 +165,39 @@
                     android:id="@+id/preferred_off_day_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_weight="1"
                     android:background="@drawable/spinner_style">
 
                 </Spinner>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="@font/raleway_semi_bold"
+                    android:text="@string/date"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/edit_text_preferred_off_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:hint="@string/example_date"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:background="@drawable/edittext_style"
+                    android:textSize="@dimen/editText_text_size"/>
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 
