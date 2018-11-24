@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.app.muhammadgamal.swapy.Activities.ProfileActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
+import com.app.muhammadgamal.swapy.SwapData.SwapOff;
+import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -29,6 +31,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +46,21 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
 
     private FirebaseAuth mAuth;
     private String currentUserId, userName;
-    private DatabaseReference userDatabaseReference, notificationDB;;
+    private DatabaseReference userDatabaseReference, notificationDB;
+    private DatabaseReference swapRequestsDb;
+    private SwapRequest swapRequest;
+
+    private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount,
+            toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
+    private String fromID, fromLoginID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch,
+            fromEmail, fromImageUrl, fromPreferredShift;
+
+    private String swapperID, swapperLoginID, currentUserLoginID, swapperPreferredShift,
+            swapperTeamLeader, swapperShiftTime, swapShiftDate, swapperShiftDay, swapperImageUrl, swapperAccount,
+            swapperCompanyBranch, swapperPhone, swapperEmail, swapperName;
+
+    private  SwapDetails swapBody;
+
 
     public SwapAdapter(Context context, int resource, List<SwapDetails> sampleArrayList) {
         super(context, resource, sampleArrayList);
@@ -66,7 +83,7 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
 
         final Context context = convertView.getContext();
 
-        final SwapDetails swapBody = getItem(position);
+         swapBody = getItem(position);
         final Button homeSwapButton = convertView.findViewById(R.id.btnHomeSwapList);
         ImageView swapperImage = convertView.findViewById(R.id.swapper_image);
         TextView swapperName = convertView.findViewById(R.id.swapper_name);
@@ -140,6 +157,7 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(context, "Notification sent", Toast.LENGTH_LONG).show();
                                         progressBarHomeListItemBtn.setVisibility(View.GONE);
+                                        swapRequest();
                                     }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -148,6 +166,7 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
                                     Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
                                 }
                             });
+
 
                         }
 
@@ -192,4 +211,85 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
 
         return convertView;
     }
+
+    private void swapRequest() {
+        toID = swapBody.getSwapperID() ;
+        toLoginID = swapBody.getSwapperLoginID();
+        toImageUrl = swapBody.getSwapperImageUrl();
+        toName = swapBody.getSwapperName();
+        toPhone = swapBody.getSwapperPhone();
+        toEmail = swapBody.getSwapperEmail();
+        toCompanyBranch = swapBody.getSwapperCompanyBranch();
+        toAccount = swapBody.getSwapperAccount();
+        toShiftDate = swapBody.getSwapShiftDate();
+        toShiftDay = swapBody.getSwapperShiftDay();
+        toShiftTime = swapBody.getSwapperShiftTime();
+        toPreferredShift = swapBody.getSwapperPreferredShift();
+        fromID = currentUserId;
+
+        DatabaseReference swapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
+        swapDb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
+                if (dataSnapshot.exists()) {
+                    if (swapDetails.getSwapperID().equals(fromID)) {
+                        fromLoginID = swapDetails.getSwapperLoginID();
+                        fromImageUrl = swapDetails.getSwapperImageUrl();
+                        fromName = swapDetails.getSwapperName();
+                        fromPhone = swapDetails.getSwapperPhone();
+                        fromEmail = swapDetails.getSwapperEmail();
+                        fromCompanyBranch = swapDetails.getSwapperCompanyBranch();
+                        fromAccount = swapDetails.getSwapperAccount();
+                        fromShiftDate = swapDetails.getSwapShiftDate();
+                        fromShiftDay = swapDetails.getSwapperShiftDay();
+                        fromShiftTime = swapDetails.getSwapperShiftTime();
+                        fromPreferredShift = swapDetails.getSwapperPreferredShift();
+                        swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
+                        swapRequest = new SwapRequest(toID,
+                                toLoginID,
+                                toImageUrl,
+                                toName,
+                                toPhone,
+                                toEmail,
+                                toCompanyBranch,
+                                toAccount,
+                                toShiftDate,
+                                toShiftDay,
+                                toShiftTime,
+                                toPreferredShift,
+                                fromID,
+                                fromLoginID,
+                                fromImageUrl,
+                                fromName,
+                                fromPhone,
+                                fromEmail,
+                                fromCompanyBranch,
+                                fromAccount,
+                                fromShiftDate,
+                                fromShiftDay,
+                                fromShiftTime,
+                                fromPreferredShift,
+                                -1,
+                                -1);
+                        swapRequestsDb.push().setValue(swapRequest);
+
+                    }
+//                    else {
+//                        Toast.makeText(ProfileActivity.this, " You have to create a swap to be able to send a request", Toast.LENGTH_LONG).show();
+//                    }
+                }
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) { }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+    }
+
+
 }
