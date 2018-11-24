@@ -37,7 +37,7 @@ public class SwapOffFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_swap_off, container, false);
+        rootView = inflater.inflate(R.layout.swap_off_list_item, container, false);
 
 
         return rootView;

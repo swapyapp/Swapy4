@@ -23,15 +23,15 @@ import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
-public class SwapAdapter extends ArrayAdapter<SwapDetails> {
+public class SwapOffAdapter extends ArrayAdapter<SwapOff> {
 
-    public SwapAdapter(Context context, int resource, List<SwapDetails> sampleArrayList) {
+    public SwapOffAdapter(Context context, int resource, List<SwapOff> sampleArrayList) {
         super(context, resource, sampleArrayList);
     }
 
     @Nullable
     @Override
-    public SwapDetails getItem(int position) {
+    public SwapOff getItem(int position) {
         //latest swaps on top of the list
         return super.getItem(getCount() - position - 1);
     }
@@ -41,29 +41,27 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.home_list_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.swap_off_list_item, parent, false);
         }
 
         final Context context = convertView.getContext();
 
-        final SwapDetails swapBody = getItem(position);
+        final SwapOff swapBody = getItem(position);
         Button homeSwapButton = convertView.findViewById(R.id.btnHomeSwapList);
         ImageView swapperImage = convertView.findViewById(R.id.swapper_off_image);
-        TextView swapperName = convertView.findViewById(R.id.swapper_name);
-        TextView swapperShiftTime = convertView.findViewById(R.id.swapper_shift_time);
-        TextView swapperShiftDay = convertView.findViewById(R.id.swapper_shift_day);
-        TextView swapperPreferredShift = convertView.findViewById(R.id.swapper_preferred_shift);
-        TextView swapperShiftDate = convertView.findViewById(R.id.swapper_shift_date);
+        TextView swapperName = convertView.findViewById(R.id.swapper_name_off_swap);
+        TextView swapperOffDay = convertView.findViewById(R.id.swapper_shift_off);
+        TextView swapperPreferredOff = convertView.findViewById(R.id.swapper_preferred_shift_off);
+        TextView swapperOffDate = convertView.findViewById(R.id.swapper_shift_date);
         final ProgressBar progressBarListItem = convertView.findViewById(R.id.progressBarHomeListItem);
 
 
 //        String userId = "";
         if (swapBody != null) {
 
-            swapperShiftTime.setText(swapBody.getSwapperShiftTime());
-            swapperShiftDay.setText(swapBody.getSwapperShiftDay());
-            swapperPreferredShift.setText(swapBody.getSwapperPreferredShift());
-            swapperShiftDate.setText(swapBody.getSwapShiftDate());
+            swapperOffDay.setText(swapBody.getOffDay());
+            swapperPreferredOff.setText(swapBody.getPreferedOff());
+            swapperOffDate.setText(swapBody.getSwapOffDate());
             swapperName.setText(swapBody.getSwapperName());
             if (swapBody.getSwapperImageUrl()!= null){
                 progressBarListItem.setVisibility(View.VISIBLE);
@@ -133,3 +131,4 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
         return convertView;
     }
 }
+

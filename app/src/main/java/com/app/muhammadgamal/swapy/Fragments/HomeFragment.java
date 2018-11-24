@@ -12,7 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -36,7 +35,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Activities.ProfileActivity;
@@ -47,8 +45,6 @@ import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredShiftSpinnerListen
 import com.app.muhammadgamal.swapy.SwapData.SwapAdapter;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -281,7 +277,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     //image and card views transitions
                     String imageTransitionName = getString(R.string.image_transition_name);
                     String listItemTransitionName = getString(R.string.list_item_transition_name);
-                    View swapper_image = view.findViewById(R.id.swapper_image);
+                    View swapper_image = view.findViewById(R.id.swapper_off_image);
                     View cardView = view.findViewById(R.id.listItemCardView);
                     Pair<View, String> p1 = Pair.create(swapper_image, imageTransitionName);
                     Pair<View, String> p2 = Pair.create(cardView, listItemTransitionName);
