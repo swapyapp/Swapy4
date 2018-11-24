@@ -57,16 +57,14 @@ import java.util.List;
 
 public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private final static String CHANNEL_ID = "swapy_notification_channel_id";
-    private final static String CHANNEL_NAME = "Swapy Notification";
-    private final static String CHANNEL_DES = "Swapy Notifications receiving";
+
     private static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
     private Dialog filterDialog;
     private ImageView imgCloseFilterDialog;
     // List view that represent teh swap data
     private ListView swapList;
     private TextView empty_view, empty_view2, filterPreferredTimePMText, filterPreferredTimeAMText, selectedPreferredTime;
-    private SwipeRefreshLayout homeSwipeRefresh;
+    private SwipeRefreshLayout shiftSwipeRefresh;
     private FloatingActionButton fab_add_swap;
     private NetworkInfo networkInfo;
     private ConnectivityManager cm;
@@ -100,12 +98,12 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
         homeSwapButton = rootView.findViewById(R.id.btnHomeSwapList);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mSwapDataBaseReference = mFirebaseDatabase.getReference().child("swaps");
+        mSwapDataBaseReference = mFirebaseDatabase.getReference().child("swaps").child("shift_swaps");
 
         cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = cm.getActiveNetworkInfo();
 
-        fab_add_swap = rootView.findViewById(R.id.fab_add_swap);
+        fab_add_swap = rootView.findViewById(R.id.fab_add_swap_shift);
         fab_add_swap.bringToFront();
 
         progressBar = rootView.findViewById(R.id.progressBar_home);
@@ -119,9 +117,9 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         imgNoConnectionHome.setVisibility(View.GONE);
 
         //handle the SwipeRefreshLayout
-        homeSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.homeSwipeRefresh);
-        homeSwipeRefresh.setOnRefreshListener(this);
-        homeSwipeRefresh.setColorScheme(android.R.color.holo_blue_bright,
+        shiftSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.homeSwipeRefresh);
+        shiftSwipeRefresh.setOnRefreshListener(this);
+        shiftSwipeRefresh.setColorScheme(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
@@ -407,7 +405,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                homeSwipeRefresh.setRefreshing(false);
+                shiftSwipeRefresh.setRefreshing(false);
             }
         }, 4000);
     }
