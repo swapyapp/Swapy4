@@ -58,9 +58,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="30dp"
             android:fontFamily="@font/raleway_medium"
-            android:text="@string/your_current_shift"
+            android:text="@string/your_current_off"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -88,7 +88,7 @@
                     android:textSize="18sp" />
 
                 <Spinner
-                    android:id="@+id/shifts_day_spinner"
+                    android:id="@+id/current_off_day_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@drawable/spinner_style">
@@ -113,7 +113,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/edit_text_shift_date"
+                    android:id="@+id/edit_text_current_off_date"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:fontFamily="@font/roboto_condensed_regular"
@@ -127,47 +127,12 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                android:fontFamily="@font/raleway_semi_bold"
-                android:text="@string/time"
-                android:textColor="#000000"
-                android:textSize="18sp" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/shifts_time_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/spinner_style">
-
-                </Spinner>
-
-            </LinearLayout>
-        </LinearLayout>
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/raleway_medium"
             android:text="@string/preferred_off_2"
             android:textColor="#000000"
@@ -177,34 +142,62 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                android:fontFamily="@font/raleway_semi_bold"
-                android:text="@string/day"
-                android:textColor="#000000"
-                android:textSize="18sp" />
-
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="@font/raleway_semi_bold"
+                    android:text="@string/day"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
 
                 <Spinner
-                    android:id="@+id/preferred_time_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:id="@+id/preferred_off_day_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
                     android:background="@drawable/spinner_style">
 
                 </Spinner>
-
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="@font/raleway_semi_bold"
+                    android:text="@string/date"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/edit_text_preferred_off_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:hint="@string/example_date"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:background="@drawable/edittext_style"
+                    android:textSize="@dimen/editText_text_size"/>
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

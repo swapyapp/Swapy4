@@ -50,6 +50,7 @@
     <string name="back">back</string>
     <string name="save">save</string>
     <string name="your_current_shift">Your current shift</string>
+    <string name="your_current_off">Your current off</string>
     <string name="day">Day</string>
     <string name="date">Date</string>
     <string name="example_date">Pick a date</string>
@@ -91,8 +92,8 @@
 
     <string name="shift_swaps">Shift swaps</string>
     <string name="off_swaps">Off Swaps</string>
-    <string name="preferred_off">Prefered Off: </string>
-    <string name="preferred_off_2">Prefered Off</string>
+    <string name="preferred_off">Preferred Off: </string>
+    <string name="preferred_off_2">Preferred off</string>
 
 
     <string-array name="company">
