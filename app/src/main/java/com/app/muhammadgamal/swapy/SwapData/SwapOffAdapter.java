@@ -87,47 +87,8 @@ public class SwapOffAdapter extends ArrayAdapter<SwapOff> {
                 Drawable photoUrl = resources.getDrawable(R.drawable.male_circle_512);
                 swapperImage.setImageDrawable(photoUrl);
             }
-//            userId = swapBody.getSwapperID();
         }
-
-//        if (homeSwapButton != null) {
-//            homeSwapButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    int position = (Integer) view.getTag();
-//                    Intent intent = new Intent(getContext(), ProfileActivity.class);
-//                    intent.putExtra("swapper info", position);
-//                    context.startActivity(intent);
-//                }
-//            });
-
-//        }
-//        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-//        userDb.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                User user = dataSnapshot.getValue(User.class);
-//                if (user.getmProfilePhotoURL() != null) {
-//                    Glide.with(swapperImage.getContext())
-//                            .load(user.getmProfilePhotoURL())
-//                            .into(swapperImage);
-//                } else {
-//                    // set the swapper Image to default if no image provided
-//                    Resources resources = context.getResources();
-//                    Drawable photoUrl = resources.getDrawable(R.drawable.male_circle_512);
-//                    swapperImage.setImageDrawable(photoUrl);
-//                }
-//                swapperName.setText(user.getmUsername());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
-
+        
         return convertView;
     }
 }
