@@ -24,96 +24,9 @@
         app:menu="@menu/nav_bar_items"
         design:itemBackground="@color/white"
         android:background="@color/white">
-<<<<<<< HEAD
-        android:layout_height="match_parent"
-        android:layoutDirection="ltr">
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/sliding_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            app:tabIndicatorColor="#00E676"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="#000000"
-            android:layout_centerInParent="true"
-            app:tabTextColor="@android:color/black" />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager_home_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white" />
-
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_add_swap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="0dp"
-            android:clickable="true"
-            android:src="@drawable/ic_add_white_24dp"
-            app:backgroundTint="@color/colorPrimary" />
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/homeSwipeRefresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ListView
-                android:id="@+id/homeList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#EEEEEE"
-                android:divider="@null"
-                android:drawSelectorOnTop="true"
-                android:orientation="vertical" />
-        </android.support.v4.widget.SwipeRefreshLayout>
-
-        <ProgressBar
-            android:id="@+id/progressBar_home"
-            style="@style/Base.AlertDialog.AppCompat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-
-        <!-- only visible when the list has no items. -->
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
-
-            <ImageView
-                android:id="@+id/imgNoConnectionHome"
-                android:layout_width="200dp"
-                android:layout_height="164.5dp"
-                android:src="@drawable/ic_cloud_off"
-                android:layout_centerHorizontal="true"/>
-
-            <TextView
-                android:id="@+id/empty_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:layout_below="@id/imgNoConnectionHome"
-                android:fontFamily="@font/raleway_semi_bold"
-                android:textAppearance="?android:textAppearanceMedium" />
-=======
->>>>>>> f430401c2f9e432e75a91652785211f2d8373acc
 
 
     </android.support.design.widget.BottomNavigationView>
 
 
-<<<<<<< HEAD
 </RelativeLayout>
-</LinearLayout>
-=======
-</RelativeLayout>
->>>>>>> f430401c2f9e432e75a91652785211f2d8373acc
