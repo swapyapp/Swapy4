@@ -67,8 +67,13 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
         final Context context = convertView.getContext();
 
         final SwapDetails swapBody = getItem(position);
+<<<<<<< HEAD:app/src/main/java/com/app/muhammadgamal/swapy/Adapters/SwapAdapter.java
         final Button homeSwapButton = convertView.findViewById(R.id.btnHomeSwapList);
         ImageView swapperImage = convertView.findViewById(R.id.swapper_image);
+=======
+        Button homeSwapButton = convertView.findViewById(R.id.btnHomeSwapList);
+        ImageView swapperImage = convertView.findViewById(R.id.swapper_off_image);
+>>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9:app/src/main/java/com/app/muhammadgamal/swapy/SwapData/SwapAdapter.java
         TextView swapperName = convertView.findViewById(R.id.swapper_name);
         TextView swapperShiftTime = convertView.findViewById(R.id.swapper_shift_time);
         TextView swapperShiftDay = convertView.findViewById(R.id.swapper_shift_day);
