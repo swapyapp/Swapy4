@@ -111,8 +111,6 @@
                         android:textSize="28sp"
                         android:textStyle="bold"
                         tools:text="Saturday" />
-
-
                 </LinearLayout>
 
             </LinearLayout>
