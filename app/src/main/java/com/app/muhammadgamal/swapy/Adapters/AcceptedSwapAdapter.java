@@ -1,4 +1,4 @@
-package com.app.muhammadgamal.swapy.SwapData;
+package com.app.muhammadgamal.swapy.Adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
+import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;

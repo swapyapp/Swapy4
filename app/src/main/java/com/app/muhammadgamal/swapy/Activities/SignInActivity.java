@@ -134,7 +134,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //if user is already logged in then HomeFragment will open instead of SignInActivity
+        //if user is already logged in then ShiftSwapFragment will open instead of SignInActivity
 
         if (Common.isNetworkAvailable(SignInActivity.this) || Common.isWifiAvailable(SignInActivity.this)) {
             splashScreen.setVisibility(View.VISIBLE);

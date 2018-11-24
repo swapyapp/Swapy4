@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class AccountFragment extends Fragment {
     private View rootView;
     private DatabaseReference userDatabaseRef;
@@ -74,6 +76,8 @@ public class AccountFragment extends Fragment {
                 Log.e(LOG_TAG, "Error with retreaving data from Database");
             }
         });
+
+
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
 

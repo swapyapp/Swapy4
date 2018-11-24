@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_bar_shift"
+        android:icon="@drawable/shift_swaps"
+        android:title="@string/shift_swaps" />
+    <item
+        android:id="@+id/nav_bar_off"
+        android:icon="@drawable/off_swaps"
+        android:title="@string/off_swaps" />
+
+</menu>

@@ -88,6 +88,8 @@
     <string name="try_different_email">Try different email.</string>
     <string name="or">or</string>
     <string name="retry">Retry</string>
+    <string name="shift_swaps">Shift swaps</string>
+    <string name="off_swaps">Off Swaps</string>
 
 
     <string-array name="company">

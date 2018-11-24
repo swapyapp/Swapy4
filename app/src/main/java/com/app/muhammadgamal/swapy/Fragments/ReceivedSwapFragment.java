@@ -18,8 +18,7 @@ import android.widget.TextView;
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
-import com.app.muhammadgamal.swapy.SwapData.ReceivedSwapAdapter;
-import com.app.muhammadgamal.swapy.SwapData.SentSwapAdapter;
+import com.app.muhammadgamal.swapy.Adapters.ReceivedSwapAdapter;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
 import com.app.muhammadgamal.swapy.SwapData.User;
@@ -29,7 +28,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;

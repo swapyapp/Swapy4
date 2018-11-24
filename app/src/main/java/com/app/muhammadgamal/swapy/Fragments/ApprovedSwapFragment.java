@@ -18,10 +18,9 @@ import android.widget.TextView;
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
-import com.app.muhammadgamal.swapy.SwapData.AcceptedSwapAdapter;
-import com.app.muhammadgamal.swapy.SwapData.ApprovedSwapAdapter;
-import com.app.muhammadgamal.swapy.SwapData.ReceivedSwapAdapter;
-import com.app.muhammadgamal.swapy.SwapData.SentSwapAdapter;
+import com.app.muhammadgamal.swapy.Adapters.ApprovedSwapAdapter;
+import com.app.muhammadgamal.swapy.Adapters.ReceivedSwapAdapter;
+import com.app.muhammadgamal.swapy.Adapters.SentSwapAdapter;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
 import com.app.muhammadgamal.swapy.SwapData.User;
@@ -84,7 +83,6 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
 
         // If there is a network connection, fetch data
         if (Common.isNetworkAvailable(getContext()) || Common.isWifiAvailable(getContext())) {
-
             imgNoConnectionApproved.setVisibility(View.GONE);
             progressBar_approved.setVisibility(View.GONE);
             empty_view_approved.setVisibility(View.VISIBLE);
@@ -132,28 +130,18 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
                         empty_view_approved.setText(R.string.no_approved_swaps);
                         empty_view2_approved.setVisibility(View.VISIBLE);
                     }
-
-
                 }
-
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
                 }
-
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
-
                 }
-
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
             });
 
@@ -187,11 +175,12 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
             }
         }, 4000);
     }
+
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#007c91");
 
     }
 //    @Override

@@ -39,7 +39,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -199,6 +201,7 @@ public class ProfileActivity extends AppCompatActivity {
 //                });
 //            }
 //        });
+
 
         buttonSwapRequest.setOnClickListener(new View.OnClickListener() {
             @Override

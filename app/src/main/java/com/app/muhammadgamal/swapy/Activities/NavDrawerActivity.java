@@ -1,10 +1,11 @@
 package com.app.muhammadgamal.swapy.Activities;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -17,18 +18,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.Fragments.AcceptedSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.AccountFragment;
 import com.app.muhammadgamal.swapy.Fragments.ApprovedSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.HomeFragment;
+import com.app.muhammadgamal.swapy.Fragments.ShiftSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.ReceivedSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.SentSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.SettingsFragment;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +52,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     private TextView receivedSwapRequests, sentSwapRequests, acceptedSwapRequests, approvedSwapRequests, navUsername, navUserCompany, navUserCurrentShift;
     private FirebaseAuth mAuth;
     private CircleImageView userNavImage;
+    private ProgressBar progressBarNav;
     public static String currentUserBranch, currentUserAccount;
 
     @Override
@@ -66,6 +74,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
 
         View headerLayout =
                 navigationView.inflateHeaderView(R.layout.nav_header);
+        progressBarNav = (ProgressBar) headerLayout.findViewById(R.id.progressBarNav);
         userNavImage = (CircleImageView) headerLayout.findViewById(R.id.userNavImage);
         navUsername = (TextView) headerLayout.findViewById(R.id.navUsername);
         navUserCompany = (TextView) headerLayout.findViewById(R.id.navUserCompany);
@@ -115,7 +124,22 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 User user = dataSnapshot.getValue(User.class);
                 if (dataSnapshot.exists()) {
                     if (user.getmProfilePhotoURL() != null) {
-                        Glide.with(NavDrawerActivity.this).load(user.getmProfilePhotoURL()).into(userNavImage);
+                        progressBarNav.setVisibility(View.VISIBLE);
+                        Glide.with(NavDrawerActivity.this)
+                                .load(user.getmProfilePhotoURL())
+                                .listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        progressBarNav.setVisibility(View.GONE);
+                                        return false;
+                                    }
+                                })
+                                .into(userNavImage);
                     }
                     navUsername.setText(user.getmUsername());
                     currentUserBranch = user.getmBranch();
@@ -145,6 +169,8 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
 
             }
         });
+
+
 
     }
 
