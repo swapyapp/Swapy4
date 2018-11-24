@@ -24,6 +24,7 @@
         app:menu="@menu/nav_bar_items"
         design:itemBackground="@color/white"
         android:background="@color/white">
+<<<<<<< HEAD
         android:layout_height="match_parent"
         android:layoutDirection="ltr">
 
@@ -103,10 +104,16 @@
                 android:layout_below="@id/imgNoConnectionHome"
                 android:fontFamily="@font/raleway_semi_bold"
                 android:textAppearance="?android:textAppearanceMedium" />
+=======
+>>>>>>> f430401c2f9e432e75a91652785211f2d8373acc
 
 
     </android.support.design.widget.BottomNavigationView>
 
 
+<<<<<<< HEAD
 </RelativeLayout>
 </LinearLayout>
+=======
+</RelativeLayout>
+>>>>>>> f430401c2f9e432e75a91652785211f2d8373acc

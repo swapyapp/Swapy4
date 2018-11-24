@@ -5,15 +5,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+<<<<<<< HEAD
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+=======
+>>>>>>> f430401c2f9e432e75a91652785211f2d8373acc
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,6 +39,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+=======
+
+import com.app.muhammadgamal.swapy.R;
+>>>>>>> f430401c2f9e432e75a91652785211f2d8373acc
 
 public class HomeFragment extends Fragment {
 
@@ -42,6 +50,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+<<<<<<< HEAD
 public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
@@ -190,6 +199,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                         @Override
                         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+=======
+>>>>>>> f430401c2f9e432e75a91652785211f2d8373acc
 
         BottomNavigationView homeBottomNavigationView = rootView.findViewById(R.id.homeBottomNavigationView);
 
@@ -199,6 +210,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     replace(R.id.home_fragment_container,
                             new ShiftSwapFragment())
                     .commit();
+<<<<<<< HEAD
                         @Override
                         public void onChildRemoved(DataSnapshot dataSnapshot) {
 
@@ -290,6 +302,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             empty_view.setText(R.string.no_internet_connection);
             empty_view2.setVisibility(View.VISIBLE);
             fab_add_swap.setVisibility(View.GONE);
+=======
+>>>>>>> f430401c2f9e432e75a91652785211f2d8373acc
         }
 
         homeBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -321,6 +335,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         return rootView;
     }
+<<<<<<< HEAD
 //    @Override
 //    public void onStart() {
 //        super.onStart();
@@ -364,3 +379,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
 
 }
+=======
+}
+>>>>>>> f430401c2f9e432e75a91652785211f2d8373acc
