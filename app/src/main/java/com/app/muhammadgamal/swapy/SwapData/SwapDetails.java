@@ -24,6 +24,23 @@ public class SwapDetails implements Parcelable  {
     public SwapDetails() {
     }
 
+    public SwapDetails(String swapperID,
+                       String swapperName,
+                       String swapperEmail,
+                       String swapperPhone,
+                       String swapperCompanyBranch,
+                       String swapperAccount,
+                       String swapperImageUrl) {
+
+        this.swapperID = swapperID;
+        this.swapperName = swapperName;
+        this.swapperImageUrl = swapperImageUrl;
+        this.swapperEmail = swapperEmail;
+        this.swapperPhone = swapperPhone;
+        this.swapperCompanyBranch = swapperCompanyBranch;
+        this.swapperAccount = swapperAccount;
+    }
+
 //    public SwapDetails(String swapperImageUrl, String swapperTl, String swapperShiftTime, String swapperShiftDay,
 //                       String swapperPreferredShift, String swapperPhone, String swapShiftDate) {
 //        this.swapperImageUrl = swapperImageUrl;
@@ -91,6 +108,7 @@ public class SwapDetails implements Parcelable  {
             return new SwapDetails[size];
         }
     };
+
 
     public String getSwapperID() {
         return swapperID;
