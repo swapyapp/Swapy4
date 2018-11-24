@@ -14,7 +14,6 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/homeBottomNavigationView"
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
@@ -25,7 +24,6 @@
         app:menu="@menu/nav_bar_items"
         design:itemBackground="@color/white"
         android:background="@color/white">
-=======
         android:layout_height="match_parent"
         android:layoutDirection="ltr">
 
@@ -105,14 +103,10 @@
                 android:layout_below="@id/imgNoConnectionHome"
                 android:fontFamily="@font/raleway_semi_bold"
                 android:textAppearance="?android:textAppearanceMedium" />
->>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9
 
 
     </android.support.design.widget.BottomNavigationView>
 
-<<<<<<< HEAD
 
 </RelativeLayout>
-=======
 </LinearLayout>
->>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9

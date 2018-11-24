@@ -10,12 +10,36 @@ import android.view.ViewGroup;
 
 import com.app.muhammadgamal.swapy.R;
 
-public class OffSwapFragment extends Fragment{
+public class OffSwapFragment extends Fragment {
+    private View rootView;
 
+    // Store instance variables
+    private String title;
+    private int page;
+
+    // newInstance constructor for creating fragment with arguments
+    public static OffSwapFragment newInstance(int page, String title) {
+        OffSwapFragment fragmentFirst = new OffSwapFragment();
+        Bundle args = new Bundle();
+        args.putInt("someInt", page);
+        args.putString("someTitle", title);
+        fragmentFirst.setArguments(args);
+        return fragmentFirst;
+    }
+
+    // Store instance variables based on arguments passed
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        page = getArguments().getInt("someInt", 0);
+        title = getArguments().getString("someTitle");
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_off_swap, container, false);
+        rootView = inflater.inflate(R.layout.swap_off_list_item, container, false);
+
+
         return rootView;
     }
 }

@@ -88,12 +88,9 @@
     <string name="try_different_email">Try different email.</string>
     <string name="or">or</string>
     <string name="retry">Retry</string>
-<<<<<<< HEAD
     <string name="shift_swaps">Shift swaps</string>
     <string name="off_swaps">Off Swaps</string>
-=======
     <string name="preferred_off">Prefered Off: </string>
->>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9
 
 
     <string-array name="company">

@@ -1,32 +1,20 @@
 package com.app.muhammadgamal.swapy.Fragments;
 
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.support.annotation.NonNull;
-=======
-import android.os.Handler;
->>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-<<<<<<< HEAD
-=======
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
->>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-=======
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -34,13 +22,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
->>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9
 
 import com.app.muhammadgamal.swapy.R;
-<<<<<<< HEAD
-=======
-import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredShiftSpinnerListener;
-import com.app.muhammadgamal.swapy.SwapData.SwapAdapter;
+import com.app.muhammadgamal.swapy.Adapters.SwapAdapter;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,16 +35,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
->>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9
 
 public class HomeFragment extends Fragment {
 
-<<<<<<< HEAD
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-=======
 public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
@@ -209,18 +190,15 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                         @Override
                         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
->>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9
 
         BottomNavigationView homeBottomNavigationView = rootView.findViewById(R.id.homeBottomNavigationView);
 
-<<<<<<< HEAD
         if (savedInstanceState == null) {
             getActivity().getSupportFragmentManager().
                     beginTransaction().
                     replace(R.id.home_fragment_container,
                             new ShiftSwapFragment())
                     .commit();
-=======
                         @Override
                         public void onChildRemoved(DataSnapshot dataSnapshot) {
 
@@ -312,7 +290,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             empty_view.setText(R.string.no_internet_connection);
             empty_view2.setVisibility(View.VISIBLE);
             fab_add_swap.setVisibility(View.GONE);
->>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9
         }
 
         homeBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -344,8 +321,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         return rootView;
     }
-<<<<<<< HEAD
-=======
 //    @Override
 //    public void onStart() {
 //        super.onStart();
@@ -371,9 +346,9 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public Fragment getItem(int position) {
                 switch (position) {
                     case 0: // Fragment # 0 - This will show FirstFragment
-                        return SwapOffFragment.newInstance(0, "Swap Shift");
+                        return OffSwapFragment.newInstance(0, "Swap Shift");
                     case 1: // Fragment # 0 - This will show FirstFragment different title
-                        return SwapOffFragment.newInstance(1, "Swap Off");
+                        return OffSwapFragment.newInstance(1, "Swap Off");
                     default:
                         return null;
                 }
@@ -388,5 +363,4 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }
 
 
->>>>>>> 6edf82b992c52c8f0d62b2d7ed099893751504e9
 }
