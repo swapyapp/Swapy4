@@ -450,9 +450,9 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             public Fragment getItem(int position) {
                 switch (position) {
                     case 0: // Fragment # 0 - This will show FirstFragment
-                        return SwapOffFragment.newInstance(0, "Page # 1");
+                        return SwapOffFragment.newInstance(0, "Swap Shift");
                     case 1: // Fragment # 0 - This will show FirstFragment different title
-                        return SwapOffFragment.newInstance(1, "Page # 2");
+                        return SwapOffFragment.newInstance(1, "Swap Off");
                     default:
                         return null;
                 }

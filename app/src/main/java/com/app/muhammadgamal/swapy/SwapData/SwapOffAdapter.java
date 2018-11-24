@@ -88,7 +88,7 @@ public class SwapOffAdapter extends ArrayAdapter<SwapOff> {
                 swapperImage.setImageDrawable(photoUrl);
             }
         }
-        
+
         return convertView;
     }
 }
