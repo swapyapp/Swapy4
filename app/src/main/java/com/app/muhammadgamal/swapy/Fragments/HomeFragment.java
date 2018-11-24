@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.app.muhammadgamal.swapy.R;
 
 public class HomeFragment extends Fragment {
