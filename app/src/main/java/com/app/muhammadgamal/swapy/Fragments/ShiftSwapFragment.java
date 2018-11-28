@@ -113,7 +113,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
         homeSwapButton = rootView.findViewById(R.id.btnHomeSwapList);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mSwapDataBaseReference = mFirebaseDatabase.getReference().child("swaps").child("shift_swaps");
+        mSwapDataBaseReference = mFirebaseDatabase.getReference().child("swaps");
 
         cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = cm.getActiveNetworkInfo();

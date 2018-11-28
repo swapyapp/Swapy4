@@ -131,58 +131,58 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
 //            userId = swapBody.getSwapperID();
         }
 
-        if (homeSwapButton != null) {
-            homeSwapButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mAuth = FirebaseAuth.getInstance();
-                    currentUserId = mAuth.getCurrentUser().getUid();
-                    userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
-                    userDatabaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            progressBarHomeListItemBtn.setVisibility(View.VISIBLE);
-                            homeSwapButton.setVisibility(View.GONE);
-                            User user = dataSnapshot.getValue(User.class);
-                            userName = user.getmUsername();
-                            String requestMessage = userName + "" + " wants to swap his shift with your shift";
-                            Map<String, Object> notificationMessage = new HashMap<>();
-                            notificationMessage.put("message", requestMessage);
-                            notificationMessage.put("from", currentUserId);
-
-                            notificationDB.child(swapBody.getSwapperID()).push()
-                                    .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(context, "Notification sent", Toast.LENGTH_LONG).show();
-                                        progressBarHomeListItemBtn.setVisibility(View.GONE);
-                                        swapRequest();
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
-                                }
-                            });
-
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-//                    int position = (Integer) view.getTag();
-//                    Intent intent = new Intent(getContext(), ProfileActivity.class);
-//                    intent.putExtra("swapper info", position);
-//                    context.startActivity(intent);
-                }
-            });
-
-        }
+//        if (homeSwapButton != null) {
+//            homeSwapButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    mAuth = FirebaseAuth.getInstance();
+//                    currentUserId = mAuth.getCurrentUser().getUid();
+//                    userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+//                    userDatabaseReference.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            progressBarHomeListItemBtn.setVisibility(View.VISIBLE);
+//                            homeSwapButton.setVisibility(View.GONE);
+//                            User user = dataSnapshot.getValue(User.class);
+//                            userName = user.getmUsername();
+//                            String requestMessage = userName + "" + " wants to swap his shift with your shift";
+//                            Map<String, Object> notificationMessage = new HashMap<>();
+//                            notificationMessage.put("message", requestMessage);
+//                            notificationMessage.put("from", currentUserId);
+//
+//                            notificationDB.child(swapBody.getSwapperID()).push()
+//                                    .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<Void> task) {
+//                                    if (task.isSuccessful()) {
+//                                        Toast.makeText(context, "Notification sent", Toast.LENGTH_LONG).show();
+//                                        progressBarHomeListItemBtn.setVisibility(View.GONE);
+//                                        swapRequest();
+//                                    }
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+//                                }
+//                            });
+//
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+////                    int position = (Integer) view.getTag();
+////                    Intent intent = new Intent(getContext(), ProfileActivity.class);
+////                    intent.putExtra("swapper info", position);
+////                    context.startActivity(intent);
+//                }
+//            });
+//
+//        }
 //        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 //        userDb.addValueEventListener(new ValueEventListener() {
 //            @Override
