@@ -31,8 +31,8 @@ public class HomeFragment extends Fragment {
         adapterViewPager = new MyPagerAdapter(getChildFragmentManager());
         vpPager.setAdapter(adapterViewPager);
 
-        TabLayout tabLayout = rootView.findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(vpPager);
+//        TabLayout tabLayout = rootView.findViewById(R.id.sliding_tabs);
+//        tabLayout.setupWithViewPager(vpPager);
 
         if (savedInstanceState == null) {
             getActivity().getSupportFragmentManager().
@@ -100,12 +100,11 @@ public class HomeFragment extends Fragment {
             }
         }
 
+        // Returns the page title for the top indicator
         @Override
         public CharSequence getPageTitle(int position) {
-            // Generate title based on item position
             return tabTitles[position];
         }
-
 
     }
 }
