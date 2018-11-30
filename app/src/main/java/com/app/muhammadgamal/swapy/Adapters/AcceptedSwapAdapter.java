@@ -54,9 +54,15 @@ public class AcceptedSwapAdapter extends ArrayAdapter<SwapRequest> {
         TextView NameAcceptedItem = convertView.findViewById(R.id.NameAcceptedItem);
         TextView ShiftTimeAcceptedListItem = convertView.findViewById(R.id.ShiftTimeAcceptedListItem);
         TextView shiftDayAcceptedListItem = convertView.findViewById(R.id.shiftDayAcceptedListItem);
-        TextView preferredShiftAcceptedListItem = convertView.findViewById(R.id.preferredShiftAcceptedListItem);
         TextView shiftDateAcceptedListItem = convertView.findViewById(R.id.shiftDateAcceptedListItem);
-        final ProgressBar progressBarAcceptedListItem = convertView.findViewById(R.id.progressBarAcceptedListItem);
+        final ProgressBar progressBarAcceptedListItemImg1 = convertView.findViewById(R.id.progressBarAcceptedListItemImg1);
+
+        ImageView userImageAcceptedListItem =convertView.findViewById(R.id.userImageAcceptedListItem);
+        TextView UserNameAcceptedItem = convertView.findViewById(R.id.UserNameAcceptedItem);
+        TextView userShiftTimeAcceptedListItem = convertView.findViewById(R.id.userShiftTimeAcceptedListItem);
+        TextView userShiftDayAcceptedListItem = convertView.findViewById(R.id.userShiftDayAcceptedListItem);
+        TextView userShiftDateAcceptedListItem = convertView.findViewById(R.id.userShiftDateAcceptedListItem);
+        final ProgressBar progressBarAcceptedListItemImg2 = convertView.findViewById(R.id.progressBarAcceptedListItemImg2);
 
         if (receivedSwapBody != null){
             //if current user is the sender then show receiver data
@@ -67,10 +73,9 @@ public class AcceptedSwapAdapter extends ArrayAdapter<SwapRequest> {
                 NameAcceptedItem.setText(receivedSwapBody.getToName());
                 ShiftTimeAcceptedListItem.setText(receivedSwapBody.getToShiftTime());
                 shiftDayAcceptedListItem.setText(receivedSwapBody.getToShiftDay());
-                preferredShiftAcceptedListItem.setText(receivedSwapBody.getToPreferredShift());
                 shiftDateAcceptedListItem.setText(receivedSwapBody.getToShiftDate());
                 if (receivedSwapBody.getToImageUrl() != null){
-                    progressBarAcceptedListItem.setVisibility(View.VISIBLE);
+                    progressBarAcceptedListItemImg1.setVisibility(View.VISIBLE);
                     Glide.with(ImageAcceptedListItem.getContext())
                             .load(receivedSwapBody.getToImageUrl())
                             .listener(new RequestListener<Drawable>() {
@@ -81,16 +86,44 @@ public class AcceptedSwapAdapter extends ArrayAdapter<SwapRequest> {
 
                                 @Override
                                 public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                    progressBarAcceptedListItem.setVisibility(View.GONE);
+                                    progressBarAcceptedListItemImg1.setVisibility(View.GONE);
                                     return false;
                                 }
                             }).into(ImageAcceptedListItem);
                 } else {
-                    progressBarAcceptedListItem.setVisibility(View.GONE);
+                    progressBarAcceptedListItemImg1.setVisibility(View.GONE);
                     // set the swapper Image to default if no image provided
                     Resources resources = context.getResources();
                     Drawable photoUrl = resources.getDrawable(R.drawable.male_circle_512);
                     ImageAcceptedListItem.setImageDrawable(photoUrl);
+                }
+
+                UserNameAcceptedItem.setText(receivedSwapBody.getFromName());
+                userShiftTimeAcceptedListItem.setText(receivedSwapBody.getFromShiftTime());
+                userShiftDayAcceptedListItem.setText(receivedSwapBody.getFromShiftDay());
+                userShiftDateAcceptedListItem.setText(receivedSwapBody.getFromShiftDate());
+                if (receivedSwapBody.getFromImageUrl() != null){
+                    progressBarAcceptedListItemImg2.setVisibility(View.VISIBLE);
+                    Glide.with(userImageAcceptedListItem.getContext())
+                            .load(receivedSwapBody.getFromImageUrl())
+                            .listener(new RequestListener<Drawable>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                    progressBarAcceptedListItemImg2.setVisibility(View.GONE);
+                                    return false;
+                                }
+                            }).into(userImageAcceptedListItem);
+                } else {
+                    progressBarAcceptedListItemImg2.setVisibility(View.GONE);
+                    // set the swapper Image to default if no image provided
+                    Resources resources = context.getResources();
+                    Drawable photoUrl = resources.getDrawable(R.drawable.male_circle_512);
+                    userImageAcceptedListItem.setImageDrawable(photoUrl);
                 }
 
             }
@@ -101,10 +134,9 @@ public class AcceptedSwapAdapter extends ArrayAdapter<SwapRequest> {
                 NameAcceptedItem.setText(receivedSwapBody.getFromName());
                 ShiftTimeAcceptedListItem.setText(receivedSwapBody.getFromShiftTime());
                 shiftDayAcceptedListItem.setText(receivedSwapBody.getFromShiftDay());
-                preferredShiftAcceptedListItem.setText(receivedSwapBody.getFromPreferredShift());
                 shiftDateAcceptedListItem.setText(receivedSwapBody.getFromShiftDate());
                 if (receivedSwapBody.getFromImageUrl() != null){
-                    progressBarAcceptedListItem.setVisibility(View.VISIBLE);
+                    progressBarAcceptedListItemImg1.setVisibility(View.VISIBLE);
                     Glide.with(ImageAcceptedListItem.getContext())
                             .load(receivedSwapBody.getFromImageUrl())
                             .listener(new RequestListener<Drawable>() {
@@ -115,16 +147,44 @@ public class AcceptedSwapAdapter extends ArrayAdapter<SwapRequest> {
 
                                 @Override
                                 public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                    progressBarAcceptedListItem.setVisibility(View.GONE);
+                                    progressBarAcceptedListItemImg1.setVisibility(View.GONE);
                                     return false;
                                 }
                             }).into(ImageAcceptedListItem);
                 } else {
-                    progressBarAcceptedListItem.setVisibility(View.GONE);
+                    progressBarAcceptedListItemImg1.setVisibility(View.GONE);
                     // set the swapper Image to default if no image provided
                     Resources resources = context.getResources();
                     Drawable photoUrl = resources.getDrawable(R.drawable.male_circle_512);
                     ImageAcceptedListItem.setImageDrawable(photoUrl);
+                }
+
+                UserNameAcceptedItem.setText(receivedSwapBody.getToName());
+                userShiftTimeAcceptedListItem.setText(receivedSwapBody.getToShiftTime());
+                userShiftDayAcceptedListItem.setText(receivedSwapBody.getToShiftDay());
+                userShiftDateAcceptedListItem.setText(receivedSwapBody.getToShiftDate());
+                if (receivedSwapBody.getToImageUrl() != null){
+                    progressBarAcceptedListItemImg2.setVisibility(View.VISIBLE);
+                    Glide.with(userImageAcceptedListItem.getContext())
+                            .load(receivedSwapBody.getToImageUrl())
+                            .listener(new RequestListener<Drawable>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                    progressBarAcceptedListItemImg2.setVisibility(View.GONE);
+                                    return false;
+                                }
+                            }).into(userImageAcceptedListItem);
+                } else {
+                    progressBarAcceptedListItemImg2.setVisibility(View.GONE);
+                    // set the swapper Image to default if no image provided
+                    Resources resources = context.getResources();
+                    Drawable photoUrl = resources.getDrawable(R.drawable.male_circle_512);
+                    userImageAcceptedListItem.setImageDrawable(photoUrl);
                 }
 
             }

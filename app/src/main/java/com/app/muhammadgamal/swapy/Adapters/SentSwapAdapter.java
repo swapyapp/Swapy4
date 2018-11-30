@@ -47,23 +47,29 @@ public class SentSwapAdapter extends ArrayAdapter<SwapRequest> {
         final Context context = convertView.getContext();
         SwapRequest sentSwapBody = getItem(position);
 
-        ImageView ImageSentListItem =convertView.findViewById(R.id.ImageSentListItem);
+        ImageView ImageSentListItem = convertView.findViewById(R.id.ImageSentListItem);
         TextView NameSentItem = convertView.findViewById(R.id.NameSentItem);
         TextView ShiftTimeSentListItem = convertView.findViewById(R.id.ShiftTimeSentListItem);
         TextView shiftDaySentListItem = convertView.findViewById(R.id.shiftDaySentListItem);
         TextView shiftDateSentListItem = convertView.findViewById(R.id.shiftDateSentListItem);
-        TextView preferredShiftSentListItem = convertView.findViewById(R.id.preferredShiftSentListItem);
-        final ProgressBar progressBarSentListItem = convertView.findViewById(R.id.progressBarSentListItem);
+        final ProgressBar progressBarSentListItemImg1 = convertView.findViewById(R.id.progressBarSentListItemImg1);
 
-        if (sentSwapBody != null){
+        ImageView userImageSentListItem = convertView.findViewById(R.id.userImageSentListItem);
+        TextView UserNameSentItem = convertView.findViewById(R.id.UserNameSentItem);
+        TextView userShiftTimeSentListItem = convertView.findViewById(R.id.userShiftTimeSentListItem);
+        TextView userShiftDaySentListItem = convertView.findViewById(R.id.userShiftDaySentListItem);
+        TextView userShiftDateSentListItem = convertView.findViewById(R.id.userShiftDateSentListItem);
+        final ProgressBar progressBarSentListItemImg2 = convertView.findViewById(R.id.progressBarSentListItemImg2);
+
+
+        if (sentSwapBody != null) {
 
             NameSentItem.setText(sentSwapBody.getToName());
             ShiftTimeSentListItem.setText(sentSwapBody.getToShiftTime());
             shiftDaySentListItem.setText(sentSwapBody.getToShiftDay());
-            preferredShiftSentListItem.setText(sentSwapBody.getToPreferredShift());
             shiftDateSentListItem.setText(sentSwapBody.getToShiftDate());
-            if (sentSwapBody.getToImageUrl() != null){
-                progressBarSentListItem.setVisibility(View.VISIBLE);
+            if (sentSwapBody.getToImageUrl() != null) {
+                progressBarSentListItemImg1.setVisibility(View.VISIBLE);
                 Glide.with(ImageSentListItem.getContext())
                         .load(sentSwapBody.getToImageUrl())
                         .listener(new RequestListener<Drawable>() {
@@ -74,16 +80,44 @@ public class SentSwapAdapter extends ArrayAdapter<SwapRequest> {
 
                             @Override
                             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                progressBarSentListItem.setVisibility(View.GONE);
+                                progressBarSentListItemImg1.setVisibility(View.GONE);
                                 return false;
                             }
                         }).into(ImageSentListItem);
             } else {
-                progressBarSentListItem.setVisibility(View.GONE);
+                progressBarSentListItemImg1.setVisibility(View.GONE);
                 // set the swapper Image to default if no image provided
                 Resources resources = context.getResources();
                 Drawable photoUrl = resources.getDrawable(R.drawable.male_circle_512);
                 ImageSentListItem.setImageDrawable(photoUrl);
+            }
+
+            UserNameSentItem.setText(sentSwapBody.getFromName());
+            userShiftTimeSentListItem.setText(sentSwapBody.getFromShiftTime());
+            userShiftDaySentListItem.setText(sentSwapBody.getFromShiftDay());
+            userShiftDateSentListItem.setText(sentSwapBody.getFromShiftDate());
+            if (sentSwapBody.getFromImageUrl() != null) {
+                progressBarSentListItemImg2.setVisibility(View.VISIBLE);
+                Glide.with(userImageSentListItem.getContext())
+                        .load(sentSwapBody.getFromImageUrl())
+                        .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                progressBarSentListItemImg2.setVisibility(View.GONE);
+                                return false;
+                            }
+                        }).into(userImageSentListItem);
+            } else {
+                progressBarSentListItemImg2.setVisibility(View.GONE);
+                // set the swapper Image to default if no image provided
+                Resources resources = context.getResources();
+                Drawable photoUrl = resources.getDrawable(R.drawable.male_circle_512);
+                userImageSentListItem.setImageDrawable(photoUrl);
             }
 
         }
