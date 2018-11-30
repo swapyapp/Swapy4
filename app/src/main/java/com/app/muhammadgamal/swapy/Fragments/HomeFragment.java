@@ -69,6 +69,8 @@ public class HomeFragment extends Fragment {
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
+        private String tabTitles[] = new String[]{"Swaps", "Off"};
+
         private static int NUM_ITEMS = 2;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
@@ -86,19 +88,20 @@ public class HomeFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment
-                    return ShiftSwapFragment.newInstance(0, "Shift");
+                    return new ShiftSwapFragment();
                 case 1: // Fragment # 0 - This will show FirstFragment different title
-                    return OffSwapFragment.newInstance(1, "Off");
+                    return new OffSwapFragment();
                 default:
                     return null;
             }
         }
 
-        // Returns the page title for the top indicator
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Page " + position;
+            // Generate title based on item position
+            return tabTitles[position];
         }
+
 
     }
 }

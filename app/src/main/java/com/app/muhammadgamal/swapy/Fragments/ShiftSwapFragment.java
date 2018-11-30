@@ -87,23 +87,23 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private String title;
     private int page;
 
-    // newInstance constructor for creating fragment with arguments
-    public static ShiftSwapFragment newInstance(int page, String title) {
-        ShiftSwapFragment shiftSwapFragment = new ShiftSwapFragment();
-        Bundle args = new Bundle();
-        args.putInt("someInt", page);
-        args.putString("someTitle", title);
-        shiftSwapFragment.setArguments(args);
-        return shiftSwapFragment;
-    }
-
-    // Store instance variables based on arguments passed
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        page = getArguments().getInt("someInt", 0);
-        title = getArguments().getString("someTitle");
-    }
+//    // newInstance constructor for creating fragment with arguments
+//    public static ShiftSwapFragment newInstance(int page, String title) {
+//        ShiftSwapFragment shiftSwapFragment = new ShiftSwapFragment();
+//        Bundle args = new Bundle();
+//        args.putInt("someInt", page);
+//        args.putString("someTitle", title);
+//        shiftSwapFragment.setArguments(args);
+//        return shiftSwapFragment;
+//    }
+//
+//    // Store instance variables based on arguments passed
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        page = getArguments().getInt("someInt", 0);
+//        title = getArguments().getString("someTitle");
+//    }
 
 
     @SuppressLint("RestrictedApi")
