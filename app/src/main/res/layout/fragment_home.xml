@@ -10,23 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/homeBottomNavigationView"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpPager"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        app:elevation="16dp"
-        app:itemIconSize="90dp"
-        app:itemIconTint="@color/nav_bar_item_color"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/nav_bar_items"
-        design:itemBackground="@color/white"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/pager_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp" />
 
-    </android.support.design.widget.BottomNavigationView>
-
+    </android.support.v4.view.ViewPager>
 
 </RelativeLayout>

@@ -57,22 +57,27 @@ import java.util.List;
 
 public class OffSwapFragment extends Fragment {
     private View rootView;
-
     // Store instance variables
     private String title;
     private int page;
 
     // newInstance constructor for creating fragment with arguments
     public static OffSwapFragment newInstance(int page, String title) {
-        OffSwapFragment fragmentFirst = new OffSwapFragment();
+        OffSwapFragment offSwapFragment = new OffSwapFragment();
         Bundle args = new Bundle();
         args.putInt("someInt", page);
         args.putString("someTitle", title);
-        fragmentFirst.setArguments(args);
-        return fragmentFirst;
+        offSwapFragment.setArguments(args);
+        return offSwapFragment;
     }
 
-
+    // Store instance variables based on arguments passed
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        page = getArguments().getInt("someInt", 0);
+        title = getArguments().getString("someTitle");
+    }
 
     @Nullable
     private static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
@@ -285,13 +290,6 @@ public class OffSwapFragment extends Fragment {
             empty_view2.setVisibility(View.VISIBLE);
             fab_add_swap.setVisibility(View.GONE);
         }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
