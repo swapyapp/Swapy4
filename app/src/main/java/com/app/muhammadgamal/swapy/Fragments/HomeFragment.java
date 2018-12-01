@@ -1,5 +1,6 @@
 package com.app.muhammadgamal.swapy.Fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -31,8 +33,10 @@ public class HomeFragment extends Fragment {
         adapterViewPager = new MyPagerAdapter(getChildFragmentManager());
         vpPager.setAdapter(adapterViewPager);
 
-//        TabLayout tabLayout = rootView.findViewById(R.id.sliding_tabs);
-//        tabLayout.setupWithViewPager(vpPager);
+        PagerTabStrip pagerTabStrip = (PagerTabStrip) rootView.findViewById(R.id.pager_header);
+        pagerTabStrip.setDrawFullUnderline(true);
+        pagerTabStrip.setTabIndicatorColor(Color.WHITE);
+        pagerTabStrip.setTextColor(Color.WHITE);
 
         if (savedInstanceState == null) {
             getActivity().getSupportFragmentManager().

@@ -77,6 +77,8 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
         return rootView;
     }
 
+
+
     private void fetchData() {
 
         // If there is a network connection, fetch data
