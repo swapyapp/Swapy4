@@ -132,9 +132,11 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
         }
 
 //        if (homeSwapButton != null) {
+//            homeSwapButton.setTag(position);
 //            homeSwapButton.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View view) {
+//                    int ppsition = (Integer) view.getTag();
 //                    mAuth = FirebaseAuth.getInstance();
 //                    currentUserId = mAuth.getCurrentUser().getUid();
 //                    userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);

@@ -180,21 +180,23 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
 //                    if (swapDetails.getSwapperAccount() != null && swapDetails.getSwapperCompanyBranch() != null) {
-                            if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
-                                if (preferredAMorPM == null) {
+                            if (dataSnapshot.exists()) {
+                                if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
+                                    if (preferredAMorPM == null) {
 //                                if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
-                                    swapAdapter.add(swapDetails);
-                                    selectedPreferredTime.setText(R.string.any_time);
+                                        swapAdapter.add(swapDetails);
+                                        selectedPreferredTime.setText(R.string.any_time);
 //                                }
-                                } else if (preferredAMorPM.equals(" AM")) {
-                                    if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
-                                        swapAdapter.add(swapDetails);
-                                        selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
-                                    }
-                                } else if (preferredAMorPM.equals(" PM")) {
-                                    if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
-                                        swapAdapter.add(swapDetails);
-                                        selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
+                                    } else if (preferredAMorPM.equals(" AM")) {
+                                        if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
+                                            swapAdapter.add(swapDetails);
+                                            selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
+                                        }
+                                    } else if (preferredAMorPM.equals(" PM")) {
+                                        if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
+                                            swapAdapter.add(swapDetails);
+                                            selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
+                                        }
                                     }
                                 }
                             }

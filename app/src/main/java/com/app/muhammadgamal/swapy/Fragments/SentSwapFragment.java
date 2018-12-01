@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Common;
@@ -48,6 +50,7 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
     private SentSwapAdapter sentSwapAdapter;
     private DatabaseReference swapDb;
     private ImageView imgNoConnectionSent;
+    private Button withdrawSentListItem;
 
 
     @Nullable
@@ -157,6 +160,14 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
             sentList.setVisibility(View.VISIBLE);
             sentList.setAdapter(sentSwapAdapter);
 
+//            withdrawSentListItem = (Button) rootView.findViewById(R.id.withdrawSentListItem);
+//            withdrawSentListItem.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Toast.makeText(getContext(), "kkjhjk", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
         } else {
 
             progressBar_sent.setVisibility(View.GONE);
@@ -186,8 +197,8 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#007c91");
 
     }
 //    @Override
