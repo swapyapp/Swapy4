@@ -35,9 +35,9 @@ public class HomeFragment extends Fragment {
 
         PagerTabStrip pagerTabStrip = (PagerTabStrip) rootView.findViewById(R.id.pager_header);
         pagerTabStrip.setDrawFullUnderline(true);
-        pagerTabStrip.setTabIndicatorColor(Color.BLACK);
+        pagerTabStrip.setTabIndicatorColor(Color.WHITE);
         pagerTabStrip.setTextColor(Color.WHITE);
-        
+
         if (savedInstanceState == null) {
             getActivity().getSupportFragmentManager().
                     beginTransaction().
