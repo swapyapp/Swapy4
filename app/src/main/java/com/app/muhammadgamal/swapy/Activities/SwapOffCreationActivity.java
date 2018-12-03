@@ -46,9 +46,7 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
     DatabaseReference databaseReference;
     ImageView img_back_creation_body, img_save_creation_body;
     Spinner shifts_day_spinner, preferred_off_day_spinner;
-    RelativeLayout creationBodyShiftTimeAM, creationBodyShiftTimePM, creationBodyPreferredTimeAM, creationBodyPreferredTimePM;
     EditText edit_text_off_date;
-    TextView creationBodyShiftTimeAMText, creationBodyShiftTimePMText, creationBodyPreferredTimeAMText, creationBodyPreferredTimePMText;
     ProgressBar creation_body_progress_bar;
     String userId, swapperImageUrl, swapperName, swapperEmail, swapperPhone, swapperLoginID;
 
@@ -56,10 +54,6 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swap_creation_body);
-
-        Resources res = getResources();
-        final Drawable notSelectedBackground = res.getDrawable(R.drawable.selection_background_light);
-        final Drawable SelectedBackground = res.getDrawable(R.drawable.selection_background);
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
