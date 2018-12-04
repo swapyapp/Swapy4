@@ -203,22 +203,26 @@
                 <!--android:layout_marginStart="8dp"-->
                 <!--android:src="@drawable/ic_accept" />-->
 
-                <Button
+                <android.support.v7.widget.AppCompatButton
                     android:id="@+id/withdrawSentListItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:background="@drawable/btn_style_grey"
+                    android:clickable="true"
+                    android:fontFamily="@font/raleway_medium"
                     android:text="@string/reject"
                     android:textColor="@color/white"
                     android:textSize="@dimen/button_text_size" />
 
-                <Button
+                <android.support.v7.widget.AppCompatButton
                     android:id="@+id/acceptedImgReceivedListItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:background="@drawable/btn_style"
+                    android:clickable="true"
+                    android:fontFamily="@font/raleway_medium"
                     android:text="@string/accept"
                     android:textColor="@color/white"
                     android:textSize="@dimen/button_text_size" />

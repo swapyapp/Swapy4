@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,13 +36,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -51,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
     private final static String LOG_TAG = ProfileActivity.class.getSimpleName();
 
     private CircleImageView profileUserImg;
-    private TextView userProfileName, companyBranch, account, currentShift, preferredShift, userEmail, userPhone, textSentOrAcceptedRequest;
+    private TextView userProfileName, companyBranch, account, currentShift, preferredShift, userEmail, userPhone, textSentOrAcceptedRequest, textWaitingForAcceptance, textDisplayContactInfo, textAcceptedRequest;
     private Button buttonSwapRequest;
     private ImageView img_back_profile;
     private ProgressBar progressBar, progressBarProfileActivityImage;
@@ -69,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
     private int accepted, approved; //true = 1, false = 0
     private String swapperID, currentUserId, swapperLoginID, currentUserLoginID, swapperPreferredShift, swapperTeamLeader, swapperShiftTime, swapShiftDate, swapperShiftDay, swapperImageUrl, swapperAccount, swapperCompanyBranch, swapperPhone, swapperEmail, swapperName;
     private String userName;
+    private LinearLayout userContactInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         SwapDetails swapDetails = intent.getParcelableExtra("swapper info");
+        swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
         swapperID = swapDetails.getSwapperID();
         swapperLoginID = swapDetails.getSwapperLoginID();
         swapperName = swapDetails.getSwapperName();
@@ -150,18 +149,23 @@ public class ProfileActivity extends AppCompatActivity {
         userPhone = (TextView) findViewById(R.id.userPhone);
         userPhone.setText(swapperPhone);
         textSentOrAcceptedRequest = (TextView) findViewById(R.id.textSentOrAcceptedRequest);
+        textWaitingForAcceptance= (TextView) findViewById(R.id.textWaitingForAcceptance);
         buttonSwapRequest = (Button) findViewById(R.id.buttonSwapRequest);
         buttonSwapRequest.bringToFront();
         progressBar = (ProgressBar) findViewById(R.id.progressBar_profile);
+        userContactInfo = (LinearLayout) findViewById(R.id.userContactInfo);
+        textDisplayContactInfo = (TextView) findViewById(R.id.textDisplayContactInfo);
+        textAcceptedRequest = (TextView) findViewById(R.id.textAcceptedRequest);
 
 
         //if the user opens his swap the swap request button view will be gone
         if (swapperID.equals(currentUserId)) {
             buttonSwapRequest.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
+            textDisplayContactInfo.setVisibility(View.GONE);
+            userContactInfo.setVisibility(View.VISIBLE);
+            textAcceptedRequest.setVisibility(View.GONE);
         }
-
-        swapDone = findViewById(R.id.textSentOrAcceptedRequest);
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -220,9 +224,7 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.INVISIBLE);
-                            swapDone.setVisibility(View.VISIBLE);
+                            swapRequest();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -233,9 +235,74 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
 
-                swapRequest();
             }
         });
+    }
+
+    private void showBtnSwapRequest(){
+
+        swapRequestsDb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                SwapRequest swapRequest = dataSnapshot.getValue(SwapRequest.class);
+
+                if (dataSnapshot.exists()){
+
+                    if (swapRequest.getFromID().equals(currentUserId) && swapRequest.getToID().equals(swapperID) && swapRequest.getToShiftTime().equals(swapperShiftTime)){
+
+                        if (swapRequest.getAccepted() == 1){
+
+                            buttonSwapRequest.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            textDisplayContactInfo.setVisibility(View.GONE);
+                            userContactInfo.setVisibility(View.VISIBLE);
+                            textAcceptedRequest.setVisibility(View.VISIBLE);
+
+                        } else {
+
+                            buttonSwapRequest.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            textWaitingForAcceptance.setVisibility(View.VISIBLE);
+                            textDisplayContactInfo.setVisibility(View.VISIBLE);
+                            userContactInfo.setVisibility(View.GONE);
+                            textAcceptedRequest.setVisibility(View.GONE);
+
+                        }
+
+                    } else if (swapRequest.getFromID().equals(swapperID) && swapRequest.getToID().equals(currentUserId) && swapRequest.getFromShiftTime().equals(swapperShiftTime)){
+
+
+
+                    } else {
+
+                        buttonSwapRequest.setVisibility(View.VISIBLE);
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void swapRequest() {
@@ -253,7 +320,7 @@ public class ProfileActivity extends AppCompatActivity {
         toPreferredShift = swapperPreferredShift;
         fromID = currentUserId;
 
-        DatabaseReference swapDb = FirebaseDatabase.getInstance().getReference().child("swaps");
+        DatabaseReference swapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
         swapDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -271,7 +338,6 @@ public class ProfileActivity extends AppCompatActivity {
                         fromShiftDay = swapDetails.getSwapperShiftDay();
                         fromShiftTime = swapDetails.getSwapperShiftTime();
                         fromPreferredShift = swapDetails.getSwapperPreferredShift();
-                        swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
                         swapRequest = new SwapRequest(toID,
                                 toLoginID,
                                 toImageUrl,
@@ -298,7 +364,21 @@ public class ProfileActivity extends AppCompatActivity {
                                 fromPreferredShift,
                                 -1,
                                 -1);
-                        swapRequestsDb.push().setValue(swapRequest);
+                        swapRequestsDb.push().setValue(swapRequest).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.INVISIBLE);
+                                textSentOrAcceptedRequest.setVisibility(View.VISIBLE);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.INVISIBLE);
+                                buttonSwapRequest.setVisibility(View.VISIBLE);
+                            }
+                        });
 
                     }
 //                    else {

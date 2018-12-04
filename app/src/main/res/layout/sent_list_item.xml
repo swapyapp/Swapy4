@@ -203,12 +203,14 @@
                 <!--android:layout_marginStart="8dp"-->
                 <!--android:src="@drawable/ic_accept" />-->
 
-                <Button
+                <android.support.v7.widget.AppCompatButton
                     android:id="@+id/withdrawSentListItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:background="@drawable/btn_style_grey"
+                    android:clickable="true"
+                    android:fontFamily="@font/raleway_medium"
                     android:paddingEnd="8dp"
                     android:paddingStart="8dp"
                     android:text="@string/withdraw"
