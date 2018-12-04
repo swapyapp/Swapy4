@@ -32,6 +32,15 @@
                     android:layout_marginTop="20dp"
                     android:src="@drawable/add_photo" />
 
+                <ProgressBar
+                    android:id="@+id/progressBarAcF"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="58dp"
+                    android:layout_height="51dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/user_account_name"
                     android:layout_width="wrap_content"
