@@ -273,10 +273,10 @@ public class OffSwapFragment extends Fragment {
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), swapper_image, ViewCompat.getTransitionName(swapper_image));
 
 
-                    SwapDetails swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
-                    Intent intent = new Intent(getContext(), ProfileActivity.class);
-                    intent.putExtra("swapper info", swapDetails);
-                    startActivity(intent, options.toBundle());
+//                    SwapDetails swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
+//                    Intent intent = new Intent(getContext(), ProfileActivity.class);
+//                    intent.putExtra("swapper info", swapDetails);
+//                    startActivity(intent, options.toBundle());
                 }
             });
         } else {

@@ -8,156 +8,75 @@
     tools:context="com.app.muhammadgamal.swapy.Fragments.AccountFragment">
 
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/graylight"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="249dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="173dp"
-                android:background="@drawable/gradientbackground"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/user_account_image"
-                    android:layout_width="107dp"
-                    android:layout_height="88dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/add_photo" />
-
-                <TextView
-                    android:id="@+id/user_account_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:textColor="#fff"
-                    android:textSize="21sp"
-                    android:textStyle="bold"
-                    tools:text="Ahmed Adel" />
-            </LinearLayout>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="400dp"
-                android:layout_height="80dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="160dp"
-                app:cardCornerRadius="35dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Photos"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="125"
-                            android:textColor="@color/startblue"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Followers"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="1205"
-                            android:textColor="@color/startblue"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Following"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="360"
-                            android:textColor="@color/startblue"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-        </RelativeLayout>
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="25dp"
-            android:orientation="vertical">
+            android:layout_height="200dp"
+            android:background="@color/colorPrimary">
 
-            <LinearLayout
-                android:layout_width="230dp"
+            <TextView
+                android:id="@+id/fragment_account_user_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Ahmed Rabie"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                tools:text="Ahmed Rabie" />
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fragment_account_user_image"
+            android:layout_width="114dp"
+            android:layout_height="126dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="132dp"
+            android:src="@drawable/add_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/fragment_account_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="180dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:paddingTop="16dp"
+            android:layout_width="281dp"
+            android:layout_height="227dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_account_user_image">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="25dp">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_email_black_24dp" />
+                    android:src="@drawable/ic_mail" />
 
                 <TextView
-                    android:id="@+id/account_user_mail"
+                    android:id="@+id/fragment_account_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -167,9 +86,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="230dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginTop="25dp"
                 android:orientation="horizontal"
                 android:paddingLeft="25dp">
@@ -177,10 +95,10 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_phone_android_black_24dp" />
+                    android:src="@drawable/ic_phone_account" />
 
                 <TextView
-                    android:id="@+id/account_user_phone"
+                    android:id="@+id/fragment_account_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -190,9 +108,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="230dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginTop="25dp"
                 android:orientation="horizontal"
                 android:paddingLeft="25dp">
@@ -200,30 +117,36 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_account_login_id" />
+                    android:src="@drawable/ic_account_swap" />
 
                 <TextView
-                    android:id="@+id/account_user_loginid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="LoginId: 76532 "
+                    android:text="Number of Swpas Done:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fragment_account_number_of_swaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:text="35"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="230dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginTop="25dp"
                 android:orientation="horizontal"
                 android:paddingLeft="25dp">
 
                 <ImageView
                     android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_plus" />
+                    android:layout_height="36dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -235,7 +158,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
-    </LinearLayout>
 </ScrollView>

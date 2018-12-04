@@ -1,7 +1,5 @@
 package com.app.muhammadgamal.swapy.Fragments;
-
-import android.graphics.Color;
-import android.os.Build;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,16 +9,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
-import com.app.muhammadgamal.swapy.R;
-import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
-import com.app.muhammadgamal.swapy.SwapData.User;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.module.AppGlideModule;
+import com.app.muhammadgamal.swapy.R;
+import com.app.muhammadgamal.swapy.SwapData.User;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,90 +30,82 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class AccountFragment extends Fragment {
     private View rootView;
-    private DatabaseReference userDatabaseRef;
     private FirebaseAuth mAuth;
-    private String currentUserId;
-    private TextView accountUsername, accountLoginID, accountMail, accountPhone;
-    private ImageView accountImage;
-    private String userName, userMail, userLoginId, userImage, userPhone;
-    private User user;
-    private final String LOG_TAG = "AccountFragment";
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref;
+    private CircleImageView userImage;
+    private TextView userName;
+    private TextView userMail;
+    private TextView userPhone;
+    private TextView userSwapNumber;
+    private ProgressBar progressBarAccount;
+
+    private static final String TAG = "AccountFragment";
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("Account");
         rootView = inflater.inflate(R.layout.fragment_account, container, false);
-
         mAuth = FirebaseAuth.getInstance();
 
-        accountImage = rootView.findViewById(R.id.user_account_image);
-        accountUsername = rootView.findViewById(R.id.user_account_name);
-        accountLoginID = rootView.findViewById(R.id.account_user_loginid);
-        accountMail = rootView.findViewById(R.id.account_user_mail);
-        accountPhone = rootView.findViewById(R.id.account_user_phone);
+        // get current user ID
+        final String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        // Get a reference to our posts
+        ref = database.getReference("Users").child(userId);
 
+        userImage = rootView.findViewById(R.id.fragment_account_user_image);
+        userName = rootView.findViewById(R.id.fragment_account_user_name);
+        userPhone = rootView.findViewById(R.id.fragment_account_phone);
+        userMail = rootView.findViewById(R.id.fragment_account_email);
 
-        currentUserId = mAuth.getCurrentUser().getUid();
-        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
-        currentUserDb.addValueEventListener(new ValueEventListener() {
+        progressBarAccount = rootView.findViewById(R.id.fragment_account_progressbar);
+
+// Attach a listener to read the data at our posts reference
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
-                if (user.getmProfilePhotoURL() != null) {
-                    Glide.with(AccountFragment.this).load(user.getmProfilePhotoURL()).into(accountImage);
+                User user = dataSnapshot.getValue(User.class);
+                if ((dataSnapshot.exists())) {
+
+                    userName.setText(user.getmUsername());
+                    userPhone.setText(user.getmPhoneNumber());
+                    userMail.setText(user.getmEmail());
+
+                    if (user.getmProfilePhotoURL() != null) {
+                        Glide.with(getContext())
+                                .load(user.getmProfilePhotoURL())
+                                .listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        progressBarAccount.setVisibility(View.GONE);
+                                        return false;
+                                    }
+                                })
+                                .into(userImage);
+                    }
+
                 }
-                accountUsername.setText(user.getmUsername());
-                accountMail.setText(user.getmEmail());
-                accountPhone.setText(user.getmPhoneNumber());
-                accountLoginID.setText(user.getmLoginID());
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e(LOG_TAG, "Error with retreaving data from Database");
+                Log.e(TAG,"The read failed: " + databaseError.getCode());
             }
         });
-
-
-        mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
-
-        user = new User();
-
-        userDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
-
-        userDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
-                userName = user.getmUsername();
-                userImage = user.getmProfilePhotoURL();
-                userLoginId = user.getmLoginID();
-                userMail = user.getmEmail();
-                userPhone = user.getmPhoneNumber();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-        if (user.getmProfilePhotoURL() != null) {
-            Glide.with(AccountFragment.this).load(userImage).into(accountImage);
-        }
-
-        accountUsername.setText(userName);
-        accountPhone.setText(userPhone);
-        accountLoginID.setText(userLoginId);
-        accountMail.setText(userMail);
-
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
@@ -134,5 +128,10 @@ public class AccountFragment extends Fragment {
         super.onStop();
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
+
+
+
 }
+
+
 
