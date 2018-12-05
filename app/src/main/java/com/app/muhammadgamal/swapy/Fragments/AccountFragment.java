@@ -38,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AccountFragment extends Fragment {
     private View rootView;
     private FirebaseAuth mAuth;
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseDatabase database;
     DatabaseReference ref;
     private CircleImageView userImage;
     private TextView userName;
@@ -46,6 +46,7 @@ public class AccountFragment extends Fragment {
     private TextView userPhone;
     private TextView userSwapNumber;
     private ProgressBar progressBarAccount;
+    private DatabaseReference userRef;
 
     private static final String TAG = "AccountFragment";
 
@@ -56,11 +57,15 @@ public class AccountFragment extends Fragment {
         getActivity().setTitle("Account");
         rootView = inflater.inflate(R.layout.fragment_account, container, false);
         mAuth = FirebaseAuth.getInstance();
-
         // get current user ID
         final String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+
         // Get a reference to our posts
-        ref = database.getReference("Users").child(userId);
+        database = FirebaseDatabase.getInstance();
+
+        ref = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
         userImage = rootView.findViewById(R.id.fragment_account_user_image);
         userName = rootView.findViewById(R.id.fragment_account_user_name);
@@ -70,6 +75,7 @@ public class AccountFragment extends Fragment {
         progressBarAccount = rootView.findViewById(R.id.fragment_account_progressbar);
         progressBarAccount.setVisibility(View.VISIBLE);
 
+<<<<<<< HEAD
         getUserDataFromDataBase();
 
         return rootView;
@@ -97,6 +103,10 @@ public class AccountFragment extends Fragment {
     private void getUserDataFromDataBase (){
         // Attach a listener to read the data at our posts reference
         ref.addValueEventListener(new ValueEventListener() {
+=======
+// Attach a listener to read the data at our posts reference
+        userRef.addValueEventListener(new ValueEventListener() {
+>>>>>>> 4c3f71744ad8ae02b830a249fecfcb0056d96b7b
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
@@ -134,6 +144,10 @@ public class AccountFragment extends Fragment {
                 Log.e(TAG,"The read failed: " + databaseError.getCode());
             }
         });
+<<<<<<< HEAD
+=======
+        return rootView;
+>>>>>>> 4c3f71744ad8ae02b830a249fecfcb0056d96b7b
     }
 }
 

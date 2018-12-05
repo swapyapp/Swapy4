@@ -53,7 +53,7 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_swap_creation_body);
+        setContentView(R.layout.activity_swap_off_creation);
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();

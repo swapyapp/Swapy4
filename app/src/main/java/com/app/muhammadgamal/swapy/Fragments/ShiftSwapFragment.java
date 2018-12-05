@@ -112,7 +112,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_shift_swap, container, false);
-        getActivity().setTitle("Home");
+        getActivity().setTitle("Shift");
         //Add to Activity
         FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
 
@@ -338,7 +338,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         final Drawable notSelectedBackground = res.getDrawable(R.drawable.selection_background_light);
         final Drawable SelectedBackground = res.getDrawable(R.drawable.selection_background);
 
-        filterDialog.setContentView(R.layout.dialog_filter);
+        filterDialog.setContentView(R.layout.shift_dialog_filter);
         filterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         imgCloseFilterDialog = filterDialog.findViewById(R.id.imgCloseFilterDialog);

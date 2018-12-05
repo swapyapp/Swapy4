@@ -59,6 +59,7 @@
             android:layout_height="227dp"
             android:layout_gravity="center"
             android:orientation="vertical"
+            android:layoutDirection="ltr"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
