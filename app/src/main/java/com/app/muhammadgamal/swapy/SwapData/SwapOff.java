@@ -23,10 +23,6 @@ public class SwapOff extends SwapDetails {
         this.swapOffDate = swapOffDate;
     }
 
-    public SwapOff(String userId, String swapperName, String swapperEmail, String swapperPhone, String currentUserCompanyBranch, String currentUserAccount, String swapperImageUrl, String offDay, String offDate, String preferredOffDay, String swapperLoginID) {
-
-    }
-
 
     public String getPreferedOff() {
         return preferedOff;

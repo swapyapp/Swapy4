@@ -160,7 +160,7 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
                 swapperEmail = mAuth.getCurrentUser().getEmail();
                 SwapOff SwapDetails = new SwapOff(userId, swapperName, swapperEmail, swapperPhone,
                         currentUserCompanyBranch, currentUserAccount, swapperImageUrl, OffDay, OffDate,
-                        preferredOffDay, swapperLoginID);
+                        preferredOffDay);
                 creation_body_progress_bar.setVisibility(View.VISIBLE);
                 img_save_creation_body.setVisibility(View.GONE);
                 databaseReference.push().setValue(SwapDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
