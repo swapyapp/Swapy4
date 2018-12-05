@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -184,6 +185,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         beginTransaction().
                         replace(R.id.fragment_container,
                                 new HomeFragment())
+                        .addToBackStack(null)
                         .commit();
                 break;
             case R.id.nav_account:
@@ -191,6 +193,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         beginTransaction().
                         replace(R.id.fragment_container,
                                 new AccountFragment())
+                        .addToBackStack(null)
                         .commit();
                 break;
             case R.id.nav_receivedSwapRequests:
@@ -198,6 +201,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         beginTransaction().
                         replace(R.id.fragment_container,
                                 new ReceivedSwapFragment())
+                        .addToBackStack(null)
                         .commit();
                 break;
             case R.id.nav_sentSwapRequests:
@@ -205,6 +209,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         beginTransaction().
                         replace(R.id.fragment_container,
                                 new SentSwapFragment())
+                        .addToBackStack(null)
                         .commit();
                 break;
             case R.id.nav_acceptedSwapRequests:
@@ -212,6 +217,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         beginTransaction().
                         replace(R.id.fragment_container,
                                 new AcceptedSwapFragment())
+                        .addToBackStack(null)
                         .commit();
                 break;
             case R.id.nav_settings:
@@ -219,6 +225,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         beginTransaction().
                         replace(R.id.fragment_container,
                                 new SettingsFragment())
+                        .addToBackStack(null)
                         .commit();
                 break;
             case R.id.nav_approvedSwapRequests:
@@ -226,6 +233,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         beginTransaction().
                         replace(R.id.fragment_container,
                                 new ApprovedSwapFragment())
+                        .addToBackStack(null)
                         .commit();
                 break;
         }
@@ -261,9 +269,19 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
-            finish();
+            getSupportFragmentManager().addOnBackStackChangedListener(
+                    new FragmentManager.OnBackStackChangedListener() {
+                        public void onBackStackChanged() {
+                            getSupportFragmentManager().
+                            beginTransaction().
+                                    replace(R.id.fragment_container,
+                                            new HomeFragment())
+                                    .commit();
+                        }
+                    });
         }
+        super.onBackPressed();
+        finish();
     }
 
     @Override

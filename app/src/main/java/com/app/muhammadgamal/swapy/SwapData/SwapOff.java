@@ -6,6 +6,8 @@ public class SwapOff extends SwapDetails {
     private String offDay;
     private String swapOffDate;
 
+    public SwapOff(){}
+
     public SwapOff (String preferedOff,
                     String offDay,
                     String swapOffDate,
@@ -23,9 +25,23 @@ public class SwapOff extends SwapDetails {
         this.swapOffDate = swapOffDate;
     }
 
-    public SwapOff(String userId, String swapperName, String swapperEmail, String swapperPhone, String currentUserCompanyBranch, String currentUserAccount, String swapperImageUrl, String offDay, String offDate, String preferredOffDay, String swapperLoginID) {
-
-    }
+//    public SwapOff(String userId,
+//                   String swapperName,
+//                   String swapperEmail,
+//                   String swapperPhone,
+//                   String currentUserCompanyBranch,
+//                   String currentUserAccount,
+//                   String swapperImageUrl,
+//                   String offDay,
+//                   String offDate,
+//                   String preferredOff) {
+//        super(userId,swapperName,swapperEmail,swapperPhone,currentUserAccount,
+//                currentUserCompanyBranch,swapperImageUrl);
+//        this.offDay = offDay;
+//        this.preferedOff = preferredOff;
+//        this.swapOffDate = offDate;
+//
+//    }
 
 
     public String getPreferedOff() {

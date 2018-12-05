@@ -33,13 +33,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
-import com.app.muhammadgamal.swapy.Activities.ProfileActivity;
 import com.app.muhammadgamal.swapy.Activities.SwapOffCreationActivity;
 import com.app.muhammadgamal.swapy.Adapters.SwapOffAdapter;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredShiftSpinnerListener;
-import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -85,9 +83,9 @@ public class OffSwapFragment extends Fragment {
     private ImageView imgCloseFilterDialog;
     // List view that represent teh swap data
     private ListView swapList;
-    private TextView empty_view, empty_view2, filterPreferredTimePMText, filterPreferredTimeAMText;
+    private TextView empty_view_off, empty_view2_off, filterPreferredTimePMText, filterPreferredTimeAMText;
     private SwipeRefreshLayout OffSwipeRefresh;
-    private FloatingActionButton fab_add_swap;
+    private FloatingActionButton fab_add_off_swap_shift;
     private NetworkInfo networkInfo;
     private ConnectivityManager cm;
     private DatabaseReference mSwapDataBaseReference;
@@ -98,45 +96,44 @@ public class OffSwapFragment extends Fragment {
     private String userId, preferredShift, preferredAMorPM = null, currentUserAccount, currentUserCompanyBranch;
     private RelativeLayout filterPreferredTimeAM, filterPreferredTimePM;
     private SwapOffAdapter swapOffAdapter;
-    private ProgressBar progressBar;
+    private ProgressBar progressBar_home_off;
     private FirebaseAuth mAuth;
     private User user;
     private RelativeLayout imgFilter;
-    private ImageView imgNoConnectionHome;
+    private ImageView imgOffNoConnectionHome;
 
     @SuppressLint("RestrictedApi")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_shift_swap, container, false);
-        getActivity().setTitle("Home");
+        rootView = inflater.inflate(R.layout.fragment_off_swap, container, false);
+        getActivity().setTitle("Off");
         //Add to Activity
         FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        homeSwapButton = rootView.findViewById(R.id.btnHomeSwapList);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mSwapDataBaseReference = mFirebaseDatabase.getReference().child("swaps").child("off_swaps");
 
         cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = cm.getActiveNetworkInfo();
 
-        fab_add_swap = rootView.findViewById(R.id.fab_add_swap_shift);
-        fab_add_swap.bringToFront();
+        fab_add_off_swap_shift = rootView.findViewById(R.id.fab_add_off_swap_shift);
+        fab_add_off_swap_shift.bringToFront();
 
-        progressBar = rootView.findViewById(R.id.progressBar_home);
-        empty_view = rootView.findViewById(R.id.empty_view);
-        empty_view2 = rootView.findViewById(R.id.empty_view2);
-        imgNoConnectionHome = rootView.findViewById(R.id.imgNoConnectionHome);
-        progressBar.setVisibility(View.VISIBLE);
-        empty_view2.setVisibility(View.GONE);
-        fab_add_swap.setVisibility(View.GONE);
-        imgNoConnectionHome.setVisibility(View.GONE);
+        progressBar_home_off = rootView.findViewById(R.id.progressBar_home_off);
+        empty_view_off = rootView.findViewById(R.id.empty_view_off);
+        empty_view2_off = rootView.findViewById(R.id.empty_view2_off);
+        imgOffNoConnectionHome = rootView.findViewById(R.id.imgOffNoConnectionHome);
+        progressBar_home_off.setVisibility(View.VISIBLE);
+        empty_view2_off.setVisibility(View.GONE);
+        fab_add_off_swap_shift.setVisibility(View.GONE);
+        imgOffNoConnectionHome.setVisibility(View.GONE);
 
-        fab_add_swap.setOnClickListener(new View.OnClickListener() {
+        fab_add_off_swap_shift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), SwapOffCreationActivity.class);
@@ -154,7 +151,7 @@ public class OffSwapFragment extends Fragment {
         // If there is a network connection, fetch data
         if (Common.isNetworkAvailable(getContext()) || Common.isWifiAvailable(getContext())) {
 
-            imgNoConnectionHome.setVisibility(View.GONE);
+            imgOffNoConnectionHome.setVisibility(View.GONE);
             DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
             userDb.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -173,15 +170,15 @@ public class OffSwapFragment extends Fragment {
                                     swapOffAdapter.add(swapDetails);
                                 }
                             }
-                            progressBar.setVisibility(View.GONE);
-                            fab_add_swap.setVisibility(View.VISIBLE);
-                            empty_view.setVisibility(View.GONE);
-                            empty_view2.setVisibility(View.GONE);
+                            progressBar_home_off.setVisibility(View.GONE);
+                            fab_add_off_swap_shift.setVisibility(View.VISIBLE);
+                            empty_view_off.setVisibility(View.GONE);
+                            empty_view2_off.setVisibility(View.GONE);
                             if (swapOffAdapter.isEmpty()) {
-                                empty_view.setVisibility(View.VISIBLE);
-                                empty_view.setText(R.string.no_swaps_found);
-                                fab_add_swap.setVisibility(View.VISIBLE);
-                                empty_view2.setVisibility(View.VISIBLE);
+                                empty_view_off.setVisibility(View.VISIBLE);
+                                empty_view_off.setText(R.string.no_swaps_found);
+                                fab_add_off_swap_shift.setVisibility(View.VISIBLE);
+                                empty_view2_off.setVisibility(View.VISIBLE);
                                 String time = "any time";
 //                        if (homeFilterSpinner.getSelectedItem().toString() != null) {
 //                            time = homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM;
@@ -215,11 +212,11 @@ public class OffSwapFragment extends Fragment {
                     };
 
                     if (swapOffAdapter.isEmpty()) {
-                        empty_view.setVisibility(View.VISIBLE);
-                        empty_view.setText(R.string.no_swaps_found);
-                        empty_view2.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.GONE);
-                        fab_add_swap.setVisibility(View.VISIBLE);
+                        empty_view_off.setVisibility(View.VISIBLE);
+                        empty_view_off.setText(R.string.no_swaps_found);
+                        empty_view2_off.setVisibility(View.VISIBLE);
+                        progressBar_home_off.setVisibility(View.GONE);
+                        fab_add_off_swap_shift.setVisibility(View.VISIBLE);
                         String time = "any time";
 //                        if (homeFilterSpinner.getSelectedItem().toString() != null) {
 //                            time = homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM;
@@ -280,15 +277,15 @@ public class OffSwapFragment extends Fragment {
                 }
             });
         } else {
-            progressBar.setVisibility(View.GONE);
+            progressBar_home_off.setVisibility(View.GONE);
             if (listView != null) {
                 listView.setVisibility(View.INVISIBLE);
             }
-            imgNoConnectionHome.setVisibility(View.VISIBLE);
-            empty_view.setVisibility(View.VISIBLE);
-            empty_view.setText(R.string.no_internet_connection);
-            empty_view2.setVisibility(View.VISIBLE);
-            fab_add_swap.setVisibility(View.GONE);
+            imgOffNoConnectionHome.setVisibility(View.VISIBLE);
+            empty_view_off.setVisibility(View.VISIBLE);
+            empty_view_off.setText(R.string.no_internet_connection);
+            empty_view2_off.setVisibility(View.VISIBLE);
+            fab_add_off_swap_shift.setVisibility(View.GONE);
         }
     }
 
@@ -311,7 +308,7 @@ public class OffSwapFragment extends Fragment {
         final Drawable notSelectedBackground = res.getDrawable(R.drawable.selection_background_light);
         final Drawable SelectedBackground = res.getDrawable(R.drawable.selection_background);
 
-        filterDialog.setContentView(R.layout.dialog_filter);
+        filterDialog.setContentView(R.layout.shift_dialog_filter);
         filterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         imgCloseFilterDialog = filterDialog.findViewById(R.id.imgCloseFilterDialog);

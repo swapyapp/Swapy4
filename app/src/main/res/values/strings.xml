@@ -99,6 +99,8 @@
     <string name="reject">Reject</string>
     <string name="you_already_sent_a_swap_request">You already sent a swap request</string>
     <string name="your_request_has_been_accepted">Your request has been accepted</string>
+    <string name="your_preferred_off_day2">Your preferred off day:</string>
+    <string name="your_preferred_off_day">Your preferred off day</string>
 
 
     <string-array name="company">
