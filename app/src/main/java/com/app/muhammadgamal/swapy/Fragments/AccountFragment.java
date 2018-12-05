@@ -75,7 +75,6 @@ public class AccountFragment extends Fragment {
         progressBarAccount = rootView.findViewById(R.id.fragment_account_progressbar);
         progressBarAccount.setVisibility(View.VISIBLE);
 
-<<<<<<< HEAD
         getUserDataFromDataBase();
 
         return rootView;
@@ -103,10 +102,7 @@ public class AccountFragment extends Fragment {
     private void getUserDataFromDataBase (){
         // Attach a listener to read the data at our posts reference
         ref.addValueEventListener(new ValueEventListener() {
-=======
 // Attach a listener to read the data at our posts reference
-        userRef.addValueEventListener(new ValueEventListener() {
->>>>>>> 4c3f71744ad8ae02b830a249fecfcb0056d96b7b
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
@@ -144,10 +140,6 @@ public class AccountFragment extends Fragment {
                 Log.e(TAG,"The read failed: " + databaseError.getCode());
             }
         });
-<<<<<<< HEAD
-=======
-        return rootView;
->>>>>>> 4c3f71744ad8ae02b830a249fecfcb0056d96b7b
     }
 }
 

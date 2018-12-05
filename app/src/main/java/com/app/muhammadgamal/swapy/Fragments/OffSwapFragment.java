@@ -108,11 +108,8 @@ public class OffSwapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_off_swap, container, false);
-<<<<<<< HEAD
         getActivity().setTitle("Home");
-=======
         getActivity().setTitle("Off");
->>>>>>> 4c3f71744ad8ae02b830a249fecfcb0056d96b7b
         //Add to Activity
         FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
 

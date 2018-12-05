@@ -25,8 +25,6 @@ public class SwapOff extends SwapDetails {
         this.swapOffDate = swapOffDate;
     }
 
-<<<<<<< HEAD
-=======
 //    public SwapOff(String userId,
 //                   String swapperName,
 //                   String swapperEmail,
@@ -45,7 +43,6 @@ public class SwapOff extends SwapDetails {
 //
 //    }
 
->>>>>>> 4c3f71744ad8ae02b830a249fecfcb0056d96b7b
 
     public String getPreferedOff() {
         return preferedOff;
