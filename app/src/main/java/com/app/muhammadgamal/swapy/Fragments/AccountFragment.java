@@ -73,44 +73,10 @@ public class AccountFragment extends Fragment {
         userMail = rootView.findViewById(R.id.fragment_account_email);
 
         progressBarAccount = rootView.findViewById(R.id.fragment_account_progressbar);
+        progressBarAccount.setVisibility(View.VISIBLE);
 
-// Attach a listener to read the data at our posts reference
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                if ((dataSnapshot.exists())) {
+        getUserDataFromDataBase();
 
-                    userName.setText(user.getmUsername());
-                    userPhone.setText(user.getmPhoneNumber());
-                    userMail.setText(user.getmEmail());
-
-                    if (user.getmProfilePhotoURL() != null) {
-                        Glide.with(getContext())
-                                .load(user.getmProfilePhotoURL())
-                                .listener(new RequestListener<Drawable>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                        return false;
-                                    }
-
-                                    @Override
-                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                        progressBarAccount.setVisibility(View.GONE);
-                                        return false;
-                                    }
-                                })
-                                .into(userImage);
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG,"The read failed: " + databaseError.getCode());
-            }
-        });
         return rootView;
     }
 
@@ -133,9 +99,48 @@ public class AccountFragment extends Fragment {
         super.onStop();
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
+    private void getUserDataFromDataBase (){
+        // Attach a listener to read the data at our posts reference
+        ref.addValueEventListener(new ValueEventListener() {
+// Attach a listener to read the data at our posts reference
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if ((dataSnapshot.exists())) {
 
+                    userName.setText(user.getmUsername());
+                    userPhone.setText(user.getmPhoneNumber());
+                    userMail.setText(user.getmEmail());
 
+                    if (user.getmProfilePhotoURL() != null) {
+                        Glide.with(getContext())
+                                .load(user.getmProfilePhotoURL())
+                                .listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        progressBarAccount.setVisibility(View.GONE);
 
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        progressBarAccount.setVisibility(View.GONE);
+                                        return false;
+                                    }
+                                })
+                                .into(userImage);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG,"The read failed: " + databaseError.getCode());
+            }
+        });
+    }
 }
 
 
