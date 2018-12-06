@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff"
     android:paddingLeft="17dp"
     android:paddingRight="17dp"
-    android:background="#ffffff"
     tools:context=".Activities.SwapCreationActivity">
 
     <RelativeLayout
@@ -31,7 +31,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="20dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/img_save_off_creation_body"
@@ -46,12 +46,11 @@
     </RelativeLayout>
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:gravity="center_vertical"
+        android:orientation="vertical"
         android:paddingBottom="50dp">
 
         <TextView
@@ -116,12 +115,12 @@
                     android:id="@+id/edit_text_off_date"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:fontFamily="@font/roboto_condensed_regular"
-                    android:hint="@string/example_date"
+                    android:background="@drawable/edittext_style"
                     android:clickable="true"
                     android:editable="false"
-                    android:background="@drawable/edittext_style"
-                    android:textSize="@dimen/editText_text_size"/>
+                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:hint="@string/example_date"
+                    android:textSize="@dimen/editText_text_size" />
             </LinearLayout>
 
         </LinearLayout>

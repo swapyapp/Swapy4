@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:text="@string/your_preferred_shift"
+                android:fontFamily="@font/raleway_medium"
                 android:textSize="21sp"
                 android:textStyle="bold" />
 

@@ -48,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:fontFamily="@font/raleway_medium"
                 android:text="@string/your_preferred_off_day2"
                 android:textSize="21sp"
                 android:textStyle="bold" />
@@ -59,9 +60,9 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/preferredTimeSpinner"
+                    android:id="@+id/preferredOffDaySpinner"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="45dp"
                     android:layout_weight="1.4"
                     android:background="@drawable/spinner_style">
 

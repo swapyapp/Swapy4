@@ -52,7 +52,9 @@
         <activity
             android:name=".Activities.VerifyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.SwapOffCreationActivity"></activity>
+        <activity
+            android:name=".Activities.SwapOffCreationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

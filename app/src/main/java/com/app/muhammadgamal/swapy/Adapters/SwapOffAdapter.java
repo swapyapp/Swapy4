@@ -48,13 +48,13 @@ public class SwapOffAdapter extends ArrayAdapter<SwapOff> {
         final Context context = convertView.getContext();
 
         final SwapOff swapBody = getItem(position);
-        Button homeSwapButton = convertView.findViewById(R.id.btnHomeSwapList);
+        Button homeSwapButton = convertView.findViewById(R.id.btnOffSwapList);
         ImageView swapperImage = convertView.findViewById(R.id.swapper_off_image);
         TextView swapperName = convertView.findViewById(R.id.swapper_name_off_swap);
         TextView swapperOffDay = convertView.findViewById(R.id.swapper_shift_off);
         TextView swapperPreferredOff = convertView.findViewById(R.id.swapper_preferred_shift_off);
-        TextView swapperOffDate = convertView.findViewById(R.id.swapper_shift_date);
-        final ProgressBar progressBarListItem = convertView.findViewById(R.id.progressBarHomeListItem);
+        TextView swapperOffDate = convertView.findViewById(R.id.swapper_shift_off_date);
+        final ProgressBar progressBarListItem = convertView.findViewById(R.id.progressBarOffListItem);
 
 
 //        String userId = "";
@@ -64,7 +64,7 @@ public class SwapOffAdapter extends ArrayAdapter<SwapOff> {
             swapperPreferredOff.setText(swapBody.getPreferedOff());
             swapperOffDate.setText(swapBody.getSwapOffDate());
             swapperName.setText(swapBody.getSwapperName());
-            if (swapBody.getSwapperImageUrl()!= null){
+            if (swapBody.getSwapperImageUrl() != null) {
                 progressBarListItem.setVisibility(View.VISIBLE);
                 Glide.with(swapperImage.getContext())
                         .load(swapBody.getSwapperImageUrl())
@@ -81,7 +81,7 @@ public class SwapOffAdapter extends ArrayAdapter<SwapOff> {
                             }
                         })
                         .into(swapperImage);
-            }else {
+            } else {
                 progressBarListItem.setVisibility(View.GONE);
                 // set the swapper Image to default if no image provided
                 Resources resources = context.getResources();

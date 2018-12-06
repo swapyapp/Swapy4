@@ -1,9 +1,6 @@
 package com.app.muhammadgamal.swapy.Activities;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -14,15 +11,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Fragments.DatePickerFragment;
+import com.app.muhammadgamal.swapy.SpinnersLestiners.OffDaySpinnerListener;
 import com.app.muhammadgamal.swapy.R;
-import com.app.muhammadgamal.swapy.SpinnersLestiners.SwapPreferredTimeSpinnerLestiner;
-import com.app.muhammadgamal.swapy.SpinnersLestiners.SwapShiftDaySpinnerLestiner;
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class SwapOffCreationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class SwapOffCreationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     public static String currentUserCompanyBranch, currentUserAccount;
 
@@ -45,7 +39,7 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
     ImageView img_back_creation_body, img_save_creation_body;
-    Spinner shifts_day_spinner, preferred_off_day_spinner;
+    Spinner current_off_day_spinner, preferred_off_day_spinner;
     EditText edit_text_off_date;
     ProgressBar creation_body_progress_bar;
     String userId, swapperImageUrl, swapperName, swapperEmail, swapperPhone, swapperLoginID;
@@ -72,11 +66,11 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
 
         creation_body_progress_bar = (ProgressBar) findViewById(R.id.creation_body_off_progress_bar);
 
-        shifts_day_spinner = (Spinner) findViewById(R.id.current_off_day_spinner);
+        current_off_day_spinner = (Spinner) findViewById(R.id.current_off_day_spinner);
         preferred_off_day_spinner = (Spinner) findViewById(R.id.preferred_off_day_spinner);
 
 
-        swapOfftDaySpinner();
+        swapOffDaySpinner();
         swapPreferredOffSpinner();
 
         img_back_creation_body = (ImageView) findViewById(R.id.img_back_off_creation_body);
@@ -95,19 +89,19 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
         });
     }
 
-    private void swapOfftDaySpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.shift_day, android.R.layout.simple_spinner_item);
+    private void swapOffDaySpinner() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Home_Preferred_Off2, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        shifts_day_spinner.setAdapter(adapter);
-        shifts_day_spinner.setOnItemSelectedListener(new SwapShiftDaySpinnerLestiner());
+        current_off_day_spinner.setAdapter(adapter);
+        current_off_day_spinner.setOnItemSelectedListener(new OffDaySpinnerListener());
     }
 
 
     private void swapPreferredOffSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.preferred_shift_time, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Home_Preferred_Off2, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         preferred_off_day_spinner.setAdapter(adapter);
-        preferred_off_day_spinner.setOnItemSelectedListener(new SwapPreferredTimeSpinnerLestiner());
+        preferred_off_day_spinner.setOnItemSelectedListener(new OffDaySpinnerListener());
     }
 
     @Override
@@ -125,20 +119,20 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
     //add the swap to FireBase RealTime database
     private void addOffToDatabase() {
 
-        final String OffDay = shifts_day_spinner.getSelectedItem().toString();
+        final String OffDay = current_off_day_spinner.getSelectedItem().toString();
         final String OffDate = edit_text_off_date.getText().toString().trim();
         final String preferredOffDay = preferred_off_day_spinner.getSelectedItem().toString();
-        if (shifts_day_spinner.getSelectedItem().toString().equals("Day")) {
+        if (current_off_day_spinner.getSelectedItem().toString().equals("Day")) {
             Toast.makeText(getApplicationContext(), "choose a day", Toast.LENGTH_SHORT).show();
             return;
         }
         if (OffDate.isEmpty()) {
-            edit_text_off_date.setError("Enter your Shift's date");
+            edit_text_off_date.setError("Pick a date");
             edit_text_off_date.requestFocus();
             return;
         }
-        if (preferred_off_day_spinner.getSelectedItem().toString().equals("Preferred shift")) {
-            Toast.makeText(getApplicationContext(), "choose your preferred shift", Toast.LENGTH_SHORT).show();
+        if (preferred_off_day_spinner.getSelectedItem().toString().equals("Day")) {
+            Toast.makeText(getApplicationContext(), "choose your preferred off day", Toast.LENGTH_SHORT).show();
             return;
         }
         DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
@@ -158,9 +152,8 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
                 swapperLoginID = user.getmLoginID();
 
                 swapperEmail = mAuth.getCurrentUser().getEmail();
-                SwapOff SwapDetails = new SwapOff(userId, swapperName, swapperEmail, swapperPhone,
-                        currentUserCompanyBranch, currentUserAccount, swapperImageUrl, OffDay, OffDate,
-                        preferredOffDay);
+                SwapOff SwapDetails = new SwapOff(preferredOffDay, OffDay, OffDate, userId, swapperName, swapperEmail, swapperPhone,
+                        currentUserCompanyBranch, currentUserAccount, swapperImageUrl);
                 creation_body_progress_bar.setVisibility(View.VISIBLE);
                 img_save_creation_body.setVisibility(View.GONE);
                 databaseReference.push().setValue(SwapDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -170,7 +163,6 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
                         creation_body_progress_bar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Swap added successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SwapOffCreationActivity.this, NavDrawerActivity.class));
                             finish();
                         } else {
                             Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();

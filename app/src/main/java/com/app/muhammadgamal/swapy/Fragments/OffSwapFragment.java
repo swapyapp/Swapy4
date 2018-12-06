@@ -37,6 +37,7 @@ import com.app.muhammadgamal.swapy.Activities.SwapOffCreationActivity;
 import com.app.muhammadgamal.swapy.Adapters.SwapOffAdapter;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
+import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredOffDaySpinnerListener;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredShiftSpinnerListener;
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
 import com.app.muhammadgamal.swapy.SwapData.User;
@@ -79,11 +80,11 @@ public class OffSwapFragment extends Fragment {
 
     @Nullable
     private static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
-    private Dialog filterDialog;
-    private ImageView imgCloseFilterDialog;
+    private Dialog offFilterDialog;
+    private ImageView offImgCloseFilterDialog;
     // List view that represent teh swap data
     private ListView swapList;
-    private TextView empty_view_off, empty_view2_off, filterPreferredTimePMText, filterPreferredTimeAMText;
+    private TextView empty_view_off, empty_view2_off, filterPreferredTimePMText, filterPreferredTimeAMText, selectedPreferredOff;
     private SwipeRefreshLayout OffSwipeRefresh;
     private FloatingActionButton fab_add_off_swap_shift;
     private NetworkInfo networkInfo;
@@ -92,14 +93,14 @@ public class OffSwapFragment extends Fragment {
     private FirebaseDatabase mFirebaseDatabase;
     private Button homeSwapButton, buttonApplyFilter;
     private ListView listView;
-    private Spinner homeFilterSpinner;
-    private String userId, preferredShift, preferredAMorPM = null, currentUserAccount, currentUserCompanyBranch;
+    private Spinner preferredOffDaySpinner;
+    private String userId, preferredShift, preferredAMorPM = null, currentUserAccount, currentUserCompanyBranch, filterSelectedOffDay = "any day";
     private RelativeLayout filterPreferredTimeAM, filterPreferredTimePM;
     private SwapOffAdapter swapOffAdapter;
     private ProgressBar progressBar_home_off;
     private FirebaseAuth mAuth;
     private User user;
-    private RelativeLayout imgFilter;
+    private RelativeLayout imgOffFilter;
     private ImageView imgOffNoConnectionHome;
 
     @SuppressLint("RestrictedApi")
@@ -108,7 +109,6 @@ public class OffSwapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_off_swap, container, false);
-        getActivity().setTitle("Off");
         //Add to Activity
         FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
 
@@ -128,6 +128,8 @@ public class OffSwapFragment extends Fragment {
         empty_view_off = rootView.findViewById(R.id.empty_view_off);
         empty_view2_off = rootView.findViewById(R.id.empty_view2_off);
         imgOffNoConnectionHome = rootView.findViewById(R.id.imgOffNoConnectionHome);
+        selectedPreferredOff = rootView.findViewById(R.id.selectedPreferredOff);
+        selectedPreferredOff.setText(filterSelectedOffDay);
         progressBar_home_off.setVisibility(View.VISIBLE);
         empty_view2_off.setVisibility(View.GONE);
         fab_add_off_swap_shift.setVisibility(View.GONE);
@@ -166,8 +168,14 @@ public class OffSwapFragment extends Fragment {
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
                             if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
-                                if (preferredAMorPM == null) {
+                                if (filterSelectedOffDay.equals("any day")) {
                                     swapOffAdapter.add(swapDetails);
+                                    selectedPreferredOff.setText("any day");
+                                } else {
+                                    if (swapDetails.getOffDay().equals(filterSelectedOffDay)) {
+                                        swapOffAdapter.add(swapDetails);
+                                    }
+                                    selectedPreferredOff.setText(filterSelectedOffDay);
                                 }
                             }
                             progressBar_home_off.setVisibility(View.GONE);
@@ -180,10 +188,10 @@ public class OffSwapFragment extends Fragment {
                                 fab_add_off_swap_shift.setVisibility(View.VISIBLE);
                                 empty_view2_off.setVisibility(View.VISIBLE);
                                 String time = "any time";
-//                        if (homeFilterSpinner.getSelectedItem().toString() != null) {
-//                            time = homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM;
+//                        if (preferredOffDaySpinner.getSelectedItem().toString() != null) {
+//                            time = preferredOffDaySpinner.getSelectedItem().toString() + preferredAMorPM;
 //                        }
-//                                selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
+//                                selectedPreferredTime.setText(preferredOffDaySpinner.getSelectedItem().toString() + preferredAMorPM);
                             }
 //                    }
 
@@ -218,10 +226,10 @@ public class OffSwapFragment extends Fragment {
                         progressBar_home_off.setVisibility(View.GONE);
                         fab_add_off_swap_shift.setVisibility(View.VISIBLE);
                         String time = "any time";
-//                        if (homeFilterSpinner.getSelectedItem().toString() != null) {
-//                            time = homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM;
+//                        if (preferredOffDaySpinner.getSelectedItem().toString() != null) {
+//                            time = preferredOffDaySpinner.getSelectedItem().toString() + preferredAMorPM;
 //                        }
-//                        selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
+//                        selectedPreferredTime.setText(preferredOffDaySpinner.getSelectedItem().toString() + preferredAMorPM);
                     }
 
                     mSwapDataBaseReference.addChildEventListener(mChildEventListener);
@@ -238,7 +246,7 @@ public class OffSwapFragment extends Fragment {
             final List<SwapOff> swapBodyList = new ArrayList<>();
             Collections.reverse(swapBodyList);
             swapOffAdapter = new SwapOffAdapter(getContext(), R.layout.swap_off_list_item, swapBodyList);
-            listView = rootView.findViewById(R.id.homeList);
+            listView = rootView.findViewById(R.id.offList);
             listView.setVisibility(View.VISIBLE);
             listView.setAdapter(swapOffAdapter);
 
@@ -292,9 +300,9 @@ public class OffSwapFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        filterDialog = new Dialog(getContext());
-        imgFilter = getView().findViewById(R.id.imgFilter);
-        imgFilter.setOnClickListener(new View.OnClickListener() {
+        offFilterDialog = new Dialog(getContext());
+        imgOffFilter = getView().findViewById(R.id.imgOffFilter);
+        imgOffFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showFilterDialog();
@@ -308,90 +316,70 @@ public class OffSwapFragment extends Fragment {
         final Drawable notSelectedBackground = res.getDrawable(R.drawable.selection_background_light);
         final Drawable SelectedBackground = res.getDrawable(R.drawable.selection_background);
 
-        filterDialog.setContentView(R.layout.shift_dialog_filter);
-        filterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        offFilterDialog.setContentView(R.layout.off_dialog_filter);
+        offFilterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        imgCloseFilterDialog = filterDialog.findViewById(R.id.imgCloseFilterDialog);
-        imgCloseFilterDialog.setOnClickListener(new View.OnClickListener() {
+        offImgCloseFilterDialog = offFilterDialog.findViewById(R.id.offImgCloseFilterDialog);
+        offImgCloseFilterDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                filterDialog.dismiss();
+                offFilterDialog.dismiss();
             }
         });
 
         //time spinner
-        homeFilterSpinner = filterDialog.findViewById(R.id.preferredTimeSpinner);
+        preferredOffDaySpinner = offFilterDialog.findViewById(R.id.preferredOffDaySpinner);
         preferredShiftHomeSpinner();
 
-        filterPreferredTimeAMText = filterDialog.findViewById(R.id.filterPreferredTimeAMText);
-        filterPreferredTimePMText = filterDialog.findViewById(R.id.filterPreferredTimePMText);
+        filterPreferredTimeAMText = offFilterDialog.findViewById(R.id.filterPreferredTimeAMText);
+        filterPreferredTimePMText = offFilterDialog.findViewById(R.id.filterPreferredTimePMText);
 
-        filterPreferredTimeAM = filterDialog.findViewById(R.id.filterPreferredTimeAM);
-        filterPreferredTimeAM.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PREFERRED_TIME_SELECTED = 0;
-                filterPreferredTimeAM.setBackground(SelectedBackground);
-                filterPreferredTimePM.setBackground(notSelectedBackground);
-                filterPreferredTimeAMText.setTextColor(getResources().getColor(R.color.white));
-                filterPreferredTimePMText.setTextColor(getResources().getColor(R.color.colorPrimary));
-            }
-        });
-        filterPreferredTimePM = filterDialog.findViewById(R.id.filterPreferredTimePM);
-        filterPreferredTimePM.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PREFERRED_TIME_SELECTED = 1;
-                filterPreferredTimePM.setBackground(SelectedBackground);
-                filterPreferredTimeAM.setBackground(notSelectedBackground);
-                filterPreferredTimePMText.setTextColor(getResources().getColor(R.color.white));
-                filterPreferredTimeAMText.setTextColor(getResources().getColor(R.color.colorPrimary));
-            }
-        });
-
-
-        buttonApplyFilter = filterDialog.findViewById(R.id.buttonApplyFilter);
+        buttonApplyFilter = offFilterDialog.findViewById(R.id.buttonApplyFilter);
         buttonApplyFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 applyFilter();
-                PREFERRED_TIME_SELECTED = 0;
             }
         });
 
-        filterDialog.show();
+        offFilterDialog.show();
     }
 
     private void applyFilter() {
 
-        if (PREFERRED_TIME_SELECTED == 0) {
-            preferredAMorPM = " AM";
-        }
-        if (PREFERRED_TIME_SELECTED == 1) {
-            preferredAMorPM = " PM";
-        }
-        if (homeFilterSpinner.getSelectedItem().toString().equals("any time")) {
-            preferredAMorPM = null;
-        } else {
-            preferredShift = homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM;
-        }
+//        if (PREFERRED_TIME_SELECTED == 0) {
+//            preferredAMorPM = " AM";
+//        }
+//        if (PREFERRED_TIME_SELECTED == 1) {
+//            preferredAMorPM = " PM";
+//        }
+//        if (preferredOffDaySpinner.getSelectedItem().toString().equals("any time")) {
+//            preferredAMorPM = null;
+//        } else {
+//            preferredShift = preferredOffDaySpinner.getSelectedItem().toString() + preferredAMorPM;
+//        }
+//        if (preferredOffDaySpinner.getSelectedItem().toString().equals("any day")){
+//            filterSelectedOffDay = "any day";
+//        } else {
+        filterSelectedOffDay = preferredOffDaySpinner.getSelectedItem().toString();
+//        }
         fetchData();
-        filterDialog.dismiss();
+        offFilterDialog.dismiss();
 
     }
 
     private void preferredShiftHomeSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.Home_Preferred_Shift, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.Home_Preferred_Off, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        homeFilterSpinner.setAdapter(adapter);
-        homeFilterSpinner.setOnItemSelectedListener(new PreferredShiftSpinnerListener());
+        preferredOffDaySpinner.setAdapter(adapter);
+        preferredOffDaySpinner.setOnItemSelectedListener(new PreferredOffDaySpinnerListener());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#007c91");
 
     }
 //    @Override

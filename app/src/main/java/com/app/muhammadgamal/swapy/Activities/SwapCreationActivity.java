@@ -247,7 +247,6 @@ public class SwapCreationActivity extends AppCompatActivity implements DatePicke
                         creation_body_progress_bar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Swap added successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SwapCreationActivity.this, NavDrawerActivity.class));
                             finish();
                         } else {
                             Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();

@@ -16,16 +16,19 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.app.muhammadgamal.swapy.R;
 
 public class HomeFragment extends Fragment {
 
-    FragmentPagerAdapter adapterViewPager;
+    private FragmentPagerAdapter adapterViewPager;
+    private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        getActivity().setTitle("Home");
 
 //        BottomNavigationView homeBottomNavigationView = rootView.findViewById(R.id.homeBottomNavigationView);
 
@@ -76,10 +79,10 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private String tabTitles[] = new String[]{"Swaps", "Off"};
+    public class MyPagerAdapter extends FragmentPagerAdapter {
+        private String tabTitles[] = new String[]{"Shift Swaps", "Off Swaps"};
 
-        private static int NUM_ITEMS = 2;
+        private int NUM_ITEMS = 2;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);

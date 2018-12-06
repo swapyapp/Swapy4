@@ -8,7 +8,7 @@ public class SwapOff extends SwapDetails {
 
     public SwapOff(){}
 
-    public SwapOff (String preferedOff,
+    public SwapOff (String preferredOff,
                     String offDay,
                     String swapOffDate,
                     String swapperID,
@@ -20,7 +20,7 @@ public class SwapOff extends SwapDetails {
                     String swapperImageUrl)
     {
         super(swapperID,swapperName,swapperEmail,swapperPhone,swapperCompanyBranch,swapperAccount, swapperImageUrl);
-        this.preferedOff = preferedOff;
+        this.preferedOff = preferredOff;
         this.offDay = offDay;
         this.swapOffDate = swapOffDate;
     }

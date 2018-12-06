@@ -3,7 +3,7 @@ package com.app.muhammadgamal.swapy.SwapData;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class SwapDetails implements Parcelable  {
+public class SwapDetails implements Parcelable {
 
     private String swapperImageUrl;
     private String swapperName;
@@ -197,7 +197,6 @@ public class SwapDetails implements Parcelable  {
     public void setSwapperEmail(String swapperEmail) {
         this.swapperEmail = swapperEmail;
     }
-
 
 
     public String getSwapperCompanyBranch() {

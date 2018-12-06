@@ -103,9 +103,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 findItem(R.id.nav_sentSwapRequests));
         acceptedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.nav_acceptedSwapRequests));
-        approvedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
-                findItem(R.id.nav_approvedSwapRequests));
-
 
         //handle the counter in the nav drawer
         initializeCountDrawer();
@@ -160,7 +157,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()));
                 sentSwapRequests.setText(String.valueOf(user.getmSentRequests()));
                 acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
-//                approvedSwapRequests.setText(String.valueOf(user.getmApprovedRequests()));
 
 
             }
@@ -170,7 +166,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
 
             }
         });
-
 
 
     }
@@ -228,14 +223,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         .addToBackStack(null)
                         .commit();
                 break;
-            case R.id.nav_approvedSwapRequests:
-                getSupportFragmentManager().
-                        beginTransaction().
-                        replace(R.id.fragment_container,
-                                new ApprovedSwapFragment())
-                        .addToBackStack(null)
-                        .commit();
-                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -258,10 +245,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         acceptedSwapRequests.setTypeface(null, Typeface.BOLD);
         acceptedSwapRequests.setTextColor(getResources().getColor(R.color.red));
         //count is added
-        approvedSwapRequests.setGravity(Gravity.CENTER_VERTICAL);
-        approvedSwapRequests.setTypeface(null, Typeface.BOLD);
-        approvedSwapRequests.setTextColor(getResources().getColor(R.color.red));
-        //count is added
     }
 
     @Override
@@ -273,7 +256,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                     new FragmentManager.OnBackStackChangedListener() {
                         public void onBackStackChanged() {
                             getSupportFragmentManager().
-                            beginTransaction().
+                                    beginTransaction().
                                     replace(R.id.fragment_container,
                                             new HomeFragment())
                                     .commit();

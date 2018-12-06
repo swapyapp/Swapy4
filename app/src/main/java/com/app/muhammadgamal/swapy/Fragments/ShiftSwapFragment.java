@@ -112,14 +112,13 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_shift_swap, container, false);
-        getActivity().setTitle("Shift");
         //Add to Activity
         FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        homeSwapButton = rootView.findViewById(R.id.btnHomeSwapList);
+        homeSwapButton = rootView.findViewById(R.id.btnOffSwapList);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mSwapDataBaseReference = mFirebaseDatabase.getReference().child("swaps").child("shift_swaps");
 
@@ -427,11 +426,12 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             }
         }, 4000);
     }
+
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#007c91");
 
     }
 //    @Override
