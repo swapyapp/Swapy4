@@ -100,7 +100,7 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
                         mAuth = FirebaseAuth.getInstance();
                         userId = mAuth.getCurrentUser().getUid();
 
-                        if (swapRequest.getFromID().equals(userId)) {
+                        if (swapRequest.getFromID().equals(userId) && swapRequest.getAccepted() == -1) {
                             sentSwapAdapter.add(swapRequest);
                         }
 

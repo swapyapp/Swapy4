@@ -219,14 +219,14 @@
         android:id="@+id/textDisplayContactInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/raleway_medium"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/raleway_medium"
         android:text="@string/text_display_contact_info"
         android:textAlignment="center"
-        android:textStyle="bold"
-        android:textColor="@color/commonBlackTextColor" />
+        android:textColor="@color/commonBlackTextColor"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/userContactInfo"
@@ -334,6 +334,7 @@
             android:fontFamily="@font/raleway_medium"
             android:text="@string/request_sent"
             android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="gone" />
 
@@ -345,8 +346,9 @@
             android:fontFamily="@font/raleway_medium"
             android:text="@string/you_already_sent_a_swap_request"
             android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textAcceptedRequest"
@@ -355,8 +357,36 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/raleway_medium"
             android:text="@string/your_request_has_been_accepted"
+            android:textAlignment="center"
             android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/you_accepted_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/raleway_medium"
+            android:text="@string/you_accepted_request"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/user_sent_you_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/raleway_medium"
+            android:text="@string/user_sent_you_request"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
     </RelativeLayout>
 </LinearLayout>

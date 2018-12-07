@@ -78,7 +78,6 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
     }
 
 
-
     private void fetchData() {
 
         // If there is a network connection, fetch data
@@ -98,9 +97,10 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
 
                         mAuth = FirebaseAuth.getInstance();
                         userId = mAuth.getCurrentUser().getUid();
-
-                        if (swapRequest.getAccepted() == 1) {
-                            acceptedSwapAdapter.add(swapRequest);
+                        if (swapRequest.getToID().equals(userId) || swapRequest.getFromID().equals(userId)) {
+                            if (swapRequest.getAccepted() == 1) {
+                                acceptedSwapAdapter.add(swapRequest);
+                            }
                         }
 
                         progressBar_accepted.setVisibility(View.GONE);
@@ -186,8 +186,8 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity)getActivity()).updateStatusBarColor("#007c91");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#007c91");
 
     }
 //    @Override

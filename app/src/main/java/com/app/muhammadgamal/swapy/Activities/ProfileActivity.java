@@ -48,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
     private final static String LOG_TAG = ProfileActivity.class.getSimpleName();
 
     private CircleImageView profileUserImg;
-    private TextView userProfileName, companyBranch, account, currentShift, preferredShift, userEmail, userPhone, textSentOrAcceptedRequest, textWaitingForAcceptance, textDisplayContactInfo, textAcceptedRequest;
+    private TextView userProfileName, companyBranch, account, currentShift, preferredShift, userEmail, userPhone, textSentOrAcceptedRequest, textWaitingForAcceptance, textDisplayContactInfo, textAcceptedRequest, you_accepted_request, user_sent_you_request;
     private Button buttonSwapRequest;
     private ImageView img_back_profile;
     private ProgressBar progressBar, progressBarProfileActivityImage;
@@ -149,13 +149,15 @@ public class ProfileActivity extends AppCompatActivity {
         userPhone = (TextView) findViewById(R.id.userPhone);
         userPhone.setText(swapperPhone);
         textSentOrAcceptedRequest = (TextView) findViewById(R.id.textSentOrAcceptedRequest);
-        textWaitingForAcceptance= (TextView) findViewById(R.id.textWaitingForAcceptance);
+        textWaitingForAcceptance = (TextView) findViewById(R.id.textWaitingForAcceptance);
         buttonSwapRequest = (Button) findViewById(R.id.buttonSwapRequest);
         buttonSwapRequest.bringToFront();
         progressBar = (ProgressBar) findViewById(R.id.progressBar_profile);
         userContactInfo = (LinearLayout) findViewById(R.id.userContactInfo);
         textDisplayContactInfo = (TextView) findViewById(R.id.textDisplayContactInfo);
         textAcceptedRequest = (TextView) findViewById(R.id.textAcceptedRequest);
+        you_accepted_request = (TextView) findViewById(R.id.you_accepted_request);
+        user_sent_you_request = (TextView) findViewById(R.id.user_sent_you_request);
 
 
         //if the user opens his swap the swap request button view will be gone
@@ -237,20 +239,25 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+        showBtnSwapRequest();
     }
 
-    private void showBtnSwapRequest(){
+    private void showBtnSwapRequest() {
 
         swapRequestsDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 SwapRequest swapRequest = dataSnapshot.getValue(SwapRequest.class);
 
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
 
-                    if (swapRequest.getFromID().equals(currentUserId) && swapRequest.getToID().equals(swapperID) && swapRequest.getToShiftTime().equals(swapperShiftTime)){
+                    if (swapRequest.getFromID().equals(currentUserId)
+                            && swapRequest.getToID().equals(swapperID)
+                            && swapRequest.getToShiftTime().equals(swapperShiftTime)
+                            && swapRequest.getToShiftDay().equals(swapperShiftDay)
+                            && swapRequest.getToPreferredShift().equals(swapperPreferredShift)) {
 
-                        if (swapRequest.getAccepted() == 1){
+                        if (swapRequest.getAccepted() == 1) {
 
                             buttonSwapRequest.setVisibility(View.GONE);
                             progressBar.setVisibility(View.GONE);
@@ -269,13 +276,30 @@ public class ProfileActivity extends AppCompatActivity {
 
                         }
 
-                    } else if (swapRequest.getFromID().equals(swapperID) && swapRequest.getToID().equals(currentUserId) && swapRequest.getFromShiftTime().equals(swapperShiftTime)){
+                    } else if (swapRequest.getToID().equals(currentUserId)
+                            && swapRequest.getFromID().equals(swapperID)
+                            && swapRequest.getFromShiftTime().equals(swapperShiftTime)
+                            && swapRequest.getFromShiftDay().equals(swapperShiftDay)
+                            && swapRequest.getFromPreferredShift().equals(swapperPreferredShift)) {
 
+                        if (swapRequest.getAccepted() == 1) {
 
+                            buttonSwapRequest.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            textDisplayContactInfo.setVisibility(View.GONE);
+                            userContactInfo.setVisibility(View.VISIBLE);
+                            you_accepted_request.setVisibility(View.VISIBLE);
 
-                    } else {
+                        } else {
 
-                        buttonSwapRequest.setVisibility(View.VISIBLE);
+                            buttonSwapRequest.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            user_sent_you_request.setVisibility(View.VISIBLE);
+                            textDisplayContactInfo.setVisibility(View.VISIBLE);
+                            userContactInfo.setVisibility(View.GONE);
+                            textAcceptedRequest.setVisibility(View.GONE);
+
+                        }
 
                     }
 
