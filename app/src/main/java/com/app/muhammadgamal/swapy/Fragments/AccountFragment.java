@@ -1,4 +1,5 @@
 package com.app.muhammadgamal.swapy.Fragments;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
+import com.app.muhammadgamal.swapy.Activities.AccountSittings;
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.annotation.GlideModule;
@@ -47,6 +50,7 @@ public class AccountFragment extends Fragment {
     private TextView userSwapNumber;
     private ProgressBar progressBarAccount;
     private DatabaseReference userRef;
+    private ImageView sittingsActivity;
 
     private static final String TAG = "AccountFragment";
 
@@ -71,6 +75,15 @@ public class AccountFragment extends Fragment {
         userName = rootView.findViewById(R.id.fragment_account_user_name);
         userPhone = rootView.findViewById(R.id.fragment_account_phone);
         userMail = rootView.findViewById(R.id.fragment_account_email);
+
+        sittingsActivity = rootView.findViewById(R.id.fragment_account_sittings);
+        sittingsActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AccountSittings.class);
+                startActivity(intent);
+            }
+        });
 
         progressBarAccount = rootView.findViewById(R.id.fragment_account_progressbar);
         progressBarAccount.setVisibility(View.VISIBLE);
@@ -102,7 +115,7 @@ public class AccountFragment extends Fragment {
     private void getUserDataFromDataBase (){
         // Attach a listener to read the data at our posts reference
         ref.addValueEventListener(new ValueEventListener() {
-// Attach a listener to read the data at our posts reference
+            // Attach a listener to read the data at our posts reference
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);

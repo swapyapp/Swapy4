@@ -19,4 +19,26 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="Theme.Custom" parent="Base.ThemeOverlay.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="CustomActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="AccountSittingsTextStyle" >
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/common_google_signin_btn_text_dark_focused</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+    </style>
+
 </resources>
