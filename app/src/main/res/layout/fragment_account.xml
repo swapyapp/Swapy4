@@ -12,16 +12,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+        <!-- Toolbar should be above content-->
+        <include layout="@layout/toolbar" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/fragment_account_sittings"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_sittings" />
+
 
             <TextView
                 android:id="@+id/fragment_account_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="Ahmed Rabie"
@@ -29,7 +43,7 @@
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 tools:text="Ahmed Rabie" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/fragment_account_user_image"

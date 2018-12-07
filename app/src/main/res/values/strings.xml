@@ -101,6 +101,13 @@
     <string name="your_request_has_been_accepted">Your request has been accepted</string>
     <string name="your_preferred_off_day2">Your preferred off day:</string>
     <string name="your_preferred_off_day">Your preferred off day</string>
+    <string name="change_account_user_name">Change Account user name</string>
+    <string name="change_user_email">Change user Email</string>
+    <string name="change_password">Change Password</string>
+    <string name="switch_to_other_company">Switch to other company</string>
+    <string name="change_user_image">Change user image</string>
+    <string name="link_accounts">Link accounts</string>
+    <string name="delete_this_account">Delete this Account</string>
 
 
     <string-array name="company">

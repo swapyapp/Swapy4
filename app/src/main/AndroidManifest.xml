@@ -55,6 +55,7 @@
         <activity
             android:name=".Activities.SwapOffCreationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.AccountSittings"></activity>
     </application>
 
 </manifest>
