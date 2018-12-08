@@ -53,6 +53,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="132dp"
             android:src="@drawable/add_photo"
+            app:civ_border_width="4dp"
+            app:civ_border_color="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
