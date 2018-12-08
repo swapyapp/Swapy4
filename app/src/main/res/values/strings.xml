@@ -112,6 +112,8 @@
     <string name="change_user_image">Change user image</string>
     <string name="link_accounts">Link accounts</string>
     <string name="delete_this_account">Delete this Account</string>
+    <string name="cancel">CANCEL</string>
+    <string name="SAVE">SAVE</string>
     <string-array name="company">
         <item>Choose company</item>
         <item>Vodafone</item>
