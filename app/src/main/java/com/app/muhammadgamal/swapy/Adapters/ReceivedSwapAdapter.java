@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.R;
-import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
+import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -23,15 +23,15 @@ import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
-public class ReceivedSwapAdapter extends ArrayAdapter<SwapRequest> {
+public class ReceivedSwapAdapter extends ArrayAdapter<SwapRequestShift> {
 
-    public ReceivedSwapAdapter(Context context, int resource, List<SwapRequest> sampleArrayList) {
+    public ReceivedSwapAdapter(Context context, int resource, List<SwapRequestShift> sampleArrayList) {
         super(context, resource, sampleArrayList);
     }
 
     @Nullable
     @Override
-    public SwapRequest getItem(int position) {
+    public SwapRequestShift getItem(int position) {
         //latest swaps on top of the list
         return super.getItem(getCount() - position - 1);
     }
@@ -45,7 +45,7 @@ public class ReceivedSwapAdapter extends ArrayAdapter<SwapRequest> {
         }
 
         final Context context = convertView.getContext();
-        SwapRequest receivedSwapBody = getItem(position);
+        SwapRequestShift receivedSwapBody = getItem(position);
 
         ImageView ImageReceivedListItem = convertView.findViewById(R.id.ImageReceivedListItem);
         TextView NameReceivedListItem = convertView.findViewById(R.id.NameReceivedListItem);

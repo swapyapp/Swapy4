@@ -1,40 +1,40 @@
 package com.app.muhammadgamal.swapy.SwapData;
 
-public class SwapRequest {
+public class SwapRequestShift {
 
     private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
     private String fromID, fromLoginID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredShift;
     private int accepted, approved; //true = 1, false = 0, waiting = -1
 
-    public SwapRequest() {
+    public SwapRequestShift() {
     }
 
-    public SwapRequest(String toID,
-                       String toLoginID,
-                       String toImageUrl,
-                       String toName,
-                       String toPhone,
-                       String toEmail,
-                       String toCompanyBranch,
-                       String toAccount,
-                       String toShiftDate,
-                       String toShiftDay,
-                       String toShiftTime,
-                       String toPreferredShift,
-                       String fromID,
-                       String fromLoginID,
-                       String fromImageUrl,
-                       String fromName,
-                       String fromPhone,
-                       String fromEmail,
-                       String fromCompanyBranch,
-                       String fromAccount,
-                       String fromShiftDate,
-                       String fromShiftDay,
-                       String fromShiftTime,
-                       String fromPreferredShift,
-                       int accepted,
-                       int approved) {
+    public SwapRequestShift(String toID,
+                            String toLoginID,
+                            String toImageUrl,
+                            String toName,
+                            String toPhone,
+                            String toEmail,
+                            String toCompanyBranch,
+                            String toAccount,
+                            String toShiftDate,
+                            String toShiftDay,
+                            String toShiftTime,
+                            String toPreferredShift,
+                            String fromID,
+                            String fromLoginID,
+                            String fromImageUrl,
+                            String fromName,
+                            String fromPhone,
+                            String fromEmail,
+                            String fromCompanyBranch,
+                            String fromAccount,
+                            String fromShiftDate,
+                            String fromShiftDay,
+                            String fromShiftTime,
+                            String fromPreferredShift,
+                            int accepted,
+                            int approved) {
         this.toID = toID;
         this.toLoginID = toLoginID;
         this.toImageUrl = toImageUrl;
@@ -63,12 +63,12 @@ public class SwapRequest {
         this.approved = approved;
     }
 
-    public SwapRequest(String toID,
-                       String fromID,
-                       String toLoginID,
-                       String fromLoginID,
-                       int accepted,
-                       int approved) {
+    public SwapRequestShift(String toID,
+                            String fromID,
+                            String toLoginID,
+                            String fromLoginID,
+                            int accepted,
+                            int approved) {
         this.toID = toID;
         this.fromID = fromID;
         this.toLoginID = toLoginID;

@@ -13,9 +13,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
-import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
+import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -26,15 +25,15 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
-public class AcceptedSwapAdapter extends ArrayAdapter<SwapRequest> {
+public class AcceptedSwapAdapter extends ArrayAdapter<SwapRequestShift> {
 
-    public AcceptedSwapAdapter(Context context, int resource, List<SwapRequest> sampleArrayList) {
+    public AcceptedSwapAdapter(Context context, int resource, List<SwapRequestShift> sampleArrayList) {
         super(context, resource, sampleArrayList);
     }
 
     @Nullable
     @Override
-    public SwapRequest getItem(int position) {
+    public SwapRequestShift getItem(int position) {
         //latest swaps on top of the list
         return super.getItem(getCount() - position - 1);
     }
@@ -48,7 +47,7 @@ public class AcceptedSwapAdapter extends ArrayAdapter<SwapRequest> {
         }
 
         final Context context = convertView.getContext();
-        SwapRequest receivedSwapBody = getItem(position);
+        SwapRequestShift receivedSwapBody = getItem(position);
 
         ImageView ImageAcceptedListItem =convertView.findViewById(R.id.ImageAcceptedListItem);
         TextView NameAcceptedItem = convertView.findViewById(R.id.NameAcceptedItem);

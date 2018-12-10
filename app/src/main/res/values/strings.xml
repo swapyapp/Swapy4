@@ -92,8 +92,9 @@
 
     <string name="shift_swaps">Shift swaps</string>
     <string name="off_swaps">Off Swaps</string>
-    <string name="preferred_off">Prefered Off: </string>
-    <string name="preferred_off_2">Prefered Off</string>
+    <string name="preferred_off">Preferred Off: </string>
+    <string name="preferred_off_2">Preferred Off</string>
+    <string name="preferred_off_3">Preferred off</string>
     <string name="off_day">Off Day</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
@@ -114,6 +115,7 @@
     <string name="delete_this_account">Delete this Account</string>
     <string name="cancel">CANCEL</string>
     <string name="SAVE">SAVE</string>
+    <string name="current_off">Current off</string>
     <string-array name="company">
         <item>Choose company</item>
         <item>Vodafone</item>

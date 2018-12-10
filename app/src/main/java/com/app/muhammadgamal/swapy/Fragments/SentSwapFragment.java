@@ -15,14 +15,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.Adapters.SentSwapAdapter;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
-import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
+import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -42,7 +41,7 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ProgressBar progressBar_sent;
     private TextView empty_view_sent, empty_view2_sent;
     private ListView sentList;
-    private SwapRequest swapRequest;
+    private SwapRequestShift swapRequestShift;
     private SwapDetails swapDetails;
     private String userId;
     private FirebaseAuth mAuth;
@@ -94,14 +93,14 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
             swapRequestsDb.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    swapRequest = dataSnapshot.getValue(SwapRequest.class);
+                    swapRequestShift = dataSnapshot.getValue(SwapRequestShift.class);
                     if (dataSnapshot.exists()) {
 
                         mAuth = FirebaseAuth.getInstance();
                         userId = mAuth.getCurrentUser().getUid();
 
-                        if (swapRequest.getFromID().equals(userId) && swapRequest.getAccepted() == -1) {
-                            sentSwapAdapter.add(swapRequest);
+                        if (swapRequestShift.getFromID().equals(userId) && swapRequestShift.getAccepted() == -1) {
+                            sentSwapAdapter.add(swapRequestShift);
                         }
 
                         progressBar_sent.setVisibility(View.GONE);
@@ -153,7 +152,7 @@ public class SentSwapFragment extends Fragment implements SwipeRefreshLayout.OnR
             });
 
 
-            final List<SwapRequest> swapBodyList = new ArrayList<>();
+            final List<SwapRequestShift> swapBodyList = new ArrayList<>();
             Collections.reverse(swapBodyList);
             sentSwapAdapter = new SentSwapAdapter(getContext(), R.layout.sent_list_item, swapBodyList);
             sentList = rootView.findViewById(R.id.sentList);

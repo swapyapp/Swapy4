@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
+import com.app.muhammadgamal.swapy.Activities.ProfileActivityOff;
 import com.app.muhammadgamal.swapy.Activities.SwapOffCreationActivity;
 import com.app.muhammadgamal.swapy.Adapters.SwapOffAdapter;
 import com.app.muhammadgamal.swapy.Common;
@@ -257,7 +258,7 @@ public class OffSwapFragment extends Fragment {
 //                @Override
 //                public void onClick(View view) {
 //                    int position = (Integer) view.getTag();
-//                    Intent intent = new Intent(rootView.getContext(), ProfileActivity.class);
+//                    Intent intent = new Intent(rootView.getContext(), ProfileActivityShift.class);
 //                    intent.putExtra("swapper info", swapBodyList.get(position));
 //                    startActivity(intent);
 //                }
@@ -276,13 +277,13 @@ public class OffSwapFragment extends Fragment {
                     View cardView = view.findViewById(R.id.listItemCardView);
                     Pair<View, String> p1 = Pair.create(swapper_image, imageTransitionName);
                     Pair<View, String> p2 = Pair.create(cardView, listItemTransitionName);
-                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), swapper_image, ViewCompat.getTransitionName(swapper_image));
+//                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), swapper_image, ViewCompat.getTransitionName(swapper_image));
 
 
-//                    SwapDetails swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
-//                    Intent intent = new Intent(getContext(), ProfileActivity.class);
-//                    intent.putExtra("swapper info", swapDetails);
-//                    startActivity(intent, options.toBundle());
+                    SwapOff swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
+                    Intent intent = new Intent(getContext(), ProfileActivityOff.class);
+                    intent.putExtra("off swapper info", swapDetails);
+                    startActivity(intent);
                 }
             });
         } else {
@@ -348,22 +349,7 @@ public class OffSwapFragment extends Fragment {
 
     private void applyFilter() {
 
-//        if (PREFERRED_TIME_SELECTED == 0) {
-//            preferredAMorPM = " AM";
-//        }
-//        if (PREFERRED_TIME_SELECTED == 1) {
-//            preferredAMorPM = " PM";
-//        }
-//        if (preferredOffDaySpinner.getSelectedItem().toString().equals("any time")) {
-//            preferredAMorPM = null;
-//        } else {
-//            preferredShift = preferredOffDaySpinner.getSelectedItem().toString() + preferredAMorPM;
-//        }
-//        if (preferredOffDaySpinner.getSelectedItem().toString().equals("any day")){
-//            filterSelectedOffDay = "any day";
-//        } else {
         filterSelectedOffDay = preferredOffDaySpinner.getSelectedItem().toString();
-//        }
         fetchData();
         offFilterDialog.dismiss();
 

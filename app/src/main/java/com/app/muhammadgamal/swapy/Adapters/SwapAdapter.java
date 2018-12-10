@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
-import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
+import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -38,7 +38,7 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
     private String currentUserId, userName;
     private DatabaseReference userDatabaseReference, notificationDB;
     private DatabaseReference swapRequestsDb;
-    private SwapRequest swapRequest;
+    private SwapRequestShift swapRequestShift;
 
     private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount,
             toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
@@ -149,7 +149,7 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
 //                                    if (task.isSuccessful()) {
 //                                        Toast.makeText(context, "Notification sent", Toast.LENGTH_LONG).show();
 //                                        progressBarHomeListItemBtn.setVisibility(View.GONE);
-//                                        swapRequest();
+//                                        swapRequestShift();
 //                                    }
 //                                }
 //                            }).addOnFailureListener(new OnFailureListener() {
@@ -168,7 +168,7 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
 //                        }
 //                    });
 ////                    int position = (Integer) view.getTag();
-////                    Intent intent = new Intent(getContext(), ProfileActivity.class);
+////                    Intent intent = new Intent(getContext(), ProfileActivityShift.class);
 ////                    intent.putExtra("swapper info", position);
 ////                    context.startActivity(intent);
 //                }
@@ -238,7 +238,7 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
                         fromShiftTime = swapDetails.getSwapperShiftTime();
                         fromPreferredShift = swapDetails.getSwapperPreferredShift();
                         swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
-                        swapRequest = new SwapRequest(toID,
+                        swapRequestShift = new SwapRequestShift(toID,
                                 toLoginID,
                                 toImageUrl,
                                 toName,
@@ -264,11 +264,11 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
                                 fromPreferredShift,
                                 -1,
                                 -1);
-                        swapRequestsDb.push().setValue(swapRequest);
+                        swapRequestsDb.push().setValue(swapRequestShift);
 
                     }
 //                    else {
-//                        Toast.makeText(ProfileActivity.this, " You have to create a swap to be able to send a request", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(ProfileActivityShift.this, " You have to create a swap to be able to send a request", Toast.LENGTH_LONG).show();
 //                    }
                 }
             }

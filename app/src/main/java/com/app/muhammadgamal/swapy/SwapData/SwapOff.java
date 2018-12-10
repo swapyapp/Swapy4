@@ -1,6 +1,9 @@
 package com.app.muhammadgamal.swapy.SwapData;
 
-public class SwapOff extends SwapDetails {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class SwapOff extends SwapDetails implements Parcelable {
 
     private String preferedOff;
     private String offDay;
@@ -43,6 +46,38 @@ public class SwapOff extends SwapDetails {
 //
 //    }
 
+
+    protected SwapOff(Parcel in) {
+        super(in);
+        preferedOff = in.readString();
+        offDay = in.readString();
+        swapOffDate = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(preferedOff);
+        dest.writeString(offDay);
+        dest.writeString(swapOffDate);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<SwapOff> CREATOR = new Creator<SwapOff>() {
+        @Override
+        public SwapOff createFromParcel(Parcel in) {
+            return new SwapOff(in);
+        }
+
+        @Override
+        public SwapOff[] newArray(int size) {
+            return new SwapOff[size];
+        }
+    };
 
     public String getPreferedOff() {
         return preferedOff;

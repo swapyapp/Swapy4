@@ -34,7 +34,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
-import com.app.muhammadgamal.swapy.Activities.ProfileActivity;
+import com.app.muhammadgamal.swapy.Activities.ProfileActivityShift;
 import com.app.muhammadgamal.swapy.Activities.SwapCreationActivity;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
@@ -277,7 +277,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 //                @Override
 //                public void onClick(View view) {
 //                    int position = (Integer) view.getTag();
-//                    Intent intent = new Intent(rootView.getContext(), ProfileActivity.class);
+//                    Intent intent = new Intent(rootView.getContext(), ProfileActivityShift.class);
 //                    intent.putExtra("swapper info", swapBodyList.get(position));
 //                    startActivity(intent);
 //                }
@@ -300,7 +300,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
 
                     SwapDetails swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
-                    Intent intent = new Intent(getContext(), ProfileActivity.class);
+                    Intent intent = new Intent(getContext(), ProfileActivityShift.class);
                     intent.putExtra("swapper info", swapDetails);
                     startActivity(intent, options.toBundle());
                 }

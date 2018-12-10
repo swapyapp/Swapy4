@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
-import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
+import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -43,9 +43,9 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivityShift extends AppCompatActivity {
 
-    private final static String LOG_TAG = ProfileActivity.class.getSimpleName();
+    private final static String LOG_TAG = ProfileActivityShift.class.getSimpleName();
 
     private CircleImageView profileUserImg;
     private TextView userProfileName, companyBranch, account, currentShift, preferredShift, userEmail, userPhone, textSentOrAcceptedRequest, textWaitingForAcceptance, textDisplayContactInfo, textAcceptedRequest, you_accepted_request, user_sent_you_request;
@@ -60,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference notificationDB;
     private DatabaseReference databaseReference;
     private DatabaseReference swapRequestsDb;
-    private SwapRequest swapRequest;
+    private SwapRequestShift swapRequestShift;
     private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
     private String fromID, fromLoginID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredShift;
     private int accepted, approved; //true = 1, false = 0
@@ -71,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_profile_shift);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
@@ -104,7 +104,7 @@ public class ProfileActivity extends AppCompatActivity {
         profileUserImg = (CircleImageView) findViewById(R.id.profileUserImg);
         if (swapperImageUrl != null) {
             progressBarProfileActivityImage.setVisibility(View.VISIBLE);
-            Glide.with(ProfileActivity.this)
+            Glide.with(ProfileActivityShift.this)
                     .load(swapperImageUrl)
                     .listener(new RequestListener<Drawable>() {
                         @Override
@@ -200,7 +200,7 @@ public class ProfileActivity extends AppCompatActivity {
 //                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 //                    @Override
 //                    public void onSuccess(DocumentReference documentReference) {
-//                        Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(ProfileActivityShift.this, "Notification sent", Toast.LENGTH_LONG).show();
 //                            progressBar.setVisibility(View.INVISIBLE);
 //                           swapDone.setVisibility(View.VISIBLE);
 //                }
@@ -232,7 +232,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ProfileActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProfileActivityShift.this, "Something went wrong", Toast.LENGTH_LONG).show();
                         Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
                     }
                 });
@@ -247,17 +247,17 @@ public class ProfileActivity extends AppCompatActivity {
         swapRequestsDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SwapRequest swapRequest = dataSnapshot.getValue(SwapRequest.class);
+                SwapRequestShift swapRequestShift = dataSnapshot.getValue(SwapRequestShift.class);
 
                 if (dataSnapshot.exists()) {
 
-                    if (swapRequest.getFromID().equals(currentUserId)
-                            && swapRequest.getToID().equals(swapperID)
-                            && swapRequest.getToShiftTime().equals(swapperShiftTime)
-                            && swapRequest.getToShiftDay().equals(swapperShiftDay)
-                            && swapRequest.getToPreferredShift().equals(swapperPreferredShift)) {
+                    if (swapRequestShift.getFromID().equals(currentUserId)
+                            && swapRequestShift.getToID().equals(swapperID)
+                            && swapRequestShift.getToShiftTime().equals(swapperShiftTime)
+                            && swapRequestShift.getToShiftDay().equals(swapperShiftDay)
+                            && swapRequestShift.getToPreferredShift().equals(swapperPreferredShift)) {
 
-                        if (swapRequest.getAccepted() == 1) {
+                        if (swapRequestShift.getAccepted() == 1) {
 
                             buttonSwapRequest.setVisibility(View.GONE);
                             progressBar.setVisibility(View.GONE);
@@ -276,13 +276,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                         }
 
-                    } else if (swapRequest.getToID().equals(currentUserId)
-                            && swapRequest.getFromID().equals(swapperID)
-                            && swapRequest.getFromShiftTime().equals(swapperShiftTime)
-                            && swapRequest.getFromShiftDay().equals(swapperShiftDay)
-                            && swapRequest.getFromPreferredShift().equals(swapperPreferredShift)) {
+                    } else if (swapRequestShift.getToID().equals(currentUserId)
+                            && swapRequestShift.getFromID().equals(swapperID)
+                            && swapRequestShift.getFromShiftTime().equals(swapperShiftTime)
+                            && swapRequestShift.getFromShiftDay().equals(swapperShiftDay)
+                            && swapRequestShift.getFromPreferredShift().equals(swapperPreferredShift)) {
 
-                        if (swapRequest.getAccepted() == 1) {
+                        if (swapRequestShift.getAccepted() == 1) {
 
                             buttonSwapRequest.setVisibility(View.GONE);
                             progressBar.setVisibility(View.GONE);
@@ -362,7 +362,7 @@ public class ProfileActivity extends AppCompatActivity {
                         fromShiftDay = swapDetails.getSwapperShiftDay();
                         fromShiftTime = swapDetails.getSwapperShiftTime();
                         fromPreferredShift = swapDetails.getSwapperPreferredShift();
-                        swapRequest = new SwapRequest(toID,
+                        swapRequestShift = new SwapRequestShift(toID,
                                 toLoginID,
                                 toImageUrl,
                                 toName,
@@ -388,17 +388,17 @@ public class ProfileActivity extends AppCompatActivity {
                                 fromPreferredShift,
                                 -1,
                                 -1);
-                        swapRequestsDb.push().setValue(swapRequest).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        swapRequestsDb.push().setValue(swapRequestShift).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(ProfileActivity.this, "Notification sent", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ProfileActivityShift.this, "Notification sent", Toast.LENGTH_LONG).show();
                                 progressBar.setVisibility(View.INVISIBLE);
                                 textSentOrAcceptedRequest.setVisibility(View.VISIBLE);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(ProfileActivityShift.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                 progressBar.setVisibility(View.INVISIBLE);
                                 buttonSwapRequest.setVisibility(View.VISIBLE);
                             }
@@ -406,7 +406,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     }
 //                    else {
-//                        Toast.makeText(ProfileActivity.this, " You have to create a swap to be able to send a request", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(ProfileActivityShift.this, " You have to create a swap to be able to send a request", Toast.LENGTH_LONG).show();
 //                    }
                 }
             }

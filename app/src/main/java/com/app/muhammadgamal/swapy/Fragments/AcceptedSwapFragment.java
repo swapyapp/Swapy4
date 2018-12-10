@@ -21,7 +21,7 @@ import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.Adapters.AcceptedSwapAdapter;
 import com.app.muhammadgamal.swapy.Adapters.ReceivedSwapAdapter;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
-import com.app.muhammadgamal.swapy.SwapData.SwapRequest;
+import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -44,7 +44,7 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
     private ProgressBar progressBar_accepted;
     private TextView empty_view_accepted, empty_view2_accepted;
     private ListView acceptedList;
-    private SwapRequest swapRequest;
+    private SwapRequestShift swapRequestShift;
     private SwapDetails swapDetails;
     private AcceptedSwapAdapter acceptedSwapAdapter;
     private ReceivedSwapAdapter receivedSwapAdapter;
@@ -92,14 +92,14 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
             swapRequestsDb.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    swapRequest = dataSnapshot.getValue(SwapRequest.class);
+                    swapRequestShift = dataSnapshot.getValue(SwapRequestShift.class);
                     if (dataSnapshot.exists()) {
 
                         mAuth = FirebaseAuth.getInstance();
                         userId = mAuth.getCurrentUser().getUid();
-                        if (swapRequest.getToID().equals(userId) || swapRequest.getFromID().equals(userId)) {
-                            if (swapRequest.getAccepted() == 1) {
-                                acceptedSwapAdapter.add(swapRequest);
+                        if (swapRequestShift.getToID().equals(userId) || swapRequestShift.getFromID().equals(userId)) {
+                            if (swapRequestShift.getAccepted() == 1) {
+                                acceptedSwapAdapter.add(swapRequestShift);
                             }
                         }
 
@@ -152,7 +152,7 @@ public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout
                 }
             });
 
-            final List<SwapRequest> swapBodyList = new ArrayList<>();
+            final List<SwapRequestShift> swapBodyList = new ArrayList<>();
             Collections.reverse(swapBodyList);
             acceptedSwapAdapter = new AcceptedSwapAdapter(getContext(), R.layout.accepted_list_item, swapBodyList);
             acceptedList = rootView.findViewById(R.id.acceptedList);

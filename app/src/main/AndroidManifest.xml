@@ -27,7 +27,7 @@
             android:name=".Activities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.ProfileActivity"
+            android:name=".Activities.ProfileActivityShift"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.NavDrawerActivity"
@@ -56,7 +56,10 @@
             android:name=".Activities.SwapOffCreationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.AccountSittings" />
-        <activity android:name=".Activities.SittingActivityBody"></activity>
+        <activity android:name=".Activities.SittingActivityBody" />
+        <activity
+            android:name=".Activities.ProfileActivityOff"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
