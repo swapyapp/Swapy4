@@ -3,6 +3,7 @@ package com.app.muhammadgamal.swapy.Activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -59,14 +60,14 @@ public class ProfileActivityShift extends AppCompatActivity {
     //The Database that will contain the map of the notifications for each user with his ID
     private DatabaseReference notificationDB;
     private DatabaseReference databaseReference;
-    private DatabaseReference swapRequestsDb;
+    private DatabaseReference shiftSwapRequestsDb;
     private SwapRequestShift swapRequestShift;
     private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
     private String fromID, fromLoginID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredShift;
     private int accepted, approved; //true = 1, false = 0
     private String swapperID, currentUserId, swapperLoginID, currentUserLoginID, swapperPreferredShift, swapperTeamLeader, swapperShiftTime, swapShiftDate, swapperShiftDay, swapperImageUrl, swapperAccount, swapperCompanyBranch, swapperPhone, swapperEmail, swapperName;
     private String userName;
-    private LinearLayout userContactInfo;
+    private LinearLayout userContactInfo, phoneShiftProfile, emailShiftProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class ProfileActivityShift extends AppCompatActivity {
 
         Intent intent = getIntent();
         SwapDetails swapDetails = intent.getParcelableExtra("swapper info");
-        swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
+        shiftSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request");
         swapperID = swapDetails.getSwapperID();
         swapperLoginID = swapDetails.getSwapperLoginID();
         swapperName = swapDetails.getSwapperName();
@@ -150,15 +151,18 @@ public class ProfileActivityShift extends AppCompatActivity {
         userPhone.setText(swapperPhone);
         textSentOrAcceptedRequest = (TextView) findViewById(R.id.textSentOrAcceptedRequest);
         textWaitingForAcceptance = (TextView) findViewById(R.id.textWaitingForAcceptance);
-        buttonSwapRequest = (Button) findViewById(R.id.buttonSwapRequest);
-        buttonSwapRequest.bringToFront();
-        progressBar = (ProgressBar) findViewById(R.id.progressBar_profile);
-        userContactInfo = (LinearLayout) findViewById(R.id.userContactInfo);
         textDisplayContactInfo = (TextView) findViewById(R.id.textDisplayContactInfo);
         textAcceptedRequest = (TextView) findViewById(R.id.textAcceptedRequest);
         you_accepted_request = (TextView) findViewById(R.id.you_accepted_request);
         user_sent_you_request = (TextView) findViewById(R.id.user_sent_you_request);
 
+        buttonSwapRequest = (Button) findViewById(R.id.buttonSwapRequest);
+        buttonSwapRequest.bringToFront();
+        progressBar = (ProgressBar) findViewById(R.id.progressBar_profile);
+
+        userContactInfo = (LinearLayout) findViewById(R.id.userContactInfo);
+        phoneShiftProfile = (LinearLayout) findViewById(R.id.phoneShiftProfile);
+        emailShiftProfile = (LinearLayout) findViewById(R.id.emailShiftProfile);
 
         //if the user opens his swap the swap request button view will be gone
         if (swapperID.equals(currentUserId)) {
@@ -226,7 +230,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            swapRequest();
+                            swapShiftRequest();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -239,12 +243,33 @@ public class ProfileActivityShift extends AppCompatActivity {
 
             }
         });
+
+        phoneShiftProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                String message = "tel:" + swapperPhone;
+                intent.setData(Uri.parse(message));
+                startActivity(intent);
+            }
+        });
+
+        emailShiftProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                String message = "mailto:" + swapperEmail;
+                emailIntent.setData(Uri.parse(message));
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+            }
+        });
+
         showBtnSwapRequest();
     }
 
     private void showBtnSwapRequest() {
 
-        swapRequestsDb.addChildEventListener(new ChildEventListener() {
+        shiftSwapRequestsDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 SwapRequestShift swapRequestShift = dataSnapshot.getValue(SwapRequestShift.class);
@@ -329,7 +354,7 @@ public class ProfileActivityShift extends AppCompatActivity {
 
     }
 
-    private void swapRequest() {
+    private void swapShiftRequest() {
         toID = swapperID;
         toLoginID = swapperLoginID;
         toImageUrl = swapperImageUrl;
@@ -344,8 +369,8 @@ public class ProfileActivityShift extends AppCompatActivity {
         toPreferredShift = swapperPreferredShift;
         fromID = currentUserId;
 
-        DatabaseReference swapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
-        swapDb.addChildEventListener(new ChildEventListener() {
+        DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
+        shiftSwapDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
@@ -388,7 +413,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                                 fromPreferredShift,
                                 -1,
                                 -1);
-                        swapRequestsDb.push().setValue(swapRequestShift).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        shiftSwapRequestsDb.push().setValue(swapRequestShift).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(ProfileActivityShift.this, "Notification sent", Toast.LENGTH_LONG).show();

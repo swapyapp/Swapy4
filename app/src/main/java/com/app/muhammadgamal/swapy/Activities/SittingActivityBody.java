@@ -45,7 +45,6 @@ public class SittingActivityBody extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        userNameIndicatorReceiver = intent
 
 
     }

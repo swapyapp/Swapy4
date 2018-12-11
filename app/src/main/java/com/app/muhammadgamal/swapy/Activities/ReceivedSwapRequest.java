@@ -1,10 +1,8 @@
 package com.app.muhammadgamal.swapy.Activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.app.muhammadgamal.swapy.Fragments.ReceivedSwapFragment;
 import com.app.muhammadgamal.swapy.R;
 import com.google.firebase.messaging.FirebaseMessaging;
 

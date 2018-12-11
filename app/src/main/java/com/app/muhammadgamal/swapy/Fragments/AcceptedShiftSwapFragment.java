@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AcceptedSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private View rootView;
     private SwipeRefreshLayout acceptedSwipeRefresh;

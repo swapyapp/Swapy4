@@ -22,13 +22,11 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.app.muhammadgamal.swapy.Fragments.AcceptedSwapFragment;
+import com.app.muhammadgamal.swapy.Fragments.AcceptedShiftSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.AccountFragment;
-import com.app.muhammadgamal.swapy.Fragments.ApprovedSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.HomeFragment;
-import com.app.muhammadgamal.swapy.Fragments.ShiftSwapFragment;
-import com.app.muhammadgamal.swapy.Fragments.ReceivedSwapFragment;
-import com.app.muhammadgamal.swapy.Fragments.SentSwapFragment;
+import com.app.muhammadgamal.swapy.Fragments.ReceivedShiftSwapFragment;
+import com.app.muhammadgamal.swapy.Fragments.SentShiftSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.SettingsFragment;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.User;
@@ -195,7 +193,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 getSupportFragmentManager().
                         beginTransaction().
                         replace(R.id.fragment_container,
-                                new ReceivedSwapFragment())
+                                new ReceivedShiftSwapFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -203,7 +201,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 getSupportFragmentManager().
                         beginTransaction().
                         replace(R.id.fragment_container,
-                                new SentSwapFragment())
+                                new SentShiftSwapFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -211,7 +209,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 getSupportFragmentManager().
                         beginTransaction().
                         replace(R.id.fragment_container,
-                                new AcceptedSwapFragment())
+                                new AcceptedShiftSwapFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
