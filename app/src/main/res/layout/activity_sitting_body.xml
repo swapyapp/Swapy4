@@ -63,7 +63,7 @@
         app:layout_constraintVertical_bias="0.055">
 
         <EditText
-            android:id="@+id/input_name"
+            android:id="@+id/sitting_body_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="User Name"

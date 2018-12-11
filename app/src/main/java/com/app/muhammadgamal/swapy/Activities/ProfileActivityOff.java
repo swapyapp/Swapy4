@@ -51,6 +51,13 @@ public class ProfileActivityOff extends AppCompatActivity {
         progressBarOffProfileActivityImage = (ProgressBar) findViewById(R.id.progressBarOffProfileActivityImage);
 
         img_back_off_profile = (ImageView) findViewById(R.id.img_back_off_profile);
+        img_back_off_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         offProfileUserImg = (CircleImageView) findViewById(R.id.offProfileUserImg);
 
         Intent intent = getIntent();
@@ -113,8 +120,21 @@ public class ProfileActivityOff extends AppCompatActivity {
         user_sent_you_request_off_profile = (TextView) findViewById(R.id.user_sent_you_request_off_profile);
 
         buttonSwapRequestOffProfile = (Button) findViewById(R.id.buttonSwapRequestOffProfile);
+        buttonSwapRequestOffProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                swapOffRequest();
+            }
+        });
 
 
 
     }
+
+    private void swapOffRequest(){
+
+
+
+    }
+
 }
