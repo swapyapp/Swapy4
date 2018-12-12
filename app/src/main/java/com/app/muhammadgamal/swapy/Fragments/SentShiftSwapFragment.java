@@ -55,7 +55,7 @@ public class SentShiftSwapFragment extends Fragment implements SwipeRefreshLayou
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_sent_swap, container, false);
+        rootView = inflater.inflate(R.layout.fragment_shift_sent_swap, container, false);
         getActivity().setTitle("Sent swaps");
 
         progressBar_sent = rootView.findViewById(R.id.progressBar_sent);
@@ -89,7 +89,7 @@ public class SentShiftSwapFragment extends Fragment implements SwipeRefreshLayou
             empty_view_sent.setVisibility(View.VISIBLE);
             empty_view_sent.setText(R.string.no_sent_swaps);
             empty_view2_sent.setVisibility(View.VISIBLE);
-            DatabaseReference swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
+            DatabaseReference swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request");
             swapRequestsDb.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {

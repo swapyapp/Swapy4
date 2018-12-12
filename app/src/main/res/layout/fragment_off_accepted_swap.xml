@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/offAcceptedSwipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/offAcceptedList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EEEEEE"
+            android:divider="@null"
+            android:drawSelectorOnTop="true"
+            android:orientation="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar_accepted_off"
+        style="@style/Base.AlertDialog.AppCompat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <!-- only visible when the list has no items. -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        
+        <ImageView
+            android:id="@+id/offImgNoConnectionAccepted"
+            android:layout_width="200dp"
+            android:layout_height="164.5dp"
+            android:src="@drawable/ic_cloud_off"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/empty_view_accepted_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgNoConnectionAccepted"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/raleway_semi_bold"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/empty_view2_accepted_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/empty_view_accepted_off"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/raleway_semi_bold"
+            android:text="@string/swipe_down_to_refresh"
+            android:textAppearance="?android:textAppearanceSmall" />
+    </RelativeLayout>
+
+</RelativeLayout>

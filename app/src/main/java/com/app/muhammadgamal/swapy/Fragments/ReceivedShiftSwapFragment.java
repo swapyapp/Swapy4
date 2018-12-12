@@ -54,7 +54,7 @@ public class ReceivedShiftSwapFragment extends Fragment implements SwipeRefreshL
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_received_swap, container, false);
+        rootView = inflater.inflate(R.layout.fragment_shift_received_swap, container, false);
         getActivity().setTitle("Received swaps");
 
         progressBar_received = rootView.findViewById(R.id.progressBar_received);
@@ -88,7 +88,7 @@ public class ReceivedShiftSwapFragment extends Fragment implements SwipeRefreshL
             empty_view_received.setVisibility(View.VISIBLE);
             empty_view_received.setText(R.string.no_received_swaps);
             empty_view2_received.setVisibility(View.VISIBLE);
-            DatabaseReference swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
+            DatabaseReference swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request");
             swapRequestsDb.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
