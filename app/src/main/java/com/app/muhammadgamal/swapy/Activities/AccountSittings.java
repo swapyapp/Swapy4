@@ -29,6 +29,7 @@ public class AccountSittings extends AppCompatActivity {
         setContentView(R.layout.activity_account_sittings);
 
         sittingBodyIntent = new Intent(AccountSittings.this,SittingActivityBody.class);
+        final Bundle bundle = new Bundle();
 
         changeUserName = findViewById(R.id.sittings_change_account_user_name);
         changeUserEmail = findViewById(R.id.sittings_change_account_user_email);
@@ -37,14 +38,16 @@ public class AccountSittings extends AppCompatActivity {
         changeUserName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sittingBodyIntent.putExtra("Change name",changeNameIndicator);
+                bundle.putInt("name",1);
+                sittingBodyIntent.putExtras(bundle);
                 startActivity(sittingBodyIntent);
             }
         });
         changeUserPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sittingBodyIntent.putExtra("Change password", changePasswordIndicator);
+                bundle.putInt("password",2);
+                sittingBodyIntent.putExtras(bundle);
                 startActivity(sittingBodyIntent);
             }
         });
@@ -52,7 +55,8 @@ public class AccountSittings extends AppCompatActivity {
         changeUserEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sittingBodyIntent.putExtra("Change email", changeEmailIndicator);
+                bundle.putInt("email", 3);
+                sittingBodyIntent.putExtras(bundle);
                 startActivity(sittingBodyIntent);
             }
         });
