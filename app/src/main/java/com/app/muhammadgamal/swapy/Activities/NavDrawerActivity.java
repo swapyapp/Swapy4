@@ -26,7 +26,9 @@ import com.app.muhammadgamal.swapy.Fragments.AcceptedShiftSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.AccountFragment;
 import com.app.muhammadgamal.swapy.Fragments.HomeFragment;
 import com.app.muhammadgamal.swapy.Fragments.ReceivedShiftSwapFragment;
+import com.app.muhammadgamal.swapy.Fragments.ReceivedSwapsFragment;
 import com.app.muhammadgamal.swapy.Fragments.SentShiftSwapFragment;
+import com.app.muhammadgamal.swapy.Fragments.SentSwapsFragment;
 import com.app.muhammadgamal.swapy.Fragments.SettingsFragment;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.User;
@@ -193,7 +195,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 getSupportFragmentManager().
                         beginTransaction().
                         replace(R.id.fragment_container,
-                                new ReceivedShiftSwapFragment())
+                                new ReceivedSwapsFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -201,7 +203,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 getSupportFragmentManager().
                         beginTransaction().
                         replace(R.id.fragment_container,
-                                new SentShiftSwapFragment())
+                                new SentSwapsFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
