@@ -62,7 +62,9 @@
         <activity
             android:name=".Activities.ProfileActivityOff"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.ResetPasswordActivity"></activity>
+        <activity
+            android:name=".Activities.ResetPasswordActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
