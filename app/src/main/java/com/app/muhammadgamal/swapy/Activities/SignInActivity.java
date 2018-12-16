@@ -27,7 +27,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 public class SignInActivity extends AppCompatActivity {
 
-    TextView signUpText, pls_verify_email, resend_verify_email;
+    TextView signUpText, pls_verify_email, resend_verify_email, forget_password;
     Button signInButton, retryBtnSignIn;
     EditText editTextEmail, editTextPassword;
     private FirebaseAuth mAuth;
@@ -50,6 +50,15 @@ public class SignInActivity extends AppCompatActivity {
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         pls_verify_email = (TextView) findViewById(R.id.pls_verify_email);
+        forget_password = (TextView)findViewById(R.id.forget_password);
+
+        forget_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent forgetPassword = new Intent(SignInActivity.this, ResetPasswordActivity.class);
+                startActivity(forgetPassword);
+            }
+        });
 
         mainView = (LinearLayout) findViewById(R.id.mainView);
         splashScreen = (LinearLayout) findViewById(R.id.splashScreen);

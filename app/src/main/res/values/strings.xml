@@ -116,6 +116,8 @@
     <string name="cancel">CANCEL</string>
     <string name="SAVE">SAVE</string>
     <string name="current_off">Current off</string>
+    <string name="forget_your_password">Forget Your password?</string>
+    <string name="send">SEND</string>
     <string-array name="company">
         <item>Choose company</item>
         <item>Vodafone</item>

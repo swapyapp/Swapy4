@@ -128,12 +128,12 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                                 .listener(new RequestListener<Drawable>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        progressBarNav.setVisibility(View.GONE);
                                         return false;
                                     }
 
                                     @Override
                                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                        progressBarNav.setVisibility(View.GONE);
                                         return false;
                                     }
                                 })
