@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EEEEEE"
+    android:layoutDirection="ltr"
     tools:context=".Activities.AccountSittings">
 
     <TextView
@@ -15,7 +16,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginLeft="24dp"
         android:layout_marginBottom="8dp"
-        android:layoutDirection="ltr"
         />
 
 
@@ -63,8 +63,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/delete_this_account"
-            style="@style/AccountSittingsTextStyle" />
+            style="@style/AccountSittingsTextStyle"
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/sittings_general_sittings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="General Sittings"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
