@@ -16,6 +16,7 @@ public class AccountSittings extends AppCompatActivity {
     private TextView changeUserEmail;
     private TextView changeUserPassword;
     private TextView switchToOtherCompany;
+    private TextView generalSittings;
     private Intent sittingBodyIntent;
 
     // Indicators will be sent through intent to SittingsActivityBody so that it knows which data to show
@@ -34,6 +35,15 @@ public class AccountSittings extends AppCompatActivity {
         changeUserName = findViewById(R.id.sittings_change_account_user_name);
         changeUserEmail = findViewById(R.id.sittings_change_account_user_email);
         changeUserPassword = findViewById(R.id.sittings_change_account_user_password);
+        generalSittings = (TextView)findViewById(R.id.sittings_general_sittings);
+
+        generalSittings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent generalSittings = new Intent(AccountSittings.this, SettingsActivity.class);
+                startActivity(generalSittings);
+            }
+        });
 
         changeUserName.setOnClickListener(new View.OnClickListener() {
             @Override

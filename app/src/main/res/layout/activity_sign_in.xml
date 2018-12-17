@@ -193,6 +193,18 @@
             android:fontFamily="@font/raleway_medium"
             android:textColor="@color/commonBlackTextColor"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/forget_your_password"
+            android:fontFamily="@font/raleway_medium"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </RelativeLayout>
