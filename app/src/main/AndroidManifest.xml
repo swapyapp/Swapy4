@@ -63,7 +63,6 @@
             android:name=".Activities.ProfileActivityOff"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-<<<<<<< HEAD
             android:name=".Activities.ProfileActivityShiftReceivedRequest"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -81,13 +80,12 @@
         <activity
             android:name=".Activities.ProfileActivityOffSentRequest"
             android:theme="@style/AppTheme.NoActionBar" />
-=======
+        <activity
             android:name=".Activities.ResetPasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
->>>>>>> da2fecbdd90ea85d00cb15af4ca6bd3fb39061d7
+            android:label="@string/title_activity_settings"/>
     </application>
 
 </manifest>
