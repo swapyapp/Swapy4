@@ -177,9 +177,10 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                         @SuppressLint("RestrictedApi")
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
+
 //                    if (swapDetails.getSwapperAccount() != null && swapDetails.getSwapperCompanyBranch() != null) {
                             if (dataSnapshot.exists()) {
+                                SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                                 if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
                                     if (preferredAMorPM == null) {
 //                                if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {

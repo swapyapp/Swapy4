@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa"
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    android:transitionName="@string/list_item_transition_name">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/progressBarProfileShiftReceivedRequestImg1"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileShiftReceivedRequestUserImg"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="4dp"
+                        android:src="@drawable/male_circle_512" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/NameProfileShiftReceivedRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_medium"
+                    android:layout_marginBottom="2dp"
+                    android:maxLines="1"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    tools:text="Muhammad Gamal" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/ShiftTimeProfileShiftReceivedRequest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="@string/shift_time" />
+
+                    <TextView
+                        android:id="@+id/shiftDayProfileShiftReceivedRequest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway_semi_bold"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="Wednesday" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/shiftDateProfileShiftReceivedRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    tools:text="18/10/2018" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="1dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="0"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/progressBarProfileShiftReceivedRequestImg2"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone" />
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/userProfileShiftReceivedRequestUserImg"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="4dp"
+                        android:src="@drawable/male_circle_512" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/UserNameProfileShiftReceivedRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_medium"
+                    android:layout_marginBottom="2dp"
+                    android:maxLines="1"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    tools:text="Muhammad Gamal" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/userShiftTimeProfileShiftReceivedRequest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="@string/shift_time" />
+
+                    <TextView
+                        android:id="@+id/userShiftDayProfileShiftReceivedRequest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway_semi_bold"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="Wednesday" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/userShiftDateProfileShiftReceivedRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    tools:text="18/10/2018" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_back_profile_shift_received_request"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="25dp"
+            android:contentDescription="@string/back"
+            android:src="@drawable/ic_back" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textDisplayContactInfoProfileShiftReceivedRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/raleway_medium"
+        android:text="@string/text_display_contact_info"
+        android:textAlignment="center"
+        android:textColor="@color/commonBlackTextColor"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/userContactInfoProfileShiftReceivedRequest"
+        android:layout_width="365dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingEnd="0dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="0dp"
+            android:paddingStart="25dp">
+
+            <LinearLayout
+                android:id="@+id/emailShiftProfileProfileShiftReceivedRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgEmailShiftProfile"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_email_black_24dp" />
+
+                <TextView
+                    android:id="@+id/userEmailProfileShiftReceivedRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/raleway_medium"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="20dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="swapyapp@gmail.com" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingEnd="0dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="0dp"
+            android:paddingStart="25dp"
+            android:paddingTop="10dp">
+
+            <LinearLayout
+                android:id="@+id/phoneShiftProfileShiftReceivedRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgPhoneShiftProfile"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_phone_android_black_24dp" />
+
+                <TextView
+                    android:id="@+id/userPhoneProfileShiftReceivedRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingStart="20dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="01122334455" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <RelativeLayout
+                android:id="@+id/accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/reject">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/buttonAcceptProfileShiftReceivedRequest"
+                    android:layout_width="116dp"
+                    android:layout_height="47dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/btn_style"
+                    android:clickable="true"
+                    android:fontFamily="@font/raleway_medium"
+                    android:text="@string/accept"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar_acceptProfileShiftReceivedRequest"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/reject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/buttonRejectProfileShiftReceivedRequest"
+                    android:layout_width="116dp"
+                    android:layout_height="47dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/btn_style_grey"
+                    android:clickable="true"
+                    android:fontFamily="@font/raleway_medium"
+                    android:text="@string/reject"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar_rejectProfileShiftReceivedRequest"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/you_accepted_requestShiftProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/raleway_medium"
+            android:text="@string/you_accepted_request"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </RelativeLayout>
+</LinearLayout>

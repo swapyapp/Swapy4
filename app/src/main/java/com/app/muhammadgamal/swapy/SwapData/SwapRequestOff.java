@@ -1,6 +1,9 @@
 package com.app.muhammadgamal.swapy.SwapData;
 
-public class SwapRequestOff {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class SwapRequestOff implements Parcelable {
 
     private String toID, toName, toOffDate, toOffDay, toPhone, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredOff;
     private String fromID, fromName, fromOffDate, fromOffDay, fromPhone, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredOff;
@@ -55,6 +58,43 @@ public class SwapRequestOff {
         this.accepted = accepted;
         this.approved = approved;
     }
+
+    protected SwapRequestOff(Parcel in) {
+        toID = in.readString();
+        toName = in.readString();
+        toOffDate = in.readString();
+        toOffDay = in.readString();
+        toPhone = in.readString();
+        toAccount = in.readString();
+        toCompanyBranch = in.readString();
+        toEmail = in.readString();
+        toImageUrl = in.readString();
+        toPreferredOff = in.readString();
+        fromID = in.readString();
+        fromName = in.readString();
+        fromOffDate = in.readString();
+        fromOffDay = in.readString();
+        fromPhone = in.readString();
+        fromAccount = in.readString();
+        fromCompanyBranch = in.readString();
+        fromEmail = in.readString();
+        fromImageUrl = in.readString();
+        fromPreferredOff = in.readString();
+        accepted = in.readInt();
+        approved = in.readInt();
+    }
+
+    public static final Creator<SwapRequestOff> CREATOR = new Creator<SwapRequestOff>() {
+        @Override
+        public SwapRequestOff createFromParcel(Parcel in) {
+            return new SwapRequestOff(in);
+        }
+
+        @Override
+        public SwapRequestOff[] newArray(int size) {
+            return new SwapRequestOff[size];
+        }
+    };
 
     public String getToID() {
         return toID;
@@ -230,5 +270,36 @@ public class SwapRequestOff {
 
     public void setApproved(int approved) {
         this.approved = approved;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(toID);
+        parcel.writeString(toName);
+        parcel.writeString(toOffDate);
+        parcel.writeString(toOffDay);
+        parcel.writeString(toPhone);
+        parcel.writeString(toAccount);
+        parcel.writeString(toCompanyBranch);
+        parcel.writeString(toEmail);
+        parcel.writeString(toImageUrl);
+        parcel.writeString(toPreferredOff);
+        parcel.writeString(fromID);
+        parcel.writeString(fromName);
+        parcel.writeString(fromOffDate);
+        parcel.writeString(fromOffDay);
+        parcel.writeString(fromPhone);
+        parcel.writeString(fromAccount);
+        parcel.writeString(fromCompanyBranch);
+        parcel.writeString(fromEmail);
+        parcel.writeString(fromImageUrl);
+        parcel.writeString(fromPreferredOff);
+        parcel.writeInt(accepted);
+        parcel.writeInt(approved);
     }
 }

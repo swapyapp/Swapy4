@@ -1,5 +1,6 @@
 package com.app.muhammadgamal.swapy.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -9,18 +10,17 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.app.muhammadgamal.swapy.Adapters.AcceptedSwapAdapter;
+import com.app.muhammadgamal.swapy.Activities.ProfileActivityOffReceivedRequest;
 import com.app.muhammadgamal.swapy.Adapters.OffAcceptedSwapAdapter;
-import com.app.muhammadgamal.swapy.Adapters.OffReceivedSwapAdapter;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequestOff;
-import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -151,6 +151,16 @@ public class AcceptedOffSwapFragment extends Fragment implements SwipeRefreshLay
             offAcceptedList = rootView.findViewById(R.id.offAcceptedList);
             offAcceptedList.setVisibility(View.VISIBLE);
             offAcceptedList.setAdapter(offAcceptedSwapAdapter);
+
+            offAcceptedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    SwapRequestOff swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
+                    Intent intent = new Intent(getContext(), ProfileActivityOffReceivedRequest.class);
+                    intent.putExtra("Accepted Off SRA swapper info", swapDetails);
+                    startActivity(intent);
+                }
+            });
 
         } else {
             progressBar_accepted_off.setVisibility(View.GONE);

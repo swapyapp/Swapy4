@@ -1,5 +1,6 @@
 package com.app.muhammadgamal.swapy.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -10,12 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
+import com.app.muhammadgamal.swapy.Activities.ProfileActivityShiftReceivedRequest;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.Adapters.AcceptedSwapAdapter;
@@ -158,6 +161,16 @@ public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshL
             acceptedList = rootView.findViewById(R.id.acceptedList);
             acceptedList.setVisibility(View.VISIBLE);
             acceptedList.setAdapter(acceptedSwapAdapter);
+
+            acceptedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    SwapRequestShift swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
+                    Intent intent = new Intent(getContext(), ProfileActivityShiftReceivedRequest.class);
+                    intent.putExtra("Sent Shift SRA swapper info", swapDetails);
+                    startActivity(intent);
+                }
+            });
 
         } else {
             progressBar_accepted.setVisibility(View.GONE);

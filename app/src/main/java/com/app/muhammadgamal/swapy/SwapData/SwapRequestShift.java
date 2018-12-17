@@ -1,6 +1,9 @@
 package com.app.muhammadgamal.swapy.SwapData;
 
-public class SwapRequestShift {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class SwapRequestShift implements Parcelable {
 
     private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
     private String fromID, fromLoginID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredShift;
@@ -76,6 +79,47 @@ public class SwapRequestShift {
         this.accepted = accepted;
         this.approved = approved;
     }
+
+    protected SwapRequestShift(Parcel in) {
+        toID = in.readString();
+        toLoginID = in.readString();
+        toName = in.readString();
+        toShiftDate = in.readString();
+        toShiftDay = in.readString();
+        toPhone = in.readString();
+        toShiftTime = in.readString();
+        toAccount = in.readString();
+        toCompanyBranch = in.readString();
+        toEmail = in.readString();
+        toImageUrl = in.readString();
+        toPreferredShift = in.readString();
+        fromID = in.readString();
+        fromLoginID = in.readString();
+        fromName = in.readString();
+        fromShiftDate = in.readString();
+        fromShiftDay = in.readString();
+        fromPhone = in.readString();
+        fromShiftTime = in.readString();
+        fromAccount = in.readString();
+        fromCompanyBranch = in.readString();
+        fromEmail = in.readString();
+        fromImageUrl = in.readString();
+        fromPreferredShift = in.readString();
+        accepted = in.readInt();
+        approved = in.readInt();
+    }
+
+    public static final Creator<SwapRequestShift> CREATOR = new Creator<SwapRequestShift>() {
+        @Override
+        public SwapRequestShift createFromParcel(Parcel in) {
+            return new SwapRequestShift(in);
+        }
+
+        @Override
+        public SwapRequestShift[] newArray(int size) {
+            return new SwapRequestShift[size];
+        }
+    };
 
     public String getToID() {
         return toID;
@@ -283,5 +327,40 @@ public class SwapRequestShift {
 
     public void setFromPreferredShift(String fromPreferredShift) {
         this.fromPreferredShift = fromPreferredShift;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(toID);
+        parcel.writeString(toLoginID);
+        parcel.writeString(toName);
+        parcel.writeString(toShiftDate);
+        parcel.writeString(toShiftDay);
+        parcel.writeString(toPhone);
+        parcel.writeString(toShiftTime);
+        parcel.writeString(toAccount);
+        parcel.writeString(toCompanyBranch);
+        parcel.writeString(toEmail);
+        parcel.writeString(toImageUrl);
+        parcel.writeString(toPreferredShift);
+        parcel.writeString(fromID);
+        parcel.writeString(fromLoginID);
+        parcel.writeString(fromName);
+        parcel.writeString(fromShiftDate);
+        parcel.writeString(fromShiftDay);
+        parcel.writeString(fromPhone);
+        parcel.writeString(fromShiftTime);
+        parcel.writeString(fromAccount);
+        parcel.writeString(fromCompanyBranch);
+        parcel.writeString(fromEmail);
+        parcel.writeString(fromImageUrl);
+        parcel.writeString(fromPreferredShift);
+        parcel.writeInt(accepted);
+        parcel.writeInt(approved);
     }
 }
