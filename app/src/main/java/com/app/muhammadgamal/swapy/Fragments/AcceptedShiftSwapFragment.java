@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
+import com.app.muhammadgamal.swapy.Activities.ProfileActivityShiftAcceptedRequest;
 import com.app.muhammadgamal.swapy.Activities.ProfileActivityShiftReceivedRequest;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
@@ -166,8 +167,8 @@ public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshL
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     SwapRequestShift swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
-                    Intent intent = new Intent(getContext(), ProfileActivityShiftReceivedRequest.class);
-                    intent.putExtra("Sent Shift SRA swapper info", swapDetails);
+                    Intent intent = new Intent(getContext(), ProfileActivityShiftAcceptedRequest.class);
+                    intent.putExtra("Accepted Shift SRA swapper info", swapDetails);
                     startActivity(intent);
                 }
             });

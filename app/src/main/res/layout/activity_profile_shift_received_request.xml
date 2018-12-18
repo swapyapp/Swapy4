@@ -198,7 +198,7 @@
         android:layout_marginStart="17dp"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/raleway_medium"
-        android:text="@string/text_display_contact_info"
+        android:text="@string/text_display_contact_info2"
         android:textAlignment="center"
         android:textColor="@color/commonBlackTextColor"
         android:textStyle="bold" />

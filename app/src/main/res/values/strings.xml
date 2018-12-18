@@ -8,7 +8,8 @@
     <string name="current_shift">Current shift</string>
     <string name="preferred_shift">Preferred shift: </string>
     <string name="preferred_shift_2">Preferred shift</string>
-    <string name="text_display_contact_info">Contact information will be displayed after the swap request has been accepted</string>
+    <string name="text_display_contact_info">Contact information will be displayed after the swap request has been accepted.</string>
+    <string name="text_display_contact_info2">Contact information will be displayed after you accept the request.</string>
     <string name="btn_send_request">Send a Swap Request</string>
     <string name="request_sent">You have sent a swap request successfully</string>
     <string name="request_accepted">Your swap request has been accepted</string>

@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Activities.ProfileActivityShiftReceivedRequest;
+import com.app.muhammadgamal.swapy.Activities.ProfileActivityShiftSentRequest;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.Adapters.SentSwapAdapter;
@@ -166,7 +167,7 @@ public class SentShiftSwapFragment extends Fragment implements SwipeRefreshLayou
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     SwapRequestShift swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
-                    Intent intent = new Intent(getContext(), ProfileActivityShiftReceivedRequest.class);
+                    Intent intent = new Intent(getContext(), ProfileActivityShiftSentRequest.class);
                     intent.putExtra("Sent Shift SRA swapper info", swapDetails);
                     startActivity(intent);
                 }

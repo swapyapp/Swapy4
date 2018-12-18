@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.Activities.ProfileActivityOffReceivedRequest;
+import com.app.muhammadgamal.swapy.Activities.ProfileActivityOffSentRequest;
 import com.app.muhammadgamal.swapy.Adapters.OffSentSwapAdapter;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
@@ -154,7 +155,7 @@ public class SentOffSwapFragment extends Fragment implements SwipeRefreshLayout.
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     SwapRequestOff swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
-                    Intent intent = new Intent(getContext(), ProfileActivityOffReceivedRequest.class);
+                    Intent intent = new Intent(getContext(), ProfileActivityOffSentRequest.class);
                     intent.putExtra("Sent Off SRA swapper info", swapDetails);
                     startActivity(intent);
                 }
