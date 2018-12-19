@@ -61,7 +61,6 @@ public class ProfileActivityOff extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
-        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request");
 
         progressBar_off_profile = (ProgressBar) findViewById(R.id.progressBar_off_profile);
         progressBarOffProfileActivityImage = (ProgressBar) findViewById(R.id.progressBarOffProfileActivityImage);
@@ -89,6 +88,18 @@ public class ProfileActivityOff extends AppCompatActivity {
         offDay = swapDetails.getOffDay();
         swapOffDate = swapDetails.getSwapOffDate();
         preferredOff = swapDetails.getPreferedOff();
+
+        toID = swapperID;
+        toImageUrl = swapperImageUrl;
+        toName = swapperName;
+        toPhone = swapperPhone;
+        toEmail = swapperEmail;
+        toCompanyBranch = swapperCompanyBranch;
+        toAccount = swapperAccount;
+        toOffDate = swapOffDate;
+        toOffDay = offDay;
+        toPreferredOff = preferredOff;
+        fromID = currentUserId;
 
         if (swapperImageUrl != null) {
             progressBarOffProfileActivityImage.setVisibility(View.VISIBLE);
@@ -181,62 +192,105 @@ public class ProfileActivityOff extends AppCompatActivity {
 
     private void showBtnSwapRequest() {
 
-        offSwapRequestsDb.addChildEventListener(new ChildEventListener() {
+
+        DatabaseReference offSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("off_swaps");
+        offSwapDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SwapRequestOff swapRequestOff = dataSnapshot.getValue(SwapRequestOff.class);
+                SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
                 if (dataSnapshot.exists()) {
+                    if (swapDetails.getSwapperID().equals(fromID)) {
+                        fromImageUrl = swapDetails.getSwapperImageUrl();
+                        fromName = swapDetails.getSwapperName();
+                        fromPhone = swapDetails.getSwapperPhone();
+                        fromEmail = swapDetails.getSwapperEmail();
+                        fromCompanyBranch = swapDetails.getSwapperCompanyBranch();
+                        fromAccount = swapDetails.getSwapperAccount();
+                        fromOffDate = swapDetails.getSwapOffDate();
+                        fromOffDay = swapDetails.getOffDay();
+                        fromPreferredOff = swapDetails.getPreferedOff();
+                        String child = fromID + fromOffDay + fromPreferredOff  +toID + toOffDay + toPreferredOff;
+                        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request");
+                        offSwapRequestsDb.addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                SwapRequestOff swapRequestOff = dataSnapshot.getValue(SwapRequestOff.class);
+                                if (dataSnapshot.exists()) {
 
-                    if (swapRequestOff.getFromID().equals(currentUserId)
-                            && swapRequestOff.getToID().equals(swapperID)
-                            && swapRequestOff.getToOffDay().equals(offDay)
-                            && swapRequestOff.getToPreferredOff().equals(preferredOff)) {
+                                    if (swapRequestOff.getFromID().equals(currentUserId)
+                                            && swapRequestOff.getToID().equals(swapperID)
+                                            && swapRequestOff.getToOffDay().equals(offDay)
+                                            && swapRequestOff.getToPreferredOff().equals(preferredOff)) {
 
-                        if (swapRequestOff.getAccepted() == 1) {
+                                        if (swapRequestOff.getAccepted() == 1) {
 
-                            buttonSwapRequestOffProfile.setVisibility(View.GONE);
-                            progressBar_off_profile.setVisibility(View.GONE);
-                            offProfileTextDisplayContactInfo.setVisibility(View.GONE);
-                            userContactInfoOffProfile.setVisibility(View.VISIBLE);
-                            textAcceptedRequestOffProfile.setVisibility(View.VISIBLE);
+                                            buttonSwapRequestOffProfile.setVisibility(View.GONE);
+                                            progressBar_off_profile.setVisibility(View.GONE);
+                                            offProfileTextDisplayContactInfo.setVisibility(View.GONE);
+                                            userContactInfoOffProfile.setVisibility(View.VISIBLE);
+                                            textAcceptedRequestOffProfile.setVisibility(View.VISIBLE);
 
-                        } else {
+                                        } else {
 
-                            buttonSwapRequestOffProfile.setVisibility(View.GONE);
-                            progressBar_off_profile.setVisibility(View.GONE);
-                            textWaitingForAcceptanceOffProfile.setVisibility(View.VISIBLE);
-                            offProfileTextDisplayContactInfo.setVisibility(View.VISIBLE);
-                            userContactInfoOffProfile.setVisibility(View.GONE);
-                            textAcceptedRequestOffProfile.setVisibility(View.GONE);
+                                            buttonSwapRequestOffProfile.setVisibility(View.GONE);
+                                            progressBar_off_profile.setVisibility(View.GONE);
+                                            textWaitingForAcceptanceOffProfile.setVisibility(View.VISIBLE);
+                                            offProfileTextDisplayContactInfo.setVisibility(View.VISIBLE);
+                                            userContactInfoOffProfile.setVisibility(View.GONE);
+                                            textAcceptedRequestOffProfile.setVisibility(View.GONE);
 
-                        }
+                                        }
 
-                    } else if (swapRequestOff.getToID().equals(currentUserId)
-                            && swapRequestOff.getFromID().equals(swapperID)
-                            && swapRequestOff.getFromOffDay().equals(offDay)
-                            && swapRequestOff.getFromPreferredOff().equals(preferredOff)) {
+                                    } else if (swapRequestOff.getToID().equals(currentUserId)
+                                            && swapRequestOff.getFromID().equals(swapperID)
+                                            && swapRequestOff.getFromOffDay().equals(offDay)
+                                            && swapRequestOff.getFromPreferredOff().equals(preferredOff)) {
 
-                        if (swapRequestOff.getAccepted() == 1) {
+                                        if (swapRequestOff.getAccepted() == 1) {
 
-                            buttonSwapRequestOffProfile.setVisibility(View.GONE);
-                            progressBar_off_profile.setVisibility(View.GONE);
-                            offProfileTextDisplayContactInfo.setVisibility(View.GONE);
-                            userContactInfoOffProfile.setVisibility(View.VISIBLE);
-                            you_accepted_requestOffProfile.setVisibility(View.VISIBLE);
+                                            buttonSwapRequestOffProfile.setVisibility(View.GONE);
+                                            progressBar_off_profile.setVisibility(View.GONE);
+                                            offProfileTextDisplayContactInfo.setVisibility(View.GONE);
+                                            userContactInfoOffProfile.setVisibility(View.VISIBLE);
+                                            you_accepted_requestOffProfile.setVisibility(View.VISIBLE);
 
-                        } else {
+                                        } else {
 
-                            buttonSwapRequestOffProfile.setVisibility(View.GONE);
-                            progressBar_off_profile.setVisibility(View.GONE);
-                            user_sent_you_request_off_profile.setVisibility(View.VISIBLE);
-                            offProfileTextDisplayContactInfo.setVisibility(View.VISIBLE);
-                            userContactInfoOffProfile.setVisibility(View.GONE);
-                            textAcceptedRequestOffProfile.setVisibility(View.GONE);
+                                            buttonSwapRequestOffProfile.setVisibility(View.GONE);
+                                            progressBar_off_profile.setVisibility(View.GONE);
+                                            user_sent_you_request_off_profile.setVisibility(View.VISIBLE);
+                                            offProfileTextDisplayContactInfo.setVisibility(View.VISIBLE);
+                                            userContactInfoOffProfile.setVisibility(View.GONE);
+                                            textAcceptedRequestOffProfile.setVisibility(View.GONE);
 
-                        }
+                                        }
 
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
-
                 }
             }
 
@@ -261,20 +315,10 @@ public class ProfileActivityOff extends AppCompatActivity {
             }
         });
 
+
     }
 
     private void swapOffRequest() {
-        toID = swapperID;
-        toImageUrl = swapperImageUrl;
-        toName = swapperName;
-        toPhone = swapperPhone;
-        toEmail = swapperEmail;
-        toCompanyBranch = swapperCompanyBranch;
-        toAccount = swapperAccount;
-        toOffDate = swapOffDate;
-        toOffDay = offDay;
-        toPreferredOff = preferredOff;
-        fromID = currentUserId;
 
         DatabaseReference offSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("off_swaps");
         offSwapDb.addChildEventListener(new ChildEventListener() {
@@ -292,6 +336,8 @@ public class ProfileActivityOff extends AppCompatActivity {
                         fromOffDate = swapDetails.getSwapOffDate();
                         fromOffDay = swapDetails.getOffDay();
                         fromPreferredOff = swapDetails.getPreferedOff();
+                        String child = fromID + fromOffDay + fromPreferredOff  +toID + toOffDay + toPreferredOff;
+                        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request").child(child);
                         swapRequestOff = new SwapRequestOff(toID,
                                 toName,
                                 toOffDate,
@@ -314,7 +360,7 @@ public class ProfileActivityOff extends AppCompatActivity {
                                 fromPreferredOff,
                                 -1,
                                 -1);
-                        offSwapRequestsDb.push().setValue(swapRequestOff).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        offSwapRequestsDb.setValue(swapRequestOff).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(ProfileActivityOff.this, "Notification sent", Toast.LENGTH_LONG).show();
