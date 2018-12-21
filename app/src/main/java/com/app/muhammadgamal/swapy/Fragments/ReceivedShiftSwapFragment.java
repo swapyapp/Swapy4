@@ -60,7 +60,6 @@ public class ReceivedShiftSwapFragment extends Fragment implements SwipeRefreshL
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_shift_received_swap, container, false);
-        getActivity().setTitle("Received swaps");
 
         progressBar_received = rootView.findViewById(R.id.progressBar_received);
         empty_view_received = rootView.findViewById(R.id.empty_view_received);
@@ -200,7 +199,7 @@ public class ReceivedShiftSwapFragment extends Fragment implements SwipeRefreshL
     public void onStart() {
         super.onStart();
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#007c91");
+        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }
 //    @Override

@@ -29,6 +29,7 @@ public class ReceivedSwapsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_received_swaps, container, false);
+        getActivity().setTitle("Received swaps");
 
         ViewPager viewPager = (ViewPager)rootView.findViewById(R.id.received_swaps_viewpager);
         ReceivedSwapsPagerAdapter adapterViewPager = new ReceivedSwapsPagerAdapter(getChildFragmentManager());
@@ -38,7 +39,7 @@ public class ReceivedSwapsFragment extends Fragment {
     }
 
     public class ReceivedSwapsPagerAdapter extends FragmentPagerAdapter {
-        private String tabTitles[] = new String[]{"Received Shift requests", "Received Off requests"};
+        private String tabTitles[] = new String[]{"Shift requests", "Off requests"};
 
         private int NUM_ITEMS = 2;
 

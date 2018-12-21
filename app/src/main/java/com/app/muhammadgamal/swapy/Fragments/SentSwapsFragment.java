@@ -29,6 +29,7 @@ public class SentSwapsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_sent_swaps, container, false);
+        getActivity().setTitle("Sent swaps");
 
         ViewPager viewPager = (ViewPager)rootView.findViewById(R.id.sent_swaps_viewpager);
         SentSwapsPagerAdapter pagerAdapter = new SentSwapsPagerAdapter(getChildFragmentManager());
@@ -39,7 +40,7 @@ public class SentSwapsFragment extends Fragment {
 
     public static class SentSwapsPagerAdapter extends FragmentPagerAdapter {
 
-        private String [] tabTitle = new String[] {"Sent Shift Swaps", "Sent Off swaps"};
+        private String [] tabTitle = new String[] {"Shift requests", "Off requests"};
         public SentSwapsPagerAdapter (FragmentManager fragmentManager){
             super(fragmentManager);
         }

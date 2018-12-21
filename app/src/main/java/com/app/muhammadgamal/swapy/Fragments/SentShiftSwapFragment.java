@@ -63,7 +63,6 @@ public class SentShiftSwapFragment extends Fragment implements SwipeRefreshLayou
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_shift_sent_swap, container, false);
-        getActivity().setTitle("Sent swaps");
 
         progressBar_sent = rootView.findViewById(R.id.progressBar_sent);
         empty_view_sent = rootView.findViewById(R.id.empty_view_sent);
@@ -217,7 +216,7 @@ public class SentShiftSwapFragment extends Fragment implements SwipeRefreshLayou
     public void onStart() {
         super.onStart();
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#007c91");
+        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }
 //    @Override

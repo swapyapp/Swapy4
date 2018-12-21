@@ -445,7 +445,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     public void onStart() {
         super.onStart();
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#007c91");
+        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }
 //    @Override
