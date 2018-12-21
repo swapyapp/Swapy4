@@ -273,17 +273,17 @@ public class OffSwapFragment extends Fragment {
                     //image and card views transitions
                     String imageTransitionName = getString(R.string.image_transition_name);
                     String listItemTransitionName = getString(R.string.list_item_transition_name);
-                    View swapper_image = view.findViewById(R.id.swapper_image);
-                    View cardView = view.findViewById(R.id.listItemCardView);
+                    View swapper_image = view.findViewById(R.id.swapper_off_image);
+                    View cardView = view.findViewById(R.id.listItemOffCardView);
                     Pair<View, String> p1 = Pair.create(swapper_image, imageTransitionName);
                     Pair<View, String> p2 = Pair.create(cardView, listItemTransitionName);
-//                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), swapper_image, ViewCompat.getTransitionName(swapper_image));
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), swapper_image, ViewCompat.getTransitionName(swapper_image));
 
 
                     SwapOff swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
                     Intent intent = new Intent(getContext(), ProfileActivityOff.class);
                     intent.putExtra("off swapper info", swapDetails);
-                    startActivity(intent);
+                    startActivity(intent, options.toBundle());
                 }
             });
         } else {

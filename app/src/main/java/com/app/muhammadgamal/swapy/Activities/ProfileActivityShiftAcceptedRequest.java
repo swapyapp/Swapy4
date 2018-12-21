@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,7 +37,6 @@ public class ProfileActivityShiftAcceptedRequest extends AppCompatActivity {
     private int swapAccepted;
     private ProgressBar progressBarProfileShiftAcceptedRequestImg1, progressBarProfileShiftAcceptedRequestImg2;
     private CircleImageView profileShiftAcceptedRequestUserImg, userProfileShiftAcceptedRequestUserImg;
-    private ImageView img_back_profile_shift_Accepted_request;
     private TextView NameProfileShiftAcceptedRequest, ShiftTimeProfileShiftAcceptedRequest, shiftDayProfileShiftAcceptedRequest, shiftDateProfileShiftAcceptedRequest;
     private TextView UserNameProfileShiftAcceptedRequest, userShiftTimeProfileShiftAcceptedRequest, userShiftDayProfileShiftAcceptedRequest, userShiftDateProfileShiftAcceptedRequest;
     private TextView userEmailProfileShiftAcceptedRequest, userPhoneProfileShiftAcceptedRequest;
@@ -47,6 +47,9 @@ public class ProfileActivityShiftAcceptedRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_shift_accepted_request);
+
+        setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
@@ -63,7 +66,6 @@ public class ProfileActivityShiftAcceptedRequest extends AppCompatActivity {
 
         profileShiftAcceptedRequestUserImg = (CircleImageView) findViewById(R.id.profileShiftAcceptedRequestUserImg);
         userProfileShiftAcceptedRequestUserImg = (CircleImageView) findViewById(R.id.userProfileShiftAcceptedRequestUserImg);
-        img_back_profile_shift_Accepted_request = (ImageView) findViewById(R.id.img_back_profile_shift_Accepted_request);
 
         NameProfileShiftAcceptedRequest = (TextView) findViewById(R.id.NameProfileShiftAcceptedRequest);
         ShiftTimeProfileShiftAcceptedRequest = (TextView) findViewById(R.id.ShiftTimeProfileShiftAcceptedRequest);
@@ -247,5 +249,16 @@ public class ProfileActivityShiftAcceptedRequest extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            //To support reverse transition when user clicks the action bar's Up/Home button
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -6,7 +6,7 @@
     android:background="#fafafa"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    android:transitionName="@string/list_item_transition_name">
+    android:transitionName="@string/Show_shift_received_profile">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:animateLayoutChanges="false"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -50,8 +51,8 @@
                     android:id="@+id/NameProfileShiftReceivedRequest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_medium"
                     android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/raleway_medium"
                     android:maxLines="1"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -134,8 +135,8 @@
                     android:id="@+id/UserNameProfileShiftReceivedRequest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_medium"
                     android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/raleway_medium"
                     android:maxLines="1"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -177,17 +178,6 @@
 
             </LinearLayout>
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/img_back_profile_shift_received_request"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="25dp"
-            android:contentDescription="@string/back"
-            android:src="@drawable/ic_back" />
     </RelativeLayout>
 
     <TextView
@@ -297,15 +287,16 @@
         android:gravity="center_horizontal">
 
         <RelativeLayout
+            android:id="@+id/shiftReceivedButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true">
 
             <RelativeLayout
-                android:id="@+id/accept"
+                android:id="@+id/acceptShift"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/reject">
+                android:layout_toRightOf="@id/rejectShift">
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/buttonAcceptProfileShiftReceivedRequest"
@@ -329,7 +320,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/reject"
+                android:id="@+id/rejectShift"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp">

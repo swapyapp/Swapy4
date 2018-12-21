@@ -6,9 +6,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -51,7 +53,6 @@ public class ProfileActivityShift extends AppCompatActivity {
     private CircleImageView profileUserImg;
     private TextView userProfileName, companyBranch, account, currentShift, preferredShift, userEmail, userPhone, textSentOrAcceptedRequest, textWaitingForAcceptance, textDisplayContactInfo, textAcceptedRequest, you_accepted_request, user_sent_you_request;
     private Button buttonSwapRequest;
-    private ImageView img_back_profile;
     private ProgressBar progressBar, progressBarProfileActivityImage;
     private FirebaseAuth mAuth;
     private String requestMessage;
@@ -140,13 +141,10 @@ public class ProfileActivityShift extends AppCompatActivity {
             profileUserImg.setImageDrawable(photoUrl);
         }
 
-        img_back_profile = (ImageView) findViewById(R.id.img_back_profile);
-        img_back_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+
+        setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         userProfileName = (TextView) findViewById(R.id.userProfileName);
         userProfileName.setText(swapperName);
@@ -501,6 +499,17 @@ public class ProfileActivityShift extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            //To support reverse transition when user clicks the action bar's Up/Home button
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

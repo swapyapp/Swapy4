@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -166,10 +169,13 @@ public class SentShiftSwapFragment extends Fragment implements SwipeRefreshLayou
             sentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    View cardView = view.findViewById(R.id.sentListItemCardView);
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), cardView, ViewCompat.getTransitionName(cardView));
+
                     SwapRequestShift swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
                     Intent intent = new Intent(getContext(), ProfileActivityShiftSentRequest.class);
                     intent.putExtra("Sent Shift SRA swapper info", swapDetails);
-                    startActivity(intent);
+                    startActivity(intent, options.toBundle());
                 }
             });
 

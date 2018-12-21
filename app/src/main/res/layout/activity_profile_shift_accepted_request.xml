@@ -6,7 +6,7 @@
     android:background="#fafafa"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    android:transitionName="@string/list_item_transition_name">
+    android:transitionName="@string/Show_shift_accepted_profile">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                         android:id="@+id/profileShiftAcceptedRequestUserImg"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:layout_marginBottom="4dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_marginTop="4dp"
                         android:src="@drawable/male_circle_512" />
                 </RelativeLayout>
@@ -50,6 +50,7 @@
                     android:id="@+id/NameProfileShiftAcceptedRequest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
                     android:fontFamily="@font/raleway_medium"
                     android:maxLines="1"
                     android:textColor="#000000"
@@ -59,6 +60,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -123,7 +125,7 @@
                         android:id="@+id/userProfileShiftAcceptedRequestUserImg"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:layout_marginBottom="4dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_marginTop="4dp"
                         android:src="@drawable/male_circle_512" />
                 </RelativeLayout>
@@ -132,6 +134,7 @@
                     android:id="@+id/UserNameProfileShiftAcceptedRequest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
                     android:fontFamily="@font/raleway_medium"
                     android:maxLines="1"
                     android:textColor="#000000"
@@ -141,6 +144,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -173,17 +177,6 @@
 
             </LinearLayout>
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/img_back_profile_shift_Accepted_request"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="25dp"
-            android:contentDescription="@string/back"
-            android:src="@drawable/ic_back" />
     </RelativeLayout>
 
     <LinearLayout

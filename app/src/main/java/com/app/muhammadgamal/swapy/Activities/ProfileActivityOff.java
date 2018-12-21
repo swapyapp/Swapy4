@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,7 +38,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivityOff extends AppCompatActivity {
 
-    private ImageView img_back_off_profile;
     private CircleImageView offProfileUserImg;
     private TextView userOffProfileName, offProfileCompanyBranch, offProfileAccount, offProfileCurrent, offProfilePreferred, offProfileTextDisplayContactInfo, userEmailOffProfile, userPhoneOffProfile,
             textSentOrAcceptedRequestOffProfile, textWaitingForAcceptanceOffProfile, textAcceptedRequestOffProfile, you_accepted_requestOffProfile, user_sent_you_request_off_profile;
@@ -58,20 +58,15 @@ public class ProfileActivityOff extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_off);
 
+        setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
         progressBar_off_profile = (ProgressBar) findViewById(R.id.progressBar_off_profile);
         progressBarOffProfileActivityImage = (ProgressBar) findViewById(R.id.progressBarOffProfileActivityImage);
-
-        img_back_off_profile = (ImageView) findViewById(R.id.img_back_off_profile);
-        img_back_off_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         offProfileUserImg = (CircleImageView) findViewById(R.id.offProfileUserImg);
 
@@ -209,8 +204,8 @@ public class ProfileActivityOff extends AppCompatActivity {
                         fromOffDate = swapDetails.getSwapOffDate();
                         fromOffDay = swapDetails.getOffDay();
                         fromPreferredOff = swapDetails.getPreferedOff();
-                        String child = fromID + fromOffDay + fromPreferredOff  +toID + toOffDay + toPreferredOff;
-                        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request");
+                        String child = toID + toOffDay + toPreferredOff + fromID + fromOffDay + fromPreferredOff;
+                        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request").child(child);
                         offSwapRequestsDb.addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -400,6 +395,17 @@ public class ProfileActivityOff extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            //To support reverse transition when user clicks the action bar's Up/Home button
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/img_back_creation_body"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="25dp"
@@ -26,8 +26,8 @@
 
         <ProgressBar
             android:id="@+id/creation_body_progress_bar"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="20dp"
@@ -35,8 +35,8 @@
 
         <ImageView
             android:id="@+id/img_save_creation_body"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="25dp"

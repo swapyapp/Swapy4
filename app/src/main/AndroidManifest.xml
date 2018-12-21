@@ -28,7 +28,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.ProfileActivityShift"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.ActionBar.Transparent" />
         <activity
             android:name=".Activities.NavDrawerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -61,25 +61,25 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.ProfileActivityOff"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.ActionBar.Transparent" />
         <activity
             android:name=".Activities.ProfileActivityShiftReceivedRequest"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.ActionBar.Transparent2" />
         <activity
             android:name=".Activities.ProfileActivityOffReceivedRequest"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.ActionBar.Transparent2" />
         <activity
             android:name=".Activities.ProfileActivityShiftSentRequest"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.ActionBar.Transparent2" />
         <activity
             android:name=".Activities.ProfileActivityShiftAcceptedRequest"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.ActionBar.Transparent2" />
         <activity
             android:name=".Activities.ProfileActivityOffAcceptedRequest"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.ActionBar.Transparent2" />
         <activity
             android:name=".Activities.ProfileActivityOffSentRequest"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.ActionBar.Transparent2" />
         <activity
             android:name=".Activities.ResetPasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />

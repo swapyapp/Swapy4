@@ -2,7 +2,14 @@
 
     <string name="app_name">Swapy</string>
     <string name="image_transition_name">Show</string>
-    <string name="list_item_transition_name">Show profile</string>
+    <string name="list_item_transition_name">Show shift profile</string>
+    <string name="Show_off_profile">Show off profile</string>
+    <string name="Show_shift_accepted_profile">Show shift accepted profile</string>
+    <string name="Show_off_accepted_profile">Show off accepted profile</string>
+    <string name="Show_shift_received_profile">Show shift  received profile</string>
+    <string name="Show_off_received_profile">Show off received profile</string>
+    <string name="Show_shift_sent_profile">Show shift sent profile</string>
+    <string name="Show_off_sent_profile">Show off sent profile</string>
     <string name="company">Company</string>
     <string name="account">Account</string>
     <string name="current_shift">Current shift</string>
