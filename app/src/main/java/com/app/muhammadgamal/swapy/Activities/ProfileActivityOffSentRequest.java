@@ -98,6 +98,16 @@ public class ProfileActivityOffSentRequest extends AppCompatActivity {
         swapOffDate = swapDetails.getToOffDate();
         swapperPreferredOff = swapDetails.getToPreferredOff();
 
+        fromImageUrl = swapDetails.getFromImageUrl();
+        fromName = swapDetails.getToName();
+        fromPhone = swapDetails.getFromPhone();
+        fromEmail = swapDetails.getFromEmail();
+        fromCompanyBranch = swapDetails.getFromCompanyBranch();
+        fromAccount = swapDetails.getFromAccount();
+        fromOffDate = swapDetails.getFromOffDate();
+        fromOffDay = swapDetails.getFromOffDay();
+        fromPreferredOff = swapDetails.getFromPreferredOff();
+
         toID = swapperID;
         toImageUrl = swapperImageUrl;
         toName = swapperName;
@@ -179,61 +189,20 @@ public class ProfileActivityOffSentRequest extends AppCompatActivity {
 
     private void withdraw() {
 
-        DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("off_swaps");
-        shiftSwapDb.addChildEventListener(new ChildEventListener() {
+        String child = fromID + fromOffDay + fromPreferredOff + toID + toOffDay + toPreferredOff;
+        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request")
+                .child(child);
+        offSwapRequestsDb.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
-                if (dataSnapshot.exists()) {
-                    if (swapDetails.getSwapperID().equals(fromID)) {
-                        fromImageUrl = swapDetails.getSwapperImageUrl();
-                        fromName = swapDetails.getSwapperName();
-                        fromPhone = swapDetails.getSwapperPhone();
-                        fromEmail = swapDetails.getSwapperEmail();
-                        fromCompanyBranch = swapDetails.getSwapperCompanyBranch();
-                        fromAccount = swapDetails.getSwapperAccount();
-                        fromOffDate = swapDetails.getSwapOffDate();
-                        fromOffDay = swapDetails.getOffDay();
-                        fromPreferredOff = swapDetails.getPreferedOff();
-
-                        String child = fromID + fromOffDay + fromPreferredOff + toID + toOffDay + toPreferredOff;
-                        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request")
-                                .child(child);
-                        offSwapRequestsDb.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(ProfileActivityOffSentRequest.this, "Withdrawn", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                buttonWithdrawProfileOffSentRequest.setVisibility(View.VISIBLE);
-                                Toast.makeText(ProfileActivityOffSentRequest.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(ProfileActivityOffSentRequest.this, "Withdrawn", Toast.LENGTH_SHORT).show();
+                finish();
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onFailure(@NonNull Exception e) {
+                buttonWithdrawProfileOffSentRequest.setVisibility(View.VISIBLE);
+                Toast.makeText(ProfileActivityOffSentRequest.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

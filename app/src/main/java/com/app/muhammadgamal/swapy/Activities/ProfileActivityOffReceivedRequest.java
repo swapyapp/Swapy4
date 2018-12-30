@@ -118,6 +118,16 @@ public class ProfileActivityOffReceivedRequest extends AppCompatActivity {
         swapOffDate = swapDetails.getFromOffDate();
         swapperPreferredOff = swapDetails.getFromPreferredOff();
 
+        fromImageUrl = swapDetails.getToImageUrl();
+        fromName = swapDetails.getToName();
+        fromPhone = swapDetails.getToPhone();
+        fromEmail = swapDetails.getToEmail();
+        fromCompanyBranch = swapDetails.getToCompanyBranch();
+        fromAccount = swapDetails.getToAccount();
+        fromOffDate = swapDetails.getToOffDate();
+        fromOffDay = swapDetails.getToOffDay();
+        fromPreferredOff = swapDetails.getToPreferredOff();
+
         toID = swapperID;
         toImageUrl = swapperImageUrl;
         toName = swapperName;
@@ -233,67 +243,24 @@ public class ProfileActivityOffReceivedRequest extends AppCompatActivity {
 
     private void accept() {
 
-        DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("off_swaps");
-        shiftSwapDb.addChildEventListener(new ChildEventListener() {
+        String child = toID + toOffDay + toPreferredOff + fromID + fromOffDay + fromPreferredOff;
+        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request")
+                .child(child);
+        offSwapRequestsDb.child("accepted").setValue(1).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
-                if (dataSnapshot.exists()) {
-                    if (swapDetails.getSwapperID().equals(fromID)) {
-                        fromImageUrl = swapDetails.getSwapperImageUrl();
-                        fromName = swapDetails.getSwapperName();
-                        fromPhone = swapDetails.getSwapperPhone();
-                        fromEmail = swapDetails.getSwapperEmail();
-                        fromCompanyBranch = swapDetails.getSwapperCompanyBranch();
-                        fromAccount = swapDetails.getSwapperAccount();
-                        fromOffDate = swapDetails.getSwapOffDate();
-                        fromOffDay = swapDetails.getOffDay();
-                        fromPreferredOff = swapDetails.getPreferedOff();
-
-                        String child = toID + toOffDay + toPreferredOff + fromID + fromOffDay + fromPreferredOff;
-                        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request")
-                                .child(child);
-                        offSwapRequestsDb.child("accepted").setValue(1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(ProfileActivityOffReceivedRequest.this, "Successfully accepted", Toast.LENGTH_SHORT).show();
-                                OffReceivedButtons.setVisibility(View.INVISIBLE);
-                                you_accepted_requestOffProfile.setVisibility(View.VISIBLE);
-                                textDisplayContactInfoProfileOffRequest.setVisibility(View.GONE);
-                                userContactInfoProfileOffRequest.setVisibility(View.VISIBLE);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                buttonAcceptProfileOffRequest.setVisibility(View.VISIBLE);
-                                rejectOff.setVisibility(View.VISIBLE);
-                                Toast.makeText(ProfileActivityOffReceivedRequest.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-
-                    }
-                }
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(ProfileActivityOffReceivedRequest.this, "Successfully accepted", Toast.LENGTH_SHORT).show();
+                OffReceivedButtons.setVisibility(View.INVISIBLE);
+                you_accepted_requestOffProfile.setVisibility(View.VISIBLE);
+                textDisplayContactInfoProfileOffRequest.setVisibility(View.GONE);
+                userContactInfoProfileOffRequest.setVisibility(View.VISIBLE);
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onFailure(@NonNull Exception e) {
+                buttonAcceptProfileOffRequest.setVisibility(View.VISIBLE);
+                rejectOff.setVisibility(View.VISIBLE);
+                Toast.makeText(ProfileActivityOffReceivedRequest.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -301,60 +268,19 @@ public class ProfileActivityOffReceivedRequest extends AppCompatActivity {
 
     private void reject() {
 
-        DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("off_swaps");
-        shiftSwapDb.addChildEventListener(new ChildEventListener() {
+        String child = toID + toOffDay + toPreferredOff + fromID + fromOffDay + fromPreferredOff;
+        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request")
+                .child(child);
+        offSwapRequestsDb.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
-                if (dataSnapshot.exists()) {
-                    if (swapDetails.getSwapperID().equals(fromID)) {
-                        fromImageUrl = swapDetails.getSwapperImageUrl();
-                        fromName = swapDetails.getSwapperName();
-                        fromPhone = swapDetails.getSwapperPhone();
-                        fromEmail = swapDetails.getSwapperEmail();
-                        fromCompanyBranch = swapDetails.getSwapperCompanyBranch();
-                        fromAccount = swapDetails.getSwapperAccount();
-                        fromOffDate = swapDetails.getSwapOffDate();
-                        fromOffDay = swapDetails.getOffDay();
-                        fromPreferredOff = swapDetails.getPreferedOff();
-
-                        String child = toID + toOffDay + toPreferredOff + fromID + fromOffDay + fromPreferredOff;
-                        offSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Off Request")
-                                .child(child);
-                        offSwapRequestsDb.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(ProfileActivityOffReceivedRequest.this, "Rejected", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ProfileActivityOffReceivedRequest.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(ProfileActivityOffReceivedRequest.this, "Rejected", Toast.LENGTH_SHORT).show();
+                finish();
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(ProfileActivityOffReceivedRequest.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

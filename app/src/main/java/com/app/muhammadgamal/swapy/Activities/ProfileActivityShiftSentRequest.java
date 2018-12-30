@@ -103,6 +103,17 @@ public class ProfileActivityShiftSentRequest extends AppCompatActivity {
         swapperShiftTime = swapDetails.getToShiftTime();
         swapperPreferredShift = swapDetails.getToPreferredShift();
 
+        fromImageUrl = swapDetails.getFromImageUrl();
+        fromName = swapDetails.getFromName();
+        fromPhone = swapDetails.getFromPhone();
+        fromEmail = swapDetails.getFromEmail();
+        fromCompanyBranch = swapDetails.getFromCompanyBranch();
+        fromAccount = swapDetails.getFromAccount();
+        fromShiftDate = swapDetails.getFromShiftDate();
+        fromShiftDay = swapDetails.getFromShiftDay();
+        fromShiftTime = swapDetails.getFromShiftTime();
+        fromPreferredShift = swapDetails.getFromPreferredShift();
+
         toID = swapperID;
         toImageUrl = swapperImageUrl;
         toName = swapperName;
@@ -187,63 +198,20 @@ public class ProfileActivityShiftSentRequest extends AppCompatActivity {
 
     private void withdraw() {
 
-        DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
-        shiftSwapDb.addChildEventListener(new ChildEventListener() {
+        String child = fromID + fromShiftDay + fromShiftTime + fromPreferredShift + toID + toShiftDay + toShiftTime + toPreferredShift;
+        shiftSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request")
+                .child(child);
+        shiftSwapRequestsDb.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
-                if (dataSnapshot.exists()) {
-                    if (swapDetails.getSwapperID().equals(fromID)) {
-                        fromLoginID = swapDetails.getSwapperLoginID();
-                        fromImageUrl = swapDetails.getSwapperImageUrl();
-                        fromName = swapDetails.getSwapperName();
-                        fromPhone = swapDetails.getSwapperPhone();
-                        fromEmail = swapDetails.getSwapperEmail();
-                        fromCompanyBranch = swapDetails.getSwapperCompanyBranch();
-                        fromAccount = swapDetails.getSwapperAccount();
-                        fromShiftDate = swapDetails.getSwapShiftDate();
-                        fromShiftDay = swapDetails.getSwapperShiftDay();
-                        fromShiftTime = swapDetails.getSwapperShiftTime();
-                        fromPreferredShift = swapDetails.getSwapperPreferredShift();
-
-                        String child = fromID + fromShiftDay + fromShiftTime + fromPreferredShift + toID + toShiftDay + toShiftTime + toPreferredShift;
-                        shiftSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request")
-                                .child(child);
-                        shiftSwapRequestsDb.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(ProfileActivityShiftSentRequest.this, "Withdrawn", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                buttonWithdrawProfileShiftSentRequest.setVisibility(View.VISIBLE);
-                                Toast.makeText(ProfileActivityShiftSentRequest.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(ProfileActivityShiftSentRequest.this, "Withdrawn", Toast.LENGTH_SHORT).show();
+                finish();
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onFailure(@NonNull Exception e) {
+                buttonWithdrawProfileShiftSentRequest.setVisibility(View.VISIBLE);
+                Toast.makeText(ProfileActivityShiftSentRequest.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

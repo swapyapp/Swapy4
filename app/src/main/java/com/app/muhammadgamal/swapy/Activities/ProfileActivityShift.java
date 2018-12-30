@@ -1,24 +1,33 @@
 package com.app.muhammadgamal.swapy.Activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.muhammadgamal.swapy.Adapters.ShiftProfileAdapter;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
@@ -41,7 +50,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -51,9 +63,13 @@ public class ProfileActivityShift extends AppCompatActivity {
     private final static String LOG_TAG = ProfileActivityShift.class.getSimpleName();
 
     private CircleImageView profileUserImg;
+    private ImageView imgCloseShiftProfileDialog, imgCloseShiftProfileChooseDialog;
+    private ListView listView;
+    private ShiftProfileAdapter shiftProfileAdapter;
+    private Dialog shiftProfileDialog, chooseShiftProfileDialog;
     private TextView userProfileName, companyBranch, account, currentShift, preferredShift, userEmail, userPhone, textSentOrAcceptedRequest, textWaitingForAcceptance, textDisplayContactInfo, textAcceptedRequest, you_accepted_request, user_sent_you_request;
-    private Button buttonSwapRequest;
-    private ProgressBar progressBar, progressBarProfileActivityImage;
+    private Button buttonSwapRequest, buttonCancelShiftProfileDialog, buttonCreateShiftProfileDialog;
+    private ProgressBar progressBar, progressBarProfileActivityImage, progressBar_ShiftProfileChooseDialog;
     private FirebaseAuth mAuth;
     private String requestMessage;
     private TextView swapDone;
@@ -111,7 +127,6 @@ public class ProfileActivityShift extends AppCompatActivity {
         toPreferredShift = swapperPreferredShift;
         fromID = currentUserId;
 
-
         //set the request message
         requestMessage = swapperName + "" + (R.string.notification_message);
 
@@ -145,7 +160,6 @@ public class ProfileActivityShift extends AppCompatActivity {
         setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         userProfileName = (TextView) findViewById(R.id.userProfileName);
         userProfileName.setText(swapperName);
         companyBranch = (TextView) findViewById(R.id.profileCompanyBranch);
@@ -175,6 +189,47 @@ public class ProfileActivityShift extends AppCompatActivity {
         phoneShiftProfile = (LinearLayout) findViewById(R.id.phoneShiftProfile);
         emailShiftProfile = (LinearLayout) findViewById(R.id.emailShiftProfile);
 
+        shiftProfileDialog = new Dialog(ProfileActivityShift.this);
+        shiftProfileDialog.setContentView(R.layout.shift_profile_dialog);
+        shiftProfileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        imgCloseShiftProfileDialog = shiftProfileDialog.findViewById(R.id.imgCloseShiftProfileDialog);
+        imgCloseShiftProfileDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shiftProfileDialog.dismiss();
+            }
+        });
+
+        chooseShiftProfileDialog = new Dialog(ProfileActivityShift.this);
+        chooseShiftProfileDialog.setContentView(R.layout.shift_profile_choose_dialog);
+        chooseShiftProfileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        imgCloseShiftProfileChooseDialog = chooseShiftProfileDialog.findViewById(R.id.imgCloseShiftProfileChooseDialog);
+        imgCloseShiftProfileChooseDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseShiftProfileDialog.dismiss();
+                shiftProfileDialog.dismiss();
+            }
+        });
+        buttonCancelShiftProfileDialog = (Button) shiftProfileDialog.findViewById(R.id.buttonCancelShiftProfileDialog);
+        buttonCancelShiftProfileDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shiftProfileDialog.dismiss();
+            }
+        });
+        buttonCreateShiftProfileDialog = (Button) shiftProfileDialog.findViewById(R.id.buttonCreateShiftProfileDialog);
+        buttonCreateShiftProfileDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivityShift.this, SwapCreationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        progressBar_ShiftProfileChooseDialog = (ProgressBar) chooseShiftProfileDialog.findViewById(R.id.progressBar_ShiftProfileChooseDialog);
         //if the user opens his swap the swap request button view will be gone
         if (swapperID.equals(currentUserId)) {
             buttonSwapRequest.setVisibility(View.GONE);
@@ -224,35 +279,72 @@ public class ProfileActivityShift extends AppCompatActivity {
 //        });
 
 
-
-
         buttonSwapRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 buttonSwapRequest.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
-                //set the request message
-                requestMessage = userName + "" + " wants to swap his shift with your shift";
 
-                Map<String, Object> notificationMessage = new HashMap<>();
-                notificationMessage.put("message", requestMessage);
-                notificationMessage.put("from", currentUserId);
-
-                notificationDB.child(swapperID).push()
-                        .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
+                DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
+                shiftSwapDb.addChildEventListener(new ChildEventListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            swapShiftRequest();
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
+                        if (dataSnapshot.exists()) {
+                            if (swapDetails.getSwapperID().equals(fromID)) {
+                                //set the request message
+                                requestMessage = userName + "" + " wants to swap his shift with your shift";
+
+                                Map<String, Object> notificationMessage = new HashMap<>();
+                                notificationMessage.put("message", requestMessage);
+                                notificationMessage.put("from", currentUserId);
+
+                                notificationDB.child(swapperID).push()
+                                        .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            chooseShiftProfileDialog.show();
+                                            progressBar.setVisibility(View.INVISIBLE);
+                                            fetchChooseList();
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(ProfileActivityShift.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                                        Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
+                                    }
+                                });
+                            } else {
+                                shiftProfileDialog.show();
+                                buttonSwapRequest.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.INVISIBLE);
+                            }
                         }
                     }
-                }).addOnFailureListener(new OnFailureListener() {
+
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ProfileActivityShift.this, "Something went wrong", Toast.LENGTH_LONG).show();
-                        Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
                     }
                 });
+
 
             }
         });
@@ -282,7 +374,6 @@ public class ProfileActivityShift extends AppCompatActivity {
 
     private void showBtnSwapRequest() {
 
-
         DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
         shiftSwapDb.addChildEventListener(new ChildEventListener() {
             @Override
@@ -302,7 +393,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                         fromShiftTime = swapDetails.getSwapperShiftTime();
                         fromPreferredShift = swapDetails.getSwapperPreferredShift();
 
-                        String child = fromID + fromShiftDay + fromShiftTime + fromPreferredShift +toID + toShiftDay + toShiftTime + toPreferredShift;
+                        String child = fromID + fromShiftDay + fromShiftTime + fromPreferredShift + toID + toShiftDay + toShiftTime + toPreferredShift;
                         //last child (fromID + fromShiftDay + fromShiftDate + fromShiftTime + fromPreferredShift + toID + toShiftDay + toShiftDate + toShiftTime + toPreferredShift)
                         shiftSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request")
                                 .child(child);
@@ -313,55 +404,61 @@ public class ProfileActivityShift extends AppCompatActivity {
 
                                 if (dataSnapshot.exists()) {
 
-                                    if (swapRequestShift.getFromID().equals(currentUserId)
-                                            && swapRequestShift.getToID().equals(swapperID)
-                                            && swapRequestShift.getToShiftTime().equals(swapperShiftTime)
-                                            && swapRequestShift.getToShiftDay().equals(swapperShiftDay)
-                                            && swapRequestShift.getToPreferredShift().equals(swapperPreferredShift)) {
+                                    if (swapRequestShift.getAccepted() == 1) {
 
-                                        if (swapRequestShift.getAccepted() == 1) {
+                                        buttonSwapRequest.setVisibility(View.GONE);
+                                        progressBar.setVisibility(View.GONE);
+                                        textDisplayContactInfo.setVisibility(View.GONE);
+                                        userContactInfo.setVisibility(View.VISIBLE);
+                                        textAcceptedRequest.setVisibility(View.VISIBLE);
 
-                                            buttonSwapRequest.setVisibility(View.GONE);
-                                            progressBar.setVisibility(View.GONE);
-                                            textDisplayContactInfo.setVisibility(View.GONE);
-                                            userContactInfo.setVisibility(View.VISIBLE);
-                                            textAcceptedRequest.setVisibility(View.VISIBLE);
+                                    } else {
 
-                                        } else {
+                                        buttonSwapRequest.setVisibility(View.GONE);
+                                        progressBar.setVisibility(View.GONE);
+                                        textWaitingForAcceptance.setVisibility(View.VISIBLE);
+                                        textDisplayContactInfo.setVisibility(View.VISIBLE);
+                                        userContactInfo.setVisibility(View.GONE);
+                                        textAcceptedRequest.setVisibility(View.GONE);
 
-                                            buttonSwapRequest.setVisibility(View.GONE);
-                                            progressBar.setVisibility(View.GONE);
-                                            textWaitingForAcceptance.setVisibility(View.VISIBLE);
-                                            textDisplayContactInfo.setVisibility(View.VISIBLE);
-                                            userContactInfo.setVisibility(View.GONE);
-                                            textAcceptedRequest.setVisibility(View.GONE);
+                                    }
 
-                                        }
+                                }
+                            }
 
-                                    } else if (swapRequestShift.getToID().equals(currentUserId)
-                                            && swapRequestShift.getFromID().equals(swapperID)
-                                            && swapRequestShift.getFromShiftTime().equals(swapperShiftTime)
-                                            && swapRequestShift.getFromShiftDay().equals(swapperShiftDay)
-                                            && swapRequestShift.getFromPreferredShift().equals(swapperPreferredShift)) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                                        if (swapRequestShift.getAccepted() == 1) {
+                            }
+                        });
 
-                                            buttonSwapRequest.setVisibility(View.GONE);
-                                            progressBar.setVisibility(View.GONE);
-                                            textDisplayContactInfo.setVisibility(View.GONE);
-                                            userContactInfo.setVisibility(View.VISIBLE);
-                                            you_accepted_request.setVisibility(View.VISIBLE);
+                        String child2 = toID + toShiftDay + toShiftTime + toPreferredShift + fromID + fromShiftDay + fromShiftTime + fromPreferredShift;
+                        //last child (fromID + fromShiftDay + fromShiftDate + fromShiftTime + fromPreferredShift + toID + toShiftDay + toShiftDate + toShiftTime + toPreferredShift)
+                        shiftSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request")
+                                .child(child2);
+                        shiftSwapRequestsDb.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                SwapRequestShift swapRequestShift = dataSnapshot.getValue(SwapRequestShift.class);
 
-                                        } else {
+                                if (dataSnapshot.exists()) {
 
-                                            buttonSwapRequest.setVisibility(View.GONE);
-                                            progressBar.setVisibility(View.GONE);
-                                            user_sent_you_request.setVisibility(View.VISIBLE);
-                                            textDisplayContactInfo.setVisibility(View.VISIBLE);
-                                            userContactInfo.setVisibility(View.GONE);
-                                            textAcceptedRequest.setVisibility(View.GONE);
+                                    if (swapRequestShift.getAccepted() == 1) {
 
-                                        }
+                                        buttonSwapRequest.setVisibility(View.GONE);
+                                        progressBar.setVisibility(View.GONE);
+                                        textDisplayContactInfo.setVisibility(View.GONE);
+                                        userContactInfo.setVisibility(View.VISIBLE);
+                                        you_accepted_request.setVisibility(View.VISIBLE);
+
+                                    } else {
+
+                                        buttonSwapRequest.setVisibility(View.GONE);
+                                        progressBar.setVisibility(View.GONE);
+                                        user_sent_you_request.setVisibility(View.VISIBLE);
+                                        textDisplayContactInfo.setVisibility(View.VISIBLE);
+                                        userContactInfo.setVisibility(View.GONE);
+                                        textAcceptedRequest.setVisibility(View.GONE);
 
                                     }
 
@@ -374,9 +471,6 @@ public class ProfileActivityShift extends AppCompatActivity {
                             }
                         });
                     }
-//                    else {
-//                        Toast.makeText(ProfileActivityShift.this, " You have to create a swap to be able to send a request", Toast.LENGTH_LONG).show();
-//                    }
                 }
             }
 
@@ -403,77 +497,112 @@ public class ProfileActivityShift extends AppCompatActivity {
 
     }
 
-    private void swapShiftRequest() {
+//    private void swapShiftRequest() {
+//
+//        DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
+//        shiftSwapDb.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
+//                if (dataSnapshot.exists()) {
+//                    if (swapDetails.getSwapperID().equals(fromID)) {
+//                        fromLoginID = swapDetails.getSwapperLoginID();
+//                        fromImageUrl = swapDetails.getSwapperImageUrl();
+//                        fromName = swapDetails.getSwapperName();
+//                        fromPhone = swapDetails.getSwapperPhone();
+//                        fromEmail = swapDetails.getSwapperEmail();
+//                        fromCompanyBranch = swapDetails.getSwapperCompanyBranch();
+//                        fromAccount = swapDetails.getSwapperAccount();
+//                        fromShiftDate = swapDetails.getSwapShiftDate();
+//                        fromShiftDay = swapDetails.getSwapperShiftDay();
+//                        fromShiftTime = swapDetails.getSwapperShiftTime();
+//                        fromPreferredShift = swapDetails.getSwapperPreferredShift();
+//                        String child = fromID + fromShiftDay + fromShiftTime + fromPreferredShift + toID + toShiftDay + toShiftTime + toPreferredShift;
+//                        shiftSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request")
+//                                .child(child);
+//                        swapRequestShift = new SwapRequestShift(toID,
+//                                toLoginID,
+//                                toImageUrl,
+//                                toName,
+//                                toPhone,
+//                                toEmail,
+//                                toCompanyBranch,
+//                                toAccount,
+//                                toShiftDate,
+//                                toShiftDay,
+//                                toShiftTime,
+//                                toPreferredShift,
+//                                fromID,
+//                                fromLoginID,
+//                                fromImageUrl,
+//                                fromName,
+//                                fromPhone,
+//                                fromEmail,
+//                                fromCompanyBranch,
+//                                fromAccount,
+//                                fromShiftDate,
+//                                fromShiftDay,
+//                                fromShiftTime,
+//                                fromPreferredShift,
+//                                -1,
+//                                -1);
+//                        shiftSwapRequestsDb.setValue(swapRequestShift).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(ProfileActivityShift.this, "Notification sent", Toast.LENGTH_LONG).show();
+//                                progressBar.setVisibility(View.INVISIBLE);
+//                                textSentOrAcceptedRequest.setVisibility(View.VISIBLE);
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(ProfileActivityShift.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//                                progressBar.setVisibility(View.INVISIBLE);
+//                                buttonSwapRequest.setVisibility(View.VISIBLE);
+//                            }
+//                        });
+//
+//                    }
+////                    else {
+////                        Toast.makeText(ProfileActivityShift.this, " You have to create a swap to be able to send a request", Toast.LENGTH_LONG).show();
+////                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//    }
 
+    private void fetchChooseList() {
 
         DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
         shiftSwapDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                 if (dataSnapshot.exists()) {
+                    SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                     if (swapDetails.getSwapperID().equals(fromID)) {
-                        fromLoginID = swapDetails.getSwapperLoginID();
-                        fromImageUrl = swapDetails.getSwapperImageUrl();
-                        fromName = swapDetails.getSwapperName();
-                        fromPhone = swapDetails.getSwapperPhone();
-                        fromEmail = swapDetails.getSwapperEmail();
-                        fromCompanyBranch = swapDetails.getSwapperCompanyBranch();
-                        fromAccount = swapDetails.getSwapperAccount();
-                        fromShiftDate = swapDetails.getSwapShiftDate();
-                        fromShiftDay = swapDetails.getSwapperShiftDay();
-                        fromShiftTime = swapDetails.getSwapperShiftTime();
-                        fromPreferredShift = swapDetails.getSwapperPreferredShift();
-
-                        String child = fromID + fromShiftDay + fromShiftTime + fromPreferredShift +toID + toShiftDay + toShiftTime + toPreferredShift;
-                        shiftSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request")
-                                .child(child);
-                        swapRequestShift = new SwapRequestShift(toID,
-                                toLoginID,
-                                toImageUrl,
-                                toName,
-                                toPhone,
-                                toEmail,
-                                toCompanyBranch,
-                                toAccount,
-                                toShiftDate,
-                                toShiftDay,
-                                toShiftTime,
-                                toPreferredShift,
-                                fromID,
-                                fromLoginID,
-                                fromImageUrl,
-                                fromName,
-                                fromPhone,
-                                fromEmail,
-                                fromCompanyBranch,
-                                fromAccount,
-                                fromShiftDate,
-                                fromShiftDay,
-                                fromShiftTime,
-                                fromPreferredShift,
-                                -1,
-                                -1);
-                        shiftSwapRequestsDb.setValue(swapRequestShift).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(ProfileActivityShift.this, "Notification sent", Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.INVISIBLE);
-                                textSentOrAcceptedRequest.setVisibility(View.VISIBLE);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ProfileActivityShift.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.INVISIBLE);
-                                buttonSwapRequest.setVisibility(View.VISIBLE);
-                            }
-                        });
-
+                        shiftProfileAdapter.add(swapDetails);
                     }
-//                    else {
-//                        Toast.makeText(ProfileActivityShift.this, " You have to create a swap to be able to send a request", Toast.LENGTH_LONG).show();
-//                    }
                 }
             }
 
@@ -498,6 +627,84 @@ public class ProfileActivityShift extends AppCompatActivity {
             }
         });
 
+        final List<SwapDetails> swapBodyList = new ArrayList<>();
+        Collections.reverse(swapBodyList);
+        shiftProfileAdapter = new ShiftProfileAdapter(ProfileActivityShift.this, R.layout.shift_profile_list_item, swapBodyList);
+        listView = chooseShiftProfileDialog.findViewById(R.id.listShiftProfileChooseDialog);
+        listView.setAdapter(shiftProfileAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                progressBar_ShiftProfileChooseDialog.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.INVISIBLE);
+                SwapDetails swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
+                fromLoginID = swapDetails.getSwapperLoginID();
+                fromImageUrl = swapDetails.getSwapperImageUrl();
+                fromName = swapDetails.getSwapperName();
+                fromPhone = swapDetails.getSwapperPhone();
+                fromEmail = swapDetails.getSwapperEmail();
+                fromCompanyBranch = swapDetails.getSwapperCompanyBranch();
+                fromAccount = swapDetails.getSwapperAccount();
+                fromShiftDate = swapDetails.getSwapShiftDate();
+                fromShiftDay = swapDetails.getSwapperShiftDay();
+                fromShiftTime = swapDetails.getSwapperShiftTime();
+                fromPreferredShift = swapDetails.getSwapperPreferredShift();
+                String child = fromID + fromShiftDay + fromShiftTime + fromPreferredShift + toID + toShiftDay + toShiftTime + toPreferredShift;
+                shiftSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request")
+                        .child(child);
+                swapRequestShift = new SwapRequestShift(toID,
+                        toLoginID,
+                        toImageUrl,
+                        toName,
+                        toPhone,
+                        toEmail,
+                        toCompanyBranch,
+                        toAccount,
+                        toShiftDate,
+                        toShiftDay,
+                        toShiftTime,
+                        toPreferredShift,
+                        fromID,
+                        fromLoginID,
+                        fromImageUrl,
+                        fromName,
+                        fromPhone,
+                        fromEmail,
+                        fromCompanyBranch,
+                        fromAccount,
+                        fromShiftDate,
+                        fromShiftDay,
+                        fromShiftTime,
+                        fromPreferredShift,
+                        -1,
+                        -1);
+                shiftSwapRequestsDb.setValue(swapRequestShift)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(ProfileActivityShift.this, "Notification sent", Toast.LENGTH_LONG).show();
+                                progressBar_ShiftProfileChooseDialog.setVisibility(View.INVISIBLE);
+                                listView.setVisibility(View.VISIBLE);
+                                chooseShiftProfileDialog.dismiss();
+                                shiftProfileDialog.dismiss();
+                                progressBar.setVisibility(View.INVISIBLE);
+                                textSentOrAcceptedRequest.setVisibility(View.VISIBLE);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProfileActivityShift.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        progressBar_ShiftProfileChooseDialog.setVisibility(View.INVISIBLE);
+                        listView.setVisibility(View.VISIBLE);
+                        chooseShiftProfileDialog.dismiss();
+                        shiftProfileDialog.dismiss();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        buttonSwapRequest.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
 
     }
 
