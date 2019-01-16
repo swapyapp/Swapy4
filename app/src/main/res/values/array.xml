@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="shift_time" >
-        <item>Shift's time</item>
+        <item>Shift\'s time</item>
         <item>12:00</item>
         <item>01:00</item>
         <item>02:00</item>
