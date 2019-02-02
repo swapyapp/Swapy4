@@ -11,17 +11,12 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-<<<<<<< HEAD
-        android:background="#fafafa"
-        app:cardBackgroundColor="@color/white"
-=======
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:background="#fafafa"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="16dp"
->>>>>>> 5210cdc536f361e7330bdd13462ed4d4bd9dc7a9
         app:cardElevation="4dp">
 
         <RelativeLayout
@@ -85,10 +80,6 @@
         android:layout_height="match_parent"
         android:layoutDirection="ltr">
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 5210cdc536f361e7330bdd13462ed4d4bd9dc7a9
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_add_swap_shift"
             android:layout_width="wrap_content"
@@ -102,37 +93,6 @@
             android:src="@drawable/ic_add_white_24dp"
             app:backgroundTint="@color/colorPrimary" />
 
-<<<<<<< HEAD
-        <!-- Adding 7 rows of placeholders -->
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_view_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <include layout="@layout/data_placeholder_layout" />
-
-                <include layout="@layout/data_placeholder_layout" />
-
-                <include layout="@layout/data_placeholder_layout" />
-
-                <include layout="@layout/data_placeholder_layout" />
-
-                <include layout="@layout/data_placeholder_layout" />
-
-                <include layout="@layout/data_placeholder_layout" />
-
-                <include layout="@layout/data_placeholder_layout" />
-            </LinearLayout>
-        </com.facebook.shimmer.ShimmerFrameLayout>
-
-=======
->>>>>>> 5210cdc536f361e7330bdd13462ed4d4bd9dc7a9
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/homeSwipeRefresh"
             android:layout_width="match_parent"
@@ -146,16 +106,14 @@
                 android:divider="@null"
                 android:drawSelectorOnTop="true"
                 android:orientation="vertical" />
-
-
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <!--<ProgressBar-->
-        <!--android:id="@+id/progressBar_home"-->
-        <!--style="@style/Base.AlertDialog.AppCompat"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true" />-->
+        <ProgressBar
+            android:id="@+id/progressBar_home"
+            style="@style/Base.AlertDialog.AppCompat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
 
         <!-- only visible when the list has no items. -->
 
