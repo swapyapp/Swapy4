@@ -293,7 +293,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                             if (swapDetails.getSwapperID().equals(fromID)) {
                                 //set the request message
-                                requestMessage = userName + "" + " wants to swap his shift with your shift";
+                                requestMessage = userName + "" + " wants to swap with your shift";
 
                                 Map<String, Object> notificationMessage = new HashMap<>();
                                 notificationMessage.put("message", requestMessage);

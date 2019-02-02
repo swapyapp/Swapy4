@@ -42,6 +42,7 @@ import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredOffDaySpinnerListe
 import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredShiftSpinnerListener;
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
 import com.app.muhammadgamal.swapy.SwapData.User;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -103,7 +104,7 @@ public class OffSwapFragment extends Fragment {
     private User user;
     private RelativeLayout imgOffFilter;
     private ImageView imgOffNoConnectionHome;
-
+    private ShimmerFrameLayout shimmerFrameLayout;
     @SuppressLint("RestrictedApi")
     @Nullable
     @Override
@@ -127,12 +128,15 @@ public class OffSwapFragment extends Fragment {
         fab_add_off_swap_shift.bringToFront();
 
         progressBar_home_off = rootView.findViewById(R.id.progressBar_home_off);
+        shimmerFrameLayout = (ShimmerFrameLayout)rootView.findViewById(R.id.shimmer_view_container_off);
         empty_view_off = rootView.findViewById(R.id.empty_view_off);
         empty_view2_off = rootView.findViewById(R.id.empty_view2_off);
         imgOffNoConnectionHome = rootView.findViewById(R.id.imgOffNoConnectionHome);
         selectedPreferredOff = rootView.findViewById(R.id.selectedPreferredOff);
         selectedPreferredOff.setText(filterSelectedOffDay);
         progressBar_home_off.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
         empty_view2_off.setVisibility(View.GONE);
         fab_add_off_swap_shift.setVisibility(View.GONE);
         imgOffNoConnectionHome.setVisibility(View.GONE);
@@ -181,6 +185,8 @@ public class OffSwapFragment extends Fragment {
                                 }
                             }
                             progressBar_home_off.setVisibility(View.GONE);
+                            shimmerFrameLayout.setVisibility(View.GONE);
+                            shimmerFrameLayout.stopShimmer();
                             fab_add_off_swap_shift.setVisibility(View.VISIBLE);
                             empty_view_off.setVisibility(View.GONE);
                             empty_view2_off.setVisibility(View.GONE);
@@ -226,6 +232,8 @@ public class OffSwapFragment extends Fragment {
                         empty_view_off.setText(R.string.no_swaps_found);
                         empty_view2_off.setVisibility(View.VISIBLE);
                         progressBar_home_off.setVisibility(View.GONE);
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        shimmerFrameLayout.stopShimmer();
                         fab_add_off_swap_shift.setVisibility(View.VISIBLE);
                         String time = "any time";
 //                        if (preferredOffDaySpinner.getSelectedItem().toString() != null) {
@@ -288,6 +296,8 @@ public class OffSwapFragment extends Fragment {
             });
         } else {
             progressBar_home_off.setVisibility(View.GONE);
+            shimmerFrameLayout.setVisibility(View.GONE);
+            shimmerFrameLayout.stopShimmer();
             if (listView != null) {
                 listView.setVisibility(View.INVISIBLE);
             }

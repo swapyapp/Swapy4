@@ -27,6 +27,7 @@ import com.app.muhammadgamal.swapy.Adapters.OffProfileAdapter;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequestOff;
+import com.app.muhammadgamal.swapy.SwapData.User;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -53,6 +54,8 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivityOff extends AppCompatActivity {
+    
+    private final static String LOG_TAG = ProfileActivityShift.class.getSimpleName();
 
     private CircleImageView offProfileUserImg;
     private ImageView imgCloseOffProfileDialog, imgCloseOffProfileChooseDialog;
@@ -72,6 +75,11 @@ public class ProfileActivityOff extends AppCompatActivity {
     private LinearLayout phoneOffProfile, emailOffProfile, userContactInfoOffProfile;
     private SwapRequestOff swapRequestOff;
     private DatabaseReference offSwapRequestsDb;
+    //The Database that will contain the map of the notifications for each user with his ID
+    private DatabaseReference notificationDB;
+    private String requestMessage;
+    private String userName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +92,8 @@ public class ProfileActivityOff extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+
+        notificationDB = FirebaseDatabase.getInstance().getReference().child("Notifications");
 
         progressBar_off_profile = (ProgressBar) findViewById(R.id.progressBar_off_profile);
         progressBarOffProfileActivityImage = (ProgressBar) findViewById(R.id.progressBarOffProfileActivityImage);
@@ -227,6 +237,19 @@ public class ProfileActivityOff extends AppCompatActivity {
             }
         });
 
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                userName = user.getmUsername();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         buttonSwapRequestOffProfile = (Button) findViewById(R.id.buttonSwapRequestOffProfile);
         showBtnSwapRequest();
         if (swapperID.equals(currentUserId)) {
@@ -251,6 +274,31 @@ public class ProfileActivityOff extends AppCompatActivity {
                                 chooseOffProfileDialog.show();
                                 progressBar_off_profile.setVisibility(View.INVISIBLE);
                                 fetchChooseList();
+
+                                //set the request message
+                                requestMessage = userName + "" + " wants to swap with your shift";
+
+                                Map<String, Object> notificationMessage = new HashMap<>();
+                                notificationMessage.put("message", requestMessage);
+                                notificationMessage.put("from", currentUserId);
+
+                                notificationDB.child(swapperID).push()
+                                        .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            chooseOffProfileDialog.show();
+                                            progressBar_off_profile.setVisibility(View.INVISIBLE);
+                                            fetchChooseList();
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(ProfileActivityOff.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                                        Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
+                                    }
+                                });
                             } else {
                                 offProfileDialog.show();
                                 buttonSwapRequestOffProfile.setVisibility(View.VISIBLE);

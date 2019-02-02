@@ -457,14 +457,10 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onResume() {
         super.onResume();
-        shimmerFrameLayout.setVisibility(View.VISIBLE);
-        shimmerFrameLayout.startShimmer();
     }
 
     @Override
     public void onPause() {
-        shimmerFrameLayout.setVisibility(View.GONE);
-        shimmerFrameLayout.stopShimmer();
         super.onPause();
     }
 }
