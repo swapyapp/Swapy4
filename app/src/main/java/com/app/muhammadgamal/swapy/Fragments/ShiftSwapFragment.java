@@ -84,7 +84,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private RelativeLayout imgFilter;
     private ImageView imgNoConnectionHome;
 
-    private ShimmerFrameLayout mShimmerViewContainer;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
 
     // Store instance variables
@@ -132,7 +132,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         fab_add_swap = rootView.findViewById(R.id.fab_add_swap_shift);
         fab_add_swap.bringToFront();
 
-        mShimmerViewContainer = rootView.findViewById(R.id.shimmer_view_container);
+        shimmerFrameLayout = rootView.findViewById(R.id.shimmer_view_container);
 
         progressBar = rootView.findViewById(R.id.progressBar_home);
         empty_view = rootView.findViewById(R.id.empty_view);
@@ -140,7 +140,8 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         selectedPreferredTime = rootView.findViewById(R.id.selectedPreferredTime);
         imgNoConnectionHome = rootView.findViewById(R.id.imgNoConnectionHome);
         progressBar.setVisibility(View.VISIBLE);
-        mShimmerViewContainer.startShimmerAnimation();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
         empty_view2.setVisibility(View.GONE);
         fab_add_swap.setVisibility(View.GONE);
         imgNoConnectionHome.setVisibility(View.GONE);
@@ -207,9 +208,8 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                                     }
                                 }
                             }
-                            // Stopping Shimmer Effect's animation after data is loaded to ListView
-                            mShimmerViewContainer.stopShimmerAnimation();
-                            mShimmerViewContainer.setVisibility(View.GONE);
+                            shimmerFrameLayout.setVisibility(View.GONE);
+                            shimmerFrameLayout.stopShimmer();
                             progressBar.setVisibility(View.GONE);
                             fab_add_swap.setVisibility(View.VISIBLE);
                             empty_view.setVisibility(View.GONE);
@@ -253,8 +253,8 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
                     if (swapAdapter.isEmpty()) {
                         // Stopping Shimmer Effect's animation after data is loaded to ListView
-                        mShimmerViewContainer.stopShimmerAnimation();
-                        mShimmerViewContainer.setVisibility(View.GONE);
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        shimmerFrameLayout.stopShimmer();
                         empty_view.setVisibility(View.VISIBLE);
                         empty_view.setText(R.string.no_swaps_found);
                         empty_view2.setVisibility(View.VISIBLE);
@@ -457,12 +457,14 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onResume() {
         super.onResume();
-        mShimmerViewContainer.startShimmerAnimation();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
     }
 
     @Override
     public void onPause() {
-        mShimmerViewContainer.stopShimmerAnimation();
+        shimmerFrameLayout.setVisibility(View.GONE);
+        shimmerFrameLayout.stopShimmer();
         super.onPause();
     }
 }
