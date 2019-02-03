@@ -15,6 +15,7 @@ public class AccountSittings extends AppCompatActivity {
     private TextView changeUserName;
     private TextView changeUserEmail;
     private TextView changeUserPassword;
+    private TextView deleteAccount;
     private TextView switchToOtherCompany;
     private TextView generalSittings;
     private Intent sittingBodyIntent;
@@ -35,6 +36,8 @@ public class AccountSittings extends AppCompatActivity {
         changeUserName = findViewById(R.id.sittings_change_account_user_name);
         changeUserEmail = findViewById(R.id.sittings_change_account_user_email);
         changeUserPassword = findViewById(R.id.sittings_change_account_user_password);
+        deleteAccount = findViewById(R.id.sittings_delete_account);
+
         generalSittings = (TextView)findViewById(R.id.sittings_general_sittings);
 
         generalSittings.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +73,15 @@ public class AccountSittings extends AppCompatActivity {
                 startActivity(sittingBodyIntent);
             }
         });
+
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountSittings.this, DeleteAccount.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 }

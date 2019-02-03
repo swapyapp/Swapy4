@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NotificationRequists"></activity>
+        <activity android:name=".Activities.DeleteAccount"></activity>
+        <activity android:name=".NotificationRequists" />
         <activity
             android:name=".Activities.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar">

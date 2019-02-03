@@ -310,4 +310,6 @@
     <string name="create">CREATE</string>
     <string name="you_didn_t_create_a_swap_yet">You didn\'t create a swap yet.</string>
     <string name="to_send_a_request_you_have_to_create_a_swap_first">To send a request you have to create a swap first.</string>
+    <string name="please_reauthenticate_you_account_to_proceed">Please reAuthenticate your account to proceed</string>
+    <string name="reauthenticate">reAuthenticate</string>
 </resources>
