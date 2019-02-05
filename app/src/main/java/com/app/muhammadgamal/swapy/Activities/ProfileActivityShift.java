@@ -1,6 +1,7 @@
 package com.app.muhammadgamal.swapy.Activities;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -204,6 +205,12 @@ public class ProfileActivityShift extends AppCompatActivity {
         chooseShiftProfileDialog = new Dialog(ProfileActivityShift.this);
         chooseShiftProfileDialog.setContentView(R.layout.shift_profile_choose_dialog);
         chooseShiftProfileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        chooseShiftProfileDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                shiftProfileDialog.dismiss();
+            }
+        });
 
         imgCloseShiftProfileChooseDialog = chooseShiftProfileDialog.findViewById(R.id.imgCloseShiftProfileChooseDialog);
         imgCloseShiftProfileChooseDialog.setOnClickListener(new View.OnClickListener() {
