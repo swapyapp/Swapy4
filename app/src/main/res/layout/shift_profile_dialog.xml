@@ -51,6 +51,7 @@
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/raleway_medium"
                 android:text="@string/you_didn_t_create_a_swap_yet"
+                android:textAlignment="center"
                 android:textSize="21sp"
                 android:textStyle="bold" />
 

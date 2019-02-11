@@ -108,13 +108,6 @@
                 android:orientation="vertical" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <ProgressBar
-            android:id="@+id/progressBar_home"
-            style="@style/Base.AlertDialog.AppCompat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-
         <!-- only visible when the list has no items. -->
 
         <RelativeLayout

@@ -78,7 +78,6 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private String userId, preferredShift, preferredAMorPM = null, currentUserAccount, currentUserCompanyBranch;
     private RelativeLayout filterPreferredTimeAM, filterPreferredTimePM;
     private SwapAdapter swapAdapter;
-    private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private User user;
     private RelativeLayout imgFilter;
@@ -134,12 +133,10 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
         shimmerFrameLayout = rootView.findViewById(R.id.shimmer_view_container);
 
-        progressBar = rootView.findViewById(R.id.progressBar_home);
         empty_view = rootView.findViewById(R.id.empty_view);
         empty_view2 = rootView.findViewById(R.id.empty_view2);
         selectedPreferredTime = rootView.findViewById(R.id.selectedPreferredTime);
         imgNoConnectionHome = rootView.findViewById(R.id.imgNoConnectionHome);
-        progressBar.setVisibility(View.VISIBLE);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
         empty_view2.setVisibility(View.GONE);
@@ -210,7 +207,6 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                             }
                             shimmerFrameLayout.setVisibility(View.GONE);
                             shimmerFrameLayout.stopShimmer();
-                            progressBar.setVisibility(View.GONE);
                             fab_add_swap.setVisibility(View.VISIBLE);
                             empty_view.setVisibility(View.GONE);
                             empty_view2.setVisibility(View.GONE);
@@ -258,7 +254,6 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                         empty_view.setVisibility(View.VISIBLE);
                         empty_view.setText(R.string.no_swaps_found);
                         empty_view2.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.GONE);
                         fab_add_swap.setVisibility(View.VISIBLE);
                         String time = "any time";
 //                        if (homeFilterSpinner.getSelectedItem().toString() != null) {
@@ -320,7 +315,6 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                 }
             });
         } else {
-            progressBar.setVisibility(View.GONE);
             if (listView != null) {
                 listView.setVisibility(View.INVISIBLE);
             }

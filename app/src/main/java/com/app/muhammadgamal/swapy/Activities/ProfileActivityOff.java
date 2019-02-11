@@ -1,6 +1,7 @@
 package com.app.muhammadgamal.swapy.Activities;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -190,12 +191,19 @@ public class ProfileActivityOff extends AppCompatActivity {
         chooseOffProfileDialog = new Dialog(ProfileActivityOff.this);
         chooseOffProfileDialog.setContentView(R.layout.off_profile_choose_dialog);
         chooseOffProfileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        chooseOffProfileDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                offProfileDialog.dismiss();
+            }
+        });
 
         imgCloseOffProfileChooseDialog = chooseOffProfileDialog.findViewById(R.id.imgCloseOffProfileChooseDialog);
         imgCloseOffProfileChooseDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chooseOffProfileDialog.dismiss();
+                offProfileDialog.dismiss();
             }
         });
 
