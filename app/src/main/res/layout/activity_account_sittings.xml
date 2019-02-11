@@ -10,6 +10,7 @@
     tools:context=".Activities.AccountSittings">
 
     <TextView
+        android:id="@+id/account_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ahmed Rabie"
@@ -65,15 +66,5 @@
             android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/sittings_general_sittings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:text="General Sittings"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
 </LinearLayout>

@@ -7,20 +7,32 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.R;
+import com.app.muhammadgamal.swapy.SwapData.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.Objects;
+
 public class AccountSittings extends AppCompatActivity {
 
+    private TextView accountName;
     private TextView changeUserName;
     private TextView changeUserEmail;
     private TextView changeUserPassword;
     private TextView deleteAccount;
     private TextView switchToOtherCompany;
-    private TextView generalSittings;
     private Intent sittingBodyIntent;
+    private FirebaseAuth mAuth;
+    DatabaseReference ref;
 
     // Indicators will be sent through intent to SittingsActivityBody so that it knows which data to show
+
     private String changeNameIndicator = "name";
     private String changePasswordIndicator = "password";
     private String changeEmailIndicator = "email";
@@ -30,21 +42,30 @@ public class AccountSittings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_sittings);
 
+        mAuth = FirebaseAuth.getInstance();
+        final String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+
         sittingBodyIntent = new Intent(AccountSittings.this,SittingActivityBody.class);
         final Bundle bundle = new Bundle();
 
+        accountName = findViewById(R.id.account_name);
         changeUserName = findViewById(R.id.sittings_change_account_user_name);
         changeUserEmail = findViewById(R.id.sittings_change_account_user_email);
         changeUserPassword = findViewById(R.id.sittings_change_account_user_password);
         deleteAccount = findViewById(R.id.sittings_delete_account);
 
-        generalSittings = (TextView)findViewById(R.id.sittings_general_sittings);
 
-        generalSittings.setOnClickListener(new View.OnClickListener() {
+        ref = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent generalSittings = new Intent(AccountSittings.this, SettingsActivity.class);
-                startActivity(generalSittings);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                accountName.setText(user.getmUsername());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 

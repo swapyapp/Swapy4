@@ -10,8 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.app.muhammadgamal.swapy.Activities.AccountSittings;
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
+import com.app.muhammadgamal.swapy.Activities.SettingsActivity;
 import com.app.muhammadgamal.swapy.Activities.SignInActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,8 +37,17 @@ public class SettingsFragment extends Fragment {
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         final View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
-        Button btnLogout = rootView.findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        TextView more_options = rootView.findViewById(R.id.sittings_more_options);
+        more_options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moreOptions = new Intent(getContext(), SettingsActivity.class);
+                startActivity(moreOptions);
+            }
+        });
+
+        ImageView log_out = rootView.findViewById(R.id.log_out);
+        log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

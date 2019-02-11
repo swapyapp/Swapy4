@@ -21,30 +21,42 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/thumbnail"
         android:layout_marginTop="@dimen/padding_10"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         >
 
-        <View
-            android:layout_width="181dp"
-            android:layout_height="@dimen/placeholderTextHeight"
-            android:background="@color/background"
-            android:layout_marginBottom="4dp"/>
-        <View
-            android:layout_width="181dp"
-            android:layout_height="@dimen/placeholderTextHeight"
-            android:background="@color/background" />
+        <LinearLayout
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="181dp"
+                android:layout_height="@dimen/placeholderTextHeight"
+                android:layout_marginBottom="4dp"
+                android:background="@color/background" />
+
+            <View
+                android:layout_width="181dp"
+                android:layout_height="@dimen/placeholderTextHeight"
+                android:background="@color/background" />
 
 
-        <View
-            android:layout_width="84dp"
-            android:layout_height="@dimen/placeholderTextHeight"
-            android:layout_marginTop="5dp"
-            android:background="@color/background" />
+            <View
+                android:layout_width="84dp"
+                android:layout_height="@dimen/placeholderTextHeight"
+                android:layout_marginTop="5dp"
+                android:background="@color/background" />
 
-        <View
-            android:layout_width="154dp"
-            android:layout_height="@dimen/placeholderTextHeight"
-            android:layout_marginTop="5dp"
-            android:background="@color/background" />
+            <View
+                android:layout_width="154dp"
+                android:layout_height="@dimen/placeholderTextHeight"
+                android:layout_marginTop="5dp"
+                android:background="@color/background" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="66dp"
+            android:layout_height="42dp"
+            android:src="@drawable/bttn_shape" />
     </LinearLayout>
 </RelativeLayout>
