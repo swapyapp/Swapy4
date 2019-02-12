@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -38,12 +40,17 @@ public class ShiftProfileAdapter extends ArrayAdapter<SwapDetails> {
         return super.getItem(getCount() - position - 1);
     }
 
+    private int lastPosition = -1;
+
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.shift_profile_list_item, parent, false);
+            Animation animation = AnimationUtils.loadAnimation(getContext(), (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+            convertView.startAnimation(animation);
+            lastPosition = position;
         }
 
         final Context context = convertView.getContext();

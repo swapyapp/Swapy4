@@ -328,6 +328,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                                 buttonSwapRequest.setVisibility(View.VISIBLE);
                                 progressBar.setVisibility(View.INVISIBLE);
                             }
+
                         }
                     }
 
