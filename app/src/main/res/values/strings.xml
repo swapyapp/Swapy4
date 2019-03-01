@@ -312,4 +312,7 @@
     <string name="to_send_a_request_you_have_to_create_a_swap_first">To send a request you have to create a swap first.</string>
     <string name="please_reauthenticate_you_account_to_proceed">Please reAuthenticate your account to proceed</string>
     <string name="reauthenticate">reAuthenticate</string>
+    <string name="notificion_tab">Notifiction Tab</string>
+    <string name="press_here_to_see_your_swaps_requests">press here to see your Swaps requests</string>
+    <string name="you_have_received_swap_request">You have received Swap request</string>
 </resources>

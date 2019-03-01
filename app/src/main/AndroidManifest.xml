@@ -39,7 +39,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.ReceivedSwapRequest">
             <intent-filter>
-                <action android:name="com.app.muhammadgamal.swapy.Activities.ReceivedSwapRequest_NOTIFICATION_TASK" />
+                <action android:name="com.app.muhammadgamal.swapy.Notifications.NotificationRequists_NOTIFICATION_TASK" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -89,7 +89,7 @@
             android:name=".Activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".Activities.DeleteAccount"/>
-        <activity android:name=".NotificationRequists" />
+        <activity android:name=".Notifications.NotificationRequists" />
     </application>
 
 </manifest>
