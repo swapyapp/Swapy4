@@ -37,13 +37,7 @@
         <activity
             android:name=".Activities.SwapCreationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.ReceivedSwapRequest">
-            <intent-filter>
-                <action android:name="com.app.muhammadgamal.swapy.Notifications.NotificationRequists_NOTIFICATION_TASK" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Activities.ReceivedSwapRequest"></activity>
 
         <service android:name=".Notifications.MyFirebaseMessagingService">
             <intent-filter>
@@ -89,7 +83,16 @@
             android:name=".Activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".Activities.DeleteAccount"/>
-        <activity android:name=".Notifications.NotificationRequists" />
+
+
+        <activity android:name=".Notifications.NotificationRequists"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.app.muhammadgamal.swapy.Notifications.NotificationRequists_NOTIFICATION_TASK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
