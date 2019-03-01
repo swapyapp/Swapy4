@@ -23,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -159,6 +160,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             }
         });
         fetchData();
+        showHideWhenScroll();
         return rootView;
     }
 
@@ -422,6 +424,28 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         homeFilterSpinner.setAdapter(adapter);
         homeFilterSpinner.setOnItemSelectedListener(new PreferredShiftSpinnerListener());
+    }
+
+    private void showHideWhenScroll() {
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                int lastItem = firstVisibleItem + visibleItemCount;
+                if (lastItem == totalItemCount) {
+                    fab_add_swap.setVisibility(View.INVISIBLE);
+                } else {
+                    fab_add_swap.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
     }
 
     @Override
