@@ -2,15 +2,19 @@ package com.app.muhammadgamal.swapy.Fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+
+import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.R;
 
 /**
@@ -26,9 +30,13 @@ public class ReceivedSwapsFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_received_swaps, container, false);
+
+        //((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        //((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
+
         getActivity().setTitle("Received swaps");
 
         ViewPager viewPager = (ViewPager)rootView.findViewById(R.id.received_swaps_viewpager);
@@ -70,6 +78,13 @@ public class ReceivedSwapsFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             return tabTitles[position];
         }
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+//        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }
 }

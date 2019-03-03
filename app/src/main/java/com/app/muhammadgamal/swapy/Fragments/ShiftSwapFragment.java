@@ -160,7 +160,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             }
         });
         fetchData();
-        showHideWhenScroll();
+        //showHideWhenScroll();
         return rootView;
     }
 
@@ -426,27 +426,27 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         homeFilterSpinner.setOnItemSelectedListener(new PreferredShiftSpinnerListener());
     }
 
-    private void showHideWhenScroll() {
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                int lastItem = firstVisibleItem + visibleItemCount;
-                if (lastItem == totalItemCount) {
-                    fab_add_swap.setVisibility(View.INVISIBLE);
-                } else {
-                    fab_add_swap.setVisibility(View.VISIBLE);
-                }
-
-            }
-        });
-
-    }
+//    private void showHideWhenScroll() {
+//        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//
+//                int lastItem = firstVisibleItem + visibleItemCount;
+//                if (lastItem == totalItemCount) {
+//                    fab_add_swap.setVisibility(View.INVISIBLE);
+//                } else {
+//                    fab_add_swap.setVisibility(View.VISIBLE);
+//                }
+//
+//            }
+//        });
+//
+//    }
 
     @Override
     public void onRefresh() {
