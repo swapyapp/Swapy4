@@ -53,10 +53,5 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/background" />
         </LinearLayout>
-
-        <ImageView
-            android:layout_width="66dp"
-            android:layout_height="42dp"
-            android:src="@drawable/bttn_shape" />
     </LinearLayout>
 </RelativeLayout>
