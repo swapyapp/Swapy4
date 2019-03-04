@@ -198,8 +198,8 @@ public class ReceivedShiftSwapFragment extends Fragment implements SwipeRefreshL
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
+      //  ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+       // ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }
 //    @Override
