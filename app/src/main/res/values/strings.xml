@@ -315,4 +315,6 @@
     <string name="notificion_tab">Notifiction Tab</string>
     <string name="press_here_to_see_your_swaps_requests">press here to see your Swaps requests</string>
     <string name="you_have_received_swap_request">You have received Swap request</string>
+    <string name="choose_a_company">Choose a company</string>
+    <string name="choose_a_branch">Choose a branch</string>
 </resources>

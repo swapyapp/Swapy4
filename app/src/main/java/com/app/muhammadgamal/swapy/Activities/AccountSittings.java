@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.app.muhammadgamal.swapy.ChangeBranch;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,8 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -26,7 +25,8 @@ public class AccountSittings extends AppCompatActivity {
     private TextView changeUserEmail;
     private TextView changeUserPassword;
     private TextView deleteAccount;
-    private TextView switchToOtherCompany;
+    private TextView sittings_switch_company;
+    private TextView sittings_switch_branch;
     private Intent sittingBodyIntent;
     private FirebaseAuth mAuth;
     DatabaseReference ref;
@@ -52,7 +52,11 @@ public class AccountSittings extends AppCompatActivity {
         changeUserName = findViewById(R.id.sittings_change_account_user_name);
         changeUserEmail = findViewById(R.id.sittings_change_account_user_email);
         changeUserPassword = findViewById(R.id.sittings_change_account_user_password);
+        sittings_switch_company = findViewById(R.id.sittings_switch_company);
         deleteAccount = findViewById(R.id.sittings_delete_account);
+        sittings_switch_branch = findViewById(R.id.sittings_switch_branch);
+
+        final DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
 
         ref = FirebaseDatabase.getInstance().getReference("Users").child(userId);
@@ -92,6 +96,22 @@ public class AccountSittings extends AppCompatActivity {
                 bundle.putInt("email", 3);
                 sittingBodyIntent.putExtras(bundle);
                 startActivity(sittingBodyIntent);
+            }
+        });
+
+        sittings_switch_company.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountSittings.this, ChangeCompany.class);
+                startActivity(intent);
+            }
+        });
+
+        sittings_switch_branch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountSittings.this, ChangeBranch.class);
+                startActivity(intent);
             }
         });
 

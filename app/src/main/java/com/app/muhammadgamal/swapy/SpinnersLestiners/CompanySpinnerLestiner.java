@@ -15,6 +15,7 @@ public class CompanySpinnerLestiner implements OnItemSelectedListener {
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(parent.getItemAtPosition(position).equals("Choose company")){
+            company = parent.getItemAtPosition(position).toString();
             //do nothing
             SignUpActivity.COMPANY_CHOSEN = 1;
         } else {

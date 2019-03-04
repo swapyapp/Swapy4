@@ -14,6 +14,7 @@ public class BranchSpinnerLestiner implements AdapterView.OnItemSelectedListener
         if(parent.getItemAtPosition(position).equals("Choose branch")){
             //do nothing
             SignUpActivity.BRANCH_CHOSEN = 1;
+            Branch = parent.getItemAtPosition(position).toString();
         } else {
             SignUpActivity.BRANCH_CHOSEN = 0;
             Branch = parent.getItemAtPosition(position).toString();

@@ -84,8 +84,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="36dp"
@@ -106,8 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="36dp"
@@ -121,36 +119,6 @@
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
                     android:text="+266 225 225"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_account_swap" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="Number of Swpas Done:"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fragment_account_number_of_swaps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="35"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
