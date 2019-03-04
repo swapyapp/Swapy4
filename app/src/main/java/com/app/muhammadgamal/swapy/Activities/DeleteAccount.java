@@ -23,6 +23,7 @@ public class DeleteAccount extends AppCompatActivity {
     private final String TAG = DeleteAccount.class.getSimpleName();
     private String reAuthEmail;
     private String reAuthPassword;
+    private TextView delete_account_cancel;
 
     private EditText editTextEmail;
     private EditText editTextPassword;
@@ -35,6 +36,14 @@ public class DeleteAccount extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.delete_account_email);
         editTextPassword= findViewById(R.id.delete_account_password);
+
+        delete_account_cancel = findViewById(R.id.delete_account_cancel);
+        delete_account_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         reAuthButton = findViewById(R.id.bttn_reauthenticate);
 

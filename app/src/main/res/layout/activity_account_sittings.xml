@@ -9,13 +9,22 @@
     android:layoutDirection="ltr"
     tools:context=".Activities.AccountSittings">
 
+    <ImageView
+        android:id="@+id/img_back_account_sittings"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:contentDescription="@string/back"
+        android:src="@drawable/ic_back" />
+
     <TextView
         android:id="@+id/account_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ahmed Rabie"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginBottom="8dp"
         />
 

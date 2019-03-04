@@ -16,8 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ChangeBranch"></activity>
-        <activity android:name=".Activities.ChangeCompany" />
+        <activity
+            android:name=".ChangeBranch"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Activities.ChangeCompany"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -53,7 +57,9 @@
         <activity
             android:name=".Activities.SwapOffCreationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.AccountSittings" />
+        <activity
+            android:name=".Activities.AccountSittings"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.SittingActivityBody"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -84,7 +90,9 @@
         <activity
             android:name=".Activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".Activities.DeleteAccount" />
+        <activity
+            android:name=".Activities.DeleteAccount"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Notifications.NotificationRequists"
             android:theme="@style/AppTheme.NoActionBar">

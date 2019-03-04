@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.muhammadgamal.swapy.ChangeBranch;
@@ -27,6 +28,7 @@ public class AccountSittings extends AppCompatActivity {
     private TextView deleteAccount;
     private TextView sittings_switch_company;
     private TextView sittings_switch_branch;
+    private ImageView img_back_account_sittings;
     private Intent sittingBodyIntent;
     private FirebaseAuth mAuth;
     DatabaseReference ref;
@@ -55,6 +57,14 @@ public class AccountSittings extends AppCompatActivity {
         sittings_switch_company = findViewById(R.id.sittings_switch_company);
         deleteAccount = findViewById(R.id.sittings_delete_account);
         sittings_switch_branch = findViewById(R.id.sittings_switch_branch);
+
+        img_back_account_sittings = findViewById(R.id.img_back_account_sittings);
+        img_back_account_sittings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         final DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
