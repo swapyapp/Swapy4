@@ -55,7 +55,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivityOff extends AppCompatActivity {
-    
+
     private final static String LOG_TAG = ProfileActivityShift.class.getSimpleName();
 
     private CircleImageView offProfileUserImg;
