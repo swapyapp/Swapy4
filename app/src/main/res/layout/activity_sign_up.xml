@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp">
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -50,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_style"
@@ -64,7 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginStart="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_style"
@@ -82,7 +82,7 @@
             android:layout_width="265dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/edittext_style"
             android:fontFamily="@font/roboto_condensed_regular"
             android:hint="@string/email2"
@@ -90,23 +90,11 @@
             android:textSize="@dimen/editText_text_size" />
 
         <EditText
-            android:id="@+id/editTextLoginId"
-            android:layout_width="265dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/edittext_style"
-            android:fontFamily="@font/roboto_condensed_regular"
-            android:hint="@string/login_id"
-            android:inputType="number"
-            android:textSize="@dimen/editText_text_size" />
-
-        <EditText
             android:id="@+id/editTextPhone"
             android:layout_width="265dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/edittext_style"
             android:fontFamily="@font/roboto_condensed_regular"
             android:hint="@string/phone"
@@ -118,7 +106,7 @@
             android:layout_width="265dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/edittext_style"
             android:fontFamily="@font/roboto_condensed_regular"
             android:hint="@string/password"
@@ -131,7 +119,7 @@
             android:layout_width="265dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/edittext_style"
             android:fontFamily="@font/roboto_condensed_regular"
             android:hint="@string/confirm_password"
@@ -144,7 +132,7 @@
             android:layout_width="265dp"
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/spinner_style"
             android:fontFamily="@font/raleway_medium" />
 
@@ -153,7 +141,7 @@
             android:layout_width="265dp"
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/spinner_style"
             android:fontFamily="@font/raleway_medium" />
 
@@ -163,7 +151,7 @@
             android:layout_width="265dp"
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/spinner_style"
             android:fontFamily="@font/raleway_medium" />
 

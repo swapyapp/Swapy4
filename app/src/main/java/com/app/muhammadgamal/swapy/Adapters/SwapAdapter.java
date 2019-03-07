@@ -81,7 +81,6 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
         final Context context = convertView.getContext();
 
          swapBody = getItem(position);
-        final Button homeSwapButton = convertView.findViewById(R.id.btnOffSwapList);
         ImageView swapperImage = convertView.findViewById(R.id.swapper_image);
         TextView swapperName = convertView.findViewById(R.id.swapper_name);
         TextView swapperShiftTime = convertView.findViewById(R.id.swapper_shift_time);
@@ -90,7 +89,6 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
         TextView swapperShiftDate = convertView.findViewById(R.id.swapper_shift_date);
 
         final ProgressBar progressBarListItem = convertView.findViewById(R.id.progressBarOffListItem);
-        final ProgressBar progressBarHomeListItemBtn = convertView.findViewById(R.id.progressBarHomeListItemBtn);
 
 
 //        String userId = "";

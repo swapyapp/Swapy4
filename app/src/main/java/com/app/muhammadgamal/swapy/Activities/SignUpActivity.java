@@ -65,13 +65,14 @@ public class SignUpActivity extends AppCompatActivity {
     Button signUpButton;
     ImageView userImageSignUp;
     Uri pickedImageUri;
-    EditText editTextEmail, editTextPassword, editTextConfirmPassword, editTextFirstName, editTextPhone, editTextLoginId, editTextLastName;
+    EditText editTextEmail, editTextPassword, editTextConfirmPassword, editTextFirstName, editTextPhone, editTextLastName;
     String profileImageUrl;
     Spinner spinnerCompany, spinnerCompanyBranch, spinnerAccount;
     ProgressBar progressBarImg;
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
     private DatabaseReference deviceTokenRef;
+    private  String name, email, photoUri, phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,6 @@ public class SignUpActivity extends AppCompatActivity {
         editTextLastName = (EditText) findViewById(R.id.editTextLastName);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         editTextConfirmPassword = (EditText) findViewById(R.id.editTextConfirmPassword);
-        editTextLoginId = (EditText) findViewById(R.id.editTextLoginId);
         spinnerCompany = (Spinner) findViewById(R.id.spinnerCompany);
         spinnerCompanyBranch = (Spinner) findViewById(R.id.spinnerCompanyBranch);
 
@@ -143,24 +143,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void branchSpinner() {
-//        if (CompanySpinnerLestiner.VODAFONE == 1){
-//            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.vodafone_branch, android.R.layout.simple_spinner_item);
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//            spinnerCompanyBranch.setAdapter(adapter);
-//            spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
-//        }
-//        if (CompanySpinnerLestiner.RAYA == 1){
-//            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.raya_branch, android.R.layout.simple_spinner_item);
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//            spinnerCompanyBranch.setAdapter(adapter);
-//            spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
-//        }
-//        else {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCompanyBranch.setAdapter(adapter);
         spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
-//        }
     }
 
     private void accountSpinner() {
@@ -184,27 +170,12 @@ public class SignUpActivity extends AppCompatActivity {
         String phoneNumber = editTextPhone.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String userId = mAuth.getCurrentUser().getUid();
-        String loginID = editTextLoginId.getText().toString().trim();
         User user;
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-//        mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-//            @Override
-//            public void onSuccess(GetTokenResult getTokenResult) {
-//                String token_id = getTokenResult.getToken();
-//                String current_id = mAuth.getCurrentUser().getUid();
-//
-//                Map<String, Object> tokenMap = new HashMap<>();
-//                tokenMap.put("device_token", token_id);
-//
-//                userRef.child(current_id).child("device_token").setValue(token_id);
-//            }
-//        });
-
-        // currentUserDb.child("Users").child(userId).child("device_token").setValue(deviceToken);
         if (profileImageUrl != null) {
             signUpButton.setVisibility(View.GONE);
-            user = new User(username, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0, 0, 0);
+            user = new User(username, email, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0, 0, 0);
             currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -226,7 +197,7 @@ public class SignUpActivity extends AppCompatActivity {
             });
         } else {
             signUpButton.setVisibility(View.GONE);
-            user = new User(firstName, email, loginID, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift, null, 0, 0, 0);
+            user = new User(firstName, email, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift, null, 0, 0, 0);
             currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -293,7 +264,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void uploadProfileImageToFirebase() {
         String fileName = UUID.randomUUID().toString();
-        StorageReference profileImageRef =
+        final StorageReference profileImageRef =
                 FirebaseStorage.getInstance().getReference("profilepics/" + fileName + ".jpg");
         if (pickedImageUri != null) {
             progressBarImg.setVisibility(View.VISIBLE);
@@ -302,7 +273,7 @@ public class SignUpActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     IMG_UPLOADED = 1;
                     progressBarImg.setVisibility(View.GONE);
-                    profileImageUrl = taskSnapshot.getMetadata().getDownloadUrl().toString();
+                    profileImageUrl = profileImageRef.getDownloadUrl().toString();
                     Toast.makeText(SignUpActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
 
                 }
@@ -325,7 +296,6 @@ public class SignUpActivity extends AppCompatActivity {
         String firstName = editTextFirstName.getText().toString().trim();
         String lastName = editTextLastName.getText().toString().trim();
         final String phoneNumber = editTextPhone.getText().toString();
-        String loginId = editTextLoginId.getText().toString().trim();
 
         if (firstName.isEmpty()) {
             editTextFirstName.setError("First name is required");
@@ -350,11 +320,6 @@ public class SignUpActivity extends AppCompatActivity {
         if (!email.endsWith(".com")) {
             editTextEmail.setError("Company email is required");
             editTextEmail.requestFocus();
-            return;
-        }
-        if (loginId.isEmpty()) {
-            editTextLoginId.setError("Login ID is required");
-            editTextLoginId.requestFocus();
             return;
         }
         if (phoneNumber.isEmpty()) {
@@ -417,11 +382,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     String deviceToken = FirebaseInstanceId.getInstance().getToken();
                                     deviceTokenRef.child("device_token").setValue(deviceToken);
                                 } else {
-//                    if (task.getException() instanceof FirebaseAuthUserCollisionException){
-//                        Toast.makeText(getApplicationContext(), "you are already registered", Toast.LENGTH_LONG).show();
-//                    } else {
                                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-//                    }
                                 }
                             }
                         });
@@ -445,11 +406,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 String deviceToken = FirebaseInstanceId.getInstance().getToken();
                                 deviceTokenRef.child("device_token").setValue(deviceToken);
                             } else {
-//                    if (task.getException() instanceof FirebaseAuthUserCollisionException){
-//                        Toast.makeText(getApplicationContext(), "you are already registered", Toast.LENGTH_LONG).show();
-//                    } else {
                                 Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-//                    }
                             }
                         }
                     });

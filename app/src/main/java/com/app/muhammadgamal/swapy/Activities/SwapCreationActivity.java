@@ -234,7 +234,6 @@ public class SwapCreationActivity extends AppCompatActivity implements DatePicke
                 swapperPhone = user.getmPhoneNumber();
                 currentUserCompanyBranch = user.getmBranch();
                 currentUserAccount = user.getmAccount();
-                swapperLoginID = user.getmLoginID();
 
                 swapperEmail = mAuth.getCurrentUser().getEmail();
                 SwapDetails SwapDetails = new SwapDetails(userId, swapperName, swapperEmail, swapperPhone, currentUserCompanyBranch, currentUserAccount, swapperImageUrl, shiftDay, shiftDate, shiftTime, preferredShift, swapperLoginID);

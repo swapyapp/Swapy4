@@ -100,8 +100,9 @@
                 android:id="@+id/offList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#EEEEEE"
-                android:divider="@null"
+                android:background="@color/white"
+                android:divider="#E0E8E8"
+                android:dividerHeight="0.5dp"
                 android:drawSelectorOnTop="true"
                 android:orientation="vertical" />
         </android.support.v4.widget.SwipeRefreshLayout>

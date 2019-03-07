@@ -122,7 +122,6 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        homeSwapButton = rootView.findViewById(R.id.btnOffSwapList);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mSwapDataBaseReference = mFirebaseDatabase.getReference().child("swaps").child("shift_swaps");
 
@@ -303,17 +302,17 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 //                    //image and card views transitions
 //                    String imageTransitionName = getString(R.string.image_transition_name);
 //                    String listItemTransitionName = getString(R.string.list_item_transition_name);
-//                    View swapper_image = view.findViewById(R.id.swapper_image);
+                    View swapper_image = view.findViewById(R.id.swapper_image);
 //                    View cardView = view.findViewById(R.id.listItemCardView);
 //                    Pair<View, String> p1 = Pair.create(swapper_image, imageTransitionName);
 //                    Pair<View, String> p2 = Pair.create(cardView, listItemTransitionName);
-//                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), swapper_image, ViewCompat.getTransitionName(swapper_image));
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), swapper_image, ViewCompat.getTransitionName(swapper_image));
 
 
                     SwapDetails swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
                     Intent intent = new Intent(getContext(), ProfileActivityShift.class);
                     intent.putExtra("swapper info", swapDetails);
-                    startActivity(intent /*, options.toBundle()*/);
+                    startActivity(intent , options.toBundle());
                 }
             });
         } else {

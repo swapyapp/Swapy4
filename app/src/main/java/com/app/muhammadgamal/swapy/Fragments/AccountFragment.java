@@ -172,13 +172,13 @@ public class AccountFragment extends Fragment {
 
     private void uploadProfileImageToFirebase() {
         String fileName = UUID.randomUUID().toString();
-        StorageReference profileImageRef =
+        final StorageReference profileImageRef =
                 FirebaseStorage.getInstance().getReference("profilepics/" + fileName + ".jpg");
         if (pickedImageUri != null) {
             profileImageRef.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    profileImageUrl = taskSnapshot.getMetadata().getDownloadUrl().toString();
+                    profileImageUrl = profileImageRef.getDownloadUrl().toString();
                     userRef.child("mProfilePhotoURL").setValue(profileImageUrl).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

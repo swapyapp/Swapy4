@@ -1,9 +1,12 @@
 package com.app.muhammadgamal.swapy.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -14,16 +17,35 @@ import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -35,17 +57,57 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseFirestore mFireStore;
     private FirebaseUser user;
     private LinearLayout mainView, splashScreen, noConnectionViewSignIn;
+    private CallbackManager mCallbackManager;
+    private String TAG = "SignInActivity";
+    private Button login_button;
+    private ProgressDialog progressDialog;
+    public static int signInNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        progressDialog = new ProgressDialog(SignInActivity.this);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
         mAuth = FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mFireStore = FirebaseFirestore.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
 
+        // Initialize Facebook Login button
+//        mCallbackManager = CallbackManager.Factory.create();
+//        login_button = findViewById(R.id.login_button);
+//        login_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                LoginManager.getInstance().logInWithReadPermissions(SignInActivity.this, Arrays.asList("email", "public_profile"));
+//                LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+//                    @Override
+//                    public void onSuccess(LoginResult loginResult) {
+//                        Log.d(TAG, "facebook:onSuccess:" + loginResult);
+//                        handleFacebookAccessToken(loginResult.getAccessToken());
+//                    }
+//
+//                    @Override
+//                    public void onCancel() {
+//                        Log.d(TAG, "facebook:onCancel");
+//                        // ...
+//                    }
+//
+//                    @Override
+//                    public void onError(FacebookException error) {
+//                        Log.d(TAG, "facebook:onError", error);
+//                        // ...
+//                    }
+//
+//                });
+//
+//            }
+//        });
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -314,4 +376,66 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
     }
+
+//    private void handleFacebookAccessToken(AccessToken token) {
+//        Log.d(TAG, "handleFacebookAccessToken:" + token);
+//        progressDialog.show();
+//        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+//        mAuth.signInWithCredential(credential)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign in success, update UI with the signed-in user's information
+//                            Log.d(TAG, "signInWithCredential:success");
+//                            final FirebaseUser user = mAuth.getCurrentUser();
+//                            final DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users");
+//                            userDb.addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                    if (dataSnapshot.hasChild(user.getUid())){
+//                                        Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+//                                    } else {
+//                                        Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+//                                        String email = user.getEmail();
+//                                        String name = user.getDisplayName();
+//                                        if (user.getPhoneNumber() != null){
+//                                            String phone = user.getPhoneNumber();
+//                                            intent.putExtra("email", email);
+//                                            intent.putExtra("name", name);
+//                                            intent.putExtra("phone", phone);
+//                                        } else {
+//                                            intent.putExtra("email", email);
+//                                            intent.putExtra("name", name);
+//                                        }
+//                                        signInNumber = 1;
+//                                        progressDialog.dismiss();
+//                                        startActivity(intent);
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                                }
+//                            });
+////                            updateUI(user);
+//                        } else {
+//                            progressDialog.dismiss();
+//                            // If sign in fails, display a message to the user.
+//                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+//                            Toast.makeText(SignInActivity.this, "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        // ...
+//                    }
+//                });
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 }

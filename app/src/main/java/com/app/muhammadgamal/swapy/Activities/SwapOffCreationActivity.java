@@ -149,7 +149,6 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
                 swapperPhone = user.getmPhoneNumber();
                 currentUserCompanyBranch = user.getmBranch();
                 currentUserAccount = user.getmAccount();
-                swapperLoginID = user.getmLoginID();
 
                 swapperEmail = mAuth.getCurrentUser().getEmail();
                 SwapOff SwapDetails = new SwapOff(preferredOffDay, OffDay, OffDate, userId, swapperName, swapperEmail, swapperPhone,

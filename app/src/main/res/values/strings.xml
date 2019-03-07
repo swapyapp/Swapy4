@@ -317,4 +317,9 @@
     <string name="you_have_received_swap_request">You have received Swap request</string>
     <string name="choose_a_company">Choose a company</string>
     <string name="choose_a_branch">Choose a branch</string>
+    <string name="donee">Done</string>
+
+    <!-- Facebook strings -->
+    <string name="facebook_app_id">258364891712339</string>
+    <string name="fb_login_protocol_scheme">fb258364891712339</string>
 </resources>

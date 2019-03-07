@@ -299,30 +299,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                         SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                         if (dataSnapshot.exists()) {
                             if (swapDetails.getSwapperID().equals(fromID)) {
-                                //set the request message
-                                requestMessage = userName + "" + " wants to swap with your shift";
-
-                                Map<String, Object> notificationMessage = new HashMap<>();
-                                notificationMessage.put("message", requestMessage);
-                                notificationMessage.put("from", currentUserId);
-
-                                notificationDB.child(swapperID).push()
-                                        .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            chooseShiftProfileDialog.show();
-                                            progressBar.setVisibility(View.INVISIBLE);
-                                            fetchChooseList();
-                                        }
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ProfileActivityShift.this, "Something went wrong", Toast.LENGTH_LONG).show();
-                                        Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
-                                    }
-                                });
+                                chooseShiftProfileDialog.show();
                             } else {
                                 shiftProfileDialog.show();
                                 buttonSwapRequest.setVisibility(View.VISIBLE);
@@ -691,6 +668,30 @@ public class ProfileActivityShift extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                //set the request message
+                                requestMessage = userName + "" + " wants to swap with your shift";
+
+                                Map<String, Object> notificationMessage = new HashMap<>();
+                                notificationMessage.put("message", requestMessage);
+                                notificationMessage.put("from", currentUserId);
+
+                                notificationDB.child(swapperID).push()
+                                        .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            chooseShiftProfileDialog.show();
+                                            progressBar.setVisibility(View.INVISIBLE);
+                                            fetchChooseList();
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(ProfileActivityShift.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                                        Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
+                                    }
+                                });
                                 Toast.makeText(ProfileActivityShift.this, "Notification sent", Toast.LENGTH_LONG).show();
                                 progressBar_ShiftProfileChooseDialog.setVisibility(View.INVISIBLE);
                                 listView.setVisibility(View.VISIBLE);

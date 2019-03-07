@@ -55,7 +55,6 @@ public class SwapOffAdapter extends ArrayAdapter<SwapOff> {
         final Context context = convertView.getContext();
 
         final SwapOff swapBody = getItem(position);
-        Button homeSwapButton = convertView.findViewById(R.id.btnOffSwapList);
         ImageView swapperImage = convertView.findViewById(R.id.swapper_off_image);
         TextView swapperName = convertView.findViewById(R.id.swapper_name_off_swap);
         TextView swapperOffDay = convertView.findViewById(R.id.swapper_shift_off);
