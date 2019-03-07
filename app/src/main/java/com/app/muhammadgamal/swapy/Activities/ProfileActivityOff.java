@@ -282,31 +282,6 @@ public class ProfileActivityOff extends AppCompatActivity {
                                 chooseOffProfileDialog.show();
                                 progressBar_off_profile.setVisibility(View.INVISIBLE);
                                 fetchChooseList();
-
-                                //set the request message
-                                requestMessage = userName + "" + " wants to swap with your shift";
-
-                                Map<String, Object> notificationMessage = new HashMap<>();
-                                notificationMessage.put("message", requestMessage);
-                                notificationMessage.put("from", currentUserId);
-
-                                notificationDB.child(swapperID).push()
-                                        .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            chooseOffProfileDialog.show();
-                                            progressBar_off_profile.setVisibility(View.INVISIBLE);
-                                            fetchChooseList();
-                                        }
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ProfileActivityOff.this, "Something went wrong", Toast.LENGTH_LONG).show();
-                                        Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
-                                    }
-                                });
                             } else {
                                 offProfileDialog.show();
                                 buttonSwapRequestOffProfile.setVisibility(View.VISIBLE);
@@ -631,6 +606,28 @@ public class ProfileActivityOff extends AppCompatActivity {
                         offProfileDialog.dismiss();
                         progressBar_off_profile.setVisibility(View.INVISIBLE);
                         textSentOrAcceptedRequestOffProfile.setVisibility(View.VISIBLE);
+                        //set the request message
+                        requestMessage = userName + "" + " wants to swap with your shift";
+
+                        Map<String, Object> notificationMessage = new HashMap<>();
+                        notificationMessage.put("message", requestMessage);
+                        notificationMessage.put("from", currentUserId);
+
+                        notificationDB.child(swapperID).push()
+                                .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    progressBar_off_profile.setVisibility(View.INVISIBLE);
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ProfileActivityOff.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                                Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
+                            }
+                        });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
