@@ -300,6 +300,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                             if (swapDetails.getSwapperID().equals(fromID)) {
                                 chooseShiftProfileDialog.show();
+                                fetchChooseList();
                             } else {
                                 shiftProfileDialog.show();
                                 buttonSwapRequest.setVisibility(View.VISIBLE);
@@ -680,9 +681,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            chooseShiftProfileDialog.show();
                                             progressBar.setVisibility(View.INVISIBLE);
-                                            fetchChooseList();
                                         }
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
