@@ -1,6 +1,9 @@
 package com.app.muhammadgamal.swapy.Fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Activities.AccountSittings;
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
+import com.app.muhammadgamal.swapy.Activities.ProfileActivityShift;
 import com.app.muhammadgamal.swapy.Activities.SettingsActivity;
 import com.app.muhammadgamal.swapy.Activities.SignInActivity;
 import com.app.muhammadgamal.swapy.R;
@@ -22,11 +28,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hsalf.smilerating.SmileRating;
+
+import java.util.UUID;
 
 public class SettingsFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
+    private LinearLayout rateUs;
+    private Dialog rateUsDialog;
+    private int ratingLevel;
+    private DatabaseReference rateRef;
 
     @Nullable
     @Override
@@ -35,6 +48,8 @@ public class SettingsFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        String refNodeName = UUID.randomUUID().toString();
+        rateRef = FirebaseDatabase.getInstance().getReference().child("Rates").child(refNodeName);
 
         final View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         TextView more_options = rootView.findViewById(R.id.sittings_more_options);
@@ -63,6 +78,34 @@ public class SettingsFragment extends Fragment {
                 });
             }
         });
+        rateUsDialog = new Dialog(rootView.getContext());
+        rateUsDialog.setContentView(R.layout.rate_us_dialog);
+        rateUsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        rateUs = rootView.findViewById(R.id.rateUs);
+        rateUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rateUsDialog.show();
+            }
+        });
+
+        SmileRating smileRating = (SmileRating) rateUsDialog.findViewById(R.id.smile_rating);
+        Button buttonRateUsDialog = rateUsDialog.findViewById(R.id.buttonRateUsDialog);
+        smileRating.setOnRatingSelectedListener(new SmileRating.OnRatingSelectedListener() {
+            @Override
+            public void onRatingSelected(int level, boolean reselected) {
+                ratingLevel = level;
+            }
+        });
+        buttonRateUsDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rateRef.setValue(ratingLevel);
+                Toast.makeText(rootView.getContext(), "Thank You fo rating us", Toast.LENGTH_SHORT).show();
+                rateUsDialog.dismiss();
+            }
+        });
+
         return rootView;
     }
 
