@@ -10,11 +10,15 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,11 +73,12 @@ public class AccountFragment extends Fragment {
     private TextView userSwapNumber;
     private ProgressBar progressBarAccount;
     private DatabaseReference userRef;
-    private ImageView sittingsActivity;
+    private ImageView sittingsActivity, navDrawerImage;
     static int PReqCode = 1;
     static int REQUESTCODE = 1;
     private String profileImageUrl;
     private Uri pickedImageUri;
+    private DrawerLayout drawer;
 
     private static final String TAG = "AccountFragment";
 
@@ -95,6 +100,7 @@ public class AccountFragment extends Fragment {
         ref = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
         userImage = rootView.findViewById(R.id.fragment_account_user_image);
+        navDrawerImage = rootView.findViewById(R.id.navDrawerImage);
         userName = rootView.findViewById(R.id.fragment_account_user_name);
         userPhone = rootView.findViewById(R.id.fragment_account_phone);
         userMail = rootView.findViewById(R.id.fragment_account_email);
@@ -105,6 +111,14 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AccountSittings.class);
                 startActivity(intent);
+            }
+        });
+
+        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+        navDrawerImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(GravityCompat.START);
             }
         });
 
