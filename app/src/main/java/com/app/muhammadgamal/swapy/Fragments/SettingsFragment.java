@@ -48,8 +48,8 @@ public class SettingsFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        String refNodeName = UUID.randomUUID().toString();
-        rateRef = FirebaseDatabase.getInstance().getReference().child("Rates").child(refNodeName);
+        String currentUserID = mAuth.getCurrentUser().getUid();
+        rateRef = FirebaseDatabase.getInstance().getReference().child("Rates").child(currentUserID);
 
         final View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         TextView more_options = rootView.findViewById(R.id.sittings_more_options);

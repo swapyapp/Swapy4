@@ -258,6 +258,7 @@ public class SignUpActivity extends AppCompatActivity {
                 uploadProfileImageToFirebase();
             } catch (IOException e) {
                 e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }

@@ -252,19 +252,25 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            getSupportFragmentManager().addOnBackStackChangedListener(
-                    new FragmentManager.OnBackStackChangedListener() {
-                        public void onBackStackChanged() {
-                            getSupportFragmentManager().
-                                    beginTransaction().
-                                    replace(R.id.fragment_container,
-                                            new HomeFragment())
-                                    .commit();
-                        }
-                    });
+            int count = getSupportFragmentManager().getBackStackEntryCount();
+
+            if (count == 0) {
+                super.onBackPressed();
+                //additional code
+                getSupportFragmentManager().addOnBackStackChangedListener(
+                        new FragmentManager.OnBackStackChangedListener() {
+                            public void onBackStackChanged() {
+                                getSupportFragmentManager().
+                                        beginTransaction().
+                                        replace(R.id.fragment_container,
+                                                new HomeFragment())
+                                        .commit();
+                            }
+                        });
+            } else {
+                getSupportFragmentManager().popBackStack();
+            }
         }
-        super.onBackPressed();
-        finish();
     }
 
     @Override
