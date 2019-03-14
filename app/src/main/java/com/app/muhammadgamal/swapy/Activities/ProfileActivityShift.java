@@ -69,8 +69,8 @@ public class ProfileActivityShift extends AppCompatActivity {
     private ShiftProfileAdapter shiftProfileAdapter;
     private Dialog shiftProfileDialog, chooseShiftProfileDialog;
     private TextView userProfileName, companyBranch, account, currentShift, preferredShift, userEmail, userPhone, textSentOrAcceptedRequest, textWaitingForAcceptance, textDisplayContactInfo, textAcceptedRequest, you_accepted_request, user_sent_you_request;
-    private Button buttonSwapRequest, buttonCancelShiftProfileDialog, buttonCreateShiftProfileDialog;
-    private ProgressBar progressBar, progressBarProfileActivityImage, progressBar_ShiftProfileChooseDialog;
+    private Button buttonSwapRequest, buttonDeleteShiftSwap, buttonCancelShiftProfileDialog, buttonCreateShiftProfileDialog;
+    private ProgressBar progressBar, progressBar_profile_delete_shift, progressBarProfileActivityImage, progressBar_ShiftProfileChooseDialog;
     private FirebaseAuth mAuth;
     private String requestMessage;
     private TextView swapDone;
@@ -79,6 +79,8 @@ public class ProfileActivityShift extends AppCompatActivity {
     private DatabaseReference notificationDB;
     private DatabaseReference databaseReference;
     private DatabaseReference shiftSwapRequestsDb;
+    private DatabaseReference shiftSwapsatabaseReference;
+    private FirebaseDatabase firebaseDatabase;
     private SwapRequestShift swapRequestShift;
     private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
     private String fromID, fromLoginID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredShift;
@@ -95,6 +97,7 @@ public class ProfileActivityShift extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         mFireStore = FirebaseFirestore.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         notificationDB = FirebaseDatabase.getInstance().getReference().child("Notifications");
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
@@ -236,6 +239,8 @@ public class ProfileActivityShift extends AppCompatActivity {
             }
         });
 
+        buttonDeleteShiftSwap = findViewById(R.id.buttonDeleteShiftSwap);
+        progressBar_profile_delete_shift = findViewById(R.id.progressBar_profile_delete_shift);
         progressBar_ShiftProfileChooseDialog = (ProgressBar) chooseShiftProfileDialog.findViewById(R.id.progressBar_ShiftProfileChooseDialog);
         //if the user opens his swap the swap request button view will be gone
         if (swapperID.equals(currentUserId)) {
@@ -244,8 +249,45 @@ public class ProfileActivityShift extends AppCompatActivity {
             textDisplayContactInfo.setVisibility(View.GONE);
             userContactInfo.setVisibility(View.VISIBLE);
             textAcceptedRequest.setVisibility(View.GONE);
+            buttonDeleteShiftSwap.setVisibility(View.VISIBLE);
         }
-
+//        buttonDeleteShiftSwap.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                buttonDeleteShiftSwap.setVisibility(View.GONE);
+//                progressBar_profile_delete_shift.setVisibility(View.VISIBLE);
+//                shiftSwapsatabaseReference = firebaseDatabase.getReference().child("swaps").child("shift_swaps");
+//                shiftSwapsatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+//                            if (appleSnapshot.child("swapperID").equals(swapperID)){
+//                                appleSnapshot.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//                                        Toast.makeText(ProfileActivityShift.this, "Deleted successfully", Toast.LENGTH_SHORT).show();
+//                                        Intent intent1 = new Intent(ProfileActivityShift.this, NavDrawerActivity.class);
+//                                        startActivity(intent1);
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Toast.makeText(ProfileActivityShift.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                        buttonDeleteShiftSwap.setVisibility(View.VISIBLE);
+//                                        progressBar_profile_delete_shift.setVisibility(View.GONE);
+//                                    }
+//                                });;
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+//            }
+//        });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

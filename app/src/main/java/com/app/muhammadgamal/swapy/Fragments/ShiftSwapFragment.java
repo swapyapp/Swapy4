@@ -16,20 +16,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -60,12 +57,13 @@ import java.util.List;
 public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
-    private static int PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
+    private static int YOUR_PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
+    private static int SWAPPER_TIME_SELECTED = 0; // 0 => AM & 1 => PM
     private Dialog filterDialog;
     private ImageView imgCloseFilterDialog;
     // List view that represent teh swap data
     private ListView swapList;
-    private TextView empty_view, empty_view2, filterPreferredTimePMText, filterPreferredTimeAMText, selectedPreferredTime;
+    private TextView empty_view, empty_view2, filterPreferredTimePMText, filterPreferredTimeAMText, selectedPreferredTime, filterPreferredSwapperTimeAMText, filterPreferredSwapperTimePMText;
     private SwipeRefreshLayout shiftSwipeRefresh;
     private FloatingActionButton fab_add_swap;
     private NetworkInfo networkInfo;
@@ -75,9 +73,9 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private Button homeSwapButton, buttonApplyFilter;
     private View rootView;
     private ListView listView;
-    private Spinner homeFilterSpinner;
-    private String userId, preferredShift, preferredAMorPM = null, currentUserAccount, currentUserCompanyBranch;
-    private RelativeLayout filterPreferredTimeAM, filterPreferredTimePM;
+    private Spinner homeFilterSpinner, preferredSwapperTimeSpinner;
+    private String userId, preferredShift, swapperShift, preferredAMorPM = null, swapperPreferredShift = null, currentUserAccount, currentUserCompanyBranch;
+    private RelativeLayout filterPreferredTimeAM, filterPreferredTimePM, filterPreferredSwapperTimeAM, filterPreferredSwapperTimePM;
     private SwapAdapter swapAdapter;
     private FirebaseAuth mAuth;
     private User user;
@@ -188,20 +186,55 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                             if (dataSnapshot.exists()) {
                                 SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                                 if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
-                                    if (preferredAMorPM == null) {
+                                    if (preferredAMorPM == null && swapperPreferredShift == null) {
 //                                if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
                                         swapAdapter.add(swapDetails);
                                         selectedPreferredTime.setText(R.string.any_time);
 //                                }
-                                    } else if (preferredAMorPM.equals(" AM")) {
-                                        if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
-                                            swapAdapter.add(swapDetails);
-                                            selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
+                                    }
+                                    if (preferredAMorPM != null && swapperPreferredShift == null) {
+                                        if (preferredAMorPM.equals(" AM")) {
+                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
+                                                swapAdapter.add(swapDetails);
+                                            }
+                                        } else if (preferredAMorPM.equals(" PM")) {
+                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
+                                                swapAdapter.add(swapDetails);
+                                            }
                                         }
-                                    } else if (preferredAMorPM.equals(" PM")) {
-                                        if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
-                                            swapAdapter.add(swapDetails);
-                                            selectedPreferredTime.setText(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM);
+                                    }
+                                    if (swapperPreferredShift != null) {
+                                        if (swapperPreferredShift.equals(" AM") && preferredAMorPM == null) {
+                                            if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                swapAdapter.add(swapDetails);
+                                            }
+                                        } else if (swapperPreferredShift.equals(" PM") && preferredAMorPM == null) {
+                                            if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                swapAdapter.add(swapDetails);
+                                            }
+                                        }
+                                    }
+                                    if (preferredAMorPM != null && swapperPreferredShift != null) {
+                                        if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" AM")) {
+                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                swapAdapter.add(swapDetails);
+                                            }
+                                        } else if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" PM")) {
+                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                swapAdapter.add(swapDetails);
+                                            }
+                                        } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" AM")) {
+                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                swapAdapter.add(swapDetails);
+                                            }
+                                        } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" PM")) {
+                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                swapAdapter.add(swapDetails);
+                                            }
                                         }
                                     }
                                 }
@@ -312,7 +345,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                     SwapDetails swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
                     Intent intent = new Intent(getContext(), ProfileActivityShift.class);
                     intent.putExtra("swapper info", swapDetails);
-                    startActivity(intent , options.toBundle());
+                    startActivity(intent, options.toBundle());
                 }
             });
         } else {
@@ -357,7 +390,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             }
         });
 
-        //time spinner
+        //your time spinner
         homeFilterSpinner = filterDialog.findViewById(R.id.preferredTimeSpinner);
         preferredShiftHomeSpinner();
 
@@ -368,7 +401,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         filterPreferredTimeAM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PREFERRED_TIME_SELECTED = 0;
+                YOUR_PREFERRED_TIME_SELECTED = 0;
                 filterPreferredTimeAM.setBackground(SelectedBackground);
                 filterPreferredTimePM.setBackground(notSelectedBackground);
                 filterPreferredTimeAMText.setTextColor(getResources().getColor(R.color.white));
@@ -379,7 +412,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         filterPreferredTimePM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PREFERRED_TIME_SELECTED = 1;
+                YOUR_PREFERRED_TIME_SELECTED = 1;
                 filterPreferredTimePM.setBackground(SelectedBackground);
                 filterPreferredTimeAM.setBackground(notSelectedBackground);
                 filterPreferredTimePMText.setTextColor(getResources().getColor(R.color.white));
@@ -387,13 +420,43 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             }
         });
 
+        //swapper time spinner
+        preferredSwapperTimeSpinner = filterDialog.findViewById(R.id.preferredSwapperTimeSpinner);
+        preferredShiftSwapperHomeSpinner();
+
+        filterPreferredSwapperTimeAMText = filterDialog.findViewById(R.id.filterPreferredSwapperTimeAMText);
+        filterPreferredSwapperTimePMText = filterDialog.findViewById(R.id.filterPreferredSwapperTimePMText);
+
+        filterPreferredSwapperTimeAM = filterDialog.findViewById(R.id.filterPreferredSwapperTimeAM);
+        filterPreferredSwapperTimeAM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SWAPPER_TIME_SELECTED = 0;
+                filterPreferredSwapperTimeAM.setBackground(SelectedBackground);
+                filterPreferredSwapperTimePM.setBackground(notSelectedBackground);
+                filterPreferredSwapperTimeAMText.setTextColor(getResources().getColor(R.color.white));
+                filterPreferredSwapperTimePMText.setTextColor(getResources().getColor(R.color.colorPrimary));
+            }
+        });
+        filterPreferredSwapperTimePM = filterDialog.findViewById(R.id.filterPreferredSwapperTimePM);
+        filterPreferredSwapperTimePM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SWAPPER_TIME_SELECTED = 1;
+                filterPreferredSwapperTimePM.setBackground(SelectedBackground);
+                filterPreferredSwapperTimeAM.setBackground(notSelectedBackground);
+                filterPreferredSwapperTimePMText.setTextColor(getResources().getColor(R.color.white));
+                filterPreferredSwapperTimeAMText.setTextColor(getResources().getColor(R.color.colorPrimary));
+            }
+        });
 
         buttonApplyFilter = filterDialog.findViewById(R.id.buttonApplyFilter);
         buttonApplyFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 applyFilter();
-                PREFERRED_TIME_SELECTED = 0;
+                YOUR_PREFERRED_TIME_SELECTED = 0;
+                SWAPPER_TIME_SELECTED = 0;
             }
         });
 
@@ -402,16 +465,27 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
     private void applyFilter() {
 
-        if (PREFERRED_TIME_SELECTED == 0) {
+        if (YOUR_PREFERRED_TIME_SELECTED == 0) {
             preferredAMorPM = " AM";
         }
-        if (PREFERRED_TIME_SELECTED == 1) {
+        if (YOUR_PREFERRED_TIME_SELECTED == 1) {
             preferredAMorPM = " PM";
         }
         if (homeFilterSpinner.getSelectedItem().toString().equals("any time")) {
             preferredAMorPM = null;
         } else {
             preferredShift = homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM;
+        }
+        if (SWAPPER_TIME_SELECTED == 0) {
+            swapperPreferredShift = " AM";
+        }
+        if (SWAPPER_TIME_SELECTED == 1) {
+            swapperPreferredShift = " PM";
+        }
+        if (preferredSwapperTimeSpinner.getSelectedItem().toString().equals("any time")) {
+            swapperPreferredShift = null;
+        } else {
+            swapperShift = preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift;
         }
         fetchData();
         filterDialog.dismiss();
@@ -423,6 +497,13 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         homeFilterSpinner.setAdapter(adapter);
         homeFilterSpinner.setOnItemSelectedListener(new PreferredShiftSpinnerListener());
+    }
+
+    private void preferredShiftSwapperHomeSpinner() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.Home_Preferred_Shift, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        preferredSwapperTimeSpinner.setAdapter(adapter);
+        preferredSwapperTimeSpinner.setOnItemSelectedListener(new PreferredShiftSpinnerListener());
     }
 
 //    private void showHideWhenScroll() {

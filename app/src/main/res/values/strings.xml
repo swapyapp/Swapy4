@@ -325,4 +325,6 @@
     <string name="rate_us">Rate us</string>
     <string name="rate">Rate</string>
     <string name="choose_one_to_swap">Choose one to swap</string>
+    <string name="deletee">Delete</string>
+    <string name="swapper_preferred_shift">Swaper preferred shift</string>
 </resources>

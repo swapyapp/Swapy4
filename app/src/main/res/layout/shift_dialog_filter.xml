@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginEnd="5dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
     android:layout_marginStart="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginRight="5dp"
     android:gravity="center">
 
     <ImageView
@@ -15,19 +15,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginEnd="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
         android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
         android:layout_marginTop="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
         android:elevation="5dp"
         android:src="@drawable/ic_close_black_24dp" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
         app:cardCornerRadius="15dp">
@@ -35,22 +35,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
             android:layout_marginTop="25dp"
+            android:layout_marginBottom="15dp"
             android:orientation="vertical"
-            android:paddingEnd="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:paddingStart="20dp"
-            android:paddingTop="5dp">
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="@string/your_preferred_shift"
+                android:layout_marginBottom="14dp"
                 android:fontFamily="@font/raleway_medium"
-                android:textSize="21sp"
+                android:text="@string/your_preferred_shift"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -80,10 +80,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:paddingEnd="5dp"
+                        android:paddingStart="10dp"
                         android:paddingLeft="10dp"
-                        android:paddingRight="5dp"
-                        android:paddingStart="10dp">
+                        android:paddingEnd="5dp"
+                        android:paddingRight="5dp">
 
                         <RelativeLayout
                             android:id="@+id/filterPreferredTimeAM"
@@ -108,10 +108,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:paddingEnd="10dp"
+                        android:paddingStart="5dp"
                         android:paddingLeft="5dp"
-                        android:paddingRight="10dp"
-                        android:paddingStart="5dp">
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp">
 
                         <RelativeLayout
                             android:id="@+id/filterPreferredTimePM"
@@ -133,6 +133,102 @@
 
 
                 </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="14dp"
+                android:fontFamily="@font/raleway_medium"
+                android:text="@string/swapper_preferred_shift"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/preferredSwapperTimeSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.4"
+                    android:background="@drawable/spinner_style">
+
+                </Spinner>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingEnd="5dp"
+                        android:paddingRight="5dp">
+
+                        <RelativeLayout
+                            android:id="@+id/filterPreferredSwapperTimeAM"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:background="@drawable/selection_background"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/filterPreferredSwapperTimeAMText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/am"
+                                android:textColor="#ffffff"
+                                android:textSize="14sp" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingStart="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp">
+
+                        <RelativeLayout
+                            android:id="@+id/filterPreferredSwapperTimePM"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:background="@drawable/selection_background_light"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/filterPreferredSwapperTimePMText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/pm"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="14sp" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <android.support.v7.widget.AppCompatButton
