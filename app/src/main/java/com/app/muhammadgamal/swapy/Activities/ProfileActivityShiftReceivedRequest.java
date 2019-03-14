@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.R;
-import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -28,9 +27,6 @@ import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -39,9 +35,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivityShiftReceivedRequest extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
     private String swapperID, currentUserId, swapperPreferredShift, swapperShiftTime, swapShiftDate, swapperShiftDay, swapperImageUrl, swapperAccount, swapperCompanyBranch, swapperPhone, swapperEmail, swapperName;
     private DatabaseReference databaseReference;
-    private DatabaseReference shiftSwapRequestsDb;
+    private DatabaseReference shiftSwapRequestsDb, shiftSwapsDatabaseReference, shiftSwapsDatabaseReference2;
     private RelativeLayout rejectShift, acceptShift, shiftReceivedButtons;
     private int swapAccepted;
     private ProgressBar progressBarProfileShiftRequestImg1, progressBarProfileShiftRequestImg2, progressBar_acceptProfileShiftRequest, progressBar_rejectProfileShiftRequest;
@@ -65,6 +62,7 @@ public class ProfileActivityShiftReceivedRequest extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
@@ -257,6 +255,10 @@ public class ProfileActivityShiftReceivedRequest extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(ProfileActivityShiftReceivedRequest.this, "Successfully accepted", Toast.LENGTH_SHORT).show();
+                shiftSwapsDatabaseReference = firebaseDatabase.getReference().child("swaps").child("shift_swaps").child(toID + toShiftDay + toShiftTime + toPreferredShift);
+                shiftSwapsDatabaseReference.removeValue();
+                shiftSwapsDatabaseReference2 = firebaseDatabase.getReference().child("swaps").child("shift_swaps").child(fromID + fromShiftDay + fromShiftTime + fromPreferredShift);
+                shiftSwapsDatabaseReference2.removeValue();
                 shiftReceivedButtons.setVisibility(View.INVISIBLE);
                 you_accepted_requestShiftProfile.setVisibility(View.VISIBLE);
                 textDisplayContactInfoProfileShiftRequest.setVisibility(View.GONE);

@@ -18,8 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.R;
-import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
-import com.app.muhammadgamal.swapy.SwapData.SwapOff;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequestOff;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -29,9 +27,6 @@ import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -43,7 +38,8 @@ public class ProfileActivityOffReceivedRequest extends AppCompatActivity {
     private String swapperID, currentUserId, swapperPreferredOff, swapOffDate, swapperOffDay, swapperImageUrl, swapperAccount, swapperCompanyBranch, swapperPhone, swapperEmail, swapperName;
     private DatabaseReference databaseReference;
     private SwapRequestOff swapDetails;
-    private DatabaseReference offSwapRequestsDb;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference offSwapRequestsDb, offSwapsDatabaseReference, offSwapsDatabaseReference2;
     private int swapAccepted;
     private CircleImageView profileOffRequestUserImg, userProfileOffRequestUserImg;
     private TextView NameProfileOffRequest, offDayProfileShiftRequest, OffDateProfileShiftRequest;
@@ -66,6 +62,7 @@ public class ProfileActivityOffReceivedRequest extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
@@ -250,6 +247,10 @@ public class ProfileActivityOffReceivedRequest extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(ProfileActivityOffReceivedRequest.this, "Successfully accepted", Toast.LENGTH_SHORT).show();
+                offSwapsDatabaseReference = firebaseDatabase.getReference().child("swaps").child("off_swaps").child(toID + toOffDay + toPreferredOff);
+                offSwapsDatabaseReference.removeValue();
+                offSwapsDatabaseReference2 = firebaseDatabase.getReference().child("swaps").child("off_swaps").child(fromID + fromOffDay + fromPreferredOff);
+                offSwapsDatabaseReference2.removeValue();
                 OffReceivedButtons.setVisibility(View.INVISIBLE);
                 you_accepted_requestOffProfile.setVisibility(View.VISIBLE);
                 textDisplayContactInfoProfileOffRequest.setVisibility(View.GONE);
