@@ -66,7 +66,6 @@ public class SwapCreationActivity extends AppCompatActivity implements DatePicke
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("swaps").child("shift_swaps");
 
         edit_text_shift_date = (EditText) findViewById(R.id.edit_text_shift_date);
         edit_text_shift_date.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +238,8 @@ public class SwapCreationActivity extends AppCompatActivity implements DatePicke
                 SwapDetails SwapDetails = new SwapDetails(userId, swapperName, swapperEmail, swapperPhone, currentUserCompanyBranch, currentUserAccount, swapperImageUrl, shiftDay, shiftDate, shiftTime, preferredShift, swapperLoginID);
                 creation_body_progress_bar.setVisibility(View.VISIBLE);
                 img_save_creation_body.setVisibility(View.GONE);
-                databaseReference.push().setValue(SwapDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                databaseReference = firebaseDatabase.getReference().child("swaps").child("shift_swaps").child(userId + shiftDay + shiftTime + preferredShift);
+                databaseReference.setValue(SwapDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         img_save_creation_body.setVisibility(View.VISIBLE);

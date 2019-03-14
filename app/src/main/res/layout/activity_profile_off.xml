@@ -310,26 +310,63 @@
         android:layout_weight="1"
         android:gravity="center_horizontal">
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/buttonSwapRequestOffProfile"
-            android:layout_width="154dp"
-            android:layout_height="47dp"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/btn_style"
-            android:clickable="true"
-            android:fontFamily="@font/raleway_medium"
-            android:text="@string/send_swap_req"
-            android:textColor="@color/white"
-            android:textSize="@dimen/button_text_size" />
-
-        <ProgressBar
-            android:id="@+id/progressBar_off_profile"
-            style="?android:attr/progressBarStyle"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/buttonSwapRequestOffProfile"
+                android:layout_width="154dp"
+                android:layout_height="47dp"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/btn_style"
+                android:clickable="true"
+                android:fontFamily="@font/raleway_medium"
+                android:text="@string/send_swap_req"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_off_profile"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/buttonDeleteOffSwap"
+                android:layout_width="154dp"
+                android:layout_height="47dp"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/btn_style_grey"
+                android:clickable="true"
+                android:fontFamily="@font/raleway_medium"
+                android:text="@string/deletee"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size"
+                android:visibility="gone"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar_profile_delete_off"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textSentOrAcceptedRequestOffProfile"

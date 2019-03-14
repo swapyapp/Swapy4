@@ -65,8 +65,8 @@ public class ProfileActivityOff extends AppCompatActivity {
     private OffProfileAdapter offProfileAdapter;
     private TextView userOffProfileName, offProfileCompanyBranch, offProfileAccount, offProfileCurrent, offProfilePreferred, offProfileTextDisplayContactInfo, userEmailOffProfile, userPhoneOffProfile,
             textSentOrAcceptedRequestOffProfile, textWaitingForAcceptanceOffProfile, textAcceptedRequestOffProfile, you_accepted_requestOffProfile, user_sent_you_request_off_profile;
-    private Button buttonSwapRequestOffProfile, buttonCancelOffProfileDialog, buttonCreateOffProfileDialog;
-    private ProgressBar progressBar_off_profile, progressBarOffProfileActivityImage, progressBar_offProfileChooseDialog;
+    private Button buttonSwapRequestOffProfile, buttonDeleteOffSwap, buttonCancelOffProfileDialog, buttonCreateOffProfileDialog;
+    private ProgressBar progressBar_off_profile, progressBarOffProfileActivityImage, progressBar_offProfileChooseDialog, progressBar_profile_delete_off;
     private FirebaseAuth mAuth;
     private String swapperID, currentUserId, swapperName, swapperEmail, swapperPhone, swapperCompanyBranch, swapperAccount,
             swapperImageUrl, offDay, swapOffDate, preferredOff;
@@ -78,6 +78,8 @@ public class ProfileActivityOff extends AppCompatActivity {
     private DatabaseReference offSwapRequestsDb;
     //The Database that will contain the map of the notifications for each user with his ID
     private DatabaseReference notificationDB;
+    private DatabaseReference offSwapsatabaseReference;
+    private FirebaseDatabase firebaseDatabase;
     private String requestMessage;
     private String userName;
 
@@ -91,6 +93,7 @@ public class ProfileActivityOff extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
@@ -101,7 +104,7 @@ public class ProfileActivityOff extends AppCompatActivity {
 
         offProfileUserImg = (CircleImageView) findViewById(R.id.offProfileUserImg);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         SwapOff swapDetails = intent.getParcelableExtra("off swapper info");
 
         swapperID = swapDetails.getSwapperID();
@@ -258,6 +261,9 @@ public class ProfileActivityOff extends AppCompatActivity {
             }
         });
 
+        buttonDeleteOffSwap = findViewById(R.id.buttonDeleteOffSwap);
+        progressBar_profile_delete_off = findViewById(R.id.progressBar_profile_delete_off);
+
         buttonSwapRequestOffProfile = (Button) findViewById(R.id.buttonSwapRequestOffProfile);
         showBtnSwapRequest();
         if (swapperID.equals(currentUserId)) {
@@ -266,6 +272,7 @@ public class ProfileActivityOff extends AppCompatActivity {
             offProfileTextDisplayContactInfo.setVisibility(View.GONE);
             userContactInfoOffProfile.setVisibility(View.VISIBLE);
             textAcceptedRequestOffProfile.setVisibility(View.GONE);
+            buttonDeleteOffSwap.setVisibility(View.VISIBLE);
         }
         buttonSwapRequestOffProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -308,6 +315,31 @@ public class ProfileActivityOff extends AppCompatActivity {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
+                    }
+                });
+            }
+        });
+
+        buttonDeleteOffSwap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonDeleteOffSwap.setVisibility(View.GONE);
+                progressBar_profile_delete_off.setVisibility(View.VISIBLE);
+                offSwapsatabaseReference = firebaseDatabase.getReference().child("swaps").child("off_swaps")
+                        .child(swapperID + offDay + preferredOff);
+                offSwapsatabaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(ProfileActivityOff.this, "Deleted", Toast.LENGTH_SHORT).show();
+                        Intent intent1 = new Intent(ProfileActivityOff.this, NavDrawerActivity.class);
+                        startActivity(intent1);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProfileActivityOff.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        progressBar_profile_delete_off.setVisibility(View.GONE);
+                        buttonDeleteOffSwap.setVisibility(View.VISIBLE);
                     }
                 });
             }

@@ -251,43 +251,29 @@ public class ProfileActivityShift extends AppCompatActivity {
             textAcceptedRequest.setVisibility(View.GONE);
             buttonDeleteShiftSwap.setVisibility(View.VISIBLE);
         }
-//        buttonDeleteShiftSwap.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                buttonDeleteShiftSwap.setVisibility(View.GONE);
-//                progressBar_profile_delete_shift.setVisibility(View.VISIBLE);
-//                shiftSwapsatabaseReference = firebaseDatabase.getReference().child("swaps").child("shift_swaps");
-//                shiftSwapsatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-//                            if (appleSnapshot.child("swapperID").equals(swapperID)){
-//                                appleSnapshot.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        Toast.makeText(ProfileActivityShift.this, "Deleted successfully", Toast.LENGTH_SHORT).show();
-//                                        Intent intent1 = new Intent(ProfileActivityShift.this, NavDrawerActivity.class);
-//                                        startActivity(intent1);
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Toast.makeText(ProfileActivityShift.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                        buttonDeleteShiftSwap.setVisibility(View.VISIBLE);
-//                                        progressBar_profile_delete_shift.setVisibility(View.GONE);
-//                                    }
-//                                });;
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-//            }
-//        });
+        buttonDeleteShiftSwap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonDeleteShiftSwap.setVisibility(View.GONE);
+                progressBar_profile_delete_shift.setVisibility(View.VISIBLE);
+                shiftSwapsatabaseReference = firebaseDatabase.getReference().child("swaps").child("shift_swaps").child(swapperID + swapperShiftDay + swapperShiftTime + swapperPreferredShift);
+                shiftSwapsatabaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(ProfileActivityShift.this, "Deleted", Toast.LENGTH_SHORT).show();
+                        Intent intent1 = new Intent(ProfileActivityShift.this, NavDrawerActivity.class);
+                        startActivity(intent1);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProfileActivityShift.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        buttonDeleteShiftSwap.setVisibility(View.VISIBLE);
+                        progressBar_profile_delete_shift.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

@@ -52,7 +52,6 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("swaps").child("off_swaps");
 
         edit_text_off_date = (EditText) findViewById(R.id.edit_text_off_date);
         edit_text_off_date.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +154,8 @@ public class SwapOffCreationActivity extends AppCompatActivity implements DatePi
                         currentUserCompanyBranch, currentUserAccount, swapperImageUrl);
                 creation_body_progress_bar.setVisibility(View.VISIBLE);
                 img_save_creation_body.setVisibility(View.GONE);
-                databaseReference.push().setValue(SwapDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                databaseReference = firebaseDatabase.getReference().child("swaps").child("off_swaps").child(userId + OffDay + preferredOffDay);
+                databaseReference.setValue(SwapDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         img_save_creation_body.setVisibility(View.VISIBLE);
