@@ -16,9 +16,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +83,9 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private FirebaseAuth mAuth;
     private User user;
     private RelativeLayout imgFilter;
-    private ImageView imgNoConnectionHome;
+    private ImageView imgNoConnectionHome, navigationDrawerBtn;
+    private DrawerLayout drawer;
+
 
     private ShimmerFrameLayout shimmerFrameLayout;
 
@@ -130,6 +135,16 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         fab_add_swap.bringToFront();
 
         shimmerFrameLayout = rootView.findViewById(R.id.shimmer_view_container);
+
+        navigationDrawerBtn = (ImageView)rootView.findViewById(R.id.imgNavigDrawer);
+        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+        navigationDrawerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
+
 
         empty_view = rootView.findViewById(R.id.empty_view);
         empty_view2 = rootView.findViewById(R.id.empty_view2);
@@ -542,7 +557,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }

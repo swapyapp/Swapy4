@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +29,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        getActivity().setTitle("Home");
+        //getActivity().setTitle("Home");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
 //        BottomNavigationView homeBottomNavigationView = rootView.findViewById(R.id.homeBottomNavigationView);
 
@@ -114,4 +116,11 @@ public class HomeFragment extends Fragment {
         }
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+    }
+
 }

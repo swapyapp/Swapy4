@@ -16,7 +16,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -102,8 +104,9 @@ public class OffSwapFragment extends Fragment {
     private FirebaseAuth mAuth;
     private User user;
     private RelativeLayout imgOffFilter;
-    private ImageView imgOffNoConnectionHome;
+    private ImageView imgOffNoConnectionHome, navigDrawerBtn;
     private ShimmerFrameLayout shimmerFrameLayout;
+    private DrawerLayout drawer;
 
     @SuppressLint("RestrictedApi")
     @Nullable
@@ -123,6 +126,15 @@ public class OffSwapFragment extends Fragment {
 
         cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = cm.getActiveNetworkInfo();
+
+        navigDrawerBtn = (ImageView)rootView.findViewById(R.id.imgNavigDrawerOff);
+        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+        navigDrawerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
 
         fab_add_off_swap_shift = rootView.findViewById(R.id.fab_add_off_swap_shift);
         fab_add_off_swap_shift.bringToFront();
@@ -391,8 +403,8 @@ public class OffSwapFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        //((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }
 //    @Override

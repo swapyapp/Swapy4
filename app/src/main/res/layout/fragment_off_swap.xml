@@ -45,7 +45,20 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layoutDirection="rtl">
+
+                <ImageView
+                    android:id="@+id/imgNavigDrawerOff"
+                    android:layout_width="49dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/navigdrawer" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layoutDirection="ltr">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -65,7 +78,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     tools:text="@string/any_time" />
-
+            </LinearLayout>
             </LinearLayout>
 
         </RelativeLayout>
