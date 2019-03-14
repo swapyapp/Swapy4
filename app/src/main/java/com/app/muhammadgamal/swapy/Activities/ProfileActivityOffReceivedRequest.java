@@ -275,7 +275,8 @@ public class ProfileActivityOffReceivedRequest extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(ProfileActivityOffReceivedRequest.this, "Rejected", Toast.LENGTH_SHORT).show();
-                finish();
+                Intent intent = new Intent(ProfileActivityOffReceivedRequest.this, NavDrawerActivity.class);
+                startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

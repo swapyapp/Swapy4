@@ -195,8 +195,9 @@ public class ProfileActivityOffSentRequest extends AppCompatActivity {
         offSwapRequestsDb.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(ProfileActivityOffSentRequest.this, "Withdrawn", Toast.LENGTH_SHORT).show();
-                finish();
+                Toast.makeText(ProfileActivityOffSentRequest.this, "Done", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProfileActivityOffSentRequest.this, NavDrawerActivity.class);
+                startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

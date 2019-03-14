@@ -283,7 +283,8 @@ public class ProfileActivityShiftReceivedRequest extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(ProfileActivityShiftReceivedRequest.this, "Rejected", Toast.LENGTH_SHORT).show();
-                finish();
+                Intent intent = new Intent(ProfileActivityShiftReceivedRequest.this, NavDrawerActivity.class);
+                startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

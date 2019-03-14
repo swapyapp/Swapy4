@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.muhammadgamal.swapy.Fragments.SentShiftSwapFragment;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
@@ -204,8 +205,9 @@ public class ProfileActivityShiftSentRequest extends AppCompatActivity {
         shiftSwapRequestsDb.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(ProfileActivityShiftSentRequest.this, "Withdrawn", Toast.LENGTH_SHORT).show();
-                finish();
+                Toast.makeText(ProfileActivityShiftSentRequest.this, "Done", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProfileActivityShiftSentRequest.this, NavDrawerActivity.class);
+                startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
