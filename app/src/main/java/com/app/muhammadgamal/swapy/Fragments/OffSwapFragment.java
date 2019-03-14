@@ -39,7 +39,6 @@ import com.app.muhammadgamal.swapy.Adapters.SwapOffAdapter;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredOffDaySpinnerListener;
-import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredShiftSpinnerListener;
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -95,8 +94,8 @@ public class OffSwapFragment extends Fragment {
     private FirebaseDatabase mFirebaseDatabase;
     private Button homeSwapButton, buttonApplyFilter;
     private ListView listView;
-    private Spinner preferredOffDaySpinner;
-    private String userId, preferredShift, preferredAMorPM = null, currentUserAccount, currentUserCompanyBranch, filterSelectedOffDay = "any day";
+    private Spinner preferredOffDaySpinner, swappersPreferredOffDaySpinner;
+    private String userId, preferredShift, preferredAMorPM = null, currentUserAccount, currentUserCompanyBranch, filterSelectedYourOfffDay = "any day", filterSelectedSwapperOffDay = "any day";
     private RelativeLayout filterPreferredTimeAM, filterPreferredTimePM;
     private SwapOffAdapter swapOffAdapter;
     private ProgressBar progressBar_home_off;
@@ -105,6 +104,7 @@ public class OffSwapFragment extends Fragment {
     private RelativeLayout imgOffFilter;
     private ImageView imgOffNoConnectionHome;
     private ShimmerFrameLayout shimmerFrameLayout;
+
     @SuppressLint("RestrictedApi")
     @Nullable
     @Override
@@ -128,12 +128,12 @@ public class OffSwapFragment extends Fragment {
         fab_add_off_swap_shift.bringToFront();
 
         progressBar_home_off = rootView.findViewById(R.id.progressBar_home_off);
-        shimmerFrameLayout = (ShimmerFrameLayout)rootView.findViewById(R.id.shimmer_view_container_off);
+        shimmerFrameLayout = (ShimmerFrameLayout) rootView.findViewById(R.id.shimmer_view_container_off);
         empty_view_off = rootView.findViewById(R.id.empty_view_off);
         empty_view2_off = rootView.findViewById(R.id.empty_view2_off);
         imgOffNoConnectionHome = rootView.findViewById(R.id.imgOffNoConnectionHome);
         selectedPreferredOff = rootView.findViewById(R.id.selectedPreferredOff);
-        selectedPreferredOff.setText(filterSelectedOffDay);
+        selectedPreferredOff.setText(filterSelectedYourOfffDay);
         progressBar_home_off.setVisibility(View.VISIBLE);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
@@ -174,14 +174,23 @@ public class OffSwapFragment extends Fragment {
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
                             if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
-                                if (filterSelectedOffDay.equals("any day")) {
+                                if (filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
                                     swapOffAdapter.add(swapDetails);
-                                    selectedPreferredOff.setText("any day");
-                                } else {
-                                    if (swapDetails.getOffDay().equals(filterSelectedOffDay)) {
+                                }
+                                if (!filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
+                                    if (swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
                                         swapOffAdapter.add(swapDetails);
                                     }
-                                    selectedPreferredOff.setText(filterSelectedOffDay);
+                                }
+                                if (!filterSelectedSwapperOffDay.equals("any day") && filterSelectedYourOfffDay.equals("any day")) {
+                                    if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay)) {
+                                        swapOffAdapter.add(swapDetails);
+                                    }
+                                }
+                                if (!filterSelectedSwapperOffDay.equals("any day") && !filterSelectedYourOfffDay.equals("any day")) {
+                                    if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay) && swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
+                                        swapOffAdapter.add(swapDetails);
+                                    }
                                 }
                             }
                             progressBar_home_off.setVisibility(View.GONE);
@@ -337,12 +346,13 @@ public class OffSwapFragment extends Fragment {
             }
         });
 
-        //time spinner
+        //Day spinner
         preferredOffDaySpinner = offFilterDialog.findViewById(R.id.preferredOffDaySpinner);
-        preferredShiftHomeSpinner();
+        preferredOffHomeSpinner();
 
-        filterPreferredTimeAMText = offFilterDialog.findViewById(R.id.filterPreferredTimeAMText);
-        filterPreferredTimePMText = offFilterDialog.findViewById(R.id.filterPreferredTimePMText);
+        //Day spinner
+        swappersPreferredOffDaySpinner = offFilterDialog.findViewById(R.id.swappersPreferredOffDaySpinner);
+        swapperPreferredOffHomeSpinner();
 
         buttonApplyFilter = offFilterDialog.findViewById(R.id.buttonApplyFilter);
         buttonApplyFilter.setOnClickListener(new View.OnClickListener() {
@@ -357,17 +367,25 @@ public class OffSwapFragment extends Fragment {
 
     private void applyFilter() {
 
-        filterSelectedOffDay = preferredOffDaySpinner.getSelectedItem().toString();
+        filterSelectedYourOfffDay = preferredOffDaySpinner.getSelectedItem().toString();
+        filterSelectedSwapperOffDay = swappersPreferredOffDaySpinner.getSelectedItem().toString();
         fetchData();
         offFilterDialog.dismiss();
 
     }
 
-    private void preferredShiftHomeSpinner() {
+    private void preferredOffHomeSpinner() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.Home_Preferred_Off, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         preferredOffDaySpinner.setAdapter(adapter);
         preferredOffDaySpinner.setOnItemSelectedListener(new PreferredOffDaySpinnerListener());
+    }
+
+    private void swapperPreferredOffHomeSpinner() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.Home_Preferred_Off, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        swappersPreferredOffDaySpinner.setAdapter(adapter);
+        swappersPreferredOffDaySpinner.setOnItemSelectedListener(new PreferredOffDaySpinnerListener());
     }
 
     @Override
