@@ -5,88 +5,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_marginTop="8dp"
-        android:background="#fafafa"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp">
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:orientation="horizontal">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/imgNavigDrawer"
+            android:layout_width="49dp"
+            android:layout_height="22dp"
+            android:src="@drawable/navigdrawer" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/filterCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="50dp"
+            android:background="#fafafa"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="16dp"
+            android:layout_margin="2dp"
+            app:cardElevation="4dp">
 
             <RelativeLayout
-                android:id="@+id/imgFilter"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerInParent="true"
-                    android:contentDescription="@string/filter"
-                    android:src="@drawable/ic_filter_icon" />
+                <RelativeLayout
+                    android:id="@+id/imgFilter"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true">
 
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerInParent="true"
+                        android:contentDescription="@string/filter"
+                        android:src="@drawable/ic_filter_icon" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal"
-                android:layoutDirection="rtl"
-                >
-
-                <ImageView
-                    android:id="@+id/imgNavigDrawer"
-                    android:layout_width="49dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/navigdrawer" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layoutDirection="ltr">
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/raleway_semi_bold"
-                        android:text="@string/your_preferred_shift"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/selectedPreferredTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="@string/any_time" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/raleway_semi_bold"
+                            android:text="@string/your_preferred_shift"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/selectedPreferredTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginLeft="2dp"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:text="@string/any_time" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
 
 
     <RelativeLayout
@@ -158,6 +167,7 @@
                 android:text="@string/swipe_down_to_refresh"
                 android:textAppearance="?android:textAppearanceSmall" />
         </RelativeLayout>
+
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"

@@ -21,6 +21,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private FirebaseDatabase mFirebaseDatabase;
     private Button homeSwapButton, buttonApplyFilter;
     private View rootView;
+    private CardView filterCardView;
     private ListView listView;
     private Spinner homeFilterSpinner, preferredSwapperTimeSpinner;
     private String userId, preferredShift, swapperShift, preferredAMorPM = null, swapperPreferredShift = null, currentUserAccount, currentUserCompanyBranch;
@@ -82,7 +84,6 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private SwapAdapter swapAdapter;
     private FirebaseAuth mAuth;
     private User user;
-    private RelativeLayout imgFilter;
     private ImageView imgNoConnectionHome, navigationDrawerBtn;
     private DrawerLayout drawer;
 
@@ -379,8 +380,8 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         filterDialog = new Dialog(getContext());
-        imgFilter = getView().findViewById(R.id.imgFilter);
-        imgFilter.setOnClickListener(new View.OnClickListener() {
+        filterCardView= getView().findViewById(R.id.filterCardView);
+        filterCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showFilterDialog();
