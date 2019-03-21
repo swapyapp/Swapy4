@@ -72,14 +72,6 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/raleway_semi_bold"
-                            android:text="@string/your_preferred_shift"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
-
-                        <TextView
                             android:id="@+id/selectedPreferredTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -88,7 +80,7 @@
                             android:textColor="#000000"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            tools:text="@string/any_time" />
+                            android:text="@string/filter" />
                     </LinearLayout>
                 </LinearLayout>
 

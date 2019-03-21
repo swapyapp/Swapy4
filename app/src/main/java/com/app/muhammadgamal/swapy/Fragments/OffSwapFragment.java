@@ -127,7 +127,7 @@ public class OffSwapFragment extends Fragment {
         cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = cm.getActiveNetworkInfo();
 
-        navigDrawerBtn = (ImageView)rootView.findViewById(R.id.imgNavigDrawerOff);
+        navigDrawerBtn = (ImageView) rootView.findViewById(R.id.imgNavigDrawerOff);
         drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
         navigDrawerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +145,6 @@ public class OffSwapFragment extends Fragment {
         empty_view2_off = rootView.findViewById(R.id.empty_view2_off);
         imgOffNoConnectionHome = rootView.findViewById(R.id.imgOffNoConnectionHome);
         selectedPreferredOff = rootView.findViewById(R.id.selectedPreferredOff);
-        selectedPreferredOff.setText(filterSelectedYourOfffDay);
         progressBar_home_off.setVisibility(View.VISIBLE);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
