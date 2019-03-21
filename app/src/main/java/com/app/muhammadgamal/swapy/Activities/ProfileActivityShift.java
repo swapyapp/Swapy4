@@ -104,7 +104,6 @@ public class ProfileActivityShift extends AppCompatActivity {
         Intent intent = getIntent();
         SwapDetails swapDetails = intent.getParcelableExtra("swapper info");
         swapperID = swapDetails.getSwapperID();
-        swapperLoginID = swapDetails.getSwapperLoginID();
         swapperName = swapDetails.getSwapperName();
         swapperEmail = swapDetails.getSwapperEmail();
         swapperPhone = swapDetails.getSwapperPhone();
@@ -395,7 +394,6 @@ public class ProfileActivityShift extends AppCompatActivity {
                 SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                 if (dataSnapshot.exists()) {
                     if (swapDetails.getSwapperID().equals(fromID)) {
-                        fromLoginID = swapDetails.getSwapperLoginID();
                         fromImageUrl = swapDetails.getSwapperImageUrl();
                         fromName = swapDetails.getSwapperName();
                         fromPhone = swapDetails.getSwapperPhone();
@@ -653,7 +651,6 @@ public class ProfileActivityShift extends AppCompatActivity {
                 progressBar_ShiftProfileChooseDialog.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.INVISIBLE);
                 SwapDetails swapDetails = swapBodyList.get(adapterView.getCount() - i - 1);
-                fromLoginID = swapDetails.getSwapperLoginID();
                 fromImageUrl = swapDetails.getSwapperImageUrl();
                 fromName = swapDetails.getSwapperName();
                 fromPhone = swapDetails.getSwapperPhone();
@@ -668,7 +665,6 @@ public class ProfileActivityShift extends AppCompatActivity {
                 shiftSwapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests").child("Shift Request")
                         .child(child);
                 swapRequestShift = new SwapRequestShift(toID,
-                        toLoginID,
                         toImageUrl,
                         toName,
                         toPhone,
@@ -680,7 +676,6 @@ public class ProfileActivityShift extends AppCompatActivity {
                         toShiftTime,
                         toPreferredShift,
                         fromID,
-                        fromLoginID,
                         fromImageUrl,
                         fromName,
                         fromPhone,

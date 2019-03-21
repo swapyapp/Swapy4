@@ -235,7 +235,7 @@ public class SwapCreationActivity extends AppCompatActivity implements DatePicke
                 currentUserAccount = user.getmAccount();
 
                 swapperEmail = mAuth.getCurrentUser().getEmail();
-                SwapDetails SwapDetails = new SwapDetails(userId, swapperName, swapperEmail, swapperPhone, currentUserCompanyBranch, currentUserAccount, swapperImageUrl, shiftDay, shiftDate, shiftTime, preferredShift, swapperLoginID);
+                SwapDetails SwapDetails = new SwapDetails(userId, swapperName, swapperEmail, swapperPhone, currentUserCompanyBranch, currentUserAccount, swapperImageUrl, shiftDay, shiftDate, shiftTime, preferredShift);
                 creation_body_progress_bar.setVisibility(View.VISIBLE);
                 img_save_creation_body.setVisibility(View.GONE);
                 databaseReference = firebaseDatabase.getReference().child("swaps").child("shift_swaps").child(userId + shiftDay + shiftTime + preferredShift);

@@ -5,15 +5,14 @@ import android.os.Parcelable;
 
 public class SwapRequestShift implements Parcelable {
 
-    private String toID, toLoginID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
-    private String fromID, fromLoginID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredShift;
+    private String toID, toName, toShiftDate, toShiftDay, toPhone, toShiftTime, toAccount, toCompanyBranch, toEmail, toImageUrl, toPreferredShift;
+    private String fromID, fromName, fromShiftDate, fromShiftDay, fromPhone, fromShiftTime, fromAccount, fromCompanyBranch, fromEmail, fromImageUrl, fromPreferredShift;
     private int accepted, approved; //true = 1, false = 0, waiting = -1
 
     public SwapRequestShift() {
     }
 
     public SwapRequestShift(String toID,
-                            String toLoginID,
                             String toImageUrl,
                             String toName,
                             String toPhone,
@@ -25,7 +24,6 @@ public class SwapRequestShift implements Parcelable {
                             String toShiftTime,
                             String toPreferredShift,
                             String fromID,
-                            String fromLoginID,
                             String fromImageUrl,
                             String fromName,
                             String fromPhone,
@@ -39,7 +37,6 @@ public class SwapRequestShift implements Parcelable {
                             int accepted,
                             int approved) {
         this.toID = toID;
-        this.toLoginID = toLoginID;
         this.toImageUrl = toImageUrl;
         this.toName = toName;
         this.toPhone = toPhone;
@@ -51,7 +48,6 @@ public class SwapRequestShift implements Parcelable {
         this.toShiftTime = toShiftTime;
         this.toPreferredShift = toPreferredShift;
         this.fromID = fromID;
-        this.fromLoginID = fromLoginID;
         this.fromImageUrl = fromImageUrl;
         this.fromName = fromName;
         this.fromPhone = fromPhone;
@@ -68,21 +64,16 @@ public class SwapRequestShift implements Parcelable {
 
     public SwapRequestShift(String toID,
                             String fromID,
-                            String toLoginID,
-                            String fromLoginID,
                             int accepted,
                             int approved) {
         this.toID = toID;
         this.fromID = fromID;
-        this.toLoginID = toLoginID;
-        this.fromLoginID = fromLoginID;
         this.accepted = accepted;
         this.approved = approved;
     }
 
     protected SwapRequestShift(Parcel in) {
         toID = in.readString();
-        toLoginID = in.readString();
         toName = in.readString();
         toShiftDate = in.readString();
         toShiftDay = in.readString();
@@ -94,7 +85,6 @@ public class SwapRequestShift implements Parcelable {
         toImageUrl = in.readString();
         toPreferredShift = in.readString();
         fromID = in.readString();
-        fromLoginID = in.readString();
         fromName = in.readString();
         fromShiftDate = in.readString();
         fromShiftDay = in.readString();
@@ -135,22 +125,6 @@ public class SwapRequestShift implements Parcelable {
 
     public void setFromID(String fromID) {
         this.fromID = fromID;
-    }
-
-    public String getToLoginID() {
-        return toLoginID;
-    }
-
-    public void setToLoginID(String toLoginID) {
-        this.toLoginID = toLoginID;
-    }
-
-    public String getFromLoginID() {
-        return fromLoginID;
-    }
-
-    public void setFromLoginID(String fromLoginID) {
-        this.fromLoginID = fromLoginID;
     }
 
     public int getAccepted() {
@@ -337,7 +311,6 @@ public class SwapRequestShift implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(toID);
-        parcel.writeString(toLoginID);
         parcel.writeString(toName);
         parcel.writeString(toShiftDate);
         parcel.writeString(toShiftDay);
@@ -349,7 +322,6 @@ public class SwapRequestShift implements Parcelable {
         parcel.writeString(toImageUrl);
         parcel.writeString(toPreferredShift);
         parcel.writeString(fromID);
-        parcel.writeString(fromLoginID);
         parcel.writeString(fromName);
         parcel.writeString(fromShiftDate);
         parcel.writeString(fromShiftDay);
