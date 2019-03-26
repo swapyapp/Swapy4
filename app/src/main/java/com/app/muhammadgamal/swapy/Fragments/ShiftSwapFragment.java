@@ -22,8 +22,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.view.Gravity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,7 +38,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Activities.ProfileActivityShift;
 import com.app.muhammadgamal.swapy.Activities.SwapCreationActivity;
 import com.app.muhammadgamal.swapy.Common;
@@ -88,6 +90,9 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private DrawerLayout drawer;
 
 
+
+
+
     private ShimmerFrameLayout shimmerFrameLayout;
 
 
@@ -113,6 +118,11 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 //        title = getArguments().getString("someTitle");
 //    }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+    }
 
     @SuppressLint("RestrictedApi")
     @Nullable
@@ -137,19 +147,10 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
         shimmerFrameLayout = rootView.findViewById(R.id.shimmer_view_container);
 
-        navigationDrawerBtn = (ImageView)rootView.findViewById(R.id.imgNavigDrawer);
-        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        navigationDrawerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
-
 
         empty_view = rootView.findViewById(R.id.empty_view);
         empty_view2 = rootView.findViewById(R.id.empty_view2);
-        selectedPreferredTime = rootView.findViewById(R.id.selectedPreferredTime);
+      //  selectedPreferredTime = rootView.findViewById(R.id.selectedPreferredTime);
         imgNoConnectionHome = rootView.findViewById(R.id.imgNoConnectionHome);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
@@ -205,7 +206,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                                     if (preferredAMorPM == null && swapperPreferredShift == null) {
 //                                if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
                                         swapAdapter.add(swapDetails);
-                                        selectedPreferredTime.setText(R.string.any_time);
+                                        //selectedPreferredTime.setText(R.string.any_time);
 //                                }
                                     }
                                     if (preferredAMorPM != null && swapperPreferredShift == null) {
@@ -327,6 +328,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             Collections.reverse(swapBodyList);
             swapAdapter = new SwapAdapter(getContext(), R.layout.home_list_item, swapBodyList);
             listView = rootView.findViewById(R.id.homeList);
+            listView.setNestedScrollingEnabled(true);
             listView.setVisibility(View.VISIBLE);
             listView.setAdapter(swapAdapter);
 
@@ -380,13 +382,13 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         filterDialog = new Dialog(getContext());
-        filterCardView= getView().findViewById(R.id.filterCardView);
-        filterCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showFilterDialog();
-            }
-        });
+//        filterCardView= getView().findViewById(R.id.filterCardView);
+//        filterCardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showFilterDialog();
+//            }
+//        });
     }
 
     public void showFilterDialog() {
@@ -555,26 +557,30 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         }, 4000);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
-
-    }
 //    @Override
-//    public void onStart() {
-//        super.onStart();
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.nav_bar_items, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
 //    }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.search_icon:
+                showFilterDialog();
+                //Toast.makeText(getActivity(), "Calls Icon Click", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.notification_icon:
+                getActivity().getSupportFragmentManager().
+                        beginTransaction().
+                        replace(R.id.fragment_container,
+                                new ReceivedSwapsFragment())
+                        .addToBackStack(null)
+                        .commit();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

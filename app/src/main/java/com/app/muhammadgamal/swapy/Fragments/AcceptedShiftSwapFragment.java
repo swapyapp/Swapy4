@@ -9,6 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -53,6 +56,21 @@ public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshL
     private AcceptedSwapAdapter acceptedSwapAdapter;
     private ReceivedSwapAdapter receivedSwapAdapter;
     private ImageView imgNoConnectionAccepted;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+       // inflater.inflate(R.menu.nav_bar_items, menu);
+        MenuItem item = menu.findItem(R.id.search_icon);
+        item.setIcon(null);
+        item.setTitle("");
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     @Nullable
     @Override
@@ -161,6 +179,7 @@ public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshL
             acceptedSwapAdapter = new AcceptedSwapAdapter(getContext(), R.layout.accepted_list_item, swapBodyList);
             acceptedList = rootView.findViewById(R.id.acceptedList);
             acceptedList.setVisibility(View.VISIBLE);
+            acceptedList.setNestedScrollingEnabled(true);
             acceptedList.setAdapter(acceptedSwapAdapter);
 
             acceptedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -200,8 +219,8 @@ public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshL
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
+        //((AppCompatActivity) getActivity()).getSupportActionBar().show();
+      //  ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }
 //    @Override
@@ -209,4 +228,8 @@ public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshL
 //        super.onStart();
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
 //    }
+
+
+
+
 }

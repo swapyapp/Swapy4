@@ -159,6 +159,7 @@ public class ReceivedShiftSwapFragment extends Fragment implements SwipeRefreshL
             ReceivedSwapAdapter = new ReceivedSwapAdapter(getContext(), R.layout.sent_list_item, swapBodyList);
             receivedList = rootView.findViewById(R.id.receivedList);
             receivedList.setVisibility(View.VISIBLE);
+            receivedList.setNestedScrollingEnabled(true);
             receivedList.setAdapter(ReceivedSwapAdapter);
 
             receivedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

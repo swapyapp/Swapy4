@@ -5,8 +5,11 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +55,21 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
     private ApprovedSwapAdapter approvedSwapAdapter;
     private ImageView imgNoConnectionApproved;
 
+    private ImageView navigationDrawerBtn;
+    private DrawerLayout drawer;
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(false);
+//    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_approved_swap, container, false);
-        getActivity().setTitle("Approved swaps");
+
+//        Toolbar toolbar = rootView.findViewById(R.id.acceptedSwaps_fragment_toolBar);
+//        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         progressBar_approved = rootView.findViewById(R.id.progressBar_approved);
         empty_view_approved = rootView.findViewById(R.id.empty_view_approved);
@@ -65,6 +78,16 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
         imgNoConnectionApproved.setVisibility(View.GONE);
         progressBar_approved.setVisibility(View.VISIBLE);
         empty_view2_approved.setVisibility(View.GONE);
+
+//        navigationDrawerBtn = (ImageView)rootView.findViewById(R.id.toolbar_navigation_icon_accepted_swaps);
+//        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+//        navigationDrawerBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                drawer.openDrawer(GravityCompat.START);
+//            }
+//        });
+
 
         //handle the SwipeRefreshLayout
         approvedSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.approvedSwipeRefresh);
@@ -179,8 +202,7 @@ public class ApprovedSwapFragment extends Fragment implements SwipeRefreshLayout
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
+
 
     }
 //    @Override

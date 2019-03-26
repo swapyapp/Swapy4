@@ -7,29 +7,38 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Fragments.AcceptedShiftSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.AccountFragment;
 import com.app.muhammadgamal.swapy.Fragments.HomeFragment;
+import com.app.muhammadgamal.swapy.Fragments.OffSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.ReceivedShiftSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.ReceivedSwapsFragment;
 import com.app.muhammadgamal.swapy.Fragments.SentShiftSwapFragment;
 import com.app.muhammadgamal.swapy.Fragments.SentSwapsFragment;
 import com.app.muhammadgamal.swapy.Fragments.SettingsFragment;
+import com.app.muhammadgamal.swapy.Fragments.ShiftSwapFragment;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.bumptech.glide.Glide;
@@ -56,6 +65,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     private ProgressBar progressBarNav;
     public static String currentUserBranch, currentUserAccount;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +73,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
 
         mAuth = FirebaseAuth.getInstance();
 
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         //to handle the menu item clicks in the navigation drawer
         //the activity must implement OnNavigationItemSelectedListener
@@ -82,7 +91,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         navUserCurrentShift = (TextView) headerLayout.findViewById(R.id.navUserCurrentShift);
 
         //handle the toggle animation
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
                 R.string.nav_drawer_open, R.string.nav_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -97,17 +106,18 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
             navigationView.setCheckedItem(R.id.home);
         }
 
-        receivedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
-                findItem(R.id.nav_receivedSwapRequests));
+//        receivedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+//                findItem(R.id.nav_receivedSwapRequests));
         sentSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.nav_sentSwapRequests));
-        acceptedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
-                findItem(R.id.nav_acceptedSwapRequests));
+//        acceptedSwapRequests = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+//                findItem(R.id.nav_acceptedSwapRequests));
 
         //handle the counter in the nav drawer
         initializeCountDrawer();
 
         loadUserInfo();
+
 
     }
 
@@ -144,9 +154,9 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                     currentUserAccount = user.getmAccount();
                     navUserCompany.setText(currentUserBranch + ", " + currentUserAccount);
                     navUserCurrentShift.setText("Current Shift: " + user.getmCurrentShift());
-                    receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()));
+//                    receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()));
                     sentSwapRequests.setText(String.valueOf(user.getmSentRequests()));
-                    acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
+//                    acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
 //                  approvedSwapRequests.setText(String.valueOf(user.getmApprovedRequests()));
                 }
                 navUsername.setText(user.getmUsername());
@@ -154,9 +164,9 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 currentUserAccount = user.getmAccount();
                 navUserCompany.setText(currentUserBranch + ", " + currentUserAccount);
                 navUserCurrentShift.setText("Current Shift: " + user.getmCurrentShift());
-                receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()));
+//                receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()));
                 sentSwapRequests.setText(String.valueOf(user.getmSentRequests()));
-                acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
+//                acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
 
 
             }
@@ -191,14 +201,14 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         .addToBackStack(null)
                         .commit();
                 break;
-            case R.id.nav_receivedSwapRequests:
-                getSupportFragmentManager().
-                        beginTransaction().
-                        replace(R.id.fragment_container,
-                                new ReceivedSwapsFragment())
-                        .addToBackStack(null)
-                        .commit();
-                break;
+//            case R.id.nav_receivedSwapRequests:
+//                getSupportFragmentManager().
+//                        beginTransaction().
+//                        replace(R.id.fragment_container,
+//                                new ReceivedSwapsFragment())
+//                        .addToBackStack(null)
+//                        .commit();
+//                break;
             case R.id.nav_sentSwapRequests:
                 getSupportFragmentManager().
                         beginTransaction().
@@ -207,14 +217,14 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         .addToBackStack(null)
                         .commit();
                 break;
-            case R.id.nav_acceptedSwapRequests:
-                getSupportFragmentManager().
-                        beginTransaction().
-                        replace(R.id.fragment_container,
-                                new AcceptedShiftSwapFragment())
-                        .addToBackStack(null)
-                        .commit();
-                break;
+//            case R.id.nav_acceptedSwapRequests:
+//                getSupportFragmentManager().
+//                        beginTransaction().
+//                        replace(R.id.fragment_container,
+//                                new AcceptedShiftSwapFragment())
+//                        .addToBackStack(null)
+//                        .commit();
+//                break;
             case R.id.nav_settings:
                 getSupportFragmentManager().
                         beginTransaction().
@@ -233,17 +243,17 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     //This method will initialize the count value in the menu in the navigation drawer
     private void initializeCountDrawer() {
         //Gravity property aligns the text
-        receivedSwapRequests.setGravity(Gravity.CENTER_VERTICAL);
-        receivedSwapRequests.setTypeface(null, Typeface.BOLD);
-        receivedSwapRequests.setTextColor(getResources().getColor(R.color.red));
+//        receivedSwapRequests.setGravity(Gravity.CENTER_VERTICAL);
+//        receivedSwapRequests.setTypeface(null, Typeface.BOLD);
+//        receivedSwapRequests.setTextColor(getResources().getColor(R.color.red));
         //count is added
         sentSwapRequests.setGravity(Gravity.CENTER_VERTICAL);
         sentSwapRequests.setTypeface(null, Typeface.BOLD);
         sentSwapRequests.setTextColor(getResources().getColor(R.color.red));
         //count is added
-        acceptedSwapRequests.setGravity(Gravity.CENTER_VERTICAL);
-        acceptedSwapRequests.setTypeface(null, Typeface.BOLD);
-        acceptedSwapRequests.setTextColor(getResources().getColor(R.color.red));
+//        acceptedSwapRequests.setGravity(Gravity.CENTER_VERTICAL);
+  //      acceptedSwapRequests.setTypeface(null, Typeface.BOLD);
+ //       acceptedSwapRequests.setTextColor(getResources().getColor(R.color.red));
         //count is added
     }
 
@@ -294,4 +304,21 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
             window.setStatusBarColor(Color.parseColor(color));
         }
     }
+
+
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle item selection
+//        switch (item.getItemId()) {
+//            case R.id.search_icon:
+//                Toast.makeText(this, "search Icon Click", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.notification_icon:
+//                Toast.makeText(this, "noti Icon Click", Toast.LENGTH_SHORT).show();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 }
