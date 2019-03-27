@@ -65,7 +65,6 @@ public class SettingsFragment extends Fragment {
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String currentUser = mAuth.getCurrentUser().getUid();
                 userRef.child(currentUser).child("device_token").setValue(null).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
