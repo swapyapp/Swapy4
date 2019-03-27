@@ -137,14 +137,16 @@ public class OffSwapFragment extends Fragment {
         cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = cm.getActiveNetworkInfo();
 
-//        navigDrawerBtn = (ImageView)rootView.findViewById(R.id.imgNavigDrawerOff);
-//        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-//        navigDrawerBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                drawer.openDrawer(GravityCompat.START);
-//            }
-//        });
+
+        navigDrawerBtn = (ImageView) rootView.findViewById(R.id.imgNavigDrawerOff);
+        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+        navigDrawerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
+
 
         fab_add_off_swap_shift = rootView.findViewById(R.id.fab_add_off_swap_shift);
         fab_add_off_swap_shift.bringToFront();

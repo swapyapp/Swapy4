@@ -211,7 +211,6 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
 
     private void swapRequest() {
         toID = swapBody.getSwapperID() ;
-        toLoginID = swapBody.getSwapperLoginID();
         toImageUrl = swapBody.getSwapperImageUrl();
         toName = swapBody.getSwapperName();
         toPhone = swapBody.getSwapperPhone();
@@ -231,7 +230,6 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
                 SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
                 if (dataSnapshot.exists()) {
                     if (swapDetails.getSwapperID().equals(fromID)) {
-                        fromLoginID = swapDetails.getSwapperLoginID();
                         fromImageUrl = swapDetails.getSwapperImageUrl();
                         fromName = swapDetails.getSwapperName();
                         fromPhone = swapDetails.getSwapperPhone();
@@ -244,7 +242,6 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
                         fromPreferredShift = swapDetails.getSwapperPreferredShift();
                         swapRequestsDb = FirebaseDatabase.getInstance().getReference().child("Swap Requests");
                         swapRequestShift = new SwapRequestShift(toID,
-                                toLoginID,
                                 toImageUrl,
                                 toName,
                                 toPhone,
@@ -256,7 +253,6 @@ public class SwapAdapter extends ArrayAdapter<SwapDetails> {
                                 toShiftTime,
                                 toPreferredShift,
                                 fromID,
-                                fromLoginID,
                                 fromImageUrl,
                                 fromName,
                                 fromPhone,
