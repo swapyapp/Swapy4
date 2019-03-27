@@ -163,6 +163,7 @@ public class SentShiftSwapFragment extends Fragment implements SwipeRefreshLayou
             sentSwapAdapter = new SentSwapAdapter(getContext(), R.layout.sent_list_item, swapBodyList);
             sentList = rootView.findViewById(R.id.sentList);
             sentList.setVisibility(View.VISIBLE);
+            sentList.setNestedScrollingEnabled(true);
             sentList.setAdapter(sentSwapAdapter);
 
             sentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -215,8 +216,8 @@ public class SentShiftSwapFragment extends Fragment implements SwipeRefreshLayou
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+      //  ((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }
 //    @Override

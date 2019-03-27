@@ -22,6 +22,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,6 +36,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Activities.ProfileActivityOff;
@@ -108,6 +112,12 @@ public class OffSwapFragment extends Fragment {
     private ShimmerFrameLayout shimmerFrameLayout;
     private DrawerLayout drawer;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @SuppressLint("RestrictedApi")
     @Nullable
     @Override
@@ -127,6 +137,7 @@ public class OffSwapFragment extends Fragment {
         cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = cm.getActiveNetworkInfo();
 
+
         navigDrawerBtn = (ImageView) rootView.findViewById(R.id.imgNavigDrawerOff);
         drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
         navigDrawerBtn.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +147,7 @@ public class OffSwapFragment extends Fragment {
             }
         });
 
+
         fab_add_off_swap_shift = rootView.findViewById(R.id.fab_add_off_swap_shift);
         fab_add_off_swap_shift.bringToFront();
 
@@ -144,7 +156,8 @@ public class OffSwapFragment extends Fragment {
         empty_view_off = rootView.findViewById(R.id.empty_view_off);
         empty_view2_off = rootView.findViewById(R.id.empty_view2_off);
         imgOffNoConnectionHome = rootView.findViewById(R.id.imgOffNoConnectionHome);
-        selectedPreferredOff = rootView.findViewById(R.id.selectedPreferredOff);
+       // selectedPreferredOff = rootView.findViewById(R.id.selectedPreferredOff);
+//        selectedPreferredOff.setText(filterSelectedYourOfffDay);
         progressBar_home_off.setVisibility(View.VISIBLE);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
@@ -277,6 +290,7 @@ public class OffSwapFragment extends Fragment {
             Collections.reverse(swapBodyList);
             swapOffAdapter = new SwapOffAdapter(getContext(), R.layout.swap_off_list_item, swapBodyList);
             listView = rootView.findViewById(R.id.offList);
+            listView.setNestedScrollingEnabled(true);
             listView.setVisibility(View.VISIBLE);
             listView.setAdapter(swapOffAdapter);
 
@@ -331,13 +345,13 @@ public class OffSwapFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         offFilterDialog = new Dialog(getContext());
-        imgOffFilter = getView().findViewById(R.id.imgOffFilter);
-        imgOffFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showFilterDialog();
-            }
-        });
+//        imgOffFilter = getView().findViewById(R.id.imgOffFilter);
+//        imgOffFilter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showFilterDialog();
+//            }
+//        });
     }
 
     public void showFilterDialog() {
@@ -402,7 +416,7 @@ public class OffSwapFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+       // ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         //((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }
@@ -411,4 +425,26 @@ public class OffSwapFragment extends Fragment {
 //        super.onStart();
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
 //    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.search_icon:
+                showFilterDialog();
+                return true;
+            case R.id.notification_icon:
+                getActivity().getSupportFragmentManager().
+                        beginTransaction().
+                        replace(R.id.fragment_container,
+                                new ReceivedSwapsFragment())
+                        .addToBackStack(null)
+                        .commit();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

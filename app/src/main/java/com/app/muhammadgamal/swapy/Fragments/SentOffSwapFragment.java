@@ -149,6 +149,7 @@ public class SentOffSwapFragment extends Fragment implements SwipeRefreshLayout.
             offSentSwapAdapter = new OffSentSwapAdapter(getContext(), R.layout.off_sent_list_item, swapBodyList);
             offSentList = rootView.findViewById(R.id.offSentList);
             offSentList.setVisibility(View.VISIBLE);
+            offSentList.setNestedScrollingEnabled(true);
             offSentList.setAdapter(offSentSwapAdapter);
 
             offSentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -12,21 +12,21 @@
         android:id="@+id/nav_account"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="@string/account" />
-    <item
-        android:id="@+id/nav_receivedSwapRequests"
-        android:icon="@drawable/ic_arrow_downward_black_24dp"
-        android:title="@string/received_swap_requests"
-        app:actionViewClass="android.widget.TextView" />
+    <!--<item-->
+        <!--android:id="@+id/nav_receivedSwapRequests"-->
+        <!--android:icon="@drawable/ic_arrow_downward_black_24dp"-->
+        <!--android:title="@string/received_swap_requests"-->
+        <!--app:actionViewClass="android.widget.TextView" />-->
     <item
         android:id="@+id/nav_sentSwapRequests"
         android:icon="@drawable/ic_arrow_upward_black_24dp"
         android:title="@string/sent_swap_requests"
         app:actionViewClass="android.widget.TextView" />
-    <item
-        android:id="@+id/nav_acceptedSwapRequests"
-        android:icon="@drawable/ic_check_black_24dp"
-        android:title="@string/accepted_swap_requests"
-        app:actionViewClass="android.widget.TextView" />
+    <!--<item-->
+        <!--android:id="@+id/nav_acceptedSwapRequests"-->
+        <!--android:icon="@drawable/ic_check_black_24dp"-->
+        <!--android:title="@string/accepted_swap_requests"-->
+        <!--app:actionViewClass="android.widget.TextView" />-->
     <item
         android:id="@+id/nav_settings"
         android:icon="@drawable/ic_settings_black_24dp"

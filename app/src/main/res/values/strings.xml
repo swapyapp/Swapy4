@@ -327,6 +327,16 @@
     <string name="deletee">Delete</string>
     <string name="swapper_preferred_shift">Swapper\'s preferred shift</string>
     <string name="swaper_s_preferred_off_day">Swapper\'s preferred off day</string>
-    <string name="your_preferred_day">Your preferred day:</string>
-    <string name="filter">Filter</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="swap_shift">Swap Shift</string>
+    <string name="swap_off">Swap off</string>
+    <string name="main_title">Swapy</string>
+    <string name="received_swaps">Received Swaps</string>
+    <string name="sent_swaps">Sent Swaps</string>
+    <string name="accepted_swaps">Accepted Swaps</string>
+    <string name="sittings">Sittings</string>
+    <string name="log_out">Log out</string>
 </resources>

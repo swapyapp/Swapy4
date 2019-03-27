@@ -151,8 +151,8 @@ public class AcceptedOffSwapFragment extends Fragment implements SwipeRefreshLay
             offAcceptedSwapAdapter = new OffAcceptedSwapAdapter(getContext(), R.layout.off_accepted_list_item, swapBodyList);
             offAcceptedList = rootView.findViewById(R.id.offAcceptedList);
             offAcceptedList.setVisibility(View.VISIBLE);
+            offAcceptedList.setNestedScrollingEnabled(true);
             offAcceptedList.setAdapter(offAcceptedSwapAdapter);
-
             offAcceptedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
