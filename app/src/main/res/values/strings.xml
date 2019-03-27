@@ -126,6 +126,9 @@
     <string name="current_off">Current off</string>
     <string name="forget_your_password">Forget Your password?</string>
     <string name="send">SEND</string>
+
+    <string name="your_preferred_day">Your preferred day:</string>
+
     <string-array name="company">
         <item>Choose company</item>
         <item>Vodafone</item>

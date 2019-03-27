@@ -42,4 +42,15 @@
         <item>Thursday</item>
         <item>Friday</item>
     </string-array>
+
+    <string-array name="your_preferred_day" >
+        <item>Any day</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
 </resources>

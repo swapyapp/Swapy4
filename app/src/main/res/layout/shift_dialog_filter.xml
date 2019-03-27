@@ -143,6 +143,24 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="14dp"
                 android:fontFamily="@font/raleway_medium"
+                android:text="@string/your_preferred_day"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/preferredDaySpinner"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/spinner_style">
+
+            </Spinner>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="14dp"
+                android:fontFamily="@font/raleway_medium"
                 android:text="@string/swapper_preferred_shift"
                 android:textSize="16sp"
                 android:textStyle="bold" />
