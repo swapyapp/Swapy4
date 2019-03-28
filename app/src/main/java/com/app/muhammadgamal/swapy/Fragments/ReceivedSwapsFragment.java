@@ -16,10 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.widget.ImageView;
 
-import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.R;
 
 /**
@@ -28,7 +26,7 @@ import com.app.muhammadgamal.swapy.R;
 public class ReceivedSwapsFragment extends Fragment {
 
     private View rootView;
-    private ImageView navigationDrawerBtn;
+    private ImageView backDrawerBtn;
     private DrawerLayout drawer;
 
     public ReceivedSwapsFragment() {
@@ -44,13 +42,6 @@ public class ReceivedSwapsFragment extends Fragment {
         Toolbar toolbar = rootView.findViewById(R.id.receivedSwaps_fragment_toolBar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         getActivity().setTitle("Received swaps");
 
@@ -60,14 +51,13 @@ public class ReceivedSwapsFragment extends Fragment {
         TabLayout tabLayout = rootView.findViewById(R.id.tablayout_receivedSwaps);
         tabLayout.setupWithViewPager(viewPager);
 
-        navigationDrawerBtn = (ImageView)rootView.findViewById(R.id.toolbar_navigation_icon_received_swaps);
-        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        navigationDrawerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
+//        backDrawerBtn = (ImageView)rootView.findViewById(R.id.toolbar_back_icon_received_swaps);
+//        backDrawerBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //getActivity().finish();
+//            }
+//        });
 
         return rootView;
     }
