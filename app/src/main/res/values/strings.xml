@@ -339,4 +339,5 @@
     <string name="accepted_swaps">Accepted Swaps</string>
     <string name="sittings">Sittings</string>
     <string name="log_out">Log out</string>
+    <string name="your_preferred_day">Your Preferred Day</string>
 </resources>

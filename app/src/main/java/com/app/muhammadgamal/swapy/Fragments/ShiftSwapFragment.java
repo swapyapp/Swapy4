@@ -149,14 +149,14 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
         shimmerFrameLayout = rootView.findViewById(R.id.shimmer_view_container);
 
-        navigationDrawerBtn = (ImageView) rootView.findViewById(R.id.imgNavigDrawer);
-        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        navigationDrawerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
+//        navigationDrawerBtn = (ImageView) rootView.findViewById(R.id.imgNavigDrawer);
+//        drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+//        navigationDrawerBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                drawer.openDrawer(GravityCompat.START);
+//            }
+//        });
 
 
         empty_view = rootView.findViewById(R.id.empty_view);
@@ -449,14 +449,14 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        filterDialog = new Dialog(getContext());
-        filterCardView = getView().findViewById(R.id.filterCardView);
-        filterCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showFilterDialog();
-            }
-        });
+//        filterDialog = new Dialog(getContext());
+//        filterCardView = getView().findViewById(R.id.filterCardView);
+//        filterCardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showFilterDialog();
+//            }
+//        });
     }
 
     public void showFilterDialog() {
@@ -536,9 +536,9 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             }
         });
 
-        //Your preferred day spinner
-        preferredDaySpinner = filterDialog.findViewById(R.id.preferredDaySpinner);
-        swapShiftDaySpinner();
+//        //Your preferred day spinner
+//        preferredDaySpinner = filterDialog.findViewById(R.id.preferredDaySpinner);
+//        swapShiftDaySpinner();
 
         buttonApplyFilter = filterDialog.findViewById(R.id.buttonApplyFilter);
         buttonApplyFilter.setOnClickListener(new View.OnClickListener() {
@@ -603,12 +603,12 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
         preferredSwapperTimeSpinner.setOnItemSelectedListener(new PreferredShiftSpinnerListener());
     }
 
-    private void swapShiftDaySpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.your_preferred_day, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        preferredDaySpinner.setAdapter(adapter);
-        preferredDaySpinner.setOnItemSelectedListener(new YourPreferredDaySpinnerLestiner());
-    }
+//    private void swapShiftDaySpinner() {
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.your_preferred_day, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        preferredDaySpinner.setAdapter(adapter);
+//        preferredDaySpinner.setOnItemSelectedListener(new YourPreferredDaySpinnerLestiner());
+//    }
 
 //    private void showHideWhenScroll() {
 //        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
