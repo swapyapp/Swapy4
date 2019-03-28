@@ -73,7 +73,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private ListView swapList;
     private TextView empty_view, empty_view2, filterPreferredTimePMText, filterPreferredTimeAMText, selectedPreferredTime, filterPreferredSwapperTimeAMText, filterPreferredSwapperTimePMText;
     private SwipeRefreshLayout shiftSwipeRefresh;
-    private FloatingActionButton fab_add_swap;
+    private FloatingActionButton fab_add_swap,fab_reset_filter;
     private NetworkInfo networkInfo;
     private ConnectivityManager cm;
     private DatabaseReference mSwapDataBaseReference;
@@ -148,8 +148,11 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
         fab_add_swap = rootView.findViewById(R.id.fab_add_swap_shift);
         fab_add_swap.bringToFront();
+        fab_reset_filter= rootView.findViewById(R.id.fab_add_swap_shift_reset);
+        fab_reset_filter.hide();
 
         shimmerFrameLayout = rootView.findViewById(R.id.shimmer_view_container);
+
 
 
         empty_view = rootView.findViewById(R.id.empty_view);
@@ -208,6 +211,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                                 SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                                 if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
                                     if (preferredAMorPM == null && swapperPreferredShift == null && YOUR_PREFERRED_DAY == null) {
+                                        fab_reset_filter.hide();
                                         swapAdapter.add(swapDetails);
                                     }
                                     if (preferredAMorPM != null && swapperPreferredShift == null && YOUR_PREFERRED_DAY == null) {
@@ -573,6 +577,17 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             YOUR_PREFERRED_DAY = preferredDaySpinner.getSelectedItem().toString();
         }
         fetchData();
+        fab_reset_filter.show();
+        fab_reset_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                preferredAMorPM = null;
+                swapperPreferredShift = null;
+                YOUR_PREFERRED_DAY = null;
+                fetchData();
+                fab_reset_filter.hide();
+            }
+        });
         filterDialog.dismiss();
 
     }

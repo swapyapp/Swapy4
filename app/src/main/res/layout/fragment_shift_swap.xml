@@ -112,6 +112,19 @@
             android:src="@drawable/ic_add_white_24dp"
             app:backgroundTint="@color/colorPrimary" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add_swap_shift_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            app:backgroundTint="@color/colorPrimary"
+            android:src="@drawable/ic_reset"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/homeSwipeRefresh"
