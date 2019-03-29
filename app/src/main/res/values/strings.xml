@@ -343,4 +343,7 @@
     <string name="accepted_swaps">Accepted Swaps</string>
     <string name="sittings">Sittings</string>
     <string name="log_out">Log out</string>
+    <string name="fill_your_main_data_here_to_complete_the_sign_up_process">Fill your main Data here to complete the sign up process</string>
+    <string name="finish">Finish</string>
+
 </resources>
