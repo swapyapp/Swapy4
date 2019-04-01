@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingEnd="8dp"
+    android:paddingStart="8dp">
+
+    <TextView
+        android:id="@+id/signInText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/raleway_medium"
+        android:text="Complete your Data to Finish the sign up"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:layout_marginBottom="180dp"/>
+
+    <EditText
+        android:id="@+id/editTextPhone_google"
+        android:layout_width="265dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edittext_style"
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:hint="@string/phone"
+        android:inputType="phone"
+        android:textSize="@dimen/editText_text_size" />
+
+    <Spinner
+        android:id="@+id/spinnerCompany_google"
+        android:layout_width="265dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/spinner_style"
+        android:fontFamily="@font/raleway_medium" />
+
+    <Spinner
+        android:id="@+id/spinnerCompanyBranch_google"
+        android:layout_width="265dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/spinner_style"
+        android:fontFamily="@font/raleway_medium" />
+
+
+    <Spinner
+        android:id="@+id/spinnerAccount_google"
+        android:layout_width="265dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/spinner_style"
+        android:fontFamily="@font/raleway_medium" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/finish_ggogle_signUp"
+            android:layout_width="154dp"
+            android:layout_height="47dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/btn_style"
+            android:clickable="true"
+            android:fontFamily="@font/raleway_medium"
+            android:text="@string/finish"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/button_text_size" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_sign_up_google"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>
