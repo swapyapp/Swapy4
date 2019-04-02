@@ -38,6 +38,8 @@ public class SittingActivityBody extends AppCompatActivity {
     int userPasswordIndicatorReceiver ;
     int userEmailIndicatorReceiver ;
 
+    int receiver;
+
     String changeText;
 
     TextView saveButton;
@@ -70,7 +72,6 @@ public class SittingActivityBody extends AppCompatActivity {
         });
 
 
-        sitting_body_edit_text.setTextColor(Color.WHITE);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -79,7 +80,7 @@ public class SittingActivityBody extends AppCompatActivity {
         userPasswordIndicatorReceiver = bundle.getInt("password");
         userEmailIndicatorReceiver = bundle.getInt("email");
 
-        int receiver = 0;
+         receiver = 0;
 
         if (userNameIndicatorReceiver == 1){
             receiver = userNameIndicatorReceiver;
@@ -222,4 +223,9 @@ public class SittingActivityBody extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        receiver = 0;
+    }
 }

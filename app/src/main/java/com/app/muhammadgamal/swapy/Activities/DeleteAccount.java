@@ -28,6 +28,8 @@ public class DeleteAccount extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
 
+    String email, password;
+
     private Button reAuthButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,8 @@ public class DeleteAccount extends AppCompatActivity {
 
         reAuthButton = findViewById(R.id.bttn_reauthenticate);
 
-        reAuthEmail = editTextEmail.getText().toString().trim();
-        reAuthPassword = editTextPassword.getText().toString().trim();
+        email = reAuthEmail = editTextEmail.getText().toString().trim();
+        password = reAuthPassword = editTextPassword.getText().toString().trim();
 
         reAuthButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,15 +60,19 @@ public class DeleteAccount extends AppCompatActivity {
                 // Get auth credentials from the user for re-authentication. The example below shows
                 // email and password credentials but there are multiple possible providers,
                 // such as GoogleAuthProvider or FacebookAuthProvider.
-                AuthCredential credential = EmailAuthProvider
-                        .getCredential(reAuthEmail, reAuthPassword);
 
-                // Prompt the user to re-provide their sign-in credentials
-                user.reauthenticate(credential)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(DeleteAccount.this, "reAuthenticate done successfully :)",Toast.LENGTH_LONG).show();
+                if (reAuthEmail != null && reAuthPassword != null ) {
+                    if (!reAuthEmail.isEmpty() && !reAuthPassword.isEmpty()) {
+
+                        AuthCredential credential = EmailAuthProvider
+                                .getCredential(reAuthEmail, reAuthPassword);
+
+                        // Prompt the user to re-provide their sign-in credentials
+                        user.reauthenticate(credential)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(DeleteAccount.this, "reAuthenticate done successfully :)", Toast.LENGTH_LONG).show();
 //                                user.delete()
 //                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
 //                                            @Override
@@ -78,8 +84,12 @@ public class DeleteAccount extends AppCompatActivity {
 //                                            }
 //                                        });
 
-                            }
-                        });
+                                    }
+                                });
+                    }
+            }else {
+                    Toast.makeText(DeleteAccount.this, "Please enter your Email and passowred to reAthenticate", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

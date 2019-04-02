@@ -9,13 +9,17 @@ import android.widget.Spinner;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.AccountSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.BranchSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.CompanySpinnerLestiner;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 public class CompleteSignUpData extends AppCompatActivity {
 
     EditText editTextPhone;
     Spinner spinnerCompany, spinnerCompanyBranch, spinnerAccount;
+    private String phoneNumber, company, companyBranch, account;
 
-    String phoneNumber ;
+    private FirebaseAuth mAuth;
+    private DatabaseReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,8 @@ public class CompleteSignUpData extends AppCompatActivity {
         companySpinner();
         accountSpinner();
         branchSpinner();
+
+
 
     }
 
@@ -55,4 +61,8 @@ public class CompleteSignUpData extends AppCompatActivity {
         spinnerAccount.setAdapter(adapter);
         spinnerAccount.setOnItemSelectedListener(new AccountSpinnerLestiner());
     }
+
+   private void completeSignIn(){
+
+   }
 }

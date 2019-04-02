@@ -55,7 +55,7 @@ public class AccountSittings extends AppCompatActivity {
         changeUserEmail = findViewById(R.id.sittings_change_account_user_email);
         changeUserPassword = findViewById(R.id.sittings_change_account_user_password);
         sittings_switch_company = findViewById(R.id.sittings_switch_company);
-        deleteAccount = findViewById(R.id.sittings_delete_account);
+//        deleteAccount = findViewById(R.id.sittings_delete_account);
         sittings_switch_branch = findViewById(R.id.sittings_switch_branch);
 
         img_back_account_sittings = findViewById(R.id.img_back_account_sittings);
@@ -125,13 +125,13 @@ public class AccountSittings extends AppCompatActivity {
             }
         });
 
-        deleteAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AccountSittings.this, DeleteAccount.class);
-                startActivity(intent);
-            }
-        });
+//        deleteAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(AccountSittings.this, DeleteAccount.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
