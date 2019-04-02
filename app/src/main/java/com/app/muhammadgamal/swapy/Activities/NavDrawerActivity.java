@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,6 +53,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -64,6 +66,8 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     private CircleImageView userNavImage;
     private ProgressBar progressBarNav;
     public static String currentUserBranch, currentUserAccount;
+
+    private static final String TAG = NavDrawerActivity.class.getName();
 
 
     @Override
@@ -138,6 +142,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                                 .listener(new RequestListener<Drawable>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        Log.e(TAG, "Load Image from fireBase failed");
                                         progressBarNav.setVisibility(View.GONE);
                                         return false;
                                     }

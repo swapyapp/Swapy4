@@ -80,7 +80,8 @@ public class AccountFragment extends Fragment {
     private Uri pickedImageUri;
     private DrawerLayout drawer;
 
-    private static final String TAG = "AccountFragment";
+    private static final String TAG = AccountFragment.class.getName();
+
 
 
     @Nullable
@@ -205,6 +206,7 @@ public class AccountFragment extends Fragment {
                         public void onFailure(@NonNull Exception e) {
                             userImage.setVisibility(View.VISIBLE);
                             progressBarAccount.setVisibility(View.INVISIBLE);
+                            Toast.makeText(getContext(), "Image uploading failed", Toast.LENGTH_SHORT).show();
                             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -215,6 +217,7 @@ public class AccountFragment extends Fragment {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Image uploading failed", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -261,6 +264,7 @@ public class AccountFragment extends Fragment {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                         progressBarAccount.setVisibility(View.GONE);
+                                        Log.e(TAG, "Load Image from fireBase failed");
                                         return false;
                                     }
 

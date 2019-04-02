@@ -58,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
     public static int COMPANY_CHOSEN = 0, BRANCH_CHOSEN = 0, ACCOUNT_CHOSEN = 0, CURRENT_SHIFT_CHOSEN = 0;
     static int TIME_SELECTED = 0; // 0 => AM & 1 => PM
     static int PReqCode = 1;
-    static int REQUESTCODE = 1;
+    static int  REQUESTCODE = 1;
     static int IMG_UPLOADED = 0;
     static int USER_INFO_SAVED = 0;
     TextView signInText;
