@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Activities.SignUpActivity;
 import com.app.muhammadgamal.swapy.Activities.VerifyActivity;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.AccountSpinnerLestiner;
@@ -29,7 +30,7 @@ public class CompleteSignUpData extends AppCompatActivity {
 
     EditText editTextPhone;
     Spinner spinnerCompany, spinnerCompanyBranch, spinnerAccount;
-    private String phoneNumber, company, companyBranch, account;
+    private String phoneNumber, company, companyBranch, account, username, email, photoURL;
 
     private Button finishSignInBtn;
 
@@ -41,18 +42,30 @@ public class CompleteSignUpData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_sign_up_data);
 
+        mAuth = FirebaseAuth.getInstance();
+
+        Intent intent = getIntent();
+        username = intent.getExtras().getString("Username");
+        photoURL = intent.getExtras().getString("PhotoURL");
+        email = intent.getExtras().getString("Email");
+
         editTextPhone = findViewById(R.id.editTextPhone_google);
 
         spinnerCompany = findViewById(R.id.spinnerCompany_google);
         spinnerCompanyBranch = findViewById(R.id.spinnerCompanyBranch_google);
-        spinnerCompany = findViewById(R.id.spinnerCompany_google);
+        spinnerAccount = findViewById(R.id.spinnerAccount_google);
 
         finishSignInBtn = findViewById(R.id.finish_ggogle_signUp);
+        finishSignInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveUserInfoToFirebaseDatabase();
+            }
+        });
 
         companySpinner();
         accountSpinner();
         branchSpinner();
-
 
 
     }
@@ -72,7 +85,6 @@ public class CompleteSignUpData extends AppCompatActivity {
     }
 
     private void accountSpinner() {
-        spinnerAccount = findViewById(R.id.spinnerAccount);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAccount.setAdapter(adapter);
@@ -81,57 +93,48 @@ public class CompleteSignUpData extends AppCompatActivity {
 
     private void saveUserInfoToFirebaseDatabase() {
 
-        String firstName = editTextFirstName.getText().toString().trim();
-        String lastName = editTextLastName.getText().toString().trim();
-        String username = firstName + " " + lastName;
+
         String phoneNumber = editTextPhone.getText().toString().trim();
-        String email = editTextEmail.getText().toString().trim();
         String userId = mAuth.getCurrentUser().getUid();
         User user;
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-        if (profileImageUrl != null) {
+        if (photoURL != null) {
             finishSignInBtn.setVisibility(View.GONE);
-            user = new User(username, email, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0, 0, 0);
-            currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    signUpButton.setVisibility(View.VISIBLE);
-                    USER_INFO_SAVED = 1;
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    currentUser.sendEmailVerification();
-                    Intent intent = new Intent(SignUpActivity.this, VerifyActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    signUpButton.setVisibility(View.VISIBLE);
-                    USER_INFO_SAVED = 0;
-                    Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-        } else {
-            finishSignInBtn.setVisibility(View.GONE);
-            user = new User(firstName, email, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift, null, 0, 0, 0);
+            user = new User(username, email, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, photoURL, phoneNumber);
             currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     finishSignInBtn.setVisibility(View.VISIBLE);
-                    USER_INFO_SAVED = 1;
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    currentUser.sendEmailVerification();
-                    Intent intent = new Intent(SignUpActivity.this, VerifyActivity.class);
+                    Intent intent = new Intent(CompleteSignUpData.this, NavDrawerActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    signUpButton.setVisibility(View.VISIBLE);
-                    USER_INFO_SAVED = 0;
-                    Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    finishSignInBtn.setVisibility(View.VISIBLE);
+                    Toast.makeText(CompleteSignUpData.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            finishSignInBtn.setVisibility(View.GONE);
+            user = new User(username, email, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, null, phoneNumber);
+            currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    finishSignInBtn.setVisibility(View.VISIBLE);
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    currentUser.sendEmailVerification();
+                    Intent intent = new Intent(CompleteSignUpData.this, NavDrawerActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    finishSignInBtn.setVisibility(View.VISIBLE);
+                    Toast.makeText(CompleteSignUpData.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         }

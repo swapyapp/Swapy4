@@ -158,9 +158,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                     currentUserBranch = user.getmBranch();
                     currentUserAccount = user.getmAccount();
                     navUserCompany.setText(currentUserBranch + ", " + currentUserAccount);
-                    navUserCurrentShift.setText("Current Shift: " + user.getmCurrentShift());
 //                    receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()));
-                    sentSwapRequests.setText(String.valueOf(user.getmSentRequests()));
 //                    acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
 //                  approvedSwapRequests.setText(String.valueOf(user.getmApprovedRequests()));
                 }
@@ -168,9 +166,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 currentUserBranch = user.getmBranch();
                 currentUserAccount = user.getmAccount();
                 navUserCompany.setText(currentUserBranch + ", " + currentUserAccount);
-                navUserCurrentShift.setText("Current Shift: " + user.getmCurrentShift());
-//                receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()));
-                sentSwapRequests.setText(String.valueOf(user.getmSentRequests()));
+//                receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()))
 //                acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
 
 

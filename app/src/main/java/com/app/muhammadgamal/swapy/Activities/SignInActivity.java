@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Common;
+import com.app.muhammadgamal.swapy.CompleteSignUpData;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.facebook.AccessToken;
@@ -274,9 +275,9 @@ public class SignInActivity extends AppCompatActivity {
                             String userId = mAuth.getCurrentUser().getUid();
                             DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-                            User userData = new User();
-                            userData.setmUsername(account.getDisplayName());
-                            userData.setmProfilePhotoURL(account.getPhotoUrl().toString());
+//                            User userData = new User();
+//                            userData.setmUsername(account.getDisplayName());
+//                            userData.setmProfilePhotoURL(account.getPhotoUrl().toString());
 
 //                            currentUserDb.setValue(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
 //
@@ -292,7 +293,12 @@ public class SignInActivity extends AppCompatActivity {
 //                                }
 //                            });
 
-                            Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
+                            Intent intent = new Intent(SignInActivity.this, CompleteSignUpData.class);
+                            intent.putExtra("Username", account.getDisplayName());
+                            if (account.getPhotoUrl().toString() !=null){
+                                intent.putExtra("PhotoURL", account.getPhotoUrl().toString());
+                            }
+                            intent.putExtra("Email", user.getEmail());
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         } else {
