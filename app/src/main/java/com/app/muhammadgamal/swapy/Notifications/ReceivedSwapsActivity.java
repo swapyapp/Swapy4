@@ -1,54 +1,56 @@
-package com.app.muhammadgamal.swapy.Fragments;
+package com.app.muhammadgamal.swapy.Notifications;
 
-
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
+import com.app.muhammadgamal.swapy.Fragments.ReceivedOffSwapFragment;
+import com.app.muhammadgamal.swapy.Fragments.ReceivedShiftSwapFragment;
+import com.app.muhammadgamal.swapy.Fragments.ReceivedSwapsFragment;
 import com.app.muhammadgamal.swapy.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ReceivedSwapsFragment extends Fragment {
-
-    private View rootView;
+public class ReceivedSwapsActivity extends AppCompatActivity {
     private ImageView backDrawerBtn;
     private DrawerLayout drawer;
 
-    public ReceivedSwapsFragment() {
+    public ReceivedSwapsActivity() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_received_swaps, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_received_swaps);
         //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        Toolbar toolbar = rootView.findViewById(R.id.receivedSwaps_fragment_toolBar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Toolbar toolbar = findViewById(R.id.receivedSwaps_toolBar_activity);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setTitle("Received swaps");
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_white_left));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //What to do on back clicked
+                finish();
+            }
+        });
 
-        getActivity().setTitle("Received swaps");
+        ViewPager viewPager = (ViewPager)findViewById(R.id.received_swaps_viewpager_activity);
+        ReceivedSwapsFragment.ReceivedSwapsPagerAdapter adapterViewPager = new ReceivedSwapsFragment.
+                ReceivedSwapsPagerAdapter(getSupportFragmentManager());
 
-        ViewPager viewPager = (ViewPager)rootView.findViewById(R.id.received_swaps_viewpager);
-        ReceivedSwapsPagerAdapter adapterViewPager = new ReceivedSwapsPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapterViewPager);
-        TabLayout tabLayout = rootView.findViewById(R.id.tablayout_receivedSwaps);
+        TabLayout tabLayout =findViewById(R.id.tablayout_receivedSwaps_activity);
         tabLayout.setupWithViewPager(viewPager);
 
 //        backDrawerBtn = (ImageView)rootView.findViewById(R.id.toolbar_back_icon_received_swaps);
@@ -59,10 +61,9 @@ public class ReceivedSwapsFragment extends Fragment {
 //            }
 //        });
 
-        return rootView;
     }
 
-    public static class ReceivedSwapsPagerAdapter extends FragmentPagerAdapter {
+    public class ReceivedSwapsPagerAdapter extends FragmentPagerAdapter {
         private String tabTitles[] = new String[]{"Shift requests", "Off requests"};
 
         private int NUM_ITEMS = 2;

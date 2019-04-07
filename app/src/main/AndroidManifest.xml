@@ -16,7 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.CompleteSignUpData"></activity>
+        <activity android:name=".Notifications.ReceivedSwapsActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+            <intent-filter>
+                <action android:name="com.app.muhammadgamal.swapy.Notifications.ReceivedSwapsActivity_NOTIFICATION_TASK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.CompleteSignUpData" />
         <activity
             android:name=".ChangeBranch"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -97,11 +106,6 @@
         <activity
             android:name=".Notifications.NotificationRequists"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="com.app.muhammadgamal.swapy.Notifications.NotificationRequists_NOTIFICATION_TASK" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
 
         <meta-data
