@@ -137,7 +137,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 if (dataSnapshot.exists()) {
                     if (user.getmProfilePhotoURL() != null) {
                         progressBarNav.setVisibility(View.VISIBLE);
-                        Glide.with(NavDrawerActivity.this)
+                        Glide.with(getApplicationContext())
                                 .load(user.getmProfilePhotoURL())
                                 .listener(new RequestListener<Drawable>() {
                                     @Override

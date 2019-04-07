@@ -1,4 +1,4 @@
-package com.app.muhammadgamal.swapy;
+package com.app.muhammadgamal.swapy.Activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,13 +11,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
-import com.app.muhammadgamal.swapy.Activities.SignUpActivity;
-import com.app.muhammadgamal.swapy.Activities.VerifyActivity;
+import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.AccountSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.BranchSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.CompanySpinnerLestiner;
-import com.app.muhammadgamal.swapy.SpinnersLestiners.CurrentShiftSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class CompleteSignUpData extends AppCompatActivity {
 
@@ -33,7 +31,7 @@ public class CompleteSignUpData extends AppCompatActivity {
     private String phoneNumber, company, companyBranch, account, username, email, photoURL;
 
     private Button finishSignInBtn;
-
+    private DatabaseReference deviceTokenRef;
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
 
@@ -106,6 +104,13 @@ public class CompleteSignUpData extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void aVoid) {
                     finishSignInBtn.setVisibility(View.VISIBLE);
+                    //Set the user Device token if he signed in using google
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    String currentUserID = mAuth.getCurrentUser().getUid();
+                    deviceTokenRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                    deviceTokenRef.child("device_token").setValue(deviceToken);
+
                     Intent intent = new Intent(CompleteSignUpData.this, NavDrawerActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -126,6 +131,13 @@ public class CompleteSignUpData extends AppCompatActivity {
                     finishSignInBtn.setVisibility(View.VISIBLE);
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     currentUser.sendEmailVerification();
+                    //Set the user Device token if he signed in using google
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    String currentUserID = mAuth.getCurrentUser().getUid();
+                    deviceTokenRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                    deviceTokenRef.child("device_token").setValue(deviceToken);
+
                     Intent intent = new Intent(CompleteSignUpData.this, NavDrawerActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);

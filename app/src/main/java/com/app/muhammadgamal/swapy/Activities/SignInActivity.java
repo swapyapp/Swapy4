@@ -2,7 +2,7 @@ package com.app.muhammadgamal.swapy.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,32 +17,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Common;
-import com.app.muhammadgamal.swapy.CompleteSignUpData;
 import com.app.muhammadgamal.swapy.R;
-import com.app.muhammadgamal.swapy.SwapData.User;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInApi;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -53,9 +42,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -72,6 +58,11 @@ public class SignInActivity extends AppCompatActivity {
     private Button login_button;
     private ProgressDialog progressDialog;
     public static int signInNumber = 0;
+    private DatabaseReference deviceTokenRef;
+    String userId;
+    private boolean haseAUser ;
+
+    ProgressDialog p;
 
     SignInButton googleBtn;
     GoogleSignInClient mGoogleSignInClient;
@@ -92,11 +83,14 @@ public class SignInActivity extends AppCompatActivity {
         googleBtn = findViewById(R.id.signIn_google_btn);
         googleBtn.setSize(SignInButton.SIZE_STANDARD);
 
-
         mAuth = FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mFireStore = FirebaseFirestore.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
+
+//        DoHeavyOperations doHeavyOperations  = new DoHeavyOperations();
+//        doHeavyOperations.execute(haseAUser);
+
 
 // Configure sign-in to request the user's ID, email address, and basic
 // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -110,6 +104,11 @@ public class SignInActivity extends AppCompatActivity {
         googleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                p = new ProgressDialog(SignInActivity.this);
+                p.setMessage("Please wait...It is loading");
+                p.setIndeterminate(false);
+                p.setCancelable(false);
+                p.show();
                 signInGoogle();
             }
         });
@@ -270,37 +269,45 @@ public class SignInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            final FirebaseUser user = mAuth.getCurrentUser();
 
-                            String userId = mAuth.getCurrentUser().getUid();
+                            final String userId = mAuth.getCurrentUser().getUid();
                             DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
-//                            User userData = new User();
-//                            userData.setmUsername(account.getDisplayName());
-//                            userData.setmProfilePhotoURL(account.getPhotoUrl().toString());
+                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.hasChild(userId)){
 
-//                            currentUserDb.setValue(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
-//
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                   Intent intent = new Intent(SignInActivity.this, VerifyActivity.class);
-//                                   intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                   startActivity(intent);
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                }
-//                            });
+                                        Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                        String currentUserID = mAuth.getCurrentUser().getUid();
+                                        deviceTokenRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+                                        String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                                        deviceTokenRef.child("device_token").setValue(deviceToken);
+                                        startActivity(intent);
 
-                            Intent intent = new Intent(SignInActivity.this, CompleteSignUpData.class);
-                            intent.putExtra("Username", account.getDisplayName());
-                            if (account.getPhotoUrl().toString() !=null){
-                                intent.putExtra("PhotoURL", account.getPhotoUrl().toString());
-                            }
-                            intent.putExtra("Email", user.getEmail());
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                                        haseAUser = true;
+                                    } else {
+                                        Intent intent = new Intent(SignInActivity.this, CompleteSignUpData.class);
+                                        intent.putExtra("Username", account.getDisplayName());
+                                        if (account.getPhotoUrl().toString() !=null){
+                                            intent.putExtra("PhotoURL", account.getPhotoUrl().toString());
+                                        }
+                                        intent.putExtra("Email", user.getEmail());
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+
+                            });
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -410,41 +417,6 @@ public class SignInActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 signInButton.setVisibility(View.VISIBLE);
                 if (task.isSuccessful()) {
-
-//                    mAuth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-//                        @Override
-//                        public void onSuccess(GetTokenResult getTokenResult) {
-//                            String token_id = getTokenResult.getToken();
-//                            String current_id = mAuth.getCurrentUser().getUid();
-//
-//                            Map <String, Object> tokenMap = new HashMap<>();
-//                            tokenMap.put("device_token", token_id);
-//
-//                            userRef.child(current_id).child("device_token").setValue(token_id).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    logIn();
-//                                }
-//                            });
-//                        }
-//                    });
-
-
-//                    String currentUserID = mAuth.getCurrentUser().getUid();
-//                    user = mAuth.getCurrentUser();
-//                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
-//
-//                    userRef.child(currentUserID).child("device_token")
-//                            .setValue(deviceToken)
-//                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if (task.isSuccessful()) {
-//
-//                                        logIn();
-//                                    }
-//                                }
-//                            });
                     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 //                    if (user != null) {
@@ -555,4 +527,45 @@ public class SignInActivity extends AppCompatActivity {
 //        mCallbackManager.onActivityResult(requestCode, resultCode, data);
 //        super.onActivityResult(requestCode, resultCode, data);
 //    }
+
+    private class DoHeavyOperations extends AsyncTask {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.hasChild(userId)){
+//                        Intent intent = new Intent(SignInActivity.this, NavDrawerActivity.class);
+////                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+////
+////                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+////                        String currentUserID = mAuth.getCurrentUser().getUid();
+////                        deviceTokenRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+////                        String deviceToken = FirebaseInstanceId.getInstance().getToken();
+////                        deviceTokenRef.child("device_token").setValue(deviceToken);
+////
+////                        startActivity(intent);
+                        haseAUser = true;
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            return haseAUser;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+        }
+    }
 }
