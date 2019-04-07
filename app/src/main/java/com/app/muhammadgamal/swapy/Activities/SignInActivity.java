@@ -105,7 +105,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 p = new ProgressDialog(SignInActivity.this);
-                p.setMessage("Please wait...It is loading");
+                p.setMessage("Please wait...");
                 p.setIndeterminate(false);
                 p.setCancelable(false);
                 p.show();
