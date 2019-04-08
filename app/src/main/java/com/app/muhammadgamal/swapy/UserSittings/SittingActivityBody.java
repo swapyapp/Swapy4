@@ -1,4 +1,4 @@
-package com.app.muhammadgamal.swapy.Activities;
+package com.app.muhammadgamal.swapy.UserSittings;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.muhammadgamal.swapy.Activities.SignInActivity;
+import com.app.muhammadgamal.swapy.Activities.VerifyActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -80,7 +82,7 @@ public class SittingActivityBody extends AppCompatActivity {
         userPasswordIndicatorReceiver = bundle.getInt("password");
         userEmailIndicatorReceiver = bundle.getInt("email");
 
-         receiver = 0;
+        receiver = 0;
 
         if (userNameIndicatorReceiver == 1){
             receiver = userNameIndicatorReceiver;
@@ -104,7 +106,7 @@ public class SittingActivityBody extends AppCompatActivity {
                         String name = sitting_body_edit_text.getText().toString().trim();
                         if(name.matches("")){
                             Toast.makeText(SittingActivityBody.this, "You didnt enter valid name", Toast.LENGTH_SHORT).show();
-                    } else {
+                        } else {
                             changeUserName(name);
                         }
                     }

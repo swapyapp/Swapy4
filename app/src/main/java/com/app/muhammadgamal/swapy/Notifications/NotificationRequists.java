@@ -1,13 +1,11 @@
 package com.app.muhammadgamal.swapy.Notifications;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.app.muhammadgamal.swapy.Activities.AccountSittings;
 import com.app.muhammadgamal.swapy.Fragments.ReceivedSwapsFragment;
 import com.app.muhammadgamal.swapy.R;
 

@@ -16,9 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Notifications.ReceivedSwapsActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+        <activity android:name=".UserSittings.UserChangeEmail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".UserSittings.UserChangePassword"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UserSittings.UserChangePhone"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Notifications.ReceivedSwapsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.app.muhammadgamal.swapy.Notifications.ReceivedSwapsActivity_NOTIFICATION_TASK" />
 
@@ -30,7 +38,7 @@
             android:name=".ChangeBranch"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.ChangeCompany"
+            android:name=".UserSittings.ChangeCompany"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.SignInActivity"
@@ -68,10 +76,10 @@
             android:name=".Activities.SwapOffCreationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.AccountSittings"
+            android:name=".UserSittings.AccountSittings"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.SittingActivityBody"
+            android:name=".UserSittings.SittingActivityBody"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.ProfileActivityOff"
@@ -98,15 +106,14 @@
             android:name=".Activities.ResetPasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.SettingsActivity"
+            android:name=".UserSittings.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".Activities.DeleteAccount"
+            android:name=".UserSittings.DeleteAccount"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Notifications.NotificationRequists"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

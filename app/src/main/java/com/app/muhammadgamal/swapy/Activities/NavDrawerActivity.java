@@ -1,5 +1,6 @@
 package com.app.muhammadgamal.swapy.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -99,6 +100,20 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 R.string.nav_drawer_open, R.string.nav_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        userNavImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getSupportFragmentManager().
+                        beginTransaction().
+                        replace(R.id.fragment_container,
+                                new AccountFragment())
+                        .addToBackStack(null)
+                        .commit();
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
 
         //avoid recreating the fragment when the device is rotated
         if (savedInstanceState == null) {

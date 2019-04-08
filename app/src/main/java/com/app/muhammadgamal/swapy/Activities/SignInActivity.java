@@ -12,6 +12,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +62,7 @@ public class SignInActivity extends AppCompatActivity {
     private DatabaseReference deviceTokenRef;
     String userId;
     private boolean haseAUser ;
+    private ImageView signInGoogle;
 
     ProgressDialog p;
 
@@ -80,8 +82,8 @@ public class SignInActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
-        googleBtn = findViewById(R.id.signIn_google_btn);
-        googleBtn.setSize(SignInButton.SIZE_STANDARD);
+        signInGoogle = findViewById(R.id.signIn_google_btn);
+//        signInGoogle.setSize(SignInButton.SIZE_STANDARD);
 
         mAuth = FirebaseAuth.getInstance();
         userRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -101,7 +103,7 @@ public class SignInActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        googleBtn.setOnClickListener(new View.OnClickListener() {
+        signInGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 p = new ProgressDialog(SignInActivity.this);

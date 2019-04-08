@@ -43,6 +43,7 @@ import com.app.muhammadgamal.swapy.Activities.ProfileActivityOff;
 import com.app.muhammadgamal.swapy.Activities.SwapOffCreationActivity;
 import com.app.muhammadgamal.swapy.Adapters.SwapOffAdapter;
 import com.app.muhammadgamal.swapy.Common;
+import com.app.muhammadgamal.swapy.Notifications.ReceivedSwapsActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredOffDaySpinnerListener;
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
@@ -450,14 +451,12 @@ public class OffSwapFragment extends Fragment {
             case R.id.search_icon:
                 showFilterDialog();
                 return true;
+
             case R.id.notification_icon:
-                getActivity().getSupportFragmentManager().
-                        beginTransaction().
-                        replace(R.id.fragment_container,
-                                new ReceivedSwapsFragment())
-                        .addToBackStack(null)
-                        .commit();
+                Intent intent = new Intent(getContext(), ReceivedSwapsActivity.class);
+                startActivity(intent);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

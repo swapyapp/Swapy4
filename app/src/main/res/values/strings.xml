@@ -346,5 +346,10 @@
     <string name="fill_your_main_data_here_to_complete_the_sign_up_process">Fill your main Data here to complete the sign up process</string>
     <string name="finish">Finish</string>
     <string name="chane_your_name">Change your Name</string>
+    <string name="or_log_in_using_google_or_facebook_account">or log in using Google or Facebook Account</string>
+    <string name="change_account_user_phne">Change  user phone</string>
+    <string name="type_your_new_phone_here">Type your new phone here</string>
+    <string name="change_your_password">Change your password</string>
+    <string name="what_is_your_new_email">what is your new Email?</string>
 
 </resources>
