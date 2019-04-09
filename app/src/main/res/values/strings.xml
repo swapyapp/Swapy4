@@ -323,8 +323,9 @@
     <string name="donee">Done</string>
 
     <!-- Facebook strings -->
-    <string name="facebook_app_id">258364891712339</string>
-    <string name="fb_login_protocol_scheme">fb258364891712339</string>
+    <string name="facebook_app_id">2297208480533976</string>
+    <string name="fb_login_protocol_scheme">fb2297208480533976</string>
+
     <string name="rate_us">Rate us</string>
     <string name="rate">Rate</string>
     <string name="choose_one_to_swap">Choose one to swap</string>
