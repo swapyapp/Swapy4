@@ -623,7 +623,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                     SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                     if (swapDetails.getSwapperID().equals(fromID)) {
                         shiftProfileAdapter.add(swapDetails);
-                        shiftProfileAdapter.notifyDataSetChanged();
+
                     }
                 }
             }
