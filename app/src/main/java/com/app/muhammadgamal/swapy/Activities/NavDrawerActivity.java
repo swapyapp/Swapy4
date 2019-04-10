@@ -1,5 +1,6 @@
 package com.app.muhammadgamal.swapy.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -100,6 +101,20 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        userNavImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getSupportFragmentManager().
+                        beginTransaction().
+                        replace(R.id.fragment_container,
+                                new AccountFragment())
+                        .addToBackStack(null)
+                        .commit();
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+
         //avoid recreating the fragment when the device is rotated
         if (savedInstanceState == null) {
             getSupportFragmentManager().
@@ -137,7 +152,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 if (dataSnapshot.exists()) {
                     if (user.getmProfilePhotoURL() != null) {
                         progressBarNav.setVisibility(View.VISIBLE);
-                        Glide.with(NavDrawerActivity.this)
+                        Glide.with(getApplicationContext())
                                 .load(user.getmProfilePhotoURL())
                                 .listener(new RequestListener<Drawable>() {
                                     @Override

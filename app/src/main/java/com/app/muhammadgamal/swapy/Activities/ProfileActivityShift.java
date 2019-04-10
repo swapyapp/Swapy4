@@ -609,6 +609,13 @@ public class ProfileActivityShift extends AppCompatActivity {
     private void fetchChooseList() {
 
         DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
+
+        final List<SwapDetails> swapBodyList = new ArrayList<>();
+        Collections.reverse(swapBodyList);
+        shiftProfileAdapter = new ShiftProfileAdapter(ProfileActivityShift.this, R.layout.shift_profile_list_item, swapBodyList);
+        listView = chooseShiftProfileDialog.findViewById(R.id.listShiftProfileChooseDialog);
+        listView.setAdapter(shiftProfileAdapter);
+
         shiftSwapDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -616,36 +623,20 @@ public class ProfileActivityShift extends AppCompatActivity {
                     SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                     if (swapDetails.getSwapperID().equals(fromID)) {
                         shiftProfileAdapter.add(swapDetails);
+
                     }
                 }
             }
-
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
+            public void onChildRemoved(DataSnapshot dataSnapshot) { }
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
 
-        final List<SwapDetails> swapBodyList = new ArrayList<>();
-        Collections.reverse(swapBodyList);
-        shiftProfileAdapter = new ShiftProfileAdapter(ProfileActivityShift.this, R.layout.shift_profile_list_item, swapBodyList);
-        listView = chooseShiftProfileDialog.findViewById(R.id.listShiftProfileChooseDialog);
-        listView.setAdapter(shiftProfileAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

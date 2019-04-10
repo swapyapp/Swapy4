@@ -43,6 +43,7 @@ import com.app.muhammadgamal.swapy.Activities.ProfileActivityOff;
 import com.app.muhammadgamal.swapy.Activities.SwapOffCreationActivity;
 import com.app.muhammadgamal.swapy.Adapters.SwapOffAdapter;
 import com.app.muhammadgamal.swapy.Common;
+import com.app.muhammadgamal.swapy.Notifications.ReceivedSwapsActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredOffDaySpinnerListener;
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
@@ -112,6 +113,8 @@ public class OffSwapFragment extends Fragment {
     private ShimmerFrameLayout shimmerFrameLayout;
     private DrawerLayout drawer;
 
+    private FloatingActionButton fab_reset_filter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +136,9 @@ public class OffSwapFragment extends Fragment {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mSwapDataBaseReference = mFirebaseDatabase.getReference().child("swaps").child("off_swaps");
+
+        fab_reset_filter= rootView.findViewById(R.id.fab_add_swap_off_reset);
+        fab_reset_filter.hide();
 
         cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = cm.getActiveNetworkInfo();
@@ -197,6 +203,7 @@ public class OffSwapFragment extends Fragment {
                             SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
                             if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
                                 if (filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
+                                    fab_reset_filter.hide();
                                     swapOffAdapter.add(swapDetails);
                                 }
                                 if (!filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
@@ -391,9 +398,20 @@ public class OffSwapFragment extends Fragment {
     private void applyFilter() {
 
         filterSelectedYourOfffDay = preferredOffDaySpinner.getSelectedItem().toString();
-        filterSelectedSwapperOffDay = swappersPreferredOffDaySpinner.getSelectedItem().toString();
+        filterSelectedYourOfffDay = swappersPreferredOffDaySpinner.getSelectedItem().toString();
         fetchData();
         offFilterDialog.dismiss();
+
+        fab_reset_filter.show();
+        fab_reset_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterSelectedYourOfffDay = null;
+                filterSelectedYourOfffDay = null;
+                fetchData();
+                fab_reset_filter.hide();
+            }
+        });
 
     }
 
@@ -433,14 +451,12 @@ public class OffSwapFragment extends Fragment {
             case R.id.search_icon:
                 showFilterDialog();
                 return true;
+
             case R.id.notification_icon:
-                getActivity().getSupportFragmentManager().
-                        beginTransaction().
-                        replace(R.id.fragment_container,
-                                new ReceivedSwapsFragment())
-                        .addToBackStack(null)
-                        .commit();
+                Intent intent = new Intent(getContext(), ReceivedSwapsActivity.class);
+                startActivity(intent);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
