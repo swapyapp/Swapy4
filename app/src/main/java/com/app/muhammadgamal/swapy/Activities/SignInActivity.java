@@ -84,9 +84,7 @@ public class SignInActivity extends AppCompatActivity {
     private DatabaseReference deviceTokenRef;
     String userId;
     private boolean haseAUser ;
-    private Button signInGoogle;
-
-    private LoginButton signInFaceBook;
+    private Button signInGoogle, buttonFacebookLogin;
 
 
     ProgressDialog p;
@@ -124,7 +122,7 @@ public class SignInActivity extends AppCompatActivity {
 
         signInGoogle = findViewById(R.id.signIn_google_btn);
 //        signInGoogle.setSize(SignInButton.SIZE_STANDARD);
-        signInFaceBook = findViewById(R.id.buttonFacebookLogin);
+        buttonFacebookLogin = findViewById(R.id.buttonFacebookLogin);
         faceBookCallbackManager = CallbackManager.Factory.create();
 
         mAuth = FirebaseAuth.getInstance();
@@ -157,7 +155,9 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        signInFaceBook.setOnClickListener(new View.OnClickListener() {
+        faceBookCallbackManager = CallbackManager.Factory.create();
+
+        buttonFacebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -231,30 +231,6 @@ public class SignInActivity extends AppCompatActivity {
 //                });
 //            }
 //        });
-
-        // Initialize Facebook Login button
-        faceBookCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = findViewById(R.id.buttonFacebookLogin);
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(faceBookCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-                // ...
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-                // ...
-            }
-        });
 
         retryBtnSignIn = (Button) findViewById(R.id.retryBtnSignIn);
         retryBtnSignIn.setOnClickListener(new View.OnClickListener() {
