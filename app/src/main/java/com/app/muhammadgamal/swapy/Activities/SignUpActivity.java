@@ -57,8 +57,8 @@ public class SignUpActivity extends AppCompatActivity {
     // 1 => not chosen
     public static int COMPANY_CHOSEN = 0, BRANCH_CHOSEN = 0, ACCOUNT_CHOSEN = 0, CURRENT_SHIFT_CHOSEN = 0;
     static int TIME_SELECTED = 0; // 0 => AM & 1 => PM
-    static int PReqCode = 1;
-    static int  REQUESTCODE = 1;
+    static final int PReqCode = 1;
+    static int REQUESTCODE = 1;
     static int IMG_UPLOADED = 0;
     static int USER_INFO_SAVED = 0;
     TextView signInText;
@@ -72,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
     private DatabaseReference deviceTokenRef;
-    private  String name, email, photoUri, phone;
+    private String name, email, photoUri, phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +132,20 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PReqCode: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openGallery();
+                } else {
+                    Toast.makeText(this, "Permission denied...", Toast.LENGTH_SHORT).show();
+                    ;
+                }
+            }
+        }
     }
 
 
