@@ -84,7 +84,7 @@ public class SignInActivity extends AppCompatActivity {
     private DatabaseReference deviceTokenRef;
     String userId;
     private boolean haseAUser ;
-    private ImageView signInGoogle;
+    private Button signInGoogle;
 
     private LoginButton signInFaceBook;
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ffffff"
+    android:background="#eee"
     android:gravity="center">
 
     <LinearLayout
@@ -155,58 +155,57 @@
                 android:layout_centerInParent="true" />
 
         </RelativeLayout>
+
         <TextView
             android:id="@+id/forget_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/forget_your_password"
             android:fontFamily="@font/raleway_medium"
+            android:text="@string/forget_your_password"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold" />
 
         <!--<com.google.android.gms.common.SignInButton-->
-            <!--android:id="@+id/signIn_google_btn"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--&gt;-->
+        <!--android:id="@+id/signIn_google_btn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--&gt;-->
         <!--</com.google.android.gms.common.SignInButton>-->
 
-        <TextView
-            android:layout_marginTop="8dp"
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="4dp"
-            android:fontFamily="@font/raleway_medium"
-            android:text="@string/or_log_in_using_google_or_facebook_account"
-            android:textColor="@color/commonBlackTextColor" />
+            android:src="@drawable/or"
+            android:layout_margin="8dp"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
 
-         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/signIn_google_btn"
-            android:layout_width="71dp"
-            android:layout_height="61dp"
-            android:src="@drawable/google_image"
-             android:layout_marginRight="24dp"
-            android:background="?android:attr/selectableItemBackground"/>
-
+            <Button
+                android:id="@+id/signIn_google_btn"
+                android:layout_width="280dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/google_button"
+                android:text="Continue with Google" />
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/buttonFacebookLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp" />
+                android:layout_gravity="center_horizontal" />
+
+
 
         </LinearLayout>
 
@@ -215,15 +214,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:fontFamily="@font/raleway_medium"
                 android:text="@string/dont_have_account"
                 android:textColor="@color/commonBlackTextColor" />
@@ -242,9 +241,9 @@
             android:id="@+id/verify_email_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
-            android:layout_marginTop="8dp"
             android:fontFamily="@font/raleway_medium"
             android:textColor="@color/commonBlackTextColor"
             android:textStyle="bold" />
