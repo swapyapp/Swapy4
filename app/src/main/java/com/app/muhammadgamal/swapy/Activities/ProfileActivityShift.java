@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Adapters.ShiftProfileAdapter;
+import com.app.muhammadgamal.swapy.FetchListSwaps;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
@@ -88,6 +89,7 @@ public class ProfileActivityShift extends AppCompatActivity {
     private String swapperID, currentUserId, swapperLoginID, currentUserLoginID, swapperPreferredShift, swapperTeamLeader, swapperShiftTime, swapShiftDate, swapperShiftDay, swapperImageUrl, swapperAccount, swapperCompanyBranch, swapperPhone, swapperEmail, swapperName;
     private String userName;
     private LinearLayout userContactInfo, phoneShiftProfile, emailShiftProfile;
+    private static int INT = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -327,8 +329,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                         SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                         if (dataSnapshot.exists()) {
                             if (swapDetails.getSwapperID().equals(fromID)) {
-                                chooseShiftProfileDialog.show();
-                                fetchChooseList();
+                                INT = 1;
                             } else {
                                 shiftProfileDialog.show();
                                 buttonSwapRequest.setVisibility(View.VISIBLE);
@@ -358,6 +359,11 @@ public class ProfileActivityShift extends AppCompatActivity {
 
                     }
                 });
+                if (INT == 1){
+                    shiftProfileDialog.dismiss();
+                    chooseShiftProfileDialog.show();
+                    fetchChooseList();
+                }
 
 
             }
@@ -434,7 +440,6 @@ public class ProfileActivityShift extends AppCompatActivity {
                                         textDisplayContactInfo.setVisibility(View.VISIBLE);
                                         userContactInfo.setVisibility(View.GONE);
                                         textAcceptedRequest.setVisibility(View.GONE);
-
                                     }
 
                                 }
