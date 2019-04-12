@@ -50,6 +50,14 @@
         android:fontFamily="@font/raleway_semi_bold"
         android:textSize="24dp" />
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="0"
+        android:background="@android:color/darker_gray" />
+
     <LinearLayout
         android:id="@+id/rateUs"
         android:layout_width="match_parent"
@@ -74,6 +82,13 @@
             android:src="@android:drawable/star_big_on"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="0"
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="wrap_content"
