@@ -183,6 +183,13 @@ public class ProfileActivityOff extends AppCompatActivity {
         offProfileDialog = new Dialog(ProfileActivityOff.this);
         offProfileDialog.setContentView(R.layout.off_profile_dialog);
         offProfileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        offProfileDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                chooseOffProfileDialog.show();
+                fetchChooseList();
+            }
+        });
 
         imgCloseOffProfileDialog = offProfileDialog.findViewById(R.id.imgCloseOffProfileDialog);
         imgCloseOffProfileDialog.setOnClickListener(new View.OnClickListener() {
@@ -195,19 +202,13 @@ public class ProfileActivityOff extends AppCompatActivity {
         chooseOffProfileDialog = new Dialog(ProfileActivityOff.this);
         chooseOffProfileDialog.setContentView(R.layout.off_profile_choose_dialog);
         chooseOffProfileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        chooseOffProfileDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                offProfileDialog.dismiss();
-            }
-        });
+
 
         imgCloseOffProfileChooseDialog = chooseOffProfileDialog.findViewById(R.id.imgCloseOffProfileChooseDialog);
         imgCloseOffProfileChooseDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chooseOffProfileDialog.dismiss();
-                offProfileDialog.dismiss();
             }
         });
 
@@ -291,6 +292,7 @@ public class ProfileActivityOff extends AppCompatActivity {
                             } else {
                                 if(INT != 1){
                                     offProfileDialog.show();
+                                    chooseOffProfileDialog.show();
                                     buttonSwapRequestOffProfile.setVisibility(View.VISIBLE);
                                     progressBar_off_profile.setVisibility(View.INVISIBLE);
                                 }

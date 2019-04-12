@@ -198,6 +198,13 @@ public class ProfileActivityShift extends AppCompatActivity {
         shiftProfileDialog = new Dialog(ProfileActivityShift.this);
         shiftProfileDialog.setContentView(R.layout.shift_profile_dialog);
         shiftProfileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        shiftProfileDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                chooseShiftProfileDialog.show();
+                fetchChooseList();
+            }
+        });
 
         imgCloseShiftProfileDialog = shiftProfileDialog.findViewById(R.id.imgCloseShiftProfileDialog);
         imgCloseShiftProfileDialog.setOnClickListener(new View.OnClickListener() {
@@ -210,19 +217,12 @@ public class ProfileActivityShift extends AppCompatActivity {
         chooseShiftProfileDialog = new Dialog(ProfileActivityShift.this);
         chooseShiftProfileDialog.setContentView(R.layout.shift_profile_choose_dialog);
         chooseShiftProfileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        chooseShiftProfileDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                shiftProfileDialog.dismiss();
-            }
-        });
 
         imgCloseShiftProfileChooseDialog = chooseShiftProfileDialog.findViewById(R.id.imgCloseShiftProfileChooseDialog);
         imgCloseShiftProfileChooseDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseShiftProfileDialog.dismiss();
-                shiftProfileDialog.dismiss();
             }
         });
         buttonCancelShiftProfileDialog = (Button) shiftProfileDialog.findViewById(R.id.buttonCancelShiftProfileDialog);
@@ -330,6 +330,7 @@ public class ProfileActivityShift extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                             if (swapDetails.getSwapperID().equals(fromID)) {
                                 INT = 1;
+                                shiftProfileDialog.dismiss();
                             } else {
                                 if (INT != 1){
                                     shiftProfileDialog.show();
@@ -362,7 +363,6 @@ public class ProfileActivityShift extends AppCompatActivity {
                     }
                 });
                 if (INT == 1){
-                    shiftProfileDialog.dismiss();
                     chooseShiftProfileDialog.show();
                     fetchChooseList();
                 }
