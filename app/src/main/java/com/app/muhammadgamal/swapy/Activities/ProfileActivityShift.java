@@ -331,9 +331,11 @@ public class ProfileActivityShift extends AppCompatActivity {
                             if (swapDetails.getSwapperID().equals(fromID)) {
                                 INT = 1;
                             } else {
-                                shiftProfileDialog.show();
-                                buttonSwapRequest.setVisibility(View.VISIBLE);
-                                progressBar.setVisibility(View.INVISIBLE);
+                                if (INT != 1){
+                                    shiftProfileDialog.show();
+                                    buttonSwapRequest.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
                             }
 
                         }
@@ -627,8 +629,8 @@ public class ProfileActivityShift extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                     if (swapDetails.getSwapperID().equals(fromID)) {
+                        buttonSwapRequest.setVisibility(View.VISIBLE);
                         shiftProfileAdapter.add(swapDetails);
-
                     }
                 }
             }

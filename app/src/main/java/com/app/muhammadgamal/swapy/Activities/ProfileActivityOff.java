@@ -82,6 +82,7 @@ public class ProfileActivityOff extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private String requestMessage;
     private String userName;
+    private static int INT = 0;
 
 
     @Override
@@ -286,13 +287,13 @@ public class ProfileActivityOff extends AppCompatActivity {
                         SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
                         if (dataSnapshot.exists()) {
                             if (swapDetails.getSwapperID().equals(fromID)) {
-                                chooseOffProfileDialog.show();
-                                progressBar_off_profile.setVisibility(View.INVISIBLE);
-                                fetchChooseList();
+                                INT = 1;
                             } else {
-                                offProfileDialog.show();
-                                buttonSwapRequestOffProfile.setVisibility(View.VISIBLE);
-                                progressBar_off_profile.setVisibility(View.INVISIBLE);
+                                if(INT != 1){
+                                    offProfileDialog.show();
+                                    buttonSwapRequestOffProfile.setVisibility(View.VISIBLE);
+                                    progressBar_off_profile.setVisibility(View.INVISIBLE);
+                                }
                             }
                         }
                     }
@@ -317,6 +318,12 @@ public class ProfileActivityOff extends AppCompatActivity {
 
                     }
                 });
+                if (INT == 1){
+                    offProfileDialog.dismiss();
+                    chooseOffProfileDialog.show();
+                    progressBar_off_profile.setVisibility(View.INVISIBLE);
+                    fetchChooseList();
+                }
             }
         });
 
@@ -557,6 +564,7 @@ public class ProfileActivityOff extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
                     if (swapDetails.getSwapperID().equals(fromID)) {
+                        buttonSwapRequestOffProfile.setVisibility(View.VISIBLE);
                         offProfileAdapter.add(swapDetails);
                     }
                 }
