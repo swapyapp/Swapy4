@@ -56,6 +56,7 @@
                 android:orientation="vertical" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
+
         <ProgressBar
             android:id="@+id/progressBar_home_off"
             style="@style/Base.AlertDialog.AppCompat"
