@@ -1,4 +1,4 @@
-package com.app.muhammadgamal.swapy.Activities;
+package com.app.muhammadgamal.swapy.ResgistrationActivities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,7 +29,6 @@ import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.AccountSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.BranchSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.CompanySpinnerLestiner;
-import com.app.muhammadgamal.swapy.SpinnersLestiners.CurrentShiftSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,7 +37,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -47,8 +45,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -235,16 +231,19 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void openGallery() {
-        Intent galleryIntent = new Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, REQUESTCODE);
+        Intent intent = new Intent();
+        // Show only images, no videos or anything else
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        // Always show the chooser (if there are multiple options available)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUESTCODE);
     }
 
     private void requestPermissionAndOpenGallery() {
-        if (ContextCompat.checkSelfPermission(SignUpActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(SignUpActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        if (ContextCompat.checkSelfPermission(SignUpActivity.this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    SignUpActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 ActivityCompat.requestPermissions(SignUpActivity.this,
                         new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
                         PReqCode);

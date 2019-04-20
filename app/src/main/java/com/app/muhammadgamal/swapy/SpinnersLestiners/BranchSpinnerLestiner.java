@@ -3,7 +3,7 @@ package com.app.muhammadgamal.swapy.SpinnersLestiners;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.app.muhammadgamal.swapy.Activities.SignUpActivity;
+import com.app.muhammadgamal.swapy.ResgistrationActivities.SignUpActivity;
 
 public class BranchSpinnerLestiner implements AdapterView.OnItemSelectedListener {
 

@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-import com.app.muhammadgamal.swapy.Activities.SignUpActivity;
+import com.app.muhammadgamal.swapy.ResgistrationActivities.SignUpActivity;
 
 public class CompanySpinnerLestiner implements OnItemSelectedListener {
 

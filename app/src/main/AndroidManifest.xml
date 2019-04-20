@@ -60,7 +60,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.CompleteSignUpData" />
+        <activity android:name=".ResgistrationActivities.CompleteSignUpData" />
         <activity
             android:name=".ChangeBranch"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -68,7 +68,7 @@
             android:name=".UserSittings.ChangeCompany"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.SignInActivity"
+            android:name=".ResgistrationActivities.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,7 +77,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.SignUpActivity"
+            android:name=".ResgistrationActivities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.ProfileActivityShift"
@@ -97,7 +97,7 @@
         </service>
 
         <activity
-            android:name=".Activities.VerifyActivity"
+            android:name=".ResgistrationActivities.VerifyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.SwapOffCreationActivity"
