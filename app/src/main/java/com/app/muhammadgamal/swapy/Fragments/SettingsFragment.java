@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.UserSittings.SettingsActivity;
-import com.app.muhammadgamal.swapy.Activities.SignInActivity;
+import com.app.muhammadgamal.swapy.ResgistrationActivities.SignInActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

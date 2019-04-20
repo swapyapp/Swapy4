@@ -1,4 +1,4 @@
-package com.app.muhammadgamal.swapy.Activities;
+package com.app.muhammadgamal.swapy.ResgistrationActivities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.AccountSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.BranchSpinnerLestiner;
