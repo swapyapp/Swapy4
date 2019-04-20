@@ -129,6 +129,8 @@
 
     <string name="your_preferred_day">Your preferred day:</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-4676913002712533/2452250559</string>
+
     <string-array name="company">
         <item>Choose company</item>
         <item>Vodafone</item>

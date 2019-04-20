@@ -44,6 +44,8 @@ import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredOffDaySpinnerListe
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -56,6 +58,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private View rootView;
