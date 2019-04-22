@@ -21,7 +21,14 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp">
-
+            
+            <ProgressBar
+                android:id="@+id/progressBarImg"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="49dp"
+                android:layout_height="32dp"
+                android:layout_centerInParent="true"
+                />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userImageSignUp"
@@ -29,14 +36,6 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/add_photo" />
-
-            <ProgressBar
-                android:id="@+id/progressBarImg"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="gone" />
 
         </RelativeLayout>
 
