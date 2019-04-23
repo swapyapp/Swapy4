@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.muhammadgamal.swapy.Activities.VerifyActivity;
+import com.app.muhammadgamal.swapy.ResgistrationActivities.VerifyActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
