@@ -56,8 +56,6 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
