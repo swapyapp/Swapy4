@@ -137,23 +137,74 @@
             android:fontFamily="@font/raleway_medium" />
 
         <Spinner
-            android:id="@+id/spinnerCompanyBranch"
+            android:id="@+id/spinnerCompanyBranchRaya"
             android:layout_width="265dp"
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
             android:background="@drawable/spinner_style"
-            android:fontFamily="@font/raleway_medium" />
-
+            android:fontFamily="@font/raleway_medium"
+            android:visibility="gone"/>
 
         <Spinner
-            android:id="@+id/spinnerAccount"
+            android:id="@+id/spinnerCompanyBranchVodafone"
             android:layout_width="265dp"
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
             android:background="@drawable/spinner_style"
-            android:fontFamily="@font/raleway_medium" />
+            android:fontFamily="@font/raleway_medium"
+            android:visibility="gone"/>
+
+        <Spinner
+            android:id="@+id/spinnerCompanyBranchOrange"
+            android:layout_width="265dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/spinner_style"
+            android:fontFamily="@font/raleway_medium"
+            android:visibility="gone"/>
+
+        <Spinner
+            android:id="@+id/spinnerAccountEtisalat"
+            android:layout_width="265dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/spinner_style"
+            android:fontFamily="@font/raleway_medium"
+            android:visibility="gone"/>
+
+        <Spinner
+            android:id="@+id/spinnerAccountVodafoneArabic"
+            android:layout_width="265dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/spinner_style"
+            android:fontFamily="@font/raleway_medium"
+            android:visibility="gone"/>
+
+        <Spinner
+            android:id="@+id/spinnerAccountVodafoneUK"
+            android:layout_width="265dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/spinner_style"
+            android:fontFamily="@font/raleway_medium"
+            android:visibility="gone"/>
+
+        <Spinner
+            android:id="@+id/spinnerAccountArabicAccount"
+            android:layout_width="265dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/spinner_style"
+            android:fontFamily="@font/raleway_medium"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

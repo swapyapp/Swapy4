@@ -38,7 +38,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -47,8 +46,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -67,12 +64,15 @@ public class SignUpActivity extends AppCompatActivity {
     Uri pickedImageUri;
     EditText editTextEmail, editTextPassword, editTextConfirmPassword, editTextFirstName, editTextPhone, editTextLastName;
     String profileImageUrl;
-    Spinner spinnerCompany, spinnerCompanyBranch, spinnerAccount;
+    public static Spinner spinnerCompany,
+            spinnerCompanyBranchRaya, spinnerCompanyBranchVodafone, spinnerCompanyBranchOrange,
+            spinnerAccountEtisalat, spinnerAccountVodafoneArabic, spinnerAccountVodafoneUK, spinnerAccountArabicAccount;
     ProgressBar progressBarImg;
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
     private DatabaseReference deviceTokenRef;
     private  String name, email, photoUri, phone;
+    public static int arrayBranch = R.array.branch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +103,25 @@ public class SignUpActivity extends AppCompatActivity {
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         editTextConfirmPassword = (EditText) findViewById(R.id.editTextConfirmPassword);
         spinnerCompany = (Spinner) findViewById(R.id.spinnerCompany);
-        spinnerCompanyBranch = (Spinner) findViewById(R.id.spinnerCompanyBranch);
+
+        spinnerCompanyBranchRaya = (Spinner) findViewById(R.id.spinnerCompanyBranchRaya);
+        spinnerCompanyBranchVodafone = findViewById(R.id.spinnerCompanyBranchVodafone);
+        spinnerCompanyBranchOrange = findViewById(R.id.spinnerCompanyBranchOrange);
+
+        spinnerAccountEtisalat = findViewById(R.id.spinnerAccountEtisalat);
+        spinnerAccountVodafoneArabic = findViewById(R.id.spinnerAccountVodafoneArabic);
+        spinnerAccountVodafoneUK = findViewById(R.id.spinnerAccountVodafoneUK);
+        spinnerAccountArabicAccount = findViewById(R.id.spinnerAccountArabicAccount);
 
         companySpinner();
-        accountSpinner();
-        branchSpinner();
+        branchSpinnerRaya();
+        branchSpinnerVodafone();
+        branchSpinnerOrange();
+        accountSpinnerEtisalat();
+        accountSpinnerVodafoneArabic();
+        accountSpinnerVodafoneUK();
+        accountSpinnerArabicAccount();
+
 
         final Drawable notSelectedBackground = res.getDrawable(R.drawable.selection_background_light);
         final Drawable SelectedBackground = res.getDrawable(R.drawable.selection_background);
@@ -132,6 +146,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
 
@@ -142,19 +157,49 @@ public class SignUpActivity extends AppCompatActivity {
         spinnerCompany.setOnItemSelectedListener(new CompanySpinnerLestiner());
     }
 
-    private void branchSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch, android.R.layout.simple_spinner_item);
+    public void branchSpinnerRaya() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch_raya, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCompanyBranch.setAdapter(adapter);
-        spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
+        spinnerCompanyBranchRaya.setAdapter(adapter);
+        spinnerCompanyBranchRaya.setOnItemSelectedListener(new BranchSpinnerLestiner());
+    }
+    public void branchSpinnerVodafone() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch_vodafone, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCompanyBranchVodafone.setAdapter(adapter);
+        spinnerCompanyBranchVodafone.setOnItemSelectedListener(new BranchSpinnerLestiner());
+    }
+    public void branchSpinnerOrange() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch_orange, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCompanyBranchOrange.setAdapter(adapter);
+        spinnerCompanyBranchOrange.setOnItemSelectedListener(new BranchSpinnerLestiner());
     }
 
-    private void accountSpinner() {
-        spinnerAccount = findViewById(R.id.spinnerAccount);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account, android.R.layout.simple_spinner_item);
+    private void accountSpinnerEtisalat() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account_Etisalat_Emarat, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAccount.setAdapter(adapter);
-        spinnerAccount.setOnItemSelectedListener(new AccountSpinnerLestiner());
+        spinnerAccountEtisalat.setAdapter(adapter);
+        spinnerAccountEtisalat.setOnItemSelectedListener(new AccountSpinnerLestiner());
+    }
+
+    private void accountSpinnerVodafoneArabic() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account_Vodafone_arabic, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAccountVodafoneArabic.setAdapter(adapter);
+        spinnerAccountVodafoneArabic.setOnItemSelectedListener(new AccountSpinnerLestiner());
+    }
+    private void accountSpinnerVodafoneUK() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account_vodafone_uk, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAccountVodafoneUK.setAdapter(adapter);
+        spinnerAccountVodafoneUK.setOnItemSelectedListener(new AccountSpinnerLestiner());
+    }
+    private void accountSpinnerArabicAccount() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account_arabic_account, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAccountArabicAccount.setAdapter(adapter);
+        spinnerAccountArabicAccount.setOnItemSelectedListener(new AccountSpinnerLestiner());
     }
 
     private void saveUserInfoToFirebaseDatabase() {
