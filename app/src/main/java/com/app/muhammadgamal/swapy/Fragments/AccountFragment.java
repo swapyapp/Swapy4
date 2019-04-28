@@ -292,25 +292,27 @@ public class AccountFragment extends Fragment {
                     userPhone.setText(user.getmPhoneNumber());
                     userMail.setText(user.getmEmail());
 
-                    if (user.getmProfilePhotoURL() != null) {
-                        Glide.with(getContext())
-                                .load(user.getmProfilePhotoURL())
-                                .listener(new RequestListener<Drawable>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                        progressBarAccount.setVisibility(View.GONE);
-                                        Log.e(TAG, "Load Image from fireBase failed");
-                                        return false;
-                                    }
+                    if(isAdded()) {
+                        if (user.getmProfilePhotoURL() != null) {
+                            Glide.with(getContext())
+                                    .load(user.getmProfilePhotoURL())
+                                    .listener(new RequestListener<Drawable>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                            progressBarAccount.setVisibility(View.GONE);
+                                            Log.e(TAG, "Load Image from fireBase failed");
+                                            return false;
+                                        }
 
-                                    @Override
-                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                        progressBarAccount.setVisibility(View.GONE);
-                                        return false;
-                                    }
-                                })
-                                .into(userImage);
-                    } else {
+                                        @Override
+                                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                            progressBarAccount.setVisibility(View.GONE);
+                                            return false;
+                                        }
+                                    })
+                                    .into(userImage);
+                        }
+                    }else {
                         progressBarAccount.setVisibility(View.GONE);
                     }
 
