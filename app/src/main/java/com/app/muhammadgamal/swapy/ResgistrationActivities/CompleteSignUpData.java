@@ -28,7 +28,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 public class CompleteSignUpData extends AppCompatActivity {
 
     EditText editTextPhone;
-    Spinner spinnerCompany, spinnerCompanyBranch, spinnerAccount;
+    public static Spinner spinnerCompany,
+            spinnerCompanyBranchRaya, spinnerCompanyBranchVodafone, spinnerCompanyBranchOrange,
+            spinnerAccountEtisalat, spinnerAccountVodafoneArabic, spinnerAccountVodafoneUK, spinnerAccountArabicAccount;
     private String phoneNumber, company, companyBranch, account, username, email, photoURL;
 
     private Button finishSignInBtn;
@@ -50,9 +52,15 @@ public class CompleteSignUpData extends AppCompatActivity {
 
         editTextPhone = findViewById(R.id.editTextPhone_google);
 
-        spinnerCompany = findViewById(R.id.spinnerCompany_google);
-        spinnerCompanyBranch = findViewById(R.id.spinnerCompanyBranch_google);
-        spinnerAccount = findViewById(R.id.spinnerAccount_google);
+        spinnerCompany = findViewById(R.id.spinnerCompany);
+        spinnerCompanyBranchRaya = (Spinner) findViewById(R.id.spinnerCompanyBranchRaya);
+        spinnerCompanyBranchVodafone = findViewById(R.id.spinnerCompanyBranchVodafone);
+        spinnerCompanyBranchOrange = findViewById(R.id.spinnerCompanyBranchOrange);
+
+        spinnerAccountEtisalat = findViewById(R.id.spinnerAccountEtisalat);
+        spinnerAccountVodafoneArabic = findViewById(R.id.spinnerAccountVodafoneArabic);
+        spinnerAccountVodafoneUK = findViewById(R.id.spinnerAccountVodafoneUK);
+        spinnerAccountArabicAccount = findViewById(R.id.spinnerAccountArabicAccount);
 
         finishSignInBtn = findViewById(R.id.finish_ggogle_signUp);
         finishSignInBtn.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +71,13 @@ public class CompleteSignUpData extends AppCompatActivity {
         });
 
         companySpinner();
-        accountSpinner();
-        branchSpinner();
+        branchSpinnerRaya();
+        branchSpinnerVodafone();
+        branchSpinnerOrange();
+        accountSpinnerEtisalat();
+        accountSpinnerVodafoneArabic();
+        accountSpinnerVodafoneUK();
+        accountSpinnerArabicAccount();
 
 
     }
@@ -76,18 +89,53 @@ public class CompleteSignUpData extends AppCompatActivity {
         spinnerCompany.setOnItemSelectedListener(new CompanySpinnerLestiner());
     }
 
-    private void branchSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch, android.R.layout.simple_spinner_item);
+    public void branchSpinnerRaya() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch_raya, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCompanyBranch.setAdapter(adapter);
-        spinnerCompanyBranch.setOnItemSelectedListener(new BranchSpinnerLestiner());
+        spinnerCompanyBranchRaya.setAdapter(adapter);
+        spinnerCompanyBranchRaya.setOnItemSelectedListener(new BranchSpinnerLestiner());
     }
 
-    private void accountSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account, android.R.layout.simple_spinner_item);
+    public void branchSpinnerVodafone() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch_vodafone, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAccount.setAdapter(adapter);
-        spinnerAccount.setOnItemSelectedListener(new AccountSpinnerLestiner());
+        spinnerCompanyBranchVodafone.setAdapter(adapter);
+        spinnerCompanyBranchVodafone.setOnItemSelectedListener(new BranchSpinnerLestiner());
+    }
+
+    public void branchSpinnerOrange() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.branch_orange, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCompanyBranchOrange.setAdapter(adapter);
+        spinnerCompanyBranchOrange.setOnItemSelectedListener(new BranchSpinnerLestiner());
+    }
+
+    private void accountSpinnerEtisalat() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account_Etisalat_Emarat, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAccountEtisalat.setAdapter(adapter);
+        spinnerAccountEtisalat.setOnItemSelectedListener(new AccountSpinnerLestiner());
+    }
+
+    private void accountSpinnerVodafoneArabic() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account_Vodafone_arabic, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAccountVodafoneArabic.setAdapter(adapter);
+        spinnerAccountVodafoneArabic.setOnItemSelectedListener(new AccountSpinnerLestiner());
+    }
+
+    private void accountSpinnerVodafoneUK() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account_vodafone_uk, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAccountVodafoneUK.setAdapter(adapter);
+        spinnerAccountVodafoneUK.setOnItemSelectedListener(new AccountSpinnerLestiner());
+    }
+
+    private void accountSpinnerArabicAccount() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account_arabic_account, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAccountArabicAccount.setAdapter(adapter);
+        spinnerAccountArabicAccount.setOnItemSelectedListener(new AccountSpinnerLestiner());
     }
 
     private void saveUserInfoToFirebaseDatabase() {

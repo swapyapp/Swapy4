@@ -103,7 +103,8 @@ public class SignUpActivity extends AppCompatActivity {
         editTextLastName = (EditText) findViewById(R.id.editTextLastName);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         editTextConfirmPassword = (EditText) findViewById(R.id.editTextConfirmPassword);
-        spinnerCompany = (Spinner) findViewById(R.id.spinnerCompany);spinnerCompanyBranchRaya = (Spinner) findViewById(R.id.spinnerCompanyBranchRaya);
+        spinnerCompany = (Spinner) findViewById(R.id.spinnerCompany);
+        spinnerCompanyBranchRaya = (Spinner) findViewById(R.id.spinnerCompanyBranchRaya);
         spinnerCompanyBranchVodafone = findViewById(R.id.spinnerCompanyBranchVodafone);
         spinnerCompanyBranchOrange = findViewById(R.id.spinnerCompanyBranchOrange);
 
