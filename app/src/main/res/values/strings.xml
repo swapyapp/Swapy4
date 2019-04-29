@@ -133,21 +133,51 @@
 
     <string-array name="company">
         <item>Choose company</item>
-        <item>Vodafone</item>
         <item>Raya</item>
-        <item>Etisalat</item>
+        <item>Vodafone</item>
+        <item>Orange</item>
+    </string-array>
+    <string-array name="branch_raya">
+        <item>Choose branch</item>
+        <item>اتصالات الامارات</item>
+    </string-array>
+    <string-array name="branch_vodafone">
+        <item>Choose branch</item>
+        <item>Vodafone uk</item>
+        <item>Vodafone Arabic</item>
+    </string-array>
+    <string-array name="branch_orange">
+        <item>Choose branch</item>
+        <item>Arabic Account</item>
     </string-array>
     <string-array name="branch">
         <item>Choose branch</item>
-        <item>Vodafone uk</item>
-        <item>Raya smart village</item>
-        <item>Etisalat maadi</item>
+    </string-array>
+    <string-array name="account_Etisalat_Emarat">
+        <item>Choose account</item>
+        <item>HS</item>
+        <item>SMB</item>
+        <item>DQ</item>
+    </string-array>
+    <string-array name="account_Vodafone_arabic">
+        <item>Choose account</item>
+        <item>Billing</item>
+        <item>888</item>
+        <item>Technical support</item>
+    </string-array>
+    <string-array name="account_vodafone_uk">
+        <item>Choose account</item>
+        <item>Billing</item>
+        <item>Telesales</item>
+        <item>ADSL</item>
+    </string-array>
+    <string-array name="account_arabic_account">
+        <item>Choose account</item>
+        <item>ADSL</item>
+        <item>Phone support</item>
     </string-array>
     <string-array name="account">
         <item>Choose account</item>
-        <item>HS</item>
-        <item>HS</item>
-        <item>HS</item>
     </string-array>
     <string-array name="current_Shift">
         <item>Current Shift</item>
