@@ -65,23 +65,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        ImageView log_out = rootView.findViewById(R.id.log_out);
-        log_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String currentUser = mAuth.getCurrentUser().getUid();
-                userRef.child(currentUser).child("device_token").setValue(null).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(rootView.getContext(), SignInActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
         TextView logOutText = rootView.findViewById(R.id.log_out_text);
         logOutText.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -384,6 +384,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             listView = rootView.findViewById(R.id.homeList);
             listView.setNestedScrollingEnabled(true);
             listView.setVisibility(View.VISIBLE);
+            listView.refreshDrawableState();
             listView.setAdapter(swapAdapter);
 
 
