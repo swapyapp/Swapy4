@@ -311,9 +311,9 @@ public class AccountFragment extends Fragment {
                                         }
                                     })
                                     .into(userImage);
+                        }else {
+                            progressBarAccount.setVisibility(View.GONE);
                         }
-                    }else {
-                        progressBarAccount.setVisibility(View.GONE);
                     }
 
                 }
