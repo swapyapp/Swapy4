@@ -1,4 +1,4 @@
-package com.app.muhammadgamal.swapy;
+package com.app.muhammadgamal.swapy.UserSittings;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.muhammadgamal.swapy.SpinnersLestiners.BranchSpinnerLestiner;
+import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.ChangeBranchSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -59,7 +59,7 @@ public class ChangeBranch extends AppCompatActivity {
                 if (ChangeBranchSpinnerLestiner.Branch.equals("Choose branch")) {
                     Toast.makeText(ChangeBranch.this, "Please choose a branch", Toast.LENGTH_SHORT).show();
                 } else {
-                    currentUserDb.child("mCompany").setValue(ChangeBranchSpinnerLestiner.Branch)
+                    currentUserDb.child("mBranch").setValue(ChangeBranchSpinnerLestiner.Branch)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {

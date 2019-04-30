@@ -387,5 +387,6 @@
     <string name="chane_username">Chane your Username</string>
     <string name="switch_to_another_company_branch">Switch to another Branch</string>
     <string name="switch_to_another_account">Switch to another Account</string>
+    <string name="chooseaccount">Choose Account</string>
 
 </resources>

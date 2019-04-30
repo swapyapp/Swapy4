@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.app.muhammadgamal.swapy.ChangeBranch;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +28,7 @@ public class AccountSittings extends AppCompatActivity {
     private TextView sittings_switch_company;
     private TextView sittings_switch_branch;
     private TextView changeUserPhone;
+    private TextView sittings_switch_account;
     private ImageView img_back_account_sittings;
     private Intent sittingBodyIntent;
     private FirebaseAuth mAuth;
@@ -59,6 +59,7 @@ public class AccountSittings extends AppCompatActivity {
         sittings_switch_company = findViewById(R.id.sittings_switch_company);
 //        deleteAccount = findViewById(R.id.sittings_delete_account);
         sittings_switch_branch = findViewById(R.id.sittings_switch_branch);
+        sittings_switch_account = findViewById(R.id.sittings_switch_account);
 
         img_back_account_sittings = findViewById(R.id.img_back_account_sittings);
         img_back_account_sittings.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +129,13 @@ public class AccountSittings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AccountSittings.this, UserChangePhone.class);
+                startActivity(intent);
+            }
+        });
+        sittings_switch_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountSittings.this, ChangeAccount.class);
                 startActivity(intent);
             }
         });
