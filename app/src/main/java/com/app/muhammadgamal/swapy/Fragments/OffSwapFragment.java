@@ -166,7 +166,6 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
         imgOffNoConnectionHome = rootView.findViewById(R.id.imgOffNoConnectionHome);
        // selectedPreferredOff = rootView.findViewById(R.id.selectedPreferredOff);
 //        selectedPreferredOff.setText(filterSelectedYourOfffDay);
-        progressBar_home_off.setVisibility(View.VISIBLE);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
         empty_view2_off.setVisibility(View.GONE);
@@ -211,16 +210,19 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
                                     swapOffAdapter.add(swapDetails);
                                 }
                                 if (!filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
+                                    fab_reset_filter.show();
                                     if (swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
                                         swapOffAdapter.add(swapDetails);
                                     }
                                 }
                                 if (!filterSelectedSwapperOffDay.equals("any day") && filterSelectedYourOfffDay.equals("any day")) {
+                                    fab_reset_filter.show();
                                     if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay)) {
                                         swapOffAdapter.add(swapDetails);
                                     }
                                 }
                                 if (!filterSelectedSwapperOffDay.equals("any day") && !filterSelectedYourOfffDay.equals("any day")) {
+                                    fab_reset_filter.show();
                                     if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay) && swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
                                         swapOffAdapter.add(swapDetails);
                                     }
@@ -402,7 +404,7 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private void applyFilter() {
 
         filterSelectedYourOfffDay = preferredOffDaySpinner.getSelectedItem().toString();
-        filterSelectedYourOfffDay = swappersPreferredOffDaySpinner.getSelectedItem().toString();
+        filterSelectedSwapperOffDay = swappersPreferredOffDaySpinner.getSelectedItem().toString();
         fetchData();
         offFilterDialog.dismiss();
 
@@ -410,8 +412,8 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
         fab_reset_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterSelectedYourOfffDay = null;
-                filterSelectedYourOfffDay = null;
+                filterSelectedYourOfffDay = "any day";
+                filterSelectedSwapperOffDay = "any day";
                 fetchData();
                 fab_reset_filter.hide();
             }
