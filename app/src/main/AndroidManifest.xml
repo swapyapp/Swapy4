@@ -16,11 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity
+            android:name=".UserSittings.ChangeAccount"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FetchListSwaps"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
-
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".UserSittings.UserChangeEmail"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -62,7 +63,7 @@
         </activity>
         <activity android:name=".ResgistrationActivities.CompleteSignUpData" />
         <activity
-            android:name=".ChangeBranch"
+            android:name=".UserSittings.ChangeBranch"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UserSittings.ChangeCompany"
