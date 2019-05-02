@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -45,6 +48,19 @@ public class AcceptedOffSwapFragment extends Fragment implements SwipeRefreshLay
     private ImageView offImgNoConnectionAccepted;
     private OffAcceptedSwapAdapter offAcceptedSwapAdapter;
     private SwapRequestOff swapRequestOff;
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // inflater.inflate(R.menu.nav_bar_items, menu);
+        MenuItem item = menu.findItem(R.id.search_icon);
+        item.setIcon(null);
+        item.setTitle("");
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override

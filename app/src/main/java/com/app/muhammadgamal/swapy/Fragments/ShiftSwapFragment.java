@@ -115,8 +115,14 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     @SuppressLint("RestrictedApi")
@@ -148,7 +154,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
         empty_view = rootView.findViewById(R.id.empty_view);
         empty_view2 = rootView.findViewById(R.id.empty_view2);
-      //  selectedPreferredTime = rootView.findViewById(R.id.selectedPreferredTime);
+        //  selectedPreferredTime = rootView.findViewById(R.id.selectedPreferredTime);
         imgNoConnectionHome = rootView.findViewById(R.id.imgNoConnectionHome);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
@@ -204,15 +210,18 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                                     if (preferredAMorPM == null && swapperPreferredShift == null && YOUR_PREFERRED_DAY == null) {
                                         fab_reset_filter.hide();
                                         swapAdapter.add(swapDetails);
+                                        swapAdapter.notifyDataSetChanged();
                                     }
                                     if (preferredAMorPM != null && swapperPreferredShift == null && YOUR_PREFERRED_DAY == null) {
                                         if (preferredAMorPM.equals(" AM")) {
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         } else if (preferredAMorPM.equals(" PM")) {
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         }
                                     }
@@ -220,16 +229,19 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                                         if (swapperPreferredShift.equals(" AM") && preferredAMorPM == null) {
                                             if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         } else if (swapperPreferredShift.equals(" PM") && preferredAMorPM == null) {
                                             if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         }
                                     }
                                     if (preferredAMorPM == null && swapperPreferredShift == null && YOUR_PREFERRED_DAY != null) {
                                         if (swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
                                             swapAdapter.add(swapDetails);
+                                            swapAdapter.notifyDataSetChanged();
                                         }
                                     }
                                     if (preferredAMorPM != null && swapperPreferredShift != null && YOUR_PREFERRED_DAY == null) {
@@ -237,21 +249,25 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
                                                     && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         } else if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" PM")) {
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
                                                     && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" AM")) {
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
                                                     && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" PM")) {
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
                                                     && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         }
                                     }
@@ -260,11 +276,13 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
                                                     && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         } else if (preferredAMorPM.equals(" PM")) {
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
                                                     && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         }
                                     }
@@ -273,11 +291,13 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                                             if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
                                                     && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         } else if (swapperPreferredShift.equals(" PM")) {
                                             if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
                                                     && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         }
                                     }
@@ -287,24 +307,30 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                                                     && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
                                                     && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         } else if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" PM")) {
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
                                                     && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
                                                     && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
+
                                             }
                                         } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" AM")) {
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
                                                     && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
                                                     && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
+
                                             }
                                         } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" PM")) {
                                             if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
                                                     && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
                                                     && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
                                                 swapAdapter.add(swapDetails);
+                                                swapAdapter.notifyDataSetChanged();
                                             }
                                         }
                                     }
@@ -386,6 +412,8 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             listView.setVisibility(View.VISIBLE);
             listView.refreshDrawableState();
             listView.setAdapter(swapAdapter);
+            swapAdapter.notifyDataSetChanged();
+
 
 
 //        if (homeSwapButton != null) {

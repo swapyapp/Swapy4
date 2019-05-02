@@ -2,11 +2,12 @@ package com.app.muhammadgamal.swapy.SpinnersLestiners;
 
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
+
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.UserSittings.ChangeCompany;
+import com.app.muhammadgamal.swapy.UserSittings.ChangeCompany;
 
-public class CompanySpinnerLestiner implements OnItemSelectedListener {
+public class CompanyListinerAccount implements AdapterView.OnItemSelectedListener {
 
     public static String company;
     public static int VODAFONE;

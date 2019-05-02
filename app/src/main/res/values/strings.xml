@@ -373,7 +373,7 @@
     <string name="main_title">Swapy</string>
     <string name="received_swaps">Received Swaps</string>
     <string name="sent_swaps">Sent Swaps</string>
-    <string name="accepted_swaps">Accepted Swaps</string>
+    <string name="accepted_shift_swaps">Accepted Shift Swaps</string>
     <string name="sittings">Sittings</string>
     <string name="log_out">Log out</string>
     <string name="fill_your_main_data_here_to_complete_the_sign_up_process">Fill your main Data here to complete the sign up process</string>
@@ -388,5 +388,6 @@
     <string name="switch_to_another_company_branch">Switch to another Branch</string>
     <string name="switch_to_another_account">Switch to another Account</string>
     <string name="chooseaccount">Choose Account</string>
+    <string name="accpeted_off_swaps">Accepted Off Swaps</string>
 
 </resources>

@@ -60,12 +60,11 @@ public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-       // inflater.inflate(R.menu.nav_bar_items, menu);
+        // inflater.inflate(R.menu.nav_bar_items, menu);
         MenuItem item = menu.findItem(R.id.search_icon);
         item.setIcon(null);
         item.setTitle("");

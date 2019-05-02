@@ -91,32 +91,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        homeBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//
-//                switch (menuItem.getItemId()) {
-//
-//                    case R.id.nav_bar_shift:
-//                        getActivity().getSupportFragmentManager().
-//                                beginTransaction().
-//                                replace(R.id.home_fragment_container,
-//                                        new ShiftSwapFragment())
-//                                .commit();
-//                        return true;
-//                    case R.id.nav_bar_off:
-//                        getActivity().getSupportFragmentManager().
-//                                beginTransaction().
-//                                replace(R.id.home_fragment_container,
-//                                        new OffSwapFragment())
-//                                .commit();
-//                        return true;
-//                    default:
-//                        return false;
-//
-//                }
-//            }
-//        });
 
         return rootView;
     }
@@ -158,11 +132,12 @@ public class HomeFragment extends Fragment {
                 case 1: // Fragment # 0 - This will show FirstFragment different title
                     return new OffSwapFragment();
                 case 2:
-                     return new AcceptedShiftSwapFragment();
+                     return new AcceptedShiftAndOffSwapsFragment();
                 default:
                     return null;
             }
         }
+
 
         // Returns the page title for the top indicator
         @Override
@@ -189,6 +164,14 @@ public class HomeFragment extends Fragment {
     public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.nav_bar_items, menu);
+        if (vpPager.getCurrentItem()==0){
+            menu.findItem(R.id.search_icon).setVisible(true);
+        } else if(vpPager.getCurrentItem()==1){
+            menu.findItem(R.id.search_icon).setVisible(true);
+        } else if(vpPager.getCurrentItem()==2){
+            menu.findItem(R.id.search_icon).setVisible(false);
+        }
+        super.onCreateOptionsMenu(menu,inflater);
 
     }
 
@@ -207,6 +190,5 @@ public class HomeFragment extends Fragment {
 //
 //        return super.onOptionsItemSelected(item);
 //    }
-
 
 }
