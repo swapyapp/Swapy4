@@ -164,7 +164,7 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
         empty_view_off = rootView.findViewById(R.id.empty_view_off);
         empty_view2_off = rootView.findViewById(R.id.empty_view2_off);
         imgOffNoConnectionHome = rootView.findViewById(R.id.imgOffNoConnectionHome);
-       // selectedPreferredOff = rootView.findViewById(R.id.selectedPreferredOff);
+        // selectedPreferredOff = rootView.findViewById(R.id.selectedPreferredOff);
 //        selectedPreferredOff.setText(filterSelectedYourOfffDay);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
@@ -443,7 +443,7 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @Override
     public void onStart() {
         super.onStart();
-       // ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        // ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         //((NavDrawerActivity) getActivity()).updateStatusBarColor("#0081cb");
 
     }

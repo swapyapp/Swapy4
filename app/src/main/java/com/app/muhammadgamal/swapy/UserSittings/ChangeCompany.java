@@ -22,7 +22,11 @@ public class ChangeCompany extends AppCompatActivity {
     TextView changeCompany_cancel, changeCompany_save;
     Spinner changeCompanySpinner;
     private FirebaseAuth mAuth;
-
+    public static int COMPANY_CHOSEN = 0, BRANCH_CHOSEN = 0, ACCOUNT_CHOSEN = 0, CURRENT_SHIFT_CHOSEN = 0;
+    public static int arrayBranch = R.array.branch;
+    public static Spinner spinnerCompany,
+            spinnerCompanyBranchRaya, spinnerCompanyBranchVodafone, spinnerCompanyBranchOrange,
+            spinnerAccountEtisalat, spinnerAccountVodafoneArabic, spinnerAccountVodafoneUK, spinnerAccountArabicAccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

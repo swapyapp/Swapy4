@@ -115,8 +115,14 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     @SuppressLint("RestrictedApi")
@@ -148,7 +154,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
         empty_view = rootView.findViewById(R.id.empty_view);
         empty_view2 = rootView.findViewById(R.id.empty_view2);
-      //  selectedPreferredTime = rootView.findViewById(R.id.selectedPreferredTime);
+        //  selectedPreferredTime = rootView.findViewById(R.id.selectedPreferredTime);
         imgNoConnectionHome = rootView.findViewById(R.id.imgNoConnectionHome);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
