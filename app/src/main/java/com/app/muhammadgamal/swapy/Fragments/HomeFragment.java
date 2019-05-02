@@ -91,32 +91,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        homeBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//
-//                switch (menuItem.getItemId()) {
-//
-//                    case R.id.nav_bar_shift:
-//                        getActivity().getSupportFragmentManager().
-//                                beginTransaction().
-//                                replace(R.id.home_fragment_container,
-//                                        new ShiftSwapFragment())
-//                                .commit();
-//                        return true;
-//                    case R.id.nav_bar_off:
-//                        getActivity().getSupportFragmentManager().
-//                                beginTransaction().
-//                                replace(R.id.home_fragment_container,
-//                                        new OffSwapFragment())
-//                                .commit();
-//                        return true;
-//                    default:
-//                        return false;
-//
-//                }
-//            }
-//        });
 
         return rootView;
     }
@@ -158,11 +132,12 @@ public class HomeFragment extends Fragment {
                 case 1: // Fragment # 0 - This will show FirstFragment different title
                     return new OffSwapFragment();
                 case 2:
-                     return new AcceptedShiftSwapFragment();
+                     return new AcceptedShiftAndOffSwapsFragment();
                 default:
                     return null;
             }
         }
+
 
         // Returns the page title for the top indicator
         @Override
