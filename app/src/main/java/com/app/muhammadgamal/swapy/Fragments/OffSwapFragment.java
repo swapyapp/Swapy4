@@ -208,23 +208,27 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
                                 if (filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
                                     fab_reset_filter.hide();
                                     swapOffAdapter.add(swapDetails);
+                                    swapOffAdapter.notifyDataSetChanged();
                                 }
                                 if (!filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
                                     fab_reset_filter.show();
                                     if (swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
                                         swapOffAdapter.add(swapDetails);
+                                        swapOffAdapter.notifyDataSetChanged();
                                     }
                                 }
                                 if (!filterSelectedSwapperOffDay.equals("any day") && filterSelectedYourOfffDay.equals("any day")) {
                                     fab_reset_filter.show();
                                     if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay)) {
                                         swapOffAdapter.add(swapDetails);
+                                        swapOffAdapter.notifyDataSetChanged();
                                     }
                                 }
                                 if (!filterSelectedSwapperOffDay.equals("any day") && !filterSelectedYourOfffDay.equals("any day")) {
                                     fab_reset_filter.show();
                                     if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay) && swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
                                         swapOffAdapter.add(swapDetails);
+                                        swapOffAdapter.notifyDataSetChanged();
                                     }
                                 }
                             }
@@ -304,6 +308,7 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
             listView.setNestedScrollingEnabled(true);
             listView.setVisibility(View.VISIBLE);
             listView.setAdapter(swapOffAdapter);
+            swapOffAdapter.notifyDataSetChanged();
 
 
 //        if (homeSwapButton != null) {
