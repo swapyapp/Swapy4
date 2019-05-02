@@ -1,4 +1,4 @@
-package com.app.muhammadgamal.swapy.Activities;
+package com.app.muhammadgamal.swapy.UserSittings;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +27,8 @@ public class AccountSittings extends AppCompatActivity {
     private TextView deleteAccount;
     private TextView sittings_switch_company;
     private TextView sittings_switch_branch;
+    private TextView changeUserPhone;
+    private TextView sittings_switch_account;
     private ImageView img_back_account_sittings;
     private Intent sittingBodyIntent;
     private FirebaseAuth mAuth;
@@ -46,16 +48,18 @@ public class AccountSittings extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         final String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
-        sittingBodyIntent = new Intent(AccountSittings.this,SittingActivityBody.class);
+        sittingBodyIntent = new Intent(AccountSittings.this, SittingActivityBody.class);
         final Bundle bundle = new Bundle();
 
         accountName = findViewById(R.id.account_name);
         changeUserName = findViewById(R.id.sittings_change_account_user_name);
         changeUserEmail = findViewById(R.id.sittings_change_account_user_email);
         changeUserPassword = findViewById(R.id.sittings_change_account_user_password);
+        changeUserPhone = findViewById(R.id.sittings_change_account_user_phone);
         sittings_switch_company = findViewById(R.id.sittings_switch_company);
-        deleteAccount = findViewById(R.id.sittings_delete_account);
+//        deleteAccount = findViewById(R.id.sittings_delete_account);
         sittings_switch_branch = findViewById(R.id.sittings_switch_branch);
+        sittings_switch_account = findViewById(R.id.sittings_switch_account);
 
         img_back_account_sittings = findViewById(R.id.img_back_account_sittings);
         img_back_account_sittings.setOnClickListener(new View.OnClickListener() {
@@ -93,18 +97,16 @@ public class AccountSittings extends AppCompatActivity {
         changeUserPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bundle.putInt("password",2);
-                sittingBodyIntent.putExtras(bundle);
-                startActivity(sittingBodyIntent);
+                Intent intent = new Intent(AccountSittings.this, UserChangePassword.class);
+                startActivity(intent);
             }
         });
 
         changeUserEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bundle.putInt("email", 3);
-                sittingBodyIntent.putExtras(bundle);
-                startActivity(sittingBodyIntent);
+              Intent intent = new Intent(AccountSittings.this, UserChangeEmail.class);
+              startActivity(intent);
             }
         });
 
@@ -123,14 +125,28 @@ public class AccountSittings extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        deleteAccount.setOnClickListener(new View.OnClickListener() {
+        changeUserPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AccountSittings.this, DeleteAccount.class);
+                Intent intent = new Intent(AccountSittings.this, UserChangePhone.class);
                 startActivity(intent);
             }
         });
+        sittings_switch_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountSittings.this, ChangeAccount.class);
+                startActivity(intent);
+            }
+        });
+
+//        deleteAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(AccountSittings.this, DeleteAccount.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 

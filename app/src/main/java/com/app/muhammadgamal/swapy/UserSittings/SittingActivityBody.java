@@ -1,18 +1,16 @@
-package com.app.muhammadgamal.swapy.Activities;
+package com.app.muhammadgamal.swapy.UserSittings;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.muhammadgamal.swapy.ResgistrationActivities.SignInActivity;
+import com.app.muhammadgamal.swapy.ResgistrationActivities.VerifyActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +35,8 @@ public class SittingActivityBody extends AppCompatActivity {
     int userNameIndicatorReceiver;
     int userPasswordIndicatorReceiver ;
     int userEmailIndicatorReceiver ;
+
+    int receiver;
 
     String changeText;
 
@@ -70,7 +70,6 @@ public class SittingActivityBody extends AppCompatActivity {
         });
 
 
-        sitting_body_edit_text.setTextColor(Color.WHITE);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -79,7 +78,7 @@ public class SittingActivityBody extends AppCompatActivity {
         userPasswordIndicatorReceiver = bundle.getInt("password");
         userEmailIndicatorReceiver = bundle.getInt("email");
 
-        int receiver = 0;
+        receiver = 0;
 
         if (userNameIndicatorReceiver == 1){
             receiver = userNameIndicatorReceiver;
@@ -103,7 +102,7 @@ public class SittingActivityBody extends AppCompatActivity {
                         String name = sitting_body_edit_text.getText().toString().trim();
                         if(name.matches("")){
                             Toast.makeText(SittingActivityBody.this, "You didnt enter valid name", Toast.LENGTH_SHORT).show();
-                    } else {
+                        } else {
                             changeUserName(name);
                         }
                     }
@@ -222,4 +221,9 @@ public class SittingActivityBody extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        receiver = 0;
+    }
 }

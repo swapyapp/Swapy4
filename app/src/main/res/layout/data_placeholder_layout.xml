@@ -30,25 +30,25 @@
             android:orientation="vertical">
 
             <View
-                android:layout_width="181dp"
+                android:layout_width="140dp"
                 android:layout_height="@dimen/placeholderTextHeight"
                 android:layout_marginBottom="4dp"
                 android:background="@color/background" />
 
             <View
-                android:layout_width="181dp"
+                android:layout_width="192dp"
                 android:layout_height="@dimen/placeholderTextHeight"
                 android:background="@color/background" />
 
 
             <View
-                android:layout_width="84dp"
+                android:layout_width="70dp"
                 android:layout_height="@dimen/placeholderTextHeight"
                 android:layout_marginTop="5dp"
                 android:background="@color/background" />
 
             <View
-                android:layout_width="154dp"
+                android:layout_width="164dp"
                 android:layout_height="@dimen/placeholderTextHeight"
                 android:layout_marginTop="5dp"
                 android:background="@color/background" />

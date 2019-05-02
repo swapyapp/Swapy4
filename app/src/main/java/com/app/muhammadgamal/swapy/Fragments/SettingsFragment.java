@@ -21,19 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.muhammadgamal.swapy.Activities.AccountSittings;
-import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
-import com.app.muhammadgamal.swapy.Activities.ProfileActivityShift;
-import com.app.muhammadgamal.swapy.Activities.SettingsActivity;
-import com.app.muhammadgamal.swapy.Activities.SignInActivity;
+import com.app.muhammadgamal.swapy.UserSittings.SettingsActivity;
+import com.app.muhammadgamal.swapy.ResgistrationActivities.SignInActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hsalf.smilerating.SmileRating;
-
-import java.util.UUID;
 
 public class SettingsFragment extends Fragment {
 

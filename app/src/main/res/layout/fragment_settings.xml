@@ -50,6 +50,14 @@
         android:fontFamily="@font/raleway_semi_bold"
         android:textSize="24dp" />
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="0"
+        android:background="@android:color/darker_gray" />
+
     <LinearLayout
         android:id="@+id/rateUs"
         android:layout_width="match_parent"
@@ -66,38 +74,26 @@
             android:text="@string/rate_us"
             android:fontFamily="@font/raleway_semi_bold" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginStart="4dp"
-            android:src="@android:drawable/star_big_on"/>
-
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="0"
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-
-    <ImageView
-        android:id="@+id/log_out"
-        android:layout_width="42dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:src="@drawable/log_out"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sittings_more_options" />
-
         <TextView
             android:id="@+id/log_out_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/log_out"
+            android:layout_marginLeft="8dp"
             android:fontFamily="@font/raleway_semi_bold"
             android:textSize="24dp"
             android:background="?android:attr/selectableItemBackground"

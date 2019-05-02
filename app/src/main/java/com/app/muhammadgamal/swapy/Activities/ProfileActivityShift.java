@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.Adapters.ShiftProfileAdapter;
+import com.app.muhammadgamal.swapy.FetchListSwaps;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
@@ -51,11 +52,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -88,6 +92,7 @@ public class ProfileActivityShift extends AppCompatActivity {
     private String swapperID, currentUserId, swapperLoginID, currentUserLoginID, swapperPreferredShift, swapperTeamLeader, swapperShiftTime, swapShiftDate, swapperShiftDay, swapperImageUrl, swapperAccount, swapperCompanyBranch, swapperPhone, swapperEmail, swapperName;
     private String userName;
     private LinearLayout userContactInfo, phoneShiftProfile, emailShiftProfile;
+    private static int INT = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,6 +200,13 @@ public class ProfileActivityShift extends AppCompatActivity {
         shiftProfileDialog = new Dialog(ProfileActivityShift.this);
         shiftProfileDialog.setContentView(R.layout.shift_profile_dialog);
         shiftProfileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        shiftProfileDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                chooseShiftProfileDialog.show();
+                fetchChooseList();
+            }
+        });
 
         imgCloseShiftProfileDialog = shiftProfileDialog.findViewById(R.id.imgCloseShiftProfileDialog);
         imgCloseShiftProfileDialog.setOnClickListener(new View.OnClickListener() {
@@ -207,19 +219,12 @@ public class ProfileActivityShift extends AppCompatActivity {
         chooseShiftProfileDialog = new Dialog(ProfileActivityShift.this);
         chooseShiftProfileDialog.setContentView(R.layout.shift_profile_choose_dialog);
         chooseShiftProfileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        chooseShiftProfileDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                shiftProfileDialog.dismiss();
-            }
-        });
 
         imgCloseShiftProfileChooseDialog = chooseShiftProfileDialog.findViewById(R.id.imgCloseShiftProfileChooseDialog);
         imgCloseShiftProfileChooseDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseShiftProfileDialog.dismiss();
-                shiftProfileDialog.dismiss();
             }
         });
         buttonCancelShiftProfileDialog = (Button) shiftProfileDialog.findViewById(R.id.buttonCancelShiftProfileDialog);
@@ -326,12 +331,14 @@ public class ProfileActivityShift extends AppCompatActivity {
                         SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                         if (dataSnapshot.exists()) {
                             if (swapDetails.getSwapperID().equals(fromID)) {
-                                chooseShiftProfileDialog.show();
-                                fetchChooseList();
+                                INT = 1;
+                                shiftProfileDialog.dismiss();
                             } else {
-                                shiftProfileDialog.show();
-                                buttonSwapRequest.setVisibility(View.VISIBLE);
-                                progressBar.setVisibility(View.INVISIBLE);
+                                if (INT != 1){
+                                    shiftProfileDialog.show();
+                                    buttonSwapRequest.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
                             }
 
                         }
@@ -357,6 +364,10 @@ public class ProfileActivityShift extends AppCompatActivity {
 
                     }
                 });
+                if (INT == 1){
+                    chooseShiftProfileDialog.show();
+                    fetchChooseList();
+                }
 
 
             }
@@ -432,7 +443,6 @@ public class ProfileActivityShift extends AppCompatActivity {
                                         textDisplayContactInfo.setVisibility(View.VISIBLE);
                                         userContactInfo.setVisibility(View.GONE);
                                         textAcceptedRequest.setVisibility(View.GONE);
-
                                     }
 
                                 }
@@ -607,43 +617,34 @@ public class ProfileActivityShift extends AppCompatActivity {
     private void fetchChooseList() {
 
         DatabaseReference shiftSwapDb = FirebaseDatabase.getInstance().getReference().child("swaps").child("shift_swaps");
-        shiftSwapDb.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.exists()) {
-                    SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
-                    if (swapDetails.getSwapperID().equals(fromID)) {
-                        shiftProfileAdapter.add(swapDetails);
-                    }
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         final List<SwapDetails> swapBodyList = new ArrayList<>();
         Collections.reverse(swapBodyList);
         shiftProfileAdapter = new ShiftProfileAdapter(ProfileActivityShift.this, R.layout.shift_profile_list_item, swapBodyList);
         listView = chooseShiftProfileDialog.findViewById(R.id.listShiftProfileChooseDialog);
         listView.setAdapter(shiftProfileAdapter);
+
+        shiftSwapDb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if (dataSnapshot.exists()) {
+                    SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
+                    if (swapDetails.getSwapperID().equals(fromID)) {
+                        buttonSwapRequest.setVisibility(View.VISIBLE);
+                        shiftProfileAdapter.add(swapDetails);
+                    }
+                }
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) { }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

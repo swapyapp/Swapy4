@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#EEEEEE"
     android:layoutDirection="ltr"
-    tools:context=".Activities.AccountSittings">
+    android:orientation="vertical"
+    tools:context=".UserSittings.AccountSittings">
 
     <ImageView
         android:id="@+id/img_back_account_sittings"
@@ -22,58 +22,76 @@
         android:id="@+id/account_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ahmed Rabie"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        />
+        android:textSize="21sp"
+        tools:text="Ahmed Rabie" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/sittings_change_account_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/change_account_user_name"
             style="@style/AccountSittingsTextStyle"
-            />
-        <TextView
-            android:id="@+id/sittings_change_account_user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/change_password"
-            style="@style/AccountSittingsTextStyle" />
-        <TextView
-            android:id="@+id/sittings_change_account_user_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/change_user_email"
-            style="@style/AccountSittingsTextStyle" />
-        <TextView
-            android:id="@+id/sittings_switch_company"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/switch_to_other_company"
-            style="@style/AccountSittingsTextStyle" />
-        <TextView
-            android:id="@+id/sittings_switch_branch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Change Account Branch"
-            style="@style/AccountSittingsTextStyle" />
+            android:text="@string/chane_username" />
 
         <TextView
-            android:id="@+id/sittings_delete_account"
+            android:id="@+id/sittings_change_account_user_password"
+            style="@style/AccountSittingsTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/delete_this_account"
+            android:text="@string/change_password" />
+
+        <TextView
+            android:id="@+id/sittings_change_account_user_email"
             style="@style/AccountSittingsTextStyle"
-            android:layout_marginBottom="16dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/change_user_email" />
+
+        <TextView
+            android:id="@+id/sittings_change_account_user_phone"
+            style="@style/AccountSittingsTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/change_account_user_phne" />
+
+        <TextView
+            android:id="@+id/sittings_switch_company"
+            style="@style/AccountSittingsTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_to_other_company" />
+
+        <TextView
+            android:id="@+id/sittings_switch_branch"
+            style="@style/AccountSittingsTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_to_another_company_branch" />
+
+        <TextView
+            android:id="@+id/sittings_switch_account"
+            style="@style/AccountSittingsTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/switch_to_another_account" />
+
+        <!--<TextView-->
+        <!--android:id="@+id/sittings_delete_account"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/delete_this_account"-->
+        <!--style="@style/AccountSittingsTextStyle"-->
+        <!--android:layout_marginBottom="16dp"/>-->
 
     </LinearLayout>
 

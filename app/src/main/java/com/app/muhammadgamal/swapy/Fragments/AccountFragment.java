@@ -10,15 +10,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,20 +25,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.app.muhammadgamal.swapy.Activities.AccountSittings;
-import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
-import com.app.muhammadgamal.swapy.Activities.SignUpActivity;
+import com.app.muhammadgamal.swapy.UserSittings.AccountSittings;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.module.AppGlideModule;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,8 +75,11 @@ public class AccountFragment extends Fragment {
     private String profileImageUrl;
     private Uri pickedImageUri;
     private DrawerLayout drawer;
+    private ImageView changeEmail, ChangeAccount;
+    private  UploadTask uploadTask;
 
-    private static final String TAG = "AccountFragment";
+    private static final String TAG = AccountFragment.class.getName();
+
 
 
     @Nullable
@@ -158,11 +157,12 @@ public class AccountFragment extends Fragment {
     }
 
     private void openGallery() {
-        Intent galleryIntent = new Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, REQUESTCODE);
+        Intent intent = new Intent();
+        // Show only images, no videos or anything else
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        // Always show the chooser (if there are multiple options available)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUESTCODE);
     }
 
     @Override
@@ -189,32 +189,70 @@ public class AccountFragment extends Fragment {
         final StorageReference profileImageRef =
                 FirebaseStorage.getInstance().getReference("profilepics/" + fileName + ".jpg");
         if (pickedImageUri != null) {
-            profileImageRef.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+             uploadTask = profileImageRef.putFile(pickedImageUri);
+
+            // Register observers to listen for when the download is done or if it fails
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+//                    userImage.setVisibility(View.VISIBLE);
+//                    progressBarAccount.setVisibility(View.INVISIBLE);
+//                    Toast.makeText(getContext(), "Image uploading failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    profileImageUrl = profileImageRef.getDownloadUrl().toString();
-                    userRef.child("mProfilePhotoURL").setValue(profileImageUrl).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            userImage.setVisibility(View.VISIBLE);
-                            progressBarAccount.setVisibility(View.INVISIBLE);
-                            Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            userImage.setVisibility(View.VISIBLE);
-                            progressBarAccount.setVisibility(View.INVISIBLE);
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                    // ...
+//                    userImage.setVisibility(View.VISIBLE);
+//                    progressBarAccount.setVisibility(View.INVISIBLE);
+//                    Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
 
 
                 }
-            }).addOnFailureListener(new OnFailureListener() {
+
+            });
+
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return profileImageRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        profileImageUrl = downloadUri.toString();
+                        userRef.child("mProfilePhotoURL").setValue(profileImageUrl).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                userImage.setVisibility(View.VISIBLE);
+                                progressBarAccount.setVisibility(View.INVISIBLE);
+                                Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                userImage.setVisibility(View.VISIBLE);
+                                progressBarAccount.setVisibility(View.INVISIBLE);
+                                Toast.makeText(getContext(), "Image uploading failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    } else {
+                        // Handle failures
+                        // ...
+                    }
                 }
             });
         }
@@ -254,25 +292,28 @@ public class AccountFragment extends Fragment {
                     userPhone.setText(user.getmPhoneNumber());
                     userMail.setText(user.getmEmail());
 
-                    if (user.getmProfilePhotoURL() != null) {
-                        Glide.with(getContext())
-                                .load(user.getmProfilePhotoURL())
-                                .listener(new RequestListener<Drawable>() {
-                                    @Override
-                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                        progressBarAccount.setVisibility(View.GONE);
-                                        return false;
-                                    }
+                    if(isAdded()) {
+                        if (user.getmProfilePhotoURL() != null) {
+                            Glide.with(getContext())
+                                    .load(user.getmProfilePhotoURL())
+                                    .listener(new RequestListener<Drawable>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                            progressBarAccount.setVisibility(View.GONE);
+                                            Log.e(TAG, "Load Image from fireBase failed");
+                                            return false;
+                                        }
 
-                                    @Override
-                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                        progressBarAccount.setVisibility(View.GONE);
-                                        return false;
-                                    }
-                                })
-                                .into(userImage);
-                    } else {
-                        progressBarAccount.setVisibility(View.GONE);
+                                        @Override
+                                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                            progressBarAccount.setVisibility(View.GONE);
+                                            return false;
+                                        }
+                                    })
+                                    .into(userImage);
+                        }else {
+                            progressBarAccount.setVisibility(View.GONE);
+                        }
                     }
 
                 }

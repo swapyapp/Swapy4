@@ -1,4 +1,4 @@
-package com.app.muhammadgamal.swapy.Activities;
+package com.app.muhammadgamal.swapy.ResgistrationActivities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,8 +29,8 @@ import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.AccountSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.BranchSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.CompanySpinnerLestiner;
-import com.app.muhammadgamal.swapy.SpinnersLestiners.CurrentShiftSpinnerLestiner;
 import com.app.muhammadgamal.swapy.SwapData.User;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
     // 1 => not chosen
     public static int COMPANY_CHOSEN = 0, BRANCH_CHOSEN = 0, ACCOUNT_CHOSEN = 0, CURRENT_SHIFT_CHOSEN = 0;
     static int TIME_SELECTED = 0; // 0 => AM & 1 => PM
-    static int PReqCode = 1;
+    static final int PReqCode = 1;
     static int REQUESTCODE = 1;
     static int IMG_UPLOADED = 0;
     static int USER_INFO_SAVED = 0;
@@ -71,7 +71,8 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
     private DatabaseReference deviceTokenRef;
-    private  String name, email, photoUri, phone;
+    private String name, email, photoUri, phone;
+    private UploadTask uploadTask;
     public static int arrayBranch = R.array.branch;
 
     @Override
@@ -103,7 +104,6 @@ public class SignUpActivity extends AppCompatActivity {
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         editTextConfirmPassword = (EditText) findViewById(R.id.editTextConfirmPassword);
         spinnerCompany = (Spinner) findViewById(R.id.spinnerCompany);
-
         spinnerCompanyBranchRaya = (Spinner) findViewById(R.id.spinnerCompanyBranchRaya);
         spinnerCompanyBranchVodafone = findViewById(R.id.spinnerCompanyBranchVodafone);
         spinnerCompanyBranchOrange = findViewById(R.id.spinnerCompanyBranchOrange);
@@ -121,7 +121,6 @@ public class SignUpActivity extends AppCompatActivity {
         accountSpinnerVodafoneArabic();
         accountSpinnerVodafoneUK();
         accountSpinnerArabicAccount();
-
 
         final Drawable notSelectedBackground = res.getDrawable(R.drawable.selection_background_light);
         final Drawable SelectedBackground = res.getDrawable(R.drawable.selection_background);
@@ -147,6 +146,20 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PReqCode: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openGallery();
+                } else {
+                    Toast.makeText(this, "Permission denied...", Toast.LENGTH_SHORT).show();
+                    ;
+                }
+            }
+        }
     }
 
 
@@ -220,7 +233,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (profileImageUrl != null) {
             signUpButton.setVisibility(View.GONE);
-            user = new User(username, email, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift + AMorPM, profileImageUrl, 0, 0, 0);
+            user = new User(username, email, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, profileImageUrl, phoneNumber);
             currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -242,7 +255,7 @@ public class SignUpActivity extends AppCompatActivity {
             });
         } else {
             signUpButton.setVisibility(View.GONE);
-            user = new User(firstName, email, phoneNumber, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, CurrentShiftSpinnerLestiner.CurrentShift, null, 0, 0, 0);
+            user = new User(username, email, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, null, phoneNumber);
             currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -266,16 +279,19 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void openGallery() {
-        Intent galleryIntent = new Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, REQUESTCODE);
+        Intent intent = new Intent();
+        // Show only images, no videos or anything else
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        // Always show the chooser (if there are multiple options available)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUESTCODE);
     }
 
     private void requestPermissionAndOpenGallery() {
-        if (ContextCompat.checkSelfPermission(SignUpActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(SignUpActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        if (ContextCompat.checkSelfPermission(SignUpActivity.this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    SignUpActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 ActivityCompat.requestPermissions(SignUpActivity.this,
                         new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
                         PReqCode);
@@ -313,23 +329,85 @@ public class SignUpActivity extends AppCompatActivity {
                 FirebaseStorage.getInstance().getReference("profilepics/" + fileName + ".jpg");
         if (pickedImageUri != null) {
             progressBarImg.setVisibility(View.VISIBLE);
-            profileImageRef.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    IMG_UPLOADED = 1;
-                    progressBarImg.setVisibility(View.GONE);
-                    profileImageUrl = profileImageRef.getDownloadUrl().toString();
-                    Toast.makeText(SignUpActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
 
-                }
-            }).addOnFailureListener(new OnFailureListener() {
+            uploadTask = profileImageRef.putFile(pickedImageUri);
+            // Register observers to listen for when the download is done or if it fails
+            uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     IMG_UPLOADED = 0;
                     progressBarImg.setVisibility(View.GONE);
                     Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    IMG_UPLOADED = 1;
+                    progressBarImg.setVisibility(View.GONE);
+                    profileImageUrl = profileImageRef.getDownloadUrl().toString();
+                    Toast.makeText(SignUpActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                }
             });
+
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return profileImageRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        profileImageUrl = downloadUri.toString();
+                        userRef.child("mProfilePhotoURL").setValue(profileImageUrl).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                userImageSignUp.setVisibility(View.VISIBLE);
+                                progressBarImg.setVisibility(View.INVISIBLE);
+                                Toast.makeText(SignUpActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                userImageSignUp.setVisibility(View.VISIBLE);
+                                progressBarImg.setVisibility(View.INVISIBLE);
+                                Toast.makeText(SignUpActivity.this, "Image uploading failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    } else {
+                        // Handle failures
+                        // ...
+                    }
+                }
+            });
+
+
+
+//            profileImageRef.putFile(pickedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    IMG_UPLOADED = 1;
+//                    progressBarImg.setVisibility(View.GONE);
+//                    profileImageUrl = profileImageRef.getDownloadUrl().toString();
+//                    Toast.makeText(SignUpActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    IMG_UPLOADED = 0;
+//                    progressBarImg.setVisibility(View.GONE);
+//                    Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            });
         }
 
     }

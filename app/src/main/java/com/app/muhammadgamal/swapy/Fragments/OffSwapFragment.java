@@ -11,19 +11,16 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +33,12 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.app.muhammadgamal.swapy.Activities.NavDrawerActivity;
 import com.app.muhammadgamal.swapy.Activities.ProfileActivityOff;
 import com.app.muhammadgamal.swapy.Activities.SwapOffCreationActivity;
 import com.app.muhammadgamal.swapy.Adapters.SwapOffAdapter;
 import com.app.muhammadgamal.swapy.Common;
+import com.app.muhammadgamal.swapy.Notifications.ReceivedSwapsActivity;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.PreferredOffDaySpinnerListener;
 import com.app.muhammadgamal.swapy.SwapData.SwapOff;
@@ -61,7 +57,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class OffSwapFragment extends Fragment {
+public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private View rootView;
     // Store instance variables
     private String title;
@@ -111,6 +107,9 @@ public class OffSwapFragment extends Fragment {
     private ImageView imgOffNoConnectionHome, navigDrawerBtn;
     private ShimmerFrameLayout shimmerFrameLayout;
     private DrawerLayout drawer;
+    private SwipeRefreshLayout offSwipeRefresh;
+
+    private FloatingActionButton fab_reset_filter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,6 +133,9 @@ public class OffSwapFragment extends Fragment {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mSwapDataBaseReference = mFirebaseDatabase.getReference().child("swaps").child("off_swaps");
 
+        fab_reset_filter= rootView.findViewById(R.id.fab_add_swap_off_reset);
+        fab_reset_filter.hide();
+
         cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = cm.getActiveNetworkInfo();
 
@@ -151,6 +153,14 @@ public class OffSwapFragment extends Fragment {
         fab_add_off_swap_shift = rootView.findViewById(R.id.fab_add_off_swap_shift);
         fab_add_off_swap_shift.bringToFront();
 
+        //handle the SwipeRefreshLayout
+        offSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.offSwipeRefresh);
+        offSwipeRefresh.setOnRefreshListener(this);
+        offSwipeRefresh.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         progressBar_home_off = rootView.findViewById(R.id.progressBar_home_off);
         shimmerFrameLayout = (ShimmerFrameLayout) rootView.findViewById(R.id.shimmer_view_container_off);
         empty_view_off = rootView.findViewById(R.id.empty_view_off);
@@ -158,7 +168,6 @@ public class OffSwapFragment extends Fragment {
         imgOffNoConnectionHome = rootView.findViewById(R.id.imgOffNoConnectionHome);
        // selectedPreferredOff = rootView.findViewById(R.id.selectedPreferredOff);
 //        selectedPreferredOff.setText(filterSelectedYourOfffDay);
-        progressBar_home_off.setVisibility(View.VISIBLE);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
         empty_view2_off.setVisibility(View.GONE);
@@ -199,21 +208,29 @@ public class OffSwapFragment extends Fragment {
                             SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
                             if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
                                 if (filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
+                                    fab_reset_filter.hide();
                                     swapOffAdapter.add(swapDetails);
+                                    swapOffAdapter.notifyDataSetChanged();
                                 }
                                 if (!filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
+                                    fab_reset_filter.show();
                                     if (swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
                                         swapOffAdapter.add(swapDetails);
+                                        swapOffAdapter.notifyDataSetChanged();
                                     }
                                 }
                                 if (!filterSelectedSwapperOffDay.equals("any day") && filterSelectedYourOfffDay.equals("any day")) {
+                                    fab_reset_filter.show();
                                     if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay)) {
                                         swapOffAdapter.add(swapDetails);
+                                        swapOffAdapter.notifyDataSetChanged();
                                     }
                                 }
                                 if (!filterSelectedSwapperOffDay.equals("any day") && !filterSelectedYourOfffDay.equals("any day")) {
+                                    fab_reset_filter.show();
                                     if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay) && swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
                                         swapOffAdapter.add(swapDetails);
+                                        swapOffAdapter.notifyDataSetChanged();
                                     }
                                 }
                             }
@@ -293,6 +310,7 @@ public class OffSwapFragment extends Fragment {
             listView.setNestedScrollingEnabled(true);
             listView.setVisibility(View.VISIBLE);
             listView.setAdapter(swapOffAdapter);
+            swapOffAdapter.notifyDataSetChanged();
 
 
 //        if (homeSwapButton != null) {
@@ -397,6 +415,17 @@ public class OffSwapFragment extends Fragment {
         fetchData();
         offFilterDialog.dismiss();
 
+        fab_reset_filter.show();
+        fab_reset_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterSelectedYourOfffDay = "any day";
+                filterSelectedSwapperOffDay = "any day";
+                fetchData();
+                fab_reset_filter.hide();
+            }
+        });
+
     }
 
     private void preferredOffHomeSpinner() {
@@ -435,14 +464,12 @@ public class OffSwapFragment extends Fragment {
             case R.id.search_icon:
                 showFilterDialog();
                 return true;
+
             case R.id.notification_icon:
-                getActivity().getSupportFragmentManager().
-                        beginTransaction().
-                        replace(R.id.fragment_container,
-                                new ReceivedSwapsFragment())
-                        .addToBackStack(null)
-                        .commit();
+                Intent intent = new Intent(getContext(), ReceivedSwapsActivity.class);
+                startActivity(intent);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

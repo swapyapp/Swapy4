@@ -114,9 +114,9 @@
     <string name="user_sent_you_request">This user has sent you a request.\ncheck your received requests.</string>
 
     <string name="change_account_user_name">Change Account user name</string>
-    <string name="change_user_email">Change user Email</string>
-    <string name="change_password">Change Password</string>
-    <string name="switch_to_other_company">Switch to other company</string>
+    <string name="change_user_email">Change your Email</string>
+    <string name="change_password">Change your Password</string>
+    <string name="switch_to_other_company">Switch to another Company</string>
     <string name="change_user_image">Change user image</string>
     <string name="link_accounts">Link accounts</string>
     <string name="delete_this_account">Delete this Account</string>
@@ -125,6 +125,11 @@
     <string name="current_off">Current off</string>
     <string name="forget_your_password">Forget Your password?</string>
     <string name="send">SEND</string>
+
+    <string name="your_preferred_day">Your preferred day:</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-4676913002712533/2452250559</string>
+
     <string-array name="company">
         <item>Choose company</item>
         <item>Raya</item>
@@ -349,8 +354,9 @@
     <string name="donee">Done</string>
 
     <!-- Facebook strings -->
-    <string name="facebook_app_id">258364891712339</string>
-    <string name="fb_login_protocol_scheme">fb258364891712339</string>
+    <string name="facebook_app_id">2297208480533976</string>
+    <string name="fb_login_protocol_scheme">fb2297208480533976</string>
+
     <string name="rate_us">Rate us</string>
     <string name="rate">Rate</string>
     <string name="choose_one_to_swap">Choose one to swap</string>
@@ -366,8 +372,21 @@
     <string name="main_title">Swapy</string>
     <string name="received_swaps">Received Swaps</string>
     <string name="sent_swaps">Sent Swaps</string>
-    <string name="accepted_swaps">Accepted Swaps</string>
+    <string name="accepted_shift_swaps">Accepted Shift Swaps</string>
     <string name="sittings">Sittings</string>
     <string name="log_out">Log out</string>
-    <string name="your_preferred_day">Your Preferred Day</string>
+    <string name="fill_your_main_data_here_to_complete_the_sign_up_process">Fill your main Data here to complete the sign up process</string>
+    <string name="finish">Finish</string>
+    <string name="chane_your_name">Change your Name</string>
+    <string name="or_log_in_using_google_or_facebook_account">or log in using Google or Facebook Account</string>
+    <string name="change_account_user_phne">Change  your phone</string>
+    <string name="type_your_new_phone_here">Type your new phone here</string>
+    <string name="change_your_password">Change your password</string>
+    <string name="what_is_your_new_email">what is your new Email?</string>
+    <string name="chane_username">Chane your Username</string>
+    <string name="switch_to_another_company_branch">Switch to another Branch</string>
+    <string name="switch_to_another_account">Switch to another Account</string>
+    <string name="chooseaccount">Choose Account</string>
+    <string name="accpeted_off_swaps">Accepted Off Swaps</string>
+
 </resources>

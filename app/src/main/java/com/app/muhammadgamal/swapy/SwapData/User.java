@@ -5,35 +5,26 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
 
-    private String mUsername,mEmail, mCompany, mBranch, mAccount, mCurrentShift, mProfilePhotoURL, mPhoneNumber;
-    private int mSentRequests, mReceivedRequests, mAcceptedRequests;
+    private String mUsername,mEmail, mCompany, mBranch, mAccount, mProfilePhotoURL, mPhoneNumber;
 
     public  User(){
 
     }
 
-    public User(String username,
-                String email,
-                String phoneNumber,
-                String company,
-                String branch,
-                String account,
-                String currentShift,
-                String profilePhotoURL,
-                int sentRequests,
-                int receivedRequests,
-                int acceptedRequests){
-        mUsername = username;
-        mEmail = email;
-        mPhoneNumber = phoneNumber;
-        mCompany = company;
-        mBranch = branch;
-        mAccount = account;
-        mCurrentShift = currentShift;
-        mProfilePhotoURL = profilePhotoURL;
-        mSentRequests = sentRequests;
-        mReceivedRequests = receivedRequests;
-        mAcceptedRequests = acceptedRequests;
+    public User(String mUsername,
+                String mEmail,
+                String mCompany,
+                String mBranch,
+                String mAccount,
+                String mProfilePhotoURL,
+                String mPhoneNumber) {
+        this.mUsername = mUsername;
+        this.mEmail = mEmail;
+        this.mCompany = mCompany;
+        this.mBranch = mBranch;
+        this.mAccount = mAccount;
+        this.mProfilePhotoURL = mProfilePhotoURL;
+        this.mPhoneNumber = mPhoneNumber;
     }
 
     protected User(Parcel in) {
@@ -42,12 +33,8 @@ public class User implements Parcelable {
         mCompany = in.readString();
         mBranch = in.readString();
         mAccount = in.readString();
-        mCurrentShift = in.readString();
         mProfilePhotoURL = in.readString();
         mPhoneNumber = in.readString();
-        mSentRequests = in.readInt();
-        mReceivedRequests = in.readInt();
-        mAcceptedRequests = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -66,84 +53,56 @@ public class User implements Parcelable {
         return mUsername;
     }
 
-    public String getmCompany() {
-        return mCompany;
-    }
-
-    public String getmBranch() {
-        return mBranch;
-    }
-
-    public String getmAccount() {
-        return mAccount;
-    }
-
-    public String getmCurrentShift() {
-        return mCurrentShift;
-    }
-
-    public String getmPhoneNumber() {
-        return mPhoneNumber;
-    }
-
-    public String getmProfilePhotoURL() {
-        return mProfilePhotoURL;
-    }
-
     public void setmUsername(String mUsername) {
         this.mUsername = mUsername;
+    }
+
+    public String getmEmail() {
+        return mEmail;
+    }
+
+    public void setmEmail(String mEmail) {
+        this.mEmail = mEmail;
+    }
+
+    public String getmCompany() {
+        return mCompany;
     }
 
     public void setmCompany(String mCompany) {
         this.mCompany = mCompany;
     }
 
+    public String getmBranch() {
+        return mBranch;
+    }
+
     public void setmBranch(String mBranch) {
         this.mBranch = mBranch;
+    }
+
+    public String getmAccount() {
+        return mAccount;
     }
 
     public void setmAccount(String mAccount) {
         this.mAccount = mAccount;
     }
 
-    public void setmCurrentShift(String mCurrentShift) {
-        this.mCurrentShift = mCurrentShift;
-    }
-
-    public void setmPhoneNumber(String mPhoneNumber) {
-        this.mPhoneNumber = mPhoneNumber;
+    public String getmProfilePhotoURL() {
+        return mProfilePhotoURL;
     }
 
     public void setmProfilePhotoURL(String mProfilePhotoURL) {
         this.mProfilePhotoURL = mProfilePhotoURL;
     }
 
-    public int getmSentRequests() {
-        return mSentRequests;
+    public String getmPhoneNumber() {
+        return mPhoneNumber;
     }
 
-    public void setmSentRequests(int mSentRequests) {
-        this.mSentRequests = mSentRequests;
-    }
-
-    public int getmReceivedRequests() {
-        return mReceivedRequests;
-    }
-
-    public void setmReceivedRequests(int mReceivedRequests) {
-        this.mReceivedRequests = mReceivedRequests;
-    }
-
-    public int getmAcceptedRequests() {
-        return mAcceptedRequests;
-    }
-
-    public void setmAcceptedRequests(int mAcceptedRequests) {
-        this.mAcceptedRequests = mAcceptedRequests;
-    }
-
-    public String getmEmail() {
-        return mEmail;
+    public void setmPhoneNumber(String mPhoneNumber) {
+        this.mPhoneNumber = mPhoneNumber;
     }
 
     @Override
@@ -152,17 +111,13 @@ public class User implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mUsername);
-        parcel.writeString(mEmail);
-        parcel.writeString(mCompany);
-        parcel.writeString(mBranch);
-        parcel.writeString(mAccount);
-        parcel.writeString(mCurrentShift);
-        parcel.writeString(mProfilePhotoURL);
-        parcel.writeString(mPhoneNumber);
-        parcel.writeInt(mSentRequests);
-        parcel.writeInt(mReceivedRequests);
-        parcel.writeInt(mAcceptedRequests);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mUsername);
+        dest.writeString(mEmail);
+        dest.writeString(mCompany);
+        dest.writeString(mBranch);
+        dest.writeString(mAccount);
+        dest.writeString(mProfilePhotoURL);
+        dest.writeString(mPhoneNumber);
     }
 }

@@ -1,4 +1,4 @@
-package com.app.muhammadgamal.swapy.Activities;
+package com.app.muhammadgamal.swapy.UserSittings;
 
 import android.annotation.TargetApi;
 import android.content.Context;

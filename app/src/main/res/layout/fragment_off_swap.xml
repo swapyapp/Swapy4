@@ -6,88 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-
-        <!--<android.support.v7.widget.CardView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:background="#fafafa"-->
-            <!--app:cardBackgroundColor="@color/white"-->
-            <!--app:cardCornerRadius="16dp"-->
-            <!--app:cardElevation="4dp">-->
-
-            <!--<RelativeLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent">-->
-
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/imgOffFilter"-->
-                    <!--android:layout_width="40dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_alignParentEnd="true"-->
-                    <!--android:layout_alignParentRight="true">-->
-
-                    <!--<ImageView-->
-                        <!--android:layout_width="20dp"-->
-                        <!--android:layout_height="20dp"-->
-                        <!--android:layout_centerInParent="true"-->
-                        <!--android:contentDescription="@string/filter"-->
-                        <!--android:src="@drawable/ic_filter_icon" />-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentStart="true"-->
-                    <!--android:layout_alignParentLeft="true"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_marginStart="10dp"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layoutDirection="rtl"-->
-                    <!--android:orientation="horizontal">-->
-
-
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layoutDirection="ltr"-->
-                        <!--android:orientation="horizontal">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:fontFamily="@font/raleway_semi_bold"-->
-                            <!--android:text="@string/your_preferred_off_day2"-->
-                            <!--android:textColor="#000000"-->
-                            <!--android:textSize="16sp" />-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/selectedPreferredOff"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginStart="2dp"-->
-                            <!--android:layout_marginLeft="2dp"-->
-                            <!--android:textColor="#000000"-->
-                            <!--android:textSize="16sp"-->
-                            <!--android:textStyle="bold"-->
-                            <!--tools:text="@string/any_time" />-->
-                    <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
-
-            <!--</RelativeLayout>-->
-
-        <!--</android.support.v7.widget.CardView>-->
-
-    </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -99,10 +17,27 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="68dp"
             android:clickable="true"
             android:src="@drawable/ic_add_white_24dp"
+            app:backgroundTint="@color/colorPrimary" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add_swap_off_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="68dp"
+            android:clickable="true"
+            android:src="@drawable/ic_reset"
             app:backgroundTint="@color/colorPrimary" />
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -120,6 +55,7 @@
                 android:drawSelectorOnTop="true"
                 android:orientation="vertical" />
         </android.support.v4.widget.SwipeRefreshLayout>
+
 
         <ProgressBar
             android:id="@+id/progressBar_home_off"
@@ -146,7 +82,6 @@
                 android:id="@+id/empty_view_off"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/imgNoConnectionHome"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/raleway_semi_bold"

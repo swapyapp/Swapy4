@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.SittingActivityBody"
-    android:background="#00acc1">
+    tools:context=".UserSittings.SittingActivityBody"
+    android:background="@color/colorPrimary">
 
     <TextView
         android:id="@+id/sitting_body_cancel"
@@ -51,21 +51,19 @@
 
     <EditText
         android:id="@+id/sitting_body_edit_text"
-        android:layout_width="319dp"
+        android:layout_width="265dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#ffffff"
-        android:hint="User Name"
-        android:inputType="textCapSentences|textAutoCorrect"
-        android:textColorHint="#ffffff"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edittext_style"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/editText_text_size"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sittings_body_edit_text_title"
-        app:layout_constraintVertical_bias="0.123" />
-
+        app:layout_constraintVertical_bias="0.158" />
 </android.support.constraint.ConstraintLayout>

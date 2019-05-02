@@ -1,5 +1,6 @@
 package com.app.muhammadgamal.swapy.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -18,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,6 +54,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -64,6 +67,8 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     private CircleImageView userNavImage;
     private ProgressBar progressBarNav;
     public static String currentUserBranch, currentUserAccount;
+
+    private static final String TAG = NavDrawerActivity.class.getName();
 
 
     @Override
@@ -95,6 +100,20 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 R.string.nav_drawer_open, R.string.nav_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        userNavImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getSupportFragmentManager().
+                        beginTransaction().
+                        replace(R.id.fragment_container,
+                                new AccountFragment())
+                        .addToBackStack(null)
+                        .commit();
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
 
         //avoid recreating the fragment when the device is rotated
         if (savedInstanceState == null) {
@@ -133,11 +152,12 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 if (dataSnapshot.exists()) {
                     if (user.getmProfilePhotoURL() != null) {
                         progressBarNav.setVisibility(View.VISIBLE);
-                        Glide.with(NavDrawerActivity.this)
+                        Glide.with(getApplicationContext())
                                 .load(user.getmProfilePhotoURL())
                                 .listener(new RequestListener<Drawable>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        Log.e(TAG, "Load Image from fireBase failed");
                                         progressBarNav.setVisibility(View.GONE);
                                         return false;
                                     }
@@ -153,9 +173,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                     currentUserBranch = user.getmBranch();
                     currentUserAccount = user.getmAccount();
                     navUserCompany.setText(currentUserBranch + ", " + currentUserAccount);
-                    navUserCurrentShift.setText("Current Shift: " + user.getmCurrentShift());
 //                    receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()));
-                    sentSwapRequests.setText(String.valueOf(user.getmSentRequests()));
 //                    acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
 //                  approvedSwapRequests.setText(String.valueOf(user.getmApprovedRequests()));
                 }
@@ -163,9 +181,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 currentUserBranch = user.getmBranch();
                 currentUserAccount = user.getmAccount();
                 navUserCompany.setText(currentUserBranch + ", " + currentUserAccount);
-                navUserCurrentShift.setText("Current Shift: " + user.getmCurrentShift());
-//                receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()));
-                sentSwapRequests.setText(String.valueOf(user.getmSentRequests()));
+//                receivedSwapRequests.setText(String.valueOf(user.getmReceivedRequests()))
 //                acceptedSwapRequests.setText(String.valueOf(user.getmAcceptedRequests()));
 
 
