@@ -164,6 +164,14 @@ public class HomeFragment extends Fragment {
     public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         getActivity().getMenuInflater().inflate(R.menu.nav_bar_items, menu);
+        if (vpPager.getCurrentItem()==0){
+            menu.findItem(R.id.search_icon).setVisible(true);
+        } else if(vpPager.getCurrentItem()==1){
+            menu.findItem(R.id.search_icon).setVisible(true);
+        } else if(vpPager.getCurrentItem()==2){
+            menu.findItem(R.id.search_icon).setVisible(false);
+        }
+        super.onCreateOptionsMenu(menu,inflater);
 
     }
 
@@ -182,6 +190,5 @@ public class HomeFragment extends Fragment {
 //
 //        return super.onOptionsItemSelected(item);
 //    }
-
 
 }
