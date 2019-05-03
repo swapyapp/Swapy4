@@ -116,7 +116,7 @@ public class SignInActivity extends AppCompatActivity {
 
         signInGoogle = findViewById(R.id.signIn_google_btn);
 //        signInGoogle.setSize(SignInButton.SIZE_STANDARD);
-        buttonFacebookLogin = findViewById(R.id.buttonFacebookLogin);
+//        buttonFacebookLogin = findViewById(R.id.buttonFacebookLogin);
         faceBookCallbackManager = CallbackManager.Factory.create();
 
         mAuth = FirebaseAuth.getInstance();
@@ -151,32 +151,32 @@ public class SignInActivity extends AppCompatActivity {
 
         faceBookCallbackManager = CallbackManager.Factory.create();
 
-        buttonFacebookLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                LoginManager.getInstance().logInWithReadPermissions(SignInActivity.this, Arrays.asList("email", "public_profile"));
-                LoginManager.getInstance().registerCallback(faceBookCallbackManager, new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                        handleFacebookAccessToken(loginResult.getAccessToken());
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Log.d(TAG, "facebook:onCancel");
-                        // ...
-                    }
-
-                    @Override
-                    public void onError(FacebookException error) {
-                        Log.d(TAG, "facebook:onError", error);
-                        // ...
-                    }
-                });
-            }
-        });
+//        buttonFacebookLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                LoginManager.getInstance().logInWithReadPermissions(SignInActivity.this, Arrays.asList("email", "public_profile"));
+//                LoginManager.getInstance().registerCallback(faceBookCallbackManager, new FacebookCallback<LoginResult>() {
+//                    @Override
+//                    public void onSuccess(LoginResult loginResult) {
+//                        Log.d(TAG, "facebook:onSuccess:" + loginResult);
+//                        handleFacebookAccessToken(loginResult.getAccessToken());
+//                    }
+//
+//                    @Override
+//                    public void onCancel() {
+//                        Log.d(TAG, "facebook:onCancel");
+//                        // ...
+//                    }
+//
+//                    @Override
+//                    public void onError(FacebookException error) {
+//                        Log.d(TAG, "facebook:onError", error);
+//                        // ...
+//                    }
+//                });
+//            }
+//        });
 
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
