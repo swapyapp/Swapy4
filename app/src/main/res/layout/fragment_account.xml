@@ -11,48 +11,62 @@
         <include layout="@layout/toolbar" />
 
 
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/cover_image_progress_bar"
+            android:layout_width="118dp"
+            android:layout_height="148dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <ImageView
+            android:id="@+id/cover_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
-            <ImageView
-                android:id="@+id/fragment_account_sittings"
-                android:layout_width="29dp"
-                android:layout_height="29dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_sittings" />
+        <ImageView
+            android:id="@+id/fragment_account_sittings"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_sittings" />
 
 
-            <TextView
-                android:id="@+id/fragment_account_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="Ahmed Rabie"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                tools:text="Ahmed Rabie" />
+        <TextView
+            android:id="@+id/fragment_account_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Ahmed Rabie"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            tools:text="Ahmed Rabie" />
 
-            <ImageView
-                android:id="@+id/navDrawerImage"
-                android:layout_width="32dp"
-                android:layout_height="24dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_navigation_white" />
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/navDrawerImage"
+            android:layout_width="32dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_navigation_white" />
+    </RelativeLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/fragment_account_user_image"

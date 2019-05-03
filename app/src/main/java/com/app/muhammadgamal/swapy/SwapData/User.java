@@ -5,12 +5,11 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
 
-    private String mUsername,mEmail, mCompany, mBranch, mAccount, mProfilePhotoURL, mPhoneNumber;
+    private String mUsername,mEmail, mCompany, mBranch, mAccount, mProfilePhotoURL,mCoverPhotoURL, mPhoneNumber;
 
     public  User(){
 
     }
-
     public User(String mUsername,
                 String mEmail,
                 String mCompany,
@@ -27,6 +26,24 @@ public class User implements Parcelable {
         this.mPhoneNumber = mPhoneNumber;
     }
 
+    public User(String mUsername,
+                String mEmail,
+                String mCompany,
+                String mBranch,
+                String mAccount,
+                String mProfilePhotoURL,
+                String mCoverPhotoURL,
+                String mPhoneNumber) {
+        this.mUsername = mUsername;
+        this.mEmail = mEmail;
+        this.mCompany = mCompany;
+        this.mBranch = mBranch;
+        this.mAccount = mAccount;
+        this.mProfilePhotoURL = mProfilePhotoURL;
+        this.mCoverPhotoURL = mCoverPhotoURL;
+        this.mPhoneNumber = mPhoneNumber;
+    }
+
     protected User(Parcel in) {
         mUsername = in.readString();
         mEmail = in.readString();
@@ -34,6 +51,7 @@ public class User implements Parcelable {
         mBranch = in.readString();
         mAccount = in.readString();
         mProfilePhotoURL = in.readString();
+        mCoverPhotoURL = in.readString();
         mPhoneNumber = in.readString();
     }
 
@@ -48,6 +66,14 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+    public void setmCoverPhotoURL(String mCoverPhotoURL) {
+        this.mCoverPhotoURL = mCoverPhotoURL;
+    }
+
+    public String getmCoverPhotoURL() {
+        return mCoverPhotoURL;
+    }
 
     public String getmUsername() {
         return mUsername;

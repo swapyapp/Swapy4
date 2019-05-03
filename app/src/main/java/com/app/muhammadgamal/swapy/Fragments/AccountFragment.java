@@ -67,16 +67,16 @@ public class AccountFragment extends Fragment {
     private TextView userMail;
     private TextView userPhone;
     private TextView userSwapNumber;
-    private ProgressBar progressBarAccount;
+    private ProgressBar progressBarAccount, progressBarCoverImage;
     private DatabaseReference userRef;
-    private ImageView sittingsActivity, navDrawerImage;
+    private ImageView sittingsActivity, navDrawerImage, coverProfile;
     static int PReqCode = 1;
-    static int REQUESTCODE = 1;
+    static int REQUESTCODE = 1, REQUESTCODE2 = 2;
     private String profileImageUrl;
-    private Uri pickedImageUri;
+    private Uri pickedImageUri,pickedImageCoverUri ;
     private DrawerLayout drawer;
     private ImageView changeEmail, ChangeAccount;
-    private  UploadTask uploadTask;
+    private  UploadTask uploadTask, uploadTaskCover;
 
     private static final String TAG = AccountFragment.class.getName();
 
@@ -103,6 +103,10 @@ public class AccountFragment extends Fragment {
         userName = rootView.findViewById(R.id.fragment_account_user_name);
         userPhone = rootView.findViewById(R.id.fragment_account_phone);
         userMail = rootView.findViewById(R.id.fragment_account_email);
+        coverProfile = rootView.findViewById(R.id.cover_image);
+        progressBarCoverImage = rootView.findViewById(R.id.cover_image_progress_bar);
+
+
 
         sittingsActivity = rootView.findViewById(R.id.fragment_account_sittings);
         sittingsActivity.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +141,13 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        coverProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    openGalleryForeCover();
+                }
+        });
+
         return rootView;
     }
 
@@ -165,6 +176,15 @@ public class AccountFragment extends Fragment {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUESTCODE);
     }
 
+    private void openGalleryForeCover() {
+        Intent intent = new Intent();
+        // Show only images, no videos or anything else
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        // Always show the chooser (if there are multiple options available)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUESTCODE2);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -181,7 +201,21 @@ public class AccountFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else if (resultCode == RESULT_OK && requestCode == REQUESTCODE2 && data != null && data.getData() != null){
+            //user choose the image
+            //replace the image in the UI
+            pickedImageCoverUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), pickedImageCoverUri);
+                coverProfile.setVisibility(View.INVISIBLE);
+                progressBarCoverImage.setVisibility(View.VISIBLE);
+                uploadProfileCoverToFirebase();
+                coverProfile.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     private void uploadProfileImageToFirebase() {
@@ -259,6 +293,81 @@ public class AccountFragment extends Fragment {
 
     }
 
+    private void uploadProfileCoverToFirebase() {
+        String fileName = UUID.randomUUID().toString();
+        final StorageReference profileImageRef =
+                FirebaseStorage.getInstance().getReference("profileCovers/" + fileName + ".jpg");
+        if (pickedImageCoverUri != null) {
+
+            uploadTaskCover = profileImageRef.putFile(pickedImageCoverUri);
+
+            // Register observers to listen for when the download is done or if it fails
+            uploadTaskCover.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+//                    userImage.setVisibility(View.VISIBLE);
+//                    progressBarAccount.setVisibility(View.INVISIBLE);
+//                    Toast.makeText(getContext(), "Image uploading failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                    // ...
+//                    userImage.setVisibility(View.VISIBLE);
+//                    progressBarAccount.setVisibility(View.INVISIBLE);
+//                    Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
+
+
+                }
+
+            });
+
+            Task<Uri> urlTask = uploadTaskCover.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return profileImageRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        profileImageUrl = downloadUri.toString();
+                        userRef.child("mProfileCoverURL").setValue(profileImageUrl).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                progressBarCoverImage.setVisibility(View.INVISIBLE);
+                                coverProfile.setVisibility(View.VISIBLE);
+                                Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressBarCoverImage.setVisibility(View.INVISIBLE);
+                                coverProfile.setVisibility(View.VISIBLE);
+                                Toast.makeText(getContext(), "Image uploading failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    } else {
+                        // Handle failures
+                        // ...
+                    }
+                }
+            });
+        }
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -315,6 +424,28 @@ public class AccountFragment extends Fragment {
                             progressBarAccount.setVisibility(View.GONE);
                         }
                     }
+                        if (user.getmCoverPhotoURL() != null) {
+                            Glide.with(getContext())
+                                    .load(user.getmCoverPhotoURL())
+                                    .listener(new RequestListener<Drawable>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                            progressBarCoverImage.setVisibility(View.GONE);
+                                            Log.e(TAG, "Load Image from fireBase failed");
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                            progressBarCoverImage.setVisibility(View.GONE);
+                                            return false;
+                                        }
+                                    })
+                                    .into(coverProfile);
+                        }else {
+                            progressBarCoverImage.setVisibility(View.GONE);
+                        }
+
 
                 }
             }

@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     private TextView receivedSwapRequests, sentSwapRequests, acceptedSwapRequests, approvedSwapRequests, navUsername, navUserCompany, navUserCurrentShift;
     private FirebaseAuth mAuth;
     private CircleImageView userNavImage;
+    private ImageView coverImageNavbar;
     private ProgressBar progressBarNav;
     public static String currentUserBranch, currentUserAccount;
 
@@ -94,6 +96,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         navUsername = (TextView) headerLayout.findViewById(R.id.navUsername);
         navUserCompany = (TextView) headerLayout.findViewById(R.id.navUserCompany);
         navUserCurrentShift = (TextView) headerLayout.findViewById(R.id.navUserCurrentShift);
+        coverImageNavbar = findViewById(R.id.cover_image_nav_bar);
 
         //handle the toggle animation
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
@@ -169,6 +172,24 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                                 })
                                 .into(userNavImage);
                     }
+                    if (user.getmCoverPhotoURL() != null) {
+                        Glide.with(getApplicationContext())
+                                .load(user.getmCoverPhotoURL())
+                                .listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        Log.e(TAG, "Load Image from fireBase failed");
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        return false;
+                                    }
+                                })
+                                .into(coverImageNavbar);
+                    }
+
                     navUsername.setText(user.getmUsername());
                     currentUserBranch = user.getmBranch();
                     currentUserAccount = user.getmAccount();
