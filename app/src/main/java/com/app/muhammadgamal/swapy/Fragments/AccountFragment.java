@@ -141,12 +141,12 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        coverProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    openGalleryForeCover();
-                }
-        });
+//        coverProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                    openGalleryForeCover();
+//                }
+//        });
 
         return rootView;
     }
