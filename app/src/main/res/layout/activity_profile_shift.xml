@@ -88,7 +88,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/raleway_medium"
-                            android:text="@string/company"
+                            android:text="@string/branch1"
                             android:textColor="@color/commonBlackTextColor"
                             android:textSize="18sp" />
 

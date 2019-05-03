@@ -389,5 +389,6 @@
     <string name="switch_to_another_account">Switch to another Account</string>
     <string name="chooseaccount">Choose Account</string>
     <string name="accpeted_off_swaps">Accepted Off Swaps</string>
+    <string name="branch1">Branch</string>
 
 </resources>

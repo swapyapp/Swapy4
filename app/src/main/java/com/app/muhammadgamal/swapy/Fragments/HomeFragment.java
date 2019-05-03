@@ -109,9 +109,9 @@ public class HomeFragment extends Fragment {
     }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
-        private String tabTitles[] = new String[]{"Shift Swaps", "Off Swaps","Accepted Swaps"};
+        private String tabTitles[] = new String[]{"Shift", "Off","Accepted shift", "Accepted off"};
 
-        private int NUM_ITEMS = 3;
+        private int NUM_ITEMS = 4;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -132,7 +132,9 @@ public class HomeFragment extends Fragment {
                 case 1: // Fragment # 0 - This will show FirstFragment different title
                     return new OffSwapFragment();
                 case 2:
-                     return new AcceptedShiftAndOffSwapsFragment();
+                     return new AcceptedShiftSwapFragment();
+                case 3:
+                    return new AcceptedOffSwapFragment();
                 default:
                     return null;
             }
