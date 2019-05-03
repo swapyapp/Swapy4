@@ -35,15 +35,15 @@ public class AcceptedShiftAndOffSwapsFragment extends Fragment {
                     .add(R.id.accepted_shift_swaps_container, firstFragment).commit();
         }
 
-//        if (rootView.findViewById(R.id.accepted_off_swaps_container) != null) {
-//
-//            // Create a new Fragment to be placed in the activity layout
-//            AcceptedOffSwapFragment secondFragment = new AcceptedOffSwapFragment();
-//
-//            // Add the fragment to the 'fragment_container' FrameLayout
-//            getFragmentManager().beginTransaction()
-//                    .add(R.id.accepted_off_swaps_container, secondFragment).commit();
-//        }
+        if (rootView.findViewById(R.id.accepted_off_swaps_container) != null) {
+
+            // Create a new Fragment to be placed in the activity layout
+            AcceptedOffSwapFragment secondFragment = new AcceptedOffSwapFragment();
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+            getFragmentManager().beginTransaction()
+                    .add(R.id.accepted_off_swaps_container, secondFragment).commit();
+        }
 
         // Inflate the layout for this fragment
         return rootView;

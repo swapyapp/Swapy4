@@ -68,9 +68,9 @@ public class AcceptedOffSwapFragment extends Fragment implements SwipeRefreshLay
         rootView = inflater.inflate(R.layout.fragment_off_accepted_swap, container, false);
 
         progressBar_accepted_off = rootView.findViewById(R.id.progressBar_accepted_off);
-        empty_view_accepted_off = rootView.findViewById(R.id.empty_view_received_off);
+        empty_view_accepted_off = rootView.findViewById(R.id.empty_view_accepted_off);
         empty_view2_accepted_off = rootView.findViewById(R.id.empty_view2_accepted_off);
-        offImgNoConnectionAccepted = rootView.findViewById(R.id.offImgNoConnectionReceived);
+        offImgNoConnectionAccepted = rootView.findViewById(R.id.offImgNoConnectionAccepted);
         progressBar_accepted_off.setVisibility(View.VISIBLE);
         empty_view2_accepted_off.setVisibility(View.GONE);
         offImgNoConnectionAccepted.setVisibility(View.GONE);

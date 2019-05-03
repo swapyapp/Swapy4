@@ -45,7 +45,7 @@
             android:id="@+id/empty_view_accepted_off"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgNoConnectionAccepted"
+            android:layout_below="@id/offImgNoConnectionAccepted"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/raleway_semi_bold"
