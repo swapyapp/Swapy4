@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.R;
+import com.app.muhammadgamal.swapy.SpinnersLestiners.CompanyListinerAccount;
 import com.app.muhammadgamal.swapy.SpinnersLestiners.CompanySpinnerLestiner;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -75,6 +76,6 @@ public class ChangeCompany extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.company, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         changeCompanySpinner.setAdapter(adapter);
-        changeCompanySpinner.setOnItemSelectedListener(new CompanySpinnerLestiner());
+        changeCompanySpinner.setOnItemSelectedListener(new CompanyListinerAccount());
     }
 }
