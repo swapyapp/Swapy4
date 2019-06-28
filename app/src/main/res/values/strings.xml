@@ -390,5 +390,8 @@
     <string name="chooseaccount">Choose Account</string>
     <string name="accpeted_off_swaps">Accepted Off Swaps</string>
     <string name="branch1">Branch</string>
+    <string name="label_search">Search For Swaps</string>
+    <string name="description_search">You can search for diseried Swaps by Date or day or prefered Swaper Time</string>
+    <string name="or_sign_up_using_google_account">or sign up using google account</string>
 
 </resources>

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -44,6 +45,9 @@ import com.app.muhammadgamal.swapy.SpinnersLestiners.YourPreferredDaySpinnerLest
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.User;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -58,6 +62,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+
 
 
     private static int YOUR_PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
@@ -177,6 +182,8 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                 startActivity(intent);
             }
         });
+
+
         fetchData();
         //showHideWhenScroll();
         return rootView;
@@ -680,16 +687,16 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
                 showFilterDialog();
                 //Toast.makeText(getActivity(), "Calls Icon Click", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.notification_icon:
-//                getActivity().getSupportFragmentManager().
-//                        beginTransaction().
-//                        replace(R.id.fragment_container,
-//                                new ReceivedSwapsFragment())
-//                        .addToBackStack(null)
-//                        .commit();
-                Intent intent = new Intent(getContext(), ReceivedSwapsActivity.class);
-                startActivity(intent);
-                return true;
+//            case R.id.notification_icon:
+////                getActivity().getSupportFragmentManager().
+////                        beginTransaction().
+////                        replace(R.id.fragment_container,
+////                                new ReceivedSwapsFragment())
+////                        .addToBackStack(null)
+////                        .commit();
+//                Intent intent = new Intent(getContext(), ReceivedSwapsActivity.class);
+//                startActivity(intent);
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

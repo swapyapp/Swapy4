@@ -331,19 +331,25 @@ public class ProfileActivityShift extends AppCompatActivity {
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
                         if (dataSnapshot.exists()) {
-                            if (swapDetails.getSwapperID().equals(fromID)) {
-                                INT = 1;
-                                shiftProfileDialog.dismiss();
-                            } else {
-                                if (INT != 1){
+//                            if (swapDetails.getSwapperID().equals(fromID)) {
+//                                INT = 1;
+//                                shiftProfileDialog.dismiss();
+//                            } else {
+                                if (INT == 0){
                                     shiftProfileDialog.show();
                                     buttonSwapRequest.setVisibility(View.VISIBLE);
                                     progressBar.setVisibility(View.INVISIBLE);
+                                    if (swapDetails.getSwapperID().equals(fromID)) {
+                                         INT = 1;
+                                         shiftProfileDialog.dismiss();
+                                    }
+                                    if (swapDetails.getSwapperID().isEmpty() && INT != 1){
+                                        shiftProfileDialog.show();
+                                    }
                                 }
                             }
-
                         }
-                    }
+                    //}
 
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -368,9 +374,9 @@ public class ProfileActivityShift extends AppCompatActivity {
                 if (INT == 1){
                     chooseShiftProfileDialog.show();
                     fetchChooseList();
+                }else if (INT != 1){
+                    shiftProfileDialog.show();
                 }
-
-
             }
         });
 

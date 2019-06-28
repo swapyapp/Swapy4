@@ -19,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -49,6 +50,9 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,7 +83,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_nav_drawer);
 
         mAuth = FirebaseAuth.getInstance();
-
 
 
         //to handle the menu item clicks in the navigation drawer
@@ -139,7 +142,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         initializeCountDrawer();
 
         loadUserInfo();
-
 
     }
 
