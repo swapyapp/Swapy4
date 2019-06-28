@@ -200,6 +200,11 @@
             android:layout_gravity="center"
             android:gravity="center">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/or_sign_up_using_google_account"/>
+
             <Button
                 android:id="@+id/signIn_google_btn"
                 android:layout_width="280dp"

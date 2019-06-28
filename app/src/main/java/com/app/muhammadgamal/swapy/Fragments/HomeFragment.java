@@ -1,5 +1,6 @@
 package com.app.muhammadgamal.swapy.Fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,10 +26,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.muhammadgamal.swapy.FragmentWithViewPager;
+import com.app.muhammadgamal.swapy.Notifications.ReceivedSwapsActivity;
 import com.app.muhammadgamal.swapy.R;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeFragment extends Fragment {
 
@@ -39,6 +50,16 @@ public class HomeFragment extends Fragment {
     private  ViewPager vpPager;
     private DrawerLayout drawer;
     public ImageView searchIcon;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mSwapRequestsShift;
+    private DatabaseReference mSwapRequestsOff;
+    private static int NEW_REQUEST =0;
+    private FirebaseAuth mAuth;
+    private String userId;
+    private TextView notificationCounter;
+    private ImageView notificationImage;
+
+
 
     private int[] tabIcons = {
 //            R.drawable.ic_shift_whit,
@@ -63,6 +84,46 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.main_title);
+
+        //notificationCounter = rootView.findViewById(R.id.notification_counter);
+        notificationImage = rootView.findViewById(R.id.toolbar_notification_img);
+
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mSwapRequestsShift = mFirebaseDatabase.getReference().child("Swap Requests").child("Off Request");
+        mSwapRequestsOff = mFirebaseDatabase.getReference().child("Swap Requests").child("Shift Request");
+
+        DatabaseReference userShiftRequest = mSwapRequestsShift.child(userId);
+        userShiftRequest.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    //NEW_REQUEST++;
+                   // notificationCounter.setText(String.valueOf(NEW_REQUEST));
+                   // notificationCounter.setTextColor(Color.RED);
+                    notificationImage.setImageResource(R.drawable.ic_notification_red);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        notificationImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //NEW_REQUEST = 0;
+                //notificationCounter.setTextColor(Color.WHITE);
+                notificationImage.setImageResource(R.drawable.ic_notification);
+                 startActivity(new Intent(getContext(), ReceivedSwapsActivity.class));
+
+            }
+        });
+
 
         vpPager = (ViewPager) rootView.findViewById(R.id.vpPager);
         adapterViewPager = new MyPagerAdapter(getChildFragmentManager());

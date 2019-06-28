@@ -463,10 +463,10 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 showFilterDialog();
                 return true;
 
-            case R.id.notification_icon:
-                Intent intent = new Intent(getContext(), ReceivedSwapsActivity.class);
-                startActivity(intent);
-                return true;
+//            case R.id.notification_icon:
+//                Intent intent = new Intent(getContext(), ReceivedSwapsActivity.class);
+//                startActivity(intent);
+//                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

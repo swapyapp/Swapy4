@@ -12,17 +12,17 @@
         android:layout_height="28dp"
         android:src="@drawable/ic_notification" />
 
-    <TextView
-        android:id="@+id/notification_counter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4sp"
-        android:fontFamily="sans-serif"
-        tools:text="0"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:typeface="sans" />
+    <!--<TextView-->
+        <!--android:id="@+id/notification_counter"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="4sp"-->
+        <!--android:fontFamily="sans-serif"-->
+        <!--tools:text="0"-->
+        <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="14sp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:typeface="sans" />-->
 
 </LinearLayout>
