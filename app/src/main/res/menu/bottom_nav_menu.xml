@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/accepted_shift_swaps"
+        android:icon="@drawable/ic_shift_whit"
+        android:title="@string/accepted_shifts" />
+
+    <item
+        android:id="@+id/accepted_off_swaps"
+        android:icon="@drawable/ic_off_whit"
+        android:title="@string/accpeted_off" />
+</menu>

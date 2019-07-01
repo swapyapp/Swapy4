@@ -4,14 +4,14 @@
     android:color="@color/colorAccent">
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
-            <solid android:color="#0081cb" />
+            <solid android:color="#578E92" />
             <corners android:radius="36dp" />
         </shape>
     </item>
 
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
-            <solid android:color="#0081cb" />
+            <solid android:color="#578E92" />
             <corners android:radius="36dp" />
         </shape>
     </item>

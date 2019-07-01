@@ -393,5 +393,7 @@
     <string name="label_search">Search For Swaps</string>
     <string name="description_search">You can search for diseried Swaps by Date or day or prefered Swaper Time</string>
     <string name="or_sign_up_using_google_account">or sign up using google account</string>
+    <string name="accpeted_off">Accepted off</string>
+    <string name="accepted_shifts">Accepted shifts</string>
 
 </resources>

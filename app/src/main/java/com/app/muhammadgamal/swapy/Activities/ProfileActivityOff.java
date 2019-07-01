@@ -287,18 +287,25 @@ public class ProfileActivityOff extends AppCompatActivity {
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
                         if (dataSnapshot.exists()) {
-                            if (swapDetails.getSwapperID().equals(fromID)) {
-                                INT = 1;
-                            } else {
+//                            if (swapDetails.getSwapperID().equals(fromID)) {
+//                                INT = 1;
+//                            } else {
                                 if(INT != 1){
                                     offProfileDialog.show();
                                     chooseOffProfileDialog.show();
                                     buttonSwapRequestOffProfile.setVisibility(View.VISIBLE);
                                     progressBar_off_profile.setVisibility(View.INVISIBLE);
+                                    if (swapDetails.getSwapperID().equals(fromID)) {
+                                        INT = 1;
+                                        offProfileDialog.dismiss();
+                                    }
+                                    if (swapDetails.getSwapperID().isEmpty() && INT != 1){
+                                        offProfileDialog.show();
+                                    }
                                 }
                             }
                         }
-                    }
+                   // }
 
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -325,6 +332,8 @@ public class ProfileActivityOff extends AppCompatActivity {
                     chooseOffProfileDialog.show();
                     progressBar_off_profile.setVisibility(View.INVISIBLE);
                     fetchChooseList();
+                }else if (INT != 1){
+                    offProfileDialog.show();
                 }
             }
         });
