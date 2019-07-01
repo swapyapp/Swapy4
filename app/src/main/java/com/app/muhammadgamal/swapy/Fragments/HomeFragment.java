@@ -18,6 +18,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,6 +36,7 @@ import com.app.muhammadgamal.swapy.R;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +60,7 @@ public class HomeFragment extends Fragment {
     private String userId;
     private TextView notificationCounter;
     private ImageView notificationImage;
+    private static final String TAG = HomeFragment.class.getName();
 
 
 
@@ -96,33 +99,30 @@ public class HomeFragment extends Fragment {
         mSwapRequestsOff = mFirebaseDatabase.getReference().child("Swap Requests").child("Shift Request");
 
         DatabaseReference userShiftRequest = mSwapRequestsShift.child(userId);
-        userShiftRequest.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    //NEW_REQUEST++;
-                   // notificationCounter.setText(String.valueOf(NEW_REQUEST));
-                   // notificationCounter.setTextColor(Color.RED);
-                    notificationImage.setImageResource(R.drawable.ic_notification_red);
+//        ValueEventListener requestListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    NEW_REQUEST = 1;
+//                    if (NEW_REQUEST == 1) {
+//                        notificationImage.setImageResource(R.drawable.ic_notification_red);
+//                    } else {
+//                        notificationImage.setImageResource(R.drawable.ic_notification);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+//
+//            }
+//        };
+//        userShiftRequest.addValueEventListener(requestListener);
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        notificationImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //NEW_REQUEST = 0;
-                //notificationCounter.setTextColor(Color.WHITE);
-                notificationImage.setImageResource(R.drawable.ic_notification);
-                 startActivity(new Intent(getContext(), ReceivedSwapsActivity.class));
-
-            }
-        });
 
 
         vpPager = (ViewPager) rootView.findViewById(R.id.vpPager);
@@ -152,6 +152,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        notificationImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                NEW_REQUEST = 0;
+                //notificationCounter.setTextColor(Color.WHITE);
+//                notificationImage.setImageResource(R.drawable.ic_notification);
+                startActivity(new Intent(getContext(), ReceivedSwapsActivity.class));
+
+            }
+        });
 
         return rootView;
     }
@@ -172,7 +182,7 @@ public class HomeFragment extends Fragment {
     public class MyPagerAdapter extends FragmentPagerAdapter {
         private String tabTitles[] = new String[]{"Shift", "Off","Accepted shift", "Accepted off"};
 
-        private int NUM_ITEMS = 4;
+        private int NUM_ITEMS = 3;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -193,9 +203,7 @@ public class HomeFragment extends Fragment {
                 case 1: // Fragment # 0 - This will show FirstFragment different title
                     return new OffSwapFragment();
                 case 2:
-                     return new AcceptedShiftSwapFragment();
-                case 3:
-                    return new AcceptedOffSwapFragment();
+                     return new AcceptedShiftAndOffSwapsFragment();
                 default:
                     return null;
             }

@@ -1,8 +1,8 @@
 package com.app.muhammadgamal.swapy.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +15,33 @@ import com.app.muhammadgamal.swapy.R;
 
 public class AcceptedShiftAndOffSwapsFragment extends Fragment {
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.accepted_shift_swaps:
+                    getFragmentManager().
+                            beginTransaction().
+                            replace(R.id.accepted_swaps_frame,
+                                    new AcceptedShiftSwapFragment())
+                            .addToBackStack(null)
+                            .commit();
+                    return true;
+                case R.id.accepted_off_swaps:
+                    getFragmentManager().
+                            beginTransaction().
+                            replace(R.id.accepted_swaps_frame,
+                                    new AcceptedOffSwapFragment())
+                            .addToBackStack(null)
+                            .commit();
+                    return true;
+            }
+            return false;
+        }
+    };
+
 
     private View rootView;
 
@@ -23,27 +50,15 @@ public class AcceptedShiftAndOffSwapsFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_accepted_shift_and_off_swaps, container, false);
 
-        // Check that the activity is using the layout version with
-        // the fragment_container FrameLayout
-        if (rootView.findViewById(R.id.accepted_shift_swaps_container) != null) {
+        BottomNavigationView navView = rootView.findViewById(R.id.nav_view_bottom);
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-            // Create a new Fragment to be placed in the activity layout
-            AcceptedShiftSwapFragment firstFragment = new AcceptedShiftSwapFragment();
-
-            // Add the fragment to the 'fragment_container' FrameLayout
-            getFragmentManager().beginTransaction()
-                    .add(R.id.accepted_shift_swaps_container, firstFragment).commit();
-        }
-
-        if (rootView.findViewById(R.id.accepted_off_swaps_container) != null) {
-
-            // Create a new Fragment to be placed in the activity layout
-            AcceptedOffSwapFragment secondFragment = new AcceptedOffSwapFragment();
-
-            // Add the fragment to the 'fragment_container' FrameLayout
-            getFragmentManager().beginTransaction()
-                    .add(R.id.accepted_off_swaps_container, secondFragment).commit();
-        }
+        getFragmentManager().
+                beginTransaction().
+                replace(R.id.accepted_swaps_frame,
+                        new AcceptedShiftSwapFragment())
+                .addToBackStack(null)
+                .commit();
 
         // Inflate the layout for this fragment
         return rootView;
