@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
     }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
-        private String tabTitles[] = new String[]{"Shift", "Off","Accepted shift", "Accepted off"};
+        private String tabTitles[] = new String[]{"Shift", "Off","Accepted Swaps"};
 
         private int NUM_ITEMS = 3;
 

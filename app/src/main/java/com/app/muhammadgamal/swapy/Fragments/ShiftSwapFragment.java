@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -420,6 +421,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             listView.refreshDrawableState();
             listView.setAdapter(swapAdapter);
             swapAdapter.notifyDataSetChanged();
+
 
 
 
