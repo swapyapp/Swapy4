@@ -9,12 +9,10 @@
     >
 
 
-
     <FrameLayout
         android:id="@+id/home_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/home_fragment_Appbar"
@@ -22,7 +20,15 @@
         android:layout_height="wrap_content"
         android:elevation="6dp">
 
-
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/main.collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginBottom="64dp"
+            app:expandedTitleMarginEnd="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/home_fragment_toolBar"
@@ -57,6 +63,7 @@
                     android:layout_height="28dp"/>
 
             </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout_home"
@@ -68,13 +75,8 @@
             app:tabTextColor="@color/com_facebook_button_background_color_focused">
 
         </android.support.design.widget.TabLayout>
+
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vpPager"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
 
 </android.support.design.widget.CoordinatorLayout>
