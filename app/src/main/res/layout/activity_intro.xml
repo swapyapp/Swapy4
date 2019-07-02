@@ -18,19 +18,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_next"
+    <LinearLayout
+        android:id="@+id/next_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
-        android:background="#fff"
-        android:drawableRight="@drawable/ic_arrow_forward_black_24dp"
-        android:drawableTint="@color/gradient_start_color"
-        android:text="Next"
-        android:textColor="@color/gradient_start_color"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/raleway_semi_bold"
+            android:paddingEnd="8dp"
+            android:text="Next"
+            android:textColor="@color/gradient_start_color"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_arrow_forward_black_24dp"
+            android:tint="@color/gradient_start_color" />
+
+    </LinearLayout>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_indicator"
@@ -55,7 +69,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/btn_gradient_style"
+        android:background="@drawable/btn_style"
         android:fontFamily="@font/raleway_semi_bold"
         android:text="Get Stated"
         android:textAllCaps="false"

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.app.muhammadgamal.swapy.Adapters.IntroViewPagerAdapter;
 import com.app.muhammadgamal.swapy.R;
@@ -25,9 +26,10 @@ public class IntroActivity extends AppCompatActivity {
     private ViewPager screen_viewpager;
     private IntroViewPagerAdapter introViewPagerAdapter;
     private TabLayout tab_indicator;
-    private Button btn_next, btn_get_started;
+    private Button btn_get_started;
     private int position;
     private Animation btnAnim;
+    private LinearLayout next_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +60,10 @@ public class IntroActivity extends AppCompatActivity {
 
         btnAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_animation);
 
-        btn_next = findViewById(R.id.btn_next);
-        btn_next.setOnClickListener(new View.OnClickListener() {
+        next_layout = findViewById(R.id.next_layout);
+        next_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 position = screen_viewpager.getCurrentItem();
                 if (position < mList.size()) {
                     position++;
@@ -74,7 +75,6 @@ public class IntroActivity extends AppCompatActivity {
                     loadLastScreen();
 
                 }
-
             }
         });
 
@@ -98,7 +98,7 @@ public class IntroActivity extends AppCompatActivity {
                 if (tab.getPosition() == mList.size() - 1) {
                     loadLastScreen();
                 } else {
-                    btn_next.setVisibility(View.VISIBLE);
+                    next_layout.setVisibility(View.VISIBLE);
                     btn_get_started.setVisibility(View.INVISIBLE);
                     tab_indicator.setVisibility(View.VISIBLE);
                 }
@@ -137,7 +137,7 @@ public class IntroActivity extends AppCompatActivity {
 
     private void loadLastScreen() {
 
-        btn_next.setVisibility(View.INVISIBLE);
+        next_layout.setVisibility(View.INVISIBLE);
         btn_get_started.setVisibility(View.VISIBLE);
         tab_indicator.setVisibility(View.INVISIBLE);
 
