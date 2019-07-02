@@ -1,0 +1,52 @@
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"colorPrimary\">#6AAEB9</color>\r\n    <color name=\"colorPrimaryDark\">#578E92  </color>\r\n    <color name=\"colorAccent\">#E8F7FA</color>\r\n    <color name=\"commonBlackTextColor\">#989898</color>\r\n    <color name=\"darkerBlue\">#2681FB</color>\r\n    <color name=\"startblue\">#007c91</color>\r\n    <color name=\"endblue\">#0bcce6</color>\r\n    <color name=\"red\">#ff0000</color>\r\n    <color name=\"white\">#ffffff</color>\r\n    <color name=\"graylight\">#fafafa</color>\r\n    <color name=\"grayCommon\">#787878</color>\r\n    <color name=\"background\">#a4a4a4</color>\r\n    <color name=\"googleButton\">#D83028</color>\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/colors.xml	(revision 45a4598cb3a284fa8f1eb24226edf5c3b1692023)
++++ app/src/main/res/values/colors.xml	(date 1562020195944)
+@@ -11,6 +11,6 @@
+     <color name="white">#ffffff</color>
+     <color name="graylight">#fafafa</color>
+     <color name="grayCommon">#787878</color>
+-    <color name="background">#a4a4a4</color>
++    <color name="background">#E8F7FA</color>
+     <color name="googleButton">#D83028</color>
+ </resources>
+Index: app/src/main/res/layout/activity_nav_drawer.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<android.support.v4.widget.DrawerLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/drawer_layout\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".Activities.NavDrawerActivity\"\r\n    android:layoutDirection=\"ltr\"\r\n    tools:openDrawer=\"start\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layoutDirection=\"ltr\"\r\n        android:orientation=\"vertical\">\r\n\r\n\r\n        <FrameLayout\r\n            android:id=\"@+id/fragment_container\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\" />\r\n\r\n    </LinearLayout>\r\n\r\n    <android.support.design.widget.NavigationView\r\n        android:id=\"@+id/nav_view\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layout_gravity=\"start\"\r\n        android:background=\"#ffffff\"\r\n        app:itemIconTint=\"@color/colorPrimaryDark\"\r\n        app:itemTextColor=\"@color/colorPrimary\"\r\n        app:menu=\"@menu/nav\"\r\n        android:layoutDirection=\"ltr\" />\r\n\r\n</android.support.v4.widget.DrawerLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_nav_drawer.xml	(revision 45a4598cb3a284fa8f1eb24226edf5c3b1692023)
++++ app/src/main/res/layout/activity_nav_drawer.xml	(date 1562022187876)
+@@ -23,6 +23,8 @@
+ 
+     </LinearLayout>
+ 
++    <include layout="@layout/fragment_home"/>
++
+     <android.support.design.widget.NavigationView
+         android:id="@+id/nav_view"
+         android:layout_width="wrap_content"
+Index: app/src/main/res/layout/fragment_accepted_shift_and_off_swaps.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n    <android.support.constraint.ConstraintLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\">\r\n\r\n        <FrameLayout\r\n            android:id=\"@+id/accepted_swaps_frame\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n        </FrameLayout>\r\n\r\n    <android.support.design.widget.BottomNavigationView\r\n        android:id=\"@+id/nav_view_bottom\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:background=\"@color/colorPrimary\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:menu=\"@menu/bottom_nav_menu\"\r\n        android:foreground=\"?attr/selectableItemBackground\"\r\n        app:itemTextColor=\"@color/white\"\r\n        />\r\n</android.support.constraint.ConstraintLayout>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_accepted_shift_and_off_swaps.xml	(revision 45a4598cb3a284fa8f1eb24226edf5c3b1692023)
++++ app/src/main/res/layout/fragment_accepted_shift_and_off_swaps.xml	(date 1562019212974)
+@@ -14,7 +14,6 @@
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent">
+-
+         </FrameLayout>
+ 
+     <android.support.design.widget.BottomNavigationView

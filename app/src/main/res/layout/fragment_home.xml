@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     >
 
+
     <FrameLayout
         android:id="@+id/home_fragment_container"
         android:layout_width="match_parent"
@@ -17,7 +18,17 @@
         android:id="@+id/home_fragment_Appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-            android:elevation="6dp">
+        android:elevation="6dp">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/main.collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginBottom="64dp"
+            app:expandedTitleMarginEnd="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/home_fragment_toolBar"
@@ -27,8 +38,8 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:elevation="0dp"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:elevation="6dp"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             >
 
             <ImageView
@@ -52,6 +63,7 @@
                 android:layout_height="28dp"/>
 
         </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout_home"
@@ -66,11 +78,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vpPager"
-        android:layout_below="@+id/tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior" />
+
 
 </android.support.design.widget.CoordinatorLayout>
