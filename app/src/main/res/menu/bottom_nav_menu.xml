@@ -3,11 +3,13 @@
 
     <item
         android:id="@+id/accepted_shift_swaps"
-        android:icon="@drawable/ic_shift_whit"
-        android:title="@string/accepted_shifts" />
+        android:icon="@drawable/shift_time"
+        android:title="@string/accepted_shifts"
+        android:iconTint="@color/white"/>
 
     <item
         android:id="@+id/accepted_off_swaps"
-        android:icon="@drawable/ic_off_whit"
-        android:title="@string/accpeted_off" />
+        android:icon="@drawable/off_day_icon"
+        android:title="@string/accpeted_off"
+        android:iconTint="@color/white"/>
 </menu>
