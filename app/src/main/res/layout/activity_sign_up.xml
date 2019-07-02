@@ -85,7 +85,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/edittext_style"
             android:fontFamily="@font/roboto_condensed_regular"
-            android:hint="@string/email2"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textSize="@dimen/editText_text_size" />
 
