@@ -29,7 +29,7 @@
             android:layout_marginBottom="24dp"
             android:clickable="true"
             android:src="@drawable/ic_add_white_24dp"
-            app:backgroundTint="@color/colorPrimary" />
+            app:backgroundTint="@color/colorAccent" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_add_swap_shift_reset"
@@ -44,7 +44,7 @@
             android:layout_marginBottom="24dp"
             android:clickable="true"
             android:src="@drawable/ic_reset"
-            app:backgroundTint="@color/colorPrimary" />
+            app:backgroundTint="@color/colorAccent" />
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/homeSwipeRefresh"
