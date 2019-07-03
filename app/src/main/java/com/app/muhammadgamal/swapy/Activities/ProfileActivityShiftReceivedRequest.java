@@ -279,9 +279,9 @@ public class ProfileActivityShiftReceivedRequest extends AppCompatActivity {
 
                 Map<String, Object> notificationMessage = new HashMap<>();
                 notificationMessage.put("message", requestMessage);
-                notificationMessage.put("from", toID);
+                notificationMessage.put("from", fromID);
 
-                notificationDB.child(fromID).push()
+                notificationDB.child(toID).push()
                         .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
