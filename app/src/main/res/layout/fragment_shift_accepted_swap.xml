@@ -78,8 +78,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:orientation="vertical">
 
+            <include layout="@layout/accepted_place_holder_shimmer" />
+            <include layout="@layout/accepted_place_holder_shimmer" />
             <include layout="@layout/accepted_place_holder_shimmer" />
 
         </LinearLayout>

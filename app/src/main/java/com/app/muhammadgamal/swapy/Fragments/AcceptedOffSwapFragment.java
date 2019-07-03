@@ -25,6 +25,7 @@ import com.app.muhammadgamal.swapy.Adapters.OffAcceptedSwapAdapter;
 import com.app.muhammadgamal.swapy.Common;
 import com.app.muhammadgamal.swapy.R;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequestOff;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -48,6 +49,8 @@ public class AcceptedOffSwapFragment extends Fragment implements SwipeRefreshLay
     private ImageView offImgNoConnectionAccepted;
     private OffAcceptedSwapAdapter offAcceptedSwapAdapter;
     private SwapRequestOff swapRequestOff;
+    private ShimmerFrameLayout shimmerFrameLayout;
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // inflater.inflate(R.menu.nav_bar_items, menu);
@@ -75,6 +78,10 @@ public class AcceptedOffSwapFragment extends Fragment implements SwipeRefreshLay
         empty_view2_accepted_off.setVisibility(View.GONE);
         offImgNoConnectionAccepted.setVisibility(View.GONE);
 
+        shimmerFrameLayout = rootView.findViewById(R.id.shimmer_view_container_accepted_off);
+
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
         //handle the SwipeRefreshLayout
         offAcceptedSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.offAcceptedSwipeRefresh);
         offAcceptedSwipeRefresh.setOnRefreshListener(this);
@@ -166,6 +173,8 @@ public class AcceptedOffSwapFragment extends Fragment implements SwipeRefreshLay
             Collections.reverse(swapBodyList);
             offAcceptedSwapAdapter = new OffAcceptedSwapAdapter(getContext(), R.layout.off_accepted_list_item, swapBodyList);
             offAcceptedList = rootView.findViewById(R.id.offAcceptedList);
+            shimmerFrameLayout.setVisibility(View.GONE);
+            shimmerFrameLayout.stopShimmer();
             offAcceptedList.setVisibility(View.VISIBLE);
             offAcceptedList.setNestedScrollingEnabled(true);
             offAcceptedList.setAdapter(offAcceptedSwapAdapter);
