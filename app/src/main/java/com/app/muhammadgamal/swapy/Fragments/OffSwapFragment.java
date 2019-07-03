@@ -133,7 +133,7 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mSwapDataBaseReference = mFirebaseDatabase.getReference().child("swaps").child("off_swaps");
 
-        fab_reset_filter= rootView.findViewById(R.id.fab_add_swap_off_reset);
+        fab_reset_filter = rootView.findViewById(R.id.fab_add_swap_off_reset);
         fab_reset_filter.hide();
 
         cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -204,31 +204,33 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             SwapOff swapDetails = dataSnapshot.getValue(SwapOff.class);
-                            if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
-                                if (filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
-                                    fab_reset_filter.hide();
-                                    swapOffAdapter.add(swapDetails);
-                                    swapOffAdapter.notifyDataSetChanged();
-                                }
-                                if (!filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
-                                    fab_reset_filter.show();
-                                    if (swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
+                            if (swapDetails.getSwapperAccount() != null && swapDetails.getSwapperCompanyBranch() != null) {
+                                if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
+                                    if (filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
+                                        fab_reset_filter.hide();
                                         swapOffAdapter.add(swapDetails);
                                         swapOffAdapter.notifyDataSetChanged();
                                     }
-                                }
-                                if (!filterSelectedSwapperOffDay.equals("any day") && filterSelectedYourOfffDay.equals("any day")) {
-                                    fab_reset_filter.show();
-                                    if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay)) {
-                                        swapOffAdapter.add(swapDetails);
-                                        swapOffAdapter.notifyDataSetChanged();
+                                    if (!filterSelectedYourOfffDay.equals("any day") && filterSelectedSwapperOffDay.equals("any day")) {
+                                        fab_reset_filter.show();
+                                        if (swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
+                                            swapOffAdapter.add(swapDetails);
+                                            swapOffAdapter.notifyDataSetChanged();
+                                        }
                                     }
-                                }
-                                if (!filterSelectedSwapperOffDay.equals("any day") && !filterSelectedYourOfffDay.equals("any day")) {
-                                    fab_reset_filter.show();
-                                    if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay) && swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
-                                        swapOffAdapter.add(swapDetails);
-                                        swapOffAdapter.notifyDataSetChanged();
+                                    if (!filterSelectedSwapperOffDay.equals("any day") && filterSelectedYourOfffDay.equals("any day")) {
+                                        fab_reset_filter.show();
+                                        if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay)) {
+                                            swapOffAdapter.add(swapDetails);
+                                            swapOffAdapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                    if (!filterSelectedSwapperOffDay.equals("any day") && !filterSelectedYourOfffDay.equals("any day")) {
+                                        fab_reset_filter.show();
+                                        if (swapDetails.getPreferedOff().equals(filterSelectedSwapperOffDay) && swapDetails.getOffDay().equals(filterSelectedYourOfffDay)) {
+                                            swapOffAdapter.add(swapDetails);
+                                            swapOffAdapter.notifyDataSetChanged();
+                                        }
                                     }
                                 }
                             }
@@ -452,7 +454,6 @@ public class OffSwapFragment extends Fragment implements SwipeRefreshLayout.OnRe
 //        super.onStart();
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
 //    }
-
 
 
     @Override

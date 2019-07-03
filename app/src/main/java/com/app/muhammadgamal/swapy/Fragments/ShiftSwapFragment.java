@@ -65,7 +65,6 @@ import java.util.List;
 public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
-
     private static int YOUR_PREFERRED_TIME_SELECTED = 0; // 0 => AM & 1 => PM
     private static int SWAPPER_TIME_SELECTED = 0; // 0 => AM & 1 => PM
     private static String YOUR_PREFERRED_DAY = null;
@@ -75,7 +74,7 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
     private ListView swapList;
     private TextView empty_view, empty_view2, filterPreferredTimePMText, filterPreferredTimeAMText, selectedPreferredTime, filterPreferredSwapperTimeAMText, filterPreferredSwapperTimePMText;
     private SwipeRefreshLayout shiftSwipeRefresh;
-    private FloatingActionButton fab_add_swap,fab_reset_filter;
+    private FloatingActionButton fab_add_swap, fab_reset_filter;
     private NetworkInfo networkInfo;
     private ConnectivityManager cm;
     private DatabaseReference mSwapDataBaseReference;
@@ -151,11 +150,10 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 
         fab_add_swap = rootView.findViewById(R.id.fab_add_swap_shift);
         fab_add_swap.bringToFront();
-        fab_reset_filter= rootView.findViewById(R.id.fab_add_swap_shift_reset);
+        fab_reset_filter = rootView.findViewById(R.id.fab_add_swap_shift_reset);
         fab_reset_filter.hide();
 
         shimmerFrameLayout = rootView.findViewById(R.id.shimmer_view_container);
-
 
 
         empty_view = rootView.findViewById(R.id.empty_view);
@@ -214,131 +212,133 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
 //                    if (swapDetails.getSwapperAccount() != null && swapDetails.getSwapperCompanyBranch() != null) {
                             if (dataSnapshot.exists()) {
                                 SwapDetails swapDetails = dataSnapshot.getValue(SwapDetails.class);
-                                if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
-                                    if (preferredAMorPM == null && swapperPreferredShift == null && YOUR_PREFERRED_DAY == null) {
-                                        fab_reset_filter.hide();
-                                        swapAdapter.add(swapDetails);
-                                        swapAdapter.notifyDataSetChanged();
-                                    }
-                                    if (preferredAMorPM != null && swapperPreferredShift == null && YOUR_PREFERRED_DAY == null) {
-                                        if (preferredAMorPM.equals(" AM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
-                                            }
-                                        } else if (preferredAMorPM.equals(" PM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
-                                            }
-                                        }
-                                    }
-                                    if (preferredAMorPM == null && swapperPreferredShift != null && YOUR_PREFERRED_DAY == null) {
-                                        if (swapperPreferredShift.equals(" AM") && preferredAMorPM == null) {
-                                            if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
-                                            }
-                                        } else if (swapperPreferredShift.equals(" PM") && preferredAMorPM == null) {
-                                            if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
-                                            }
-                                        }
-                                    }
-                                    if (preferredAMorPM == null && swapperPreferredShift == null && YOUR_PREFERRED_DAY != null) {
-                                        if (swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
+                                if (swapDetails.getSwapperAccount() != null && swapDetails.getSwapperCompanyBranch() != null) {
+                                    if (swapDetails.getSwapperAccount().equals(currentUserAccount) && swapDetails.getSwapperCompanyBranch().equals(currentUserCompanyBranch)) {
+                                        if (preferredAMorPM == null && swapperPreferredShift == null && YOUR_PREFERRED_DAY == null) {
+                                            fab_reset_filter.hide();
                                             swapAdapter.add(swapDetails);
                                             swapAdapter.notifyDataSetChanged();
                                         }
-                                    }
-                                    if (preferredAMorPM != null && swapperPreferredShift != null && YOUR_PREFERRED_DAY == null) {
-                                        if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" AM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
-                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
+                                        if (preferredAMorPM != null && swapperPreferredShift == null && YOUR_PREFERRED_DAY == null) {
+                                            if (preferredAMorPM.equals(" AM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
+                                            } else if (preferredAMorPM.equals(" PM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
                                             }
-                                        } else if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" PM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
-                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
+                                        }
+                                        if (preferredAMorPM == null && swapperPreferredShift != null && YOUR_PREFERRED_DAY == null) {
+                                            if (swapperPreferredShift.equals(" AM") && preferredAMorPM == null) {
+                                                if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
+                                            } else if (swapperPreferredShift.equals(" PM") && preferredAMorPM == null) {
+                                                if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
                                             }
-                                        } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" AM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
-                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
-                                            }
-                                        } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" PM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
-                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                        }
+                                        if (preferredAMorPM == null && swapperPreferredShift == null && YOUR_PREFERRED_DAY != null) {
+                                            if (swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
                                                 swapAdapter.add(swapDetails);
                                                 swapAdapter.notifyDataSetChanged();
                                             }
                                         }
-                                    }
-                                    if (preferredAMorPM != null && swapperPreferredShift == null && YOUR_PREFERRED_DAY != null) {
-                                        if (preferredAMorPM.equals(" AM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
-                                                    && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
-                                            }
-                                        } else if (preferredAMorPM.equals(" PM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
-                                                    && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
-                                            }
-                                        }
-                                    }
-                                    if (preferredAMorPM == null && swapperPreferredShift != null && YOUR_PREFERRED_DAY != null) {
-                                        if (swapperPreferredShift.equals(" AM")) {
-                                            if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
-                                                    && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
-                                            }
-                                        } else if (swapperPreferredShift.equals(" PM")) {
-                                            if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
-                                                    && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
+                                        if (preferredAMorPM != null && swapperPreferredShift != null && YOUR_PREFERRED_DAY == null) {
+                                            if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" AM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                        && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
+                                            } else if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" PM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                        && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
+                                            } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" AM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                        && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
+                                            } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" PM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                        && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
                                             }
                                         }
-                                    }
-                                    if (preferredAMorPM != null && swapperPreferredShift != null && YOUR_PREFERRED_DAY != null) {
-                                        if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" AM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
-                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
-                                                    && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
+                                        if (preferredAMorPM != null && swapperPreferredShift == null && YOUR_PREFERRED_DAY != null) {
+                                            if (preferredAMorPM.equals(" AM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                        && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
+                                            } else if (preferredAMorPM.equals(" PM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                        && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
                                             }
-                                        } else if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" PM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
-                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
-                                                    && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
+                                        }
+                                        if (preferredAMorPM == null && swapperPreferredShift != null && YOUR_PREFERRED_DAY != null) {
+                                            if (swapperPreferredShift.equals(" AM")) {
+                                                if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
+                                                        && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
+                                            } else if (swapperPreferredShift.equals(" PM")) {
+                                                if (swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
+                                                        && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
+                                            }
+                                        }
+                                        if (preferredAMorPM != null && swapperPreferredShift != null && YOUR_PREFERRED_DAY != null) {
+                                            if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" AM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                        && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
+                                                        && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
+                                            } else if (preferredAMorPM.equals(" AM") && swapperPreferredShift.equals(" PM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                        && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
+                                                        && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
 
-                                            }
-                                        } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" AM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
-                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
-                                                    && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
+                                                }
+                                            } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" AM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                        && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
+                                                        && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
 
-                                            }
-                                        } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" PM")) {
-                                            if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
-                                                    && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
-                                                    && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
-                                                swapAdapter.add(swapDetails);
-                                                swapAdapter.notifyDataSetChanged();
+                                                }
+                                            } else if (preferredAMorPM.equals(" PM") && swapperPreferredShift.equals(" PM")) {
+                                                if (swapDetails.getSwapperShiftTime().equals(homeFilterSpinner.getSelectedItem().toString() + preferredAMorPM)
+                                                        && swapDetails.getSwapperPreferredShift().equals(preferredSwapperTimeSpinner.getSelectedItem().toString() + swapperPreferredShift)
+                                                        && swapDetails.getSwapperShiftDay().equals(preferredDaySpinner.getSelectedItem().toString())) {
+                                                    swapAdapter.add(swapDetails);
+                                                    swapAdapter.notifyDataSetChanged();
+                                                }
                                             }
                                         }
                                     }
@@ -421,8 +421,6 @@ public class ShiftSwapFragment extends Fragment implements SwipeRefreshLayout.On
             listView.refreshDrawableState();
             listView.setAdapter(swapAdapter);
             swapAdapter.notifyDataSetChanged();
-
-
 
 
 //        if (homeSwapButton != null) {
