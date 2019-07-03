@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,11 +25,16 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -52,6 +58,10 @@ public class ProfileActivityOffReceivedRequest extends AppCompatActivity {
     private RelativeLayout rejectOff, acceptOff, OffReceivedButtons;
     private LinearLayout emailShiftProfileProfileOffRequest, phoneShiftProfileOffRequest, userContactInfoProfileOffRequest;
     private ProgressBar progressBarProfileOffRequestImg1, progressBarProfileOffRequestImg2, progressBar_acceptProfileOffRequest, progressBar_rejectProfileOffRequest;
+    private DatabaseReference notificationDB;
+    private String requestMessage;
+    private final static String LOG_TAG = ProfileActivityOffReceivedRequest.class.getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +78,7 @@ public class ProfileActivityOffReceivedRequest extends AppCompatActivity {
 
         Intent intent = getIntent();
         swapDetails = intent.getParcelableExtra("Received Off SRA swapper info");
+        notificationDB = FirebaseDatabase.getInstance().getReference().child("Notifications").child("Accepted Swaps");
 
         swapAccepted = swapDetails.getAccepted();
 
@@ -255,6 +266,29 @@ public class ProfileActivityOffReceivedRequest extends AppCompatActivity {
                 you_accepted_requestOffProfile.setVisibility(View.VISIBLE);
                 textDisplayContactInfoProfileOffRequest.setVisibility(View.GONE);
                 userContactInfoProfileOffRequest.setVisibility(View.VISIBLE);
+
+                //set the request message
+                requestMessage = toName + "" + " Accepted to swap with your Off";
+
+                Map<String, Object> notificationMessage = new HashMap<>();
+                notificationMessage.put("message", requestMessage);
+                notificationMessage.put("from", fromID);
+
+                notificationDB.child(toID).push()
+                        .setValue(notificationMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProfileActivityOffReceivedRequest.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                        Log.e(LOG_TAG, "Failed to insert row for " + currentUserId);
+                    }
+                });
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
