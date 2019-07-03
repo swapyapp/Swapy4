@@ -30,6 +30,7 @@ import com.app.muhammadgamal.swapy.Adapters.ReceivedSwapAdapter;
 import com.app.muhammadgamal.swapy.SwapData.SwapDetails;
 import com.app.muhammadgamal.swapy.SwapData.SwapRequestShift;
 import com.app.muhammadgamal.swapy.SwapData.User;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -56,6 +57,7 @@ public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshL
     private AcceptedSwapAdapter acceptedSwapAdapter;
     private ReceivedSwapAdapter receivedSwapAdapter;
     private ImageView imgNoConnectionAccepted;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,11 @@ public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshL
         progressBar_accepted.setVisibility(View.VISIBLE);
         empty_view2_accepted.setVisibility(View.GONE);
         imgNoConnectionAccepted.setVisibility(View.GONE);
+
+        shimmerFrameLayout = rootView.findViewById(R.id.shimmer_view_container_accepted);
+
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
 
         //handle the SwipeRefreshLayout
         acceptedSwipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.acceptedSwipeRefresh);
@@ -176,6 +183,8 @@ public class AcceptedShiftSwapFragment extends Fragment implements SwipeRefreshL
             final List<SwapRequestShift> swapBodyList = new ArrayList<>();
             Collections.reverse(swapBodyList);
             acceptedSwapAdapter = new AcceptedSwapAdapter(getContext(), R.layout.accepted_list_item, swapBodyList);
+            shimmerFrameLayout.setVisibility(View.GONE);
+            shimmerFrameLayout.stopShimmer();
             acceptedList = rootView.findViewById(R.id.acceptedList);
             acceptedList.setVisibility(View.VISIBLE);
             acceptedList.setNestedScrollingEnabled(true);

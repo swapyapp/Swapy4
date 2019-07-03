@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/thumbnail_accepted"
+                android:layout_width="85dp"
+                android:layout_height="84dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/cirlce"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/thumbnail_accepted">
+
+                <View
+                    android:layout_width="140dp"
+                    android:layout_height="@dimen/placeholderTextHeight"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/background" />
+
+                <View
+                    android:layout_width="192dp"
+                    android:layout_height="@dimen/placeholderTextHeight"
+                    android:background="@color/background" />
+
+
+                <View
+                    android:layout_width="70dp"
+                    android:layout_height="@dimen/placeholderTextHeight"
+                    android:layout_marginLeft="54dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/background" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.04"
+            android:layout_height="164dp"
+            android:background="@color/background"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/thumbnail_accepted_2"
+                android:layout_width="85dp"
+                android:layout_height="84dp"
+                android:src="@drawable/cirlce"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/thumbnail_accepted">
+
+                <View
+                    android:layout_width="140dp"
+                    android:layout_height="@dimen/placeholderTextHeight"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/background" />
+
+                <View
+                    android:layout_width="192dp"
+                    android:layout_height="@dimen/placeholderTextHeight"
+                    android:background="@color/background" />
+
+
+                <View
+                    android:layout_width="70dp"
+                    android:layout_height="@dimen/placeholderTextHeight"
+                    android:layout_marginLeft="54dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/background" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

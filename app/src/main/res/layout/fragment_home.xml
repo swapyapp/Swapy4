@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/main_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/home_fragment_container"
@@ -22,7 +18,15 @@
         android:layout_height="wrap_content"
         android:elevation="6dp">
 
-
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/main.collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginBottom="64dp"
+            app:expandedTitleMarginEnd="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/home_fragment_toolBar"
@@ -31,32 +35,32 @@
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:elevation="6dp"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                >
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
                 <ImageView
                     android:id="@+id/toolbar_navigation_icon"
                     android:layout_width="32dp"
                     android:layout_height="24dp"
                     android:layout_gravity="left"
-                    android:src="@drawable/ic_navigation_white"
-                    />
+                    android:src="@drawable/ic_navigation_white" />
 
                 <ImageView
                     android:layout_width="58dp"
                     android:layout_height="32dp"
                     android:layout_gravity="left"
                     android:layout_marginLeft="42dp"
-                    android:src="@drawable/swapy_logo_text"/>
+                    android:src="@drawable/swapy_logo_text" />
 
-                <include layout="@layout/notification_custom_btn"
-                    android:layout_gravity="right"
+                <include
+                    layout="@layout/notification_custom_btn"
                     android:layout_width="46dp"
-                    android:layout_height="28dp"/>
+                    android:layout_height="28dp"
+                    android:layout_gravity="right" />
 
             </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout_home"
@@ -68,13 +72,13 @@
             app:tabTextColor="@color/com_facebook_button_background_color_focused">
 
         </android.support.design.widget.TabLayout>
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vpPager"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        android:layout_height="match_parent"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>
