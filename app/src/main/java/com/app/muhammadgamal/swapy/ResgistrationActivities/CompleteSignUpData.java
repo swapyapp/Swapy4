@@ -152,7 +152,7 @@ public class CompleteSignUpData extends AppCompatActivity {
 
         if (photoURL != null) {
             finishSignInBtn.setVisibility(View.GONE);
-            user = new User(username, email, CompanySpinnerLestiner.company, BranchSpinnerLestiner.Branch, AccountSpinnerLestiner.Account, photoURL, phoneNumber);
+            user = new User(username, email, CompanySpinnerLestinerCompleteData.company, BranchSpinnerLestinerComplete.Branch, AccountSpinnerLestiner.Account, photoURL, phoneNumber);
             currentUserDb.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
